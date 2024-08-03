@@ -5,8 +5,8 @@ import net.neoforged.fml.common.Mod
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 
-@Mod(ExampleMod.ID)
-class ExampleMod(
+@Mod(ParacosmMod.ID)
+class ParacosmMod(
     modContainer: ModContainer
 ) {
 
@@ -16,6 +16,6 @@ class ExampleMod(
     }
 
     init {
-
+        LOGGER.info("Hello, Paracosm!")
     }
 }
