@@ -1,12 +1,14 @@
 package dev.aaronhowser.mods.paracosm
 
+import dev.aaronhowser.mods.paracosm.registry.ModRegistries
 import net.neoforged.fml.ModContainer
 import net.neoforged.fml.common.Mod
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
+import thedarkcolour.kotlinforforge.neoforge.forge.MOD_BUS
 
-@Mod(ParacosmMod.ID)
-class ParacosmMod(
+@Mod(Paracosm.ID)
+class Paracosm(
     modContainer: ModContainer
 ) {
 
@@ -17,5 +19,8 @@ class ParacosmMod(
 
     init {
         LOGGER.info("Hello, Paracosm!")
+
+        ModRegistries.register(MOD_BUS)
+
     }
 }
