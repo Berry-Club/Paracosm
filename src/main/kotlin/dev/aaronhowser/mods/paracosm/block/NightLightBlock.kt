@@ -24,7 +24,7 @@ class NightLightBlock(
         .strength(0.5f)
         .mapColor(MapColor.COLOR_PINK)
         .sound(SoundType.GLASS)
-        .lightLevel { if (it.getValue(FACING) == Direction.NORTH) 15 else 3 }
+        .lightLevel { if (it.getValue(ENABLED)) 8 else 0 }
         .noOcclusion()
         .pushReaction(PushReaction.DESTROY)
         .noCollission()
