@@ -23,9 +23,12 @@ class ModBlockLootTablesSubProvider(
     private fun cotton() {
         val block = ModBlocks.COTTON.get()
         val builder = LootItemBlockStatePropertyCondition
-            .Builder(block)
+            .hasBlockStateProperties(block)
             .setProperties(
-                StatePropertiesPredicate.Builder.properties().hasProperty(CottonBlock.AGE, 3)
+                StatePropertiesPredicate
+                    .Builder
+                    .properties()
+                    .hasProperty(CottonBlock.AGE, 3)
             )
 
         add(
