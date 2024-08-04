@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.paracosm.datagen
 
 import dev.aaronhowser.mods.paracosm.Paracosm
+import dev.aaronhowser.mods.paracosm.datagen.model.ModBlockStateProvider
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.DataGenerator
 import net.minecraft.data.PackOutput
@@ -28,10 +29,10 @@ object ModDataGen {
 
         val languageProvider = generator.addProvider(event.includeClient(), ModLanguageProvider(output))
 
-//        val blockStateProvider = generator.addProvider(
-//            event.includeClient(),
-//            ModBlockStateProvider(output, existingFileHelper)
-//        )
+        val blockStateProvider = generator.addProvider(
+            event.includeClient(),
+            ModBlockStateProvider(output, existingFileHelper)
+        )
 //
 //        val itemModelProvider = generator.addProvider(
 //            event.includeClient(),

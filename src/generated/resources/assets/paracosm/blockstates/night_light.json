@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "paracosm:block/night_light",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "paracosm:block/night_light"
+    },
+    "facing=south": {
+      "model": "paracosm:block/night_light",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "paracosm:block/night_light",
+      "y": 270
+    }
+  }
+}
