@@ -30,13 +30,16 @@ class Paracosm(
      * - Maybe a BAD form of imagination, prevented by stuff like night light
      *
      * Sources
-     * - TV with cartoons
-     * - Treehouses
+     * - TV with cartoons, says in chat like "You spend some time watching cartoons, you feel more imaginative"
+     * - Tree houses
      * - Toys
      * - Coloring books? Could build up imagination as you color. Maybe its imagination storage?
      * - Exploring?
      * - Taming pets
      * - Eating sweets, sweets also have other effects
+     * - Video games
+     * - Listening to music (via note blocks, jukeboxes, or Pitch Perfect)
+     * - Pranks (whoopie cushions, bucket on door)
      *
      * Uses
      * - Toys mob companions that do things but if someone without imagination looks at them, they flop to the ground Toy Story style
@@ -55,12 +58,18 @@ class Paracosm(
      * - Nightmares
      * - Herobrine (could have an advancement related to it)
      * - Enemies that other players can't see, but they can actually attack you
+     * - If you watch the TV at night, you can see bad things (multiple levels of bad, like boring infomercials vs evil stuff)
+     * - Listening to the bad music disks (11, 13, etc) could give you bad imagination
+     * - Eating too many sweets could give you bad imagination
+     * - Maybe a bad imagination mob that spawns in the dark
      *
      * Misc
      * - Dreamcatchers that do stuff, maybe prevents nightmares and lets you use those dreams for something
      * - Tie in to witch stuff?
      * - Reference Wizard of Oz
      * - Reference a lot of things
+     * - Sleepy status effect when you go too long, maybe it really ramps up your bad imagination
+     * - Whoopie cushion with imagination can be used to knock mobs away
      *
      */
 
