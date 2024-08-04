@@ -77,6 +77,12 @@ class Paracosm(
      * - Eating too many sweets could give you bad imagination or just punishes in general
      * - Maybe a bad imagination mob that spawns in the dark
      * - Punish the player for swearing in chat
+     * - Cheese nightmares
+     * - Eyes in the dark
+     * - Causes more cave noises
+     * - Natural cave noises cause bad imagination
+     * - Some punishment for being in the dark for too long?
+     * - Zombies etc that run towards you super fast then vanish
      *
      * Misc
      * - Dreamcatchers that do stuff, maybe prevents nightmares and lets you use those dreams for something
