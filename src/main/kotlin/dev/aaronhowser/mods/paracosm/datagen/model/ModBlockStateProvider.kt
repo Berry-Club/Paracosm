@@ -45,7 +45,7 @@ class ModBlockStateProvider(
         simpleBlockItem(
             block,
             ItemModelBuilder(
-                modLoc("block/conductor"),
+                modLoc("block/night_light"),
                 existingFileHelper
             )
         )
