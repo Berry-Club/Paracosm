@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.paracosm.datagen.model
 
 import dev.aaronhowser.mods.paracosm.Paracosm
+import dev.aaronhowser.mods.paracosm.block.NightLightBlock
 import dev.aaronhowser.mods.paracosm.registry.ModBlocks
 import net.minecraft.core.Direction
 import net.minecraft.data.PackOutput
@@ -22,8 +23,6 @@ class ModBlockStateProvider(
     private fun nightLight() {
         val block = ModBlocks.NIGHT_LIGHT.get()
 
-        val modelLoc = modLoc("block/night_light")
-
         getVariantBuilder(block)
             .forAllStates {
                 val facing = it.getValue(HorizontalDirectionalBlock.FACING)
@@ -33,6 +32,13 @@ class ModBlockStateProvider(
                     Direction.SOUTH -> 180
                     Direction.WEST -> 270
                     else -> throw IllegalStateException("Invalid facing direction")
+                }
+
+                val enabled = it.getValue(NightLightBlock.ENABLED)
+                val modelLoc = if (enabled) {
+                    modLoc("block/night_light_on")
+                } else {
+                    modLoc("block/night_light")
                 }
 
                 ConfiguredModel
