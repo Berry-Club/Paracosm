@@ -44,6 +44,24 @@ class Paracosm(
      * - Chalk-based stuff, like hopscotch that makes more agile, portals, portables holes
      * - Mental dimension, mindspace etc? Storage
      * - If you go to sleep, add a button to go to a dream world
+     *
+     * Spiderwick Chronicles style stuff
+     * - Hole with a rock in it, lets anyone see imagination stuff, not required for people with high imagination
+     * - Naturally spawning mobs like fairies and stuff
+     * - Maybe they live in structure
+     *
+     * Bad imagination stuff
+     * - Seeing people in the distance that aren't there
+     * - Nightmares
+     * - Herobrine (could have an advancement related to it)
+     * - Enemies that other players can't see, but they can actually attack you
+     *
+     * Misc
+     * - Dreamcatchers that do stuff, maybe prevents nightmares and lets you use those dreams for something
+     * - Tie in to witch stuff?
+     * - Reference Wizard of Oz
+     * - Reference a lot of things
+     *
      */
 
 }
