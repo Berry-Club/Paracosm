@@ -25,6 +25,7 @@ class Paracosm(
 
     /**
      * Ideas:
+     * - Mod is based on childlike imagination, everything should be kid-themed
      * - An imagination value (Whimsy? Wonder?) that increases when you do certain things and unlocks imagination-based magic
      * - Should things be magic by default? Maybe you have to use like a magic fairy wand on things to infuse them with imagination
      * - Maybe a BAD form of imagination, prevented by stuff like night light
@@ -41,6 +42,8 @@ class Paracosm(
      * - Video games
      * - Listening to music (via note blocks, jukeboxes, or Pitch Perfect)
      * - Pranks (whoopie cushions, bucket on door)
+     * - Sleepovers
+     * - Camping stuff (marshmallows, campfires, maybe telling stories?)
      *
      * Uses
      * - Toys mob companions that do things but if someone without imagination looks at them, they flop to the ground Toy Story style
@@ -49,6 +52,7 @@ class Paracosm(
      * - Mental dimension, mindspace etc? Storage? Mind Palace? What if it gets bigger the more imaginative you are?
      * - If you go to sleep, add a button to go to a dream world
      * - Halloween costumes that actually function
+     * - Spongebob imagination box? What would that even be, a dimension?
      *
      * Toys
      * - Teddy Bear (farm)
@@ -61,6 +65,9 @@ class Paracosm(
      * - Toy car
      * - Other pop culture references
      * - Whoopie cushion with imagination can be used to knock mobs away, also it works as a pressure plate but farts
+     * - Fidget spinner (FIDGET SPINNER HELICOPTER????)
+     * - Stress ball
+     * - Dodgeball weapon that knocks back mobs, maybe upgrade it with imagination (homing (rainbow trail?), fire), maybe if you have bad imagination they just fly out of nowhere sometimes and hit you in the face (needs a sound)
      *
      * Spiderwick Chronicles style stuff
      * - Hole with a rock in it, lets anyone see imagination stuff, not required for people with high imagination
@@ -83,6 +90,7 @@ class Paracosm(
      * - Natural cave noises cause bad imagination
      * - Some punishment for being in the dark for too long?
      * - Zombies etc that run towards you super fast then vanish
+     * - Stress toys that reduce bad imagination when used or lessen the effects of bad imagination, but cause problems when overused
      *
      * Misc
      * - Dreamcatchers that do stuff, maybe prevents nightmares and lets you use those dreams for something
@@ -92,6 +100,9 @@ class Paracosm(
      * - Sleepy status effect when you go too long, maybe it really ramps up your bad imagination
      * - Use the term Figment for something
      * - Item Tags for foods like #sweets #healthy #junk #fast_food
+     * - Computer that works like the TV but kinda different?
+     * - Rainbows
+     * - Does Quark have an API for its emotes? Spongebob Imagination 🌈
      *
      */
 
