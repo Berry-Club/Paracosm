@@ -69,10 +69,12 @@ class ModBlockStateProvider(
                 ConfiguredModel
                     .builder()
                     .modelFile(
-                        models().crop(
-                            "cotton_stage$age",
-                            modLoc("block/cotton_stage$age"),
-                        )
+                        models()
+                            .crop(
+                                "cotton_stage$age",
+                                modLoc("block/cotton_stage$age"),
+                            )
+                            .renderType("minecraft:cutout")
                     )
                     .build()
             }
