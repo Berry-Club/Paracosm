@@ -27,6 +27,9 @@ class Paracosm(
      * Ideas:
      * - Mod is based on childlike imagination, everything should be kid-themed
      * - An imagination value (Whimsy? Wonder?) that increases when you do certain things and unlocks imagination-based magic
+     * - Imagination-based things dont work/exist in the presence of people with low imagination. This even can debuff players with mid imagination if someone with low imagination is watching them, bc that's "proving" that it's not real
+     * - At very very high imagination, it becomes real for everyone
+     * - Textures and sounds are per-player, based on their imagination. So someone with low imagination will see a cardboard tube, someone with high imagination will see a lightsaber, or whatever
      * - Should things be magic by default? Maybe you have to use like a magic fairy wand on things to infuse them with imagination
      * - Maybe a BAD form of imagination, prevented by stuff like night light
      * - Multiple levels of imagination, at high levels people with low levels see the effects too, normally they dont. Like, you're warping reality with how much imagination you have
@@ -44,6 +47,7 @@ class Paracosm(
      * - Pranks (whoopie cushions, bucket on door)
      * - Sleepovers
      * - Camping stuff (marshmallows, campfires, maybe telling stories?)
+     * - Seeing other people use imagination
      *
      * Uses
      * - Toys mob companions that do things but if someone without imagination looks at them, they flop to the ground Toy Story style
@@ -53,6 +57,8 @@ class Paracosm(
      * - If you go to sleep, add a button to go to a dream world
      * - Halloween costumes that actually function
      * - Spongebob imagination box? What would that even be, a dimension?
+     * - 3D goggles that, at low imagination just enable stereoscopic, but at high imagination does something else. night vision? show secret doors?
+     * - Towel cape. Super hero powers? Maybe a worse elytra?
      *
      * Toys
      * - Teddy Bear (farm)
@@ -68,6 +74,8 @@ class Paracosm(
      * - Fidget spinner (FIDGET SPINNER HELICOPTER????)
      * - Stress ball
      * - Dodgeball weapon that knocks back mobs, maybe upgrade it with imagination (homing (rainbow trail?), fire), maybe if you have bad imagination they just fly out of nowhere sometimes and hit you in the face (needs a sound)
+     * - Aaronberry plush that looks like https://quickvids.app/v/7397148460467621126
+     * - Cardboard tube sword/lightsaber
      *
      * Spiderwick Chronicles style stuff
      * - Hole with a rock in it, lets anyone see imagination stuff, not required for people with high imagination
@@ -103,6 +111,7 @@ class Paracosm(
      * - Computer that works like the TV but kinda different?
      * - Rainbows
      * - Does Quark have an API for its emotes? Spongebob Imagination 🌈
+     * - A way to opt out of the visuals of having high imagination, so everything still looks like stupid kid toys rather than hallucinating
      *
      */
 
