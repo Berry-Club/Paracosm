@@ -9,6 +9,8 @@ import net.minecraft.world.level.block.RenderShape
 import net.minecraft.world.level.block.SoundType
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
+import net.minecraft.world.level.block.state.properties.BlockStateProperties
+import net.minecraft.world.level.block.state.properties.BooleanProperty
 import net.minecraft.world.level.material.MapColor
 import net.minecraft.world.level.material.PushReaction
 
@@ -27,17 +29,19 @@ class NightLightBlock(
         registerDefaultState(
             stateDefinition.any()
                 .setValue(FACING, Direction.NORTH)
+                .setValue(ENABLED, true)
         )
     }
 
     override fun getStateForPlacement(pContext: BlockPlaceContext): BlockState? {
         return defaultBlockState()
             .setValue(FACING, pContext.horizontalDirection.opposite)
+            .setValue(ENABLED, true)
     }
 
     override fun createBlockStateDefinition(pBuilder: StateDefinition.Builder<Block, BlockState>) {
         super.createBlockStateDefinition(pBuilder)
-        pBuilder.add(FACING)
+        pBuilder.add(FACING, ENABLED)
     }
 
     @Suppress("OVERRIDE_DEPRECATION")
@@ -46,6 +50,8 @@ class NightLightBlock(
     }
 
     companion object {
+        val ENABLED: BooleanProperty = BlockStateProperties.ENABLED
+
         val CODEC: MapCodec<NightLightBlock> = simpleCodec(::NightLightBlock)
     }
 
