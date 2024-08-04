@@ -33,6 +33,7 @@ class Paracosm(
      * - Should things be magic by default? Maybe you have to use like a magic fairy wand on things to infuse them with imagination
      * - Maybe a BAD form of imagination, prevented by stuff like night light
      * - Maybe something like the witchery altar, but replace candles and heads with toys etc
+     * - Maybe an Imaginator that turns normal things into the imaginative version
      *
      * Sources
      * - TV with cartoons, says in chat like "You spend some time watching cartoons, you feel more imaginative"
@@ -64,6 +65,7 @@ class Paracosm(
      * - Glitter that blinds you (using a new thing rather than the black blindness effect, maybe particles that obscure vision)
      *
      * Toys (some are tools some are mobs)
+     * - Come in 3 forms: items, blocks, and mobs. Maybe something to turn them from items/blocks into mobs?
      * - Teddy Bear (farm)
      * - Robot (mine/combat)
      * - Doll (heal)
@@ -83,11 +85,13 @@ class Paracosm(
      * - Dragon plush
      * - A hammer that with no imagination looks like a lever that's in the middle with the lever bit perpendicular
      * - Rubber chicken (should it be a mob or a tool?)
+     * - Doll house?
      *
      * Spiderwick Chronicles style stuff
      * - Hole with a rock in it, lets anyone see imagination stuff, not required for people with high imagination
      * - Naturally spawning mobs like fairies and stuff
      * - Maybe they live in structure
+     * - Fairies are just blue cubes that have wings and glow, require low imagination to see (or maybe none?) and they drop/give Fairy Dust which is used for stuff
      *
      * Bad imagination stuff
      * - Seeing people in the distance that aren't there
