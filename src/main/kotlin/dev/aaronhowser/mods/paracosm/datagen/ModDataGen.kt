@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.paracosm.datagen
 
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.datagen.model.ModBlockStateProvider
+import dev.aaronhowser.mods.paracosm.datagen.model.ModItemModelProvider
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.DataGenerator
 import net.minecraft.data.PackOutput
@@ -33,11 +34,11 @@ object ModDataGen {
             event.includeClient(),
             ModBlockStateProvider(output, existingFileHelper)
         )
-//
-//        val itemModelProvider = generator.addProvider(
-//            event.includeClient(),
-//            ModItemModelProvider(output, existingFileHelper)
-//        )
+
+        val itemModelProvider = generator.addProvider(
+            event.includeClient(),
+            ModItemModelProvider(output, existingFileHelper)
+        )
 //
 //        val recipeProvider = generator.addProvider(
 //            event.includeServer(),
