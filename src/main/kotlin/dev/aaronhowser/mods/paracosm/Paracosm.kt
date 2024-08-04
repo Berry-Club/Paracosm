@@ -60,7 +60,7 @@ class Paracosm(
      * - Amogus
      * - Toy car
      * - Other pop culture references
-     * -
+     * - Whoopie cushion with imagination can be used to knock mobs away, also it works as a pressure plate but farts
      *
      * Spiderwick Chronicles style stuff
      * - Hole with a rock in it, lets anyone see imagination stuff, not required for people with high imagination
@@ -74,7 +74,7 @@ class Paracosm(
      * - Enemies that other players can't see, but they can actually attack you
      * - If you watch the TV at night, you can see bad things (multiple levels of bad, like boring infomercials vs evil stuff)
      * - Listening to the bad music disks (11, 13, etc) could give you bad imagination
-     * - Eating too many sweets could give you bad imagination
+     * - Eating too many sweets could give you bad imagination or just punishes in general
      * - Maybe a bad imagination mob that spawns in the dark
      * - Punish the player for swearing in chat
      *
@@ -84,7 +84,8 @@ class Paracosm(
      * - Reference Wizard of Oz
      * - Reference a lot of things
      * - Sleepy status effect when you go too long, maybe it really ramps up your bad imagination
-     * - Whoopie cushion with imagination can be used to knock mobs away, also it works as a pressure plate but farts
+     * - Use the term Figment for something
+     * - Item Tags for foods like #sweets #healthy #junk #fast_food
      *
      */
 
