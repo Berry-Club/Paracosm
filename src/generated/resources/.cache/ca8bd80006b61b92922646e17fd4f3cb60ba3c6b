@@ -1,3 +1,8 @@
-// 1.21	2024-08-03T19:39:10.2586493	Block States: paracosm
+// 1.21	2024-08-03T20:21:35.5255622	Block States: paracosm
+448d8d1d59bb3d4a72c815b87fb3af3e1bd21323 assets/paracosm/blockstates/cotton.json
 d906f129904535c4ccfdc071e4b0db1a4c3e1a07 assets/paracosm/blockstates/night_light.json
+ea2e47a4634a0b8c882eea4d1b642ac407c2ac6f assets/paracosm/models/block/cotton_stage0.json
+01ed4d4e931f02e47b6b5fc4e91c71f4fd54f8a9 assets/paracosm/models/block/cotton_stage1.json
+bdf4e219e5606e25e48ef899bd3efac21d6de198 assets/paracosm/models/block/cotton_stage2.json
+35f8507452a05d78cf8aa6892e24b1cf9c850b42 assets/paracosm/models/block/cotton_stage3.json
 6adf97d1018a153339e9a8892a444bb4f7a8a751 assets/paracosm/models/item/night_light.json

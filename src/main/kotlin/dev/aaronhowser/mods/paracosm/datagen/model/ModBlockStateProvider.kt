@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.paracosm.datagen.model
 
 import dev.aaronhowser.mods.paracosm.Paracosm
+import dev.aaronhowser.mods.paracosm.block.CottonBlock
 import dev.aaronhowser.mods.paracosm.block.NightLightBlock
 import dev.aaronhowser.mods.paracosm.registry.ModBlocks
 import net.minecraft.core.Direction
@@ -18,6 +19,7 @@ class ModBlockStateProvider(
 
     override fun registerStatesAndModels() {
         nightLight()
+        cotton()
     }
 
     private fun nightLight() {
@@ -55,6 +57,26 @@ class ModBlockStateProvider(
                 existingFileHelper
             )
         )
+    }
+
+    private fun cotton() {
+        val block = ModBlocks.COTTON.get()
+
+        getVariantBuilder(block)
+            .forAllStates {
+                val age = it.getValue(CottonBlock.AGE)
+
+                ConfiguredModel
+                    .builder()
+                    .modelFile(
+                        models().crop(
+                            "cotton_stage$age",
+                            modLoc("block/cotton_stage$age"),
+                        )
+                    )
+                    .build()
+            }
+
     }
 
 }
