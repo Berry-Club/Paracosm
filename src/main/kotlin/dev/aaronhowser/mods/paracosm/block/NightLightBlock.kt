@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.SoundType
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.material.MapColor
+import net.minecraft.world.level.material.PushReaction
 
 class NightLightBlock(
     private val properties: Properties = Properties.of()
@@ -17,6 +18,9 @@ class NightLightBlock(
         .mapColor(MapColor.COLOR_PINK)
         .sound(SoundType.GLASS)
         .lightLevel { if (it.getValue(FACING) == Direction.NORTH) 15 else 3 }
+        .noOcclusion()
+        .pushReaction(PushReaction.DESTROY)
+        .noCollission()
 ) : HorizontalDirectionalBlock(properties) {
 
     init {
