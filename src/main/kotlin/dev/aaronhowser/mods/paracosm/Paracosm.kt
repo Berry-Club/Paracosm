@@ -59,7 +59,7 @@ class Paracosm(
      * - Halloween costumes that actually function
      * - Spongebob imagination box? What would that even be, a dimension?
      * - 3D goggles that, at low imagination just enable stereoscopic, but at high imagination does something else. night vision? show secret doors?
-     * - Towel cape. Super hero powers? Maybe a worse elytra?
+     * - Towel cape. Super hero powers? Maybe a worse elytra? curio
      * - Cardboard armor that looks different
      * - Minecart pants that make you run fast
      * - Glitter that blinds you (using a new thing rather than the black blindness effect, maybe particles that obscure vision)
@@ -86,6 +86,9 @@ class Paracosm(
      * - A hammer that with no imagination looks like a lever that's in the middle with the lever bit perpendicular
      * - Rubber chicken (should it be a mob or a tool?)
      * - Doll house?
+     * - Game controller that does something
+     * - Trash can cover shield
+     * - Trash can flip upside down to hide in
      *
      * Spiderwick Chronicles style stuff
      * - Hole with a rock in it, lets anyone see imagination stuff, not required for people with high imagination
@@ -94,6 +97,7 @@ class Paracosm(
      * - Fairies are just blue cubes that have wings and glow, require low imagination to see (or maybe none?) and they drop/give Fairy Dust which is used for stuff
      *
      * Bad imagination stuff
+     * Not the lack of imagination, but the presence of bad imagination
      * - Seeing people in the distance that aren't there
      * - Nightmares
      * - Herobrine (could have an advancement related to it)
@@ -112,7 +116,7 @@ class Paracosm(
      * - Stress toys that reduce bad imagination when used or lessen the effects of bad imagination, but cause problems when overused
      *
      * Misc
-     * - Dreamcatchers that do stuff, maybe prevents nightmares and lets you use those dreams for something
+     * - Dreamcatchers that do stuff, maybe prevents nightmares and lets you use those dreams for something, but if you don't use them they ferment into something worse
      * - Tie in to witch stuff?
      * - Reference Wizard of Oz
      * - Reference a lot of things
