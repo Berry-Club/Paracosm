@@ -28,6 +28,7 @@ class Paracosm(
      * - An imagination value (Whimsy? Wonder?) that increases when you do certain things and unlocks imagination-based magic
      * - Should things be magic by default? Maybe you have to use like a magic fairy wand on things to infuse them with imagination
      * - Maybe a BAD form of imagination, prevented by stuff like night light
+     * - Multiple levels of imagination, at high levels people with low levels see the effects too, normally they dont. Like, you're warping reality with how much imagination you have
      *
      * Sources
      * - TV with cartoons, says in chat like "You spend some time watching cartoons, you feel more imaginative"
@@ -45,8 +46,21 @@ class Paracosm(
      * - Toys mob companions that do things but if someone without imagination looks at them, they flop to the ground Toy Story style
      * - A gun that if you have imagination works normal but to everyone else it sounds like me going pew pew
      * - Chalk-based stuff, like hopscotch that makes more agile, portals, portables holes
-     * - Mental dimension, mindspace etc? Storage
+     * - Mental dimension, mindspace etc? Storage? Mind Palace? What if it gets bigger the more imaginative you are?
      * - If you go to sleep, add a button to go to a dream world
+     * - Halloween costumes that actually function
+     *
+     * Toys
+     * - Teddy Bear (farm)
+     * - Robot (mine/combat)
+     * - Doll (heal)
+     * - RC helicopter
+     * - String worm steed
+     * - EC2 Walrus steed
+     * - Amogus
+     * - Toy car
+     * - Other pop culture references
+     * -
      *
      * Spiderwick Chronicles style stuff
      * - Hole with a rock in it, lets anyone see imagination stuff, not required for people with high imagination
@@ -62,6 +76,7 @@ class Paracosm(
      * - Listening to the bad music disks (11, 13, etc) could give you bad imagination
      * - Eating too many sweets could give you bad imagination
      * - Maybe a bad imagination mob that spawns in the dark
+     * - Punish the player for swearing in chat
      *
      * Misc
      * - Dreamcatchers that do stuff, maybe prevents nightmares and lets you use those dreams for something
@@ -69,7 +84,7 @@ class Paracosm(
      * - Reference Wizard of Oz
      * - Reference a lot of things
      * - Sleepy status effect when you go too long, maybe it really ramps up your bad imagination
-     * - Whoopie cushion with imagination can be used to knock mobs away
+     * - Whoopie cushion with imagination can be used to knock mobs away, also it works as a pressure plate but farts
      *
      */
 
