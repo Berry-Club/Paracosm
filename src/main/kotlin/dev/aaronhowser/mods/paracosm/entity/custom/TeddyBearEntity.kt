@@ -64,7 +64,10 @@ class TeddyBearEntity(
     private fun predicate(animationState: AnimationState<TeddyBearEntity>): PlayState {
         if (animationState.isMoving) {
             animationState.controller.setAnimation(
-                RawAnimation.begin().then("animation.teddybear.walk", Animation.LoopType.LOOP)
+                RawAnimation.begin().then(
+                    "animation.teddybear.walk",
+                    Animation.LoopType.LOOP
+                )
             )
             return PlayState.CONTINUE
         }
