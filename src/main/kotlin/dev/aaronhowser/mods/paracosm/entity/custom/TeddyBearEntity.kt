@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.paracosm.entity.custom
 
-import net.minecraft.network.chat.Component
+import dev.aaronhowser.mods.paracosm.attachment.RequiresWhimsy
+import dev.aaronhowser.mods.paracosm.entity.goal.FlopGoal
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
@@ -18,12 +19,14 @@ import software.bernie.geckolib.animatable.GeoEntity
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache
 import software.bernie.geckolib.animation.*
-import java.util.*
 
 class TeddyBearEntity(
     entityType: EntityType<out TamableAnimal>,
     level: Level
-) : TamableAnimal(entityType, level), GeoEntity {
+) : TamableAnimal(entityType, level), GeoEntity, RequiresWhimsy {
+
+    override val requiredWhimsy: Float
+        get() = 10f
 
     companion object {
 
@@ -41,6 +44,8 @@ class TeddyBearEntity(
     override fun registerGoals() {
         this.goalSelector.let {
             it.addGoal(0, FloatGoal(this))
+            it.addGoal(1, FlopGoal(this))
+
             it.addGoal(1, SitWhenOrderedToGoal(this))
             it.addGoal(3, WaterAvoidingRandomStrollGoal(this, 1.0))
             it.addGoal(4, LookAtPlayerGoal(this, Player::class.java, 6f))
