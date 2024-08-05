@@ -65,10 +65,10 @@ class TeddyBearEntity(
     }
 
     override fun mobInteract(player: Player, hand: InteractionHand): InteractionResult {
-        tame(player)
+        if (!isTame) tame(player)
 
         if (hand == InteractionHand.MAIN_HAND) isOrderedToSit = !isOrderedToSit
-        player.sendSystemMessage(Component.literal("Sitting: $isOrderedToSit"))
+        if (!level().isClientSide) player.sendSystemMessage(Component.literal("Sitting: $isOrderedToSit"))
 
         return InteractionResult.SUCCESS_NO_ITEM_USED
     }
