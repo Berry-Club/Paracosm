@@ -101,6 +101,7 @@ class Paracosm(
      *
      * Bad imagination stuff
      * Not the lack of imagination, but the presence of bad imagination
+     * - Named "Delusion"?
      * - Seeing people in the distance that aren't there
      * - Nightmares
      * - Herobrine (could have an advancement related to it)
