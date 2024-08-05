@@ -48,6 +48,7 @@ class TeddyBearEntity(
         }
     }
 
+
     override fun getBreedOffspring(p0: ServerLevel, p1: AgeableMob): AgeableMob? {
         return null
     }
@@ -56,19 +57,17 @@ class TeddyBearEntity(
         return false
     }
 
-    override fun getOwnerUUID(): UUID? {
-        return null
-    }
-
     override fun registerControllers(controllers: AnimatableManager.ControllerRegistrar) {
         controllers.add(AnimationController(this, "controller", 0, this::predicate))
     }
 
     override fun mobInteract(player: Player, hand: InteractionHand): InteractionResult {
-        if (!isTame) tame(player)
+        if (!isTame) {
+            tame(player)
+            level().broadcastEntityEvent(this, 7)
+        }
 
         if (hand == InteractionHand.MAIN_HAND) isOrderedToSit = !isOrderedToSit
-        if (!level().isClientSide) player.sendSystemMessage(Component.literal("Should sit: $isOrderedToSit\nSitting: $isInSittingPose"))
 
         return InteractionResult.SUCCESS_NO_ITEM_USED
     }
