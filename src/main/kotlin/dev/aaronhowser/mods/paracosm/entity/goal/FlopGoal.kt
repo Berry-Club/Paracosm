@@ -6,18 +6,18 @@ import net.minecraft.world.entity.ai.goal.Goal
 import net.minecraft.world.entity.player.Player
 
 class FlopGoal(
-    private val livingEntity: ToyEntity
+    private val toyEntity: ToyEntity
 ) : Goal() {
 
     private val lowWhimsyObservers = mutableListOf<Player>()
 
     override fun canUse(): Boolean {
-        if (!this.livingEntity.isTame) return false
+        if (!this.toyEntity.isTame) return false
 
-        val badPlayers = this.livingEntity.level().players().filter {
-            it.distanceToSqr(this.livingEntity) < 10.0 * 10.0
-                    && it.whimsy < this.livingEntity.requiredWhimsy
-                    && it.hasLineOfSight(this.livingEntity)
+        val badPlayers = this.toyEntity.level().players().filter {
+            it.distanceToSqr(this.toyEntity) < 10.0 * 10.0
+                    && it.whimsy < this.toyEntity.requiredWhimsy
+                    && it.hasLineOfSight(this.toyEntity)
         }
 
         lowWhimsyObservers.clear()
@@ -31,17 +31,17 @@ class FlopGoal(
     }
 
     override fun tick() {
-        val newList = lowWhimsyObservers.filter { it.hasLineOfSight(this.livingEntity) }
+        val newList = lowWhimsyObservers.filter { it.hasLineOfSight(this.toyEntity) }
         lowWhimsyObservers.clear()
         lowWhimsyObservers.addAll(newList)
     }
 
     override fun start() {
-        this.livingEntity.isOrderedToSit = true
+        this.toyEntity.isOrderedToSit = true
     }
 
     override fun stop() {
-        this.livingEntity.isOrderedToSit = false
+        this.toyEntity.isOrderedToSit = false
     }
 
 }

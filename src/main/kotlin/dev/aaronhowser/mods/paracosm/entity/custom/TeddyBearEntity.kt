@@ -2,6 +2,8 @@ package dev.aaronhowser.mods.paracosm.entity.custom
 
 import dev.aaronhowser.mods.paracosm.entity.base.ToyEntity
 import dev.aaronhowser.mods.paracosm.entity.goal.FlopGoal
+import dev.aaronhowser.mods.paracosm.entity.goal.ToyLookAtPlayerGoal
+import dev.aaronhowser.mods.paracosm.entity.goal.ToyRandomLookAroundGoal
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
@@ -10,7 +12,9 @@ import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.TamableAnimal
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier
 import net.minecraft.world.entity.ai.attributes.Attributes
-import net.minecraft.world.entity.ai.goal.*
+import net.minecraft.world.entity.ai.goal.FloatGoal
+import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal
 import net.minecraft.world.entity.monster.Monster
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
@@ -44,11 +48,10 @@ class TeddyBearEntity(
         this.goalSelector.let {
             it.addGoal(0, FloatGoal(this))
             it.addGoal(1, FlopGoal(this))
-
-            it.addGoal(1, SitWhenOrderedToGoal(this))
+            it.addGoal(2, SitWhenOrderedToGoal(this))
             it.addGoal(3, WaterAvoidingRandomStrollGoal(this, 1.0))
-            it.addGoal(4, LookAtPlayerGoal(this, Player::class.java, 6f))
-            it.addGoal(5, RandomLookAroundGoal(this))
+            it.addGoal(4, ToyLookAtPlayerGoal(this))
+            it.addGoal(5, ToyRandomLookAroundGoal(this))
         }
     }
 
