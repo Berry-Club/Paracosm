@@ -89,6 +89,9 @@ class Paracosm(
      * - Game controller that does something
      * - Trash can cover shield
      * - Trash can flip upside down to hide in
+     * - Maybe like an Atari or whatever with playable games (that would be absolutely impossible though lmao)
+     * - Pillow fights
+     * - Couch pillow fortress
      *
      * Spiderwick Chronicles style stuff
      * - Hole with a rock in it, lets anyone see imagination stuff, not required for people with high imagination
