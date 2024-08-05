@@ -7,7 +7,7 @@ interface RequiresWhimsy {
 
     val requiredWhimsy: Float
 
-    fun hasEnough(): Boolean {
+    fun localPlayerMeetsRequirements(): Boolean {
         return (Minecraft.getInstance().player?.whimsy ?: 0f) >= requiredWhimsy
     }
 
