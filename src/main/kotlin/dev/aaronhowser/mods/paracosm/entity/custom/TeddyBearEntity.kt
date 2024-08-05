@@ -68,7 +68,7 @@ class TeddyBearEntity(
         if (!isTame) tame(player)
 
         if (hand == InteractionHand.MAIN_HAND) isOrderedToSit = !isOrderedToSit
-        if (!level().isClientSide) player.sendSystemMessage(Component.literal("Sitting: $isOrderedToSit"))
+        if (!level().isClientSide) player.sendSystemMessage(Component.literal("Should sit: $isOrderedToSit\nSitting: $isInSittingPose"))
 
         return InteractionResult.SUCCESS_NO_ITEM_USED
     }
