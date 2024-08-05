@@ -10,6 +10,10 @@ class TeddyBearRenderer(
     renderManager: EntityRendererProvider.Context,
 ) : GeoEntityRenderer<TeddyBearEntity>(renderManager, TeddyBearModel()) {
 
+    init {
+        withScale(0.7f)
+    }
+
     override fun getTextureLocation(animatable: TeddyBearEntity): ResourceLocation {
         return OtherUtil.modResource("textures/entity/teddy_bear.png")
     }
