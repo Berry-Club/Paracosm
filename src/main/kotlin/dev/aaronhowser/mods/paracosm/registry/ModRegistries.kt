@@ -5,6 +5,7 @@ import net.neoforged.bus.api.IEventBus
 object ModRegistries {
 
     private val registries = listOf(
+        ModAttachmentTypes.ATTACHMENT_TYPES_REGISTRY,
         ModItems.ITEM_REGISTRY,
         ModBlocks.BLOCK_REGISTRY,
         ModCreativeTabs.CREATIVE_TAB_REGISTRY,
