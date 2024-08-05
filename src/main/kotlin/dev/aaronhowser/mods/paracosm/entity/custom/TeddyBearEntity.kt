@@ -61,17 +61,20 @@ class TeddyBearEntity(
     }
 
     private fun predicate(animationState: AnimationState<TeddyBearEntity>): PlayState {
-        if (animationState.isMoving) {
-            animationState.controller.setAnimation(
-                RawAnimation.begin().then(
-                    "animation.teddybear.walk",
-                    Animation.LoopType.LOOP
-                )
-            )
-            return PlayState.CONTINUE
+        val animationName = if (animationState.isMoving) {
+            "animation.teddybear.walk"
+        } else {
+            "animation.teddybear.flop"
         }
 
-        return PlayState.STOP
+        animationState.controller.setAnimation(
+            RawAnimation.begin().then(
+                animationName,
+                Animation.LoopType.LOOP
+            )
+        )
+
+        return PlayState.CONTINUE
     }
 
     private val cache = SingletonAnimatableInstanceCache(this)
