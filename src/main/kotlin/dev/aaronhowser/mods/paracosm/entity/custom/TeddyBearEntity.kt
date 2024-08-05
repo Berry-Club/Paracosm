@@ -13,11 +13,15 @@ import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal
 import net.minecraft.world.entity.monster.Monster
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
+import software.bernie.geckolib.animatable.GeoEntity
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache
+import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache
+import software.bernie.geckolib.animation.*
 import java.util.*
 
 class TeddyBearEntity(
     entityType: EntityType<out TamableAnimal>, level: Level
-) : TamableAnimal(entityType, level) {
+) : TamableAnimal(entityType, level), GeoEntity {
 
     companion object {
 
@@ -50,6 +54,27 @@ class TeddyBearEntity(
     }
 
     override fun getOwnerUUID(): UUID? {
-        TODO("Not yet implemented")
+        return null
+    }
+
+    override fun registerControllers(controllers: AnimatableManager.ControllerRegistrar) {
+        controllers.add(AnimationController(this, "controller", 0, this::predicate))
+    }
+
+    private fun predicate(animationState: AnimationState<TeddyBearEntity>): PlayState {
+        if (animationState.isMoving) {
+            animationState.controller.setAnimation(
+                RawAnimation.begin().then("animation.teddybear.walk", Animation.LoopType.LOOP)
+            )
+            return PlayState.CONTINUE
+        }
+
+        return PlayState.STOP
+    }
+
+    private val cache = SingletonAnimatableInstanceCache(this)
+
+    override fun getAnimatableInstanceCache(): AnimatableInstanceCache {
+        return cache
     }
 }
