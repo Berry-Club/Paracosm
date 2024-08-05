@@ -6,11 +6,9 @@ import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.TamableAnimal
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier
 import net.minecraft.world.entity.ai.attributes.Attributes
-import net.minecraft.world.entity.ai.goal.FloatGoal
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal
-import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal
+import net.minecraft.world.entity.ai.goal.*
 import net.minecraft.world.entity.monster.Monster
+import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 import software.bernie.geckolib.animatable.GeoEntity
@@ -41,7 +39,8 @@ class TeddyBearEntity(
             it.addGoal(0, FloatGoal(this))
             it.addGoal(1, SitWhenOrderedToGoal(this))
             it.addGoal(3, WaterAvoidingRandomStrollGoal(this, 1.0))
-            it.addGoal(4, RandomLookAroundGoal(this))
+            it.addGoal(4, LookAtPlayerGoal(this, Player::class.java, 6f))
+            it.addGoal(5, RandomLookAroundGoal(this))
         }
     }
 
