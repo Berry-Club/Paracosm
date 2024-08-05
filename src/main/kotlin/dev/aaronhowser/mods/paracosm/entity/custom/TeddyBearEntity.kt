@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.paracosm.entity.custom
 
-import dev.aaronhowser.mods.paracosm.attachment.RequiresWhimsy
+import dev.aaronhowser.mods.paracosm.entity.base.ToyEntity
 import dev.aaronhowser.mods.paracosm.entity.goal.FlopGoal
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.InteractionHand
@@ -15,7 +15,6 @@ import net.minecraft.world.entity.monster.Monster
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
-import software.bernie.geckolib.animatable.GeoEntity
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache
 import software.bernie.geckolib.animation.*
@@ -23,7 +22,7 @@ import software.bernie.geckolib.animation.*
 class TeddyBearEntity(
     entityType: EntityType<out TamableAnimal>,
     level: Level
-) : TamableAnimal(entityType, level), GeoEntity, RequiresWhimsy {
+) : ToyEntity(entityType, level) {
 
     override val requiredWhimsy: Float
         get() = 10f
