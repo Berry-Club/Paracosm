@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
 import software.bernie.geckolib.animation.AnimationState
+import software.bernie.geckolib.cache.`object`.GeoBone
 import software.bernie.geckolib.constant.DataTickets
 import software.bernie.geckolib.model.GeoModel
 
@@ -27,14 +28,14 @@ class TeddyBearModel : GeoModel<TeddyBearEntity>() {
         instanceId: Long,
         animationState: AnimationState<TeddyBearEntity>
     ) {
+        val head: GeoBone? = animationProcessor.getBone("head")
 
-        val head = animationProcessor.getBone("body.head")
+        if (head != null) {
+            val entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA)
 
-        val entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA)
-
-        head.rotX = entityData.headPitch * Mth.DEG_TO_RAD
-        head.rotY = entityData.netHeadYaw * Mth.DEG_TO_RAD
-
+            head.rotX = entityData.headPitch * Mth.DEG_TO_RAD
+            head.rotY = entityData.netHeadYaw * Mth.DEG_TO_RAD
+        }
     }
 
 }
