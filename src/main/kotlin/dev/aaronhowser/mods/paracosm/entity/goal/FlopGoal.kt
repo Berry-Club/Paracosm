@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.paracosm.entity.goal
 
-import dev.aaronhowser.mods.paracosm.attachment.Whimsy.Companion.whimsy
 import dev.aaronhowser.mods.paracosm.entity.base.ToyEntity
 import net.minecraft.world.entity.ai.goal.Goal
 import net.minecraft.world.entity.player.Player
@@ -16,7 +15,7 @@ class FlopGoal(
 
         val badPlayers = this.toyEntity.level().players().filter {
             it.distanceToSqr(this.toyEntity) < 10.0 * 10.0
-                    && it.whimsy < this.toyEntity.requiredWhimsy
+                    && toyEntity.canBeSeenReal(it)
                     && it.hasLineOfSight(this.toyEntity)
         }
 

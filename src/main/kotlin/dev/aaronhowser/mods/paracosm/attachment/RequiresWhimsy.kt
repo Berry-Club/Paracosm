@@ -1,14 +1,14 @@
 package dev.aaronhowser.mods.paracosm.attachment
 
 import dev.aaronhowser.mods.paracosm.attachment.Whimsy.Companion.whimsy
-import net.minecraft.client.Minecraft
+import net.minecraft.world.entity.LivingEntity
 
 interface RequiresWhimsy {
 
     val requiredWhimsy: Float
 
-    fun localPlayerMeetsRequirements(): Boolean {
-        return (Minecraft.getInstance().player?.whimsy ?: 0f) >= requiredWhimsy
+    fun canBeSeenReal(otherEntity: LivingEntity): Boolean {
+        return (otherEntity.whimsy) >= requiredWhimsy
     }
 
 }
