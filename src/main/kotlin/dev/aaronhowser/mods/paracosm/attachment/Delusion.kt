@@ -15,7 +15,7 @@ data class Delusion(
         val CODEC: Codec<Delusion> =
             Codec.FLOAT.xmap(::Delusion, Delusion::amount)
 
-        var LivingEntity.whimsy: Float
+        var LivingEntity.delusion: Float
             get() = this.getData(ModAttachmentTypes.DELUSION).amount
             set(value) {
                 this.setData(ModAttachmentTypes.DELUSION, Delusion(value))
