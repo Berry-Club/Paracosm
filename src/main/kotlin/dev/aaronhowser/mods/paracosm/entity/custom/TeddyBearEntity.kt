@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.entity.custom
 
+import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
@@ -20,7 +21,8 @@ import software.bernie.geckolib.animation.*
 import java.util.*
 
 class TeddyBearEntity(
-    entityType: EntityType<out TamableAnimal>, level: Level
+    entityType: EntityType<out TamableAnimal>,
+    level: Level
 ) : TamableAnimal(entityType, level), GeoEntity {
 
     companion object {
@@ -63,9 +65,12 @@ class TeddyBearEntity(
     }
 
     override fun mobInteract(player: Player, hand: InteractionHand): InteractionResult {
-        isInSittingPose = !isInSittingPose
+        tame(player)
 
-        return InteractionResult.SUCCESS
+        if (hand == InteractionHand.MAIN_HAND) isOrderedToSit = !isOrderedToSit
+        player.sendSystemMessage(Component.literal("Sitting: $isOrderedToSit"))
+
+        return InteractionResult.SUCCESS_NO_ITEM_USED
     }
 
     private fun predicate(animationState: AnimationState<TeddyBearEntity>): PlayState {
