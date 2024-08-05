@@ -1,6 +1,8 @@
 package dev.aaronhowser.mods.paracosm.entity.custom
 
 import net.minecraft.server.level.ServerLevel
+import net.minecraft.world.InteractionHand
+import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.AgeableMob
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.TamableAnimal
@@ -60,12 +62,18 @@ class TeddyBearEntity(
         controllers.add(AnimationController(this, "controller", 0, this::predicate))
     }
 
+    override fun mobInteract(player: Player, hand: InteractionHand): InteractionResult {
+        isInSittingPose = !isInSittingPose
+
+        return InteractionResult.SUCCESS
+    }
+
     private fun predicate(animationState: AnimationState<TeddyBearEntity>): PlayState {
         val animationName = if (animationState.isMoving) {
             "animation.teddybear.walk"
-        } else {
+        } else if (isInSittingPose) {
             "animation.teddybear.flop"
-        }
+        } else return PlayState.STOP
 
         animationState.controller.setAnimation(
             RawAnimation.begin().then(

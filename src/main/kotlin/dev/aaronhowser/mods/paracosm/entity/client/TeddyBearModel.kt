@@ -33,8 +33,13 @@ class TeddyBearModel : GeoModel<TeddyBearEntity>() {
         if (head != null) {
             val entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA)
 
-            head.rotX = entityData.headPitch * Mth.DEG_TO_RAD
-            head.rotY = entityData.netHeadYaw * Mth.DEG_TO_RAD
+            if (entityData.isSitting) {
+                head.rotX = 0f
+                head.rotY = 0f
+            } else {
+                head.rotX = entityData.headPitch * Mth.DEG_TO_RAD
+                head.rotY = entityData.netHeadYaw * Mth.DEG_TO_RAD
+            }
         }
     }
 
