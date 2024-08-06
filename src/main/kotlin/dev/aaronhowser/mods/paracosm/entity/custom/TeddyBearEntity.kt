@@ -80,10 +80,10 @@ class TeddyBearEntity(
     }
 
     private fun predicate(animationState: AnimationState<TeddyBearEntity>): PlayState {
-        val animationName = if (animationState.isMoving) {
-            "animation.teddybear.walk"
-        } else if (isInSittingPose) {
+        val animationName = if (isHiding) {
             "animation.teddybear.flop"
+        } else if (animationState.isMoving) {
+            "animation.teddybear.walk"
         } else return PlayState.STOP
 
         animationState.controller.setAnimation(
