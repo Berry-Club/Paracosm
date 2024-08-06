@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.paracosm.client.entity
+package dev.aaronhowser.mods.paracosm.client.render.entity
 
 import dev.aaronhowser.mods.paracosm.entity.custom.TeddyBearEntity
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
