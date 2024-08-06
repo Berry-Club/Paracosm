@@ -2,6 +2,8 @@ package dev.aaronhowser.mods.paracosm.entity.custom
 
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.registry.ModItems
+import dev.aaronhowser.mods.paracosm.registry.ModSounds
+import net.minecraft.sounds.SoundSource
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile
@@ -9,6 +11,7 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.EntityHitResult
+import net.minecraft.world.phys.HitResult
 import net.minecraft.world.phys.Vec3
 
 class DodgeballEntity : ThrowableItemProjectile {
@@ -63,6 +66,23 @@ class DodgeballEntity : ThrowableItemProjectile {
                 sideHit.stepY.toDouble(),
                 sideHit.stepZ.toDouble()
             )
+        )
+    }
+
+    override fun getSoundSource(): SoundSource {
+        return SoundSource.PLAYERS
+    }
+
+    override fun onHit(result: HitResult) {
+        super.onHit(result)
+
+        this.level().playSound(
+            this,
+            this.blockPosition(),
+            ModSounds.DODGEBALL.get(),
+            this.soundSource,
+            1f,
+            1f
         )
     }
 
