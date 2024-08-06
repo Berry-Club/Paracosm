@@ -10,8 +10,10 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.ItemUtils
 import net.minecraft.world.item.UseAnim
 import net.minecraft.world.level.Level
+import top.theillusivec4.curios.api.SlotContext
+import top.theillusivec4.curios.api.type.capability.ICurioItem
 
-class SeeingStone : Item(
+class SeeingStone : ICurioItem, Item(
     Properties()
         .stacksTo(1)
 ) {
@@ -34,6 +36,10 @@ class SeeingStone : Item(
         if (!entity.level().isClientSide) entity.whimsy -= 10f
 
         super.onStopUsing(stack, entity, count)
+    }
+
+    override fun curioTick(slotContext: SlotContext?, stack: ItemStack?) {
+        println("Curio tick")
     }
 
 }
