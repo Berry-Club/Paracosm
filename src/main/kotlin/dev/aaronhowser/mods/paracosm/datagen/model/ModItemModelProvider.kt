@@ -15,12 +15,14 @@ class ModItemModelProvider(
 ) : ItemModelProvider(output, Paracosm.ID, existingFileHelper) {
 
     override fun registerModels() {
-        for (deferred in ModItems.ITEM_REGISTRY.entries) {
-            val item = deferred.get()
-            if (item is BlockItem && item !is ItemNameBlockItem) continue
-            if (item is RequiresWhimsy && item.hasCustomModelHandling) continue
 
-            basicItem(item)
+        val makeModelsFor = listOf(
+            ModItems.COTTON,
+            ModItems.TOWEL_CAPE
+        )
+
+        for (item in makeModelsFor) {
+            basicItem(item.get())
         }
 
     }
