@@ -25,13 +25,13 @@ class SeeingStone : Item(
     }
 
     override fun use(level: Level, player: Player, usedHand: InteractionHand): InteractionResultHolder<ItemStack> {
-        player.whimsy += 10f
+        if (!level.isClientSide) player.whimsy += 10f
 
         return ItemUtils.startUsingInstantly(level, player, usedHand)
     }
 
     override fun onStopUsing(stack: ItemStack, entity: LivingEntity, count: Int) {
-        entity.whimsy -= 10f
+        if (!entity.level().isClientSide) entity.whimsy -= 10f
 
         super.onStopUsing(stack, entity, count)
     }
