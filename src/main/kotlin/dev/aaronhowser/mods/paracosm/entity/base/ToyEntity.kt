@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.paracosm.entity.base
 
 import dev.aaronhowser.mods.paracosm.attachment.RequiresWhimsy
+import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.TamableAnimal
 import net.minecraft.world.entity.player.Player
@@ -16,6 +17,7 @@ abstract class ToyEntity(
         return level().players().filter {
             !canBeSeenReal(it)
                     && it.distanceToSqr(this) < 10.0 * 10.0
+                    && OtherUtil.isLookingAtPos(it, eyePosition, 75f)
                     && it.hasLineOfSight(this)
         }
     }
