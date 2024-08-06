@@ -18,4 +18,14 @@ object ModSounds {
             SoundEvent.createVariableRangeEvent(OtherUtil.modResource("dodgeball"))
         })
 
+    val FART: DeferredHolder<SoundEvent, SoundEvent> =
+        SOUND_EVENT_REGISTRY.register("fart", Supplier {
+            SoundEvent.createVariableRangeEvent(OtherUtil.modResource("fart"))
+        })
+
+    val UNFART: DeferredHolder<SoundEvent, SoundEvent> =
+        SOUND_EVENT_REGISTRY.register("unfart", Supplier {
+            SoundEvent.createVariableRangeEvent(OtherUtil.modResource("unfart"))
+        })
+
 }

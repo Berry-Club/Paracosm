@@ -4,5 +4,21 @@
       "paracosm:dodgeball"
     ],
     "subtitle": "subtitle.paracosm.dodgeball"
+  },
+  "fart": {
+    "sounds": [
+      "paracosm:fart1",
+      "paracosm:fart2",
+      "paracosm:fart3"
+    ],
+    "subtitle": "subtitle.paracosm.fart"
+  },
+  "unfart": {
+    "sounds": [
+      "paracosm:unfart1",
+      "paracosm:unfart2",
+      "paracosm:unfart3"
+    ],
+    "subtitle": "subtitle.paracosm.unfart"
   }
 }

@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.paracosm.registry
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.block.CottonBlock
 import dev.aaronhowser.mods.paracosm.block.NightLightBlock
+import dev.aaronhowser.mods.paracosm.block.WhoopeeCushionBlock
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockBehaviour
 import net.neoforged.neoforge.registries.DeferredBlock
@@ -15,6 +16,7 @@ object ModBlocks {
 
     val COTTON = registerBlock("cotton", makeBlockItem = false) { CottonBlock() }
     val NIGHT_LIGHT = registerBlock("night_light") { NightLightBlock() }
+    val WHOOPEE_CUSHION = registerBlock("whoopee_cushion") { WhoopeeCushionBlock() }
 
     private fun <T : Block> registerBlock(
         name: String,
