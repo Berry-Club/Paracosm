@@ -13,6 +13,7 @@ import net.minecraft.client.model.EntityModel
 import net.minecraft.client.renderer.entity.EntityRendererProvider
 import net.minecraft.client.renderer.entity.EntityRenderers
 import net.minecraft.client.renderer.entity.LivingEntityRenderer
+import net.minecraft.client.renderer.entity.ThrownItemRenderer
 import net.minecraft.client.renderer.entity.layers.ElytraLayer
 import net.minecraft.client.renderer.entity.layers.RenderLayer
 import net.minecraft.client.renderer.entity.player.PlayerRenderer
@@ -42,6 +43,11 @@ object ClientModBusEvents {
         EntityRenderers.register(
             ModEntityTypes.TEDDY_BEAR.get(),
             ::TeddyBearRenderer
+        )
+
+        EntityRenderers.register(
+            ModEntityTypes.DODGE_BALL.get(),
+            ::ThrownItemRenderer
         )
 
         CuriosRendererRegistry.register(
