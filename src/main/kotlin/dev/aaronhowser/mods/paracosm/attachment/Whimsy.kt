@@ -11,8 +11,6 @@ data class Whimsy(
     val amount: Float
 ) {
 
-    //TODO I dont think this is saving to nbt
-
     constructor() : this(0f)
 
     companion object {

@@ -14,6 +14,8 @@ object ModCommands {
                 .literal(Paracosm.ID)
                 .then(SetWhimsyCommand.register())
                 .then(GetWhimsyCommand.register())
+                .then(SetDelusionCommand.register())
+                .then(GetDelusionCommand.register())
         )
 
     }
