@@ -14,12 +14,12 @@ class ToyLookAtPlayerGoal(
     constructor(toyEntity: ToyEntity) : this(toyEntity, 6f)
 
     override fun canUse(): Boolean {
-        if (this.toyEntity.isOrderedToSit) return false
+        if (this.toyEntity.isHiding) return false
         return super.canUse()
     }
 
     override fun canContinueToUse(): Boolean {
-        if (this.toyEntity.isOrderedToSit) return false
+        if (this.toyEntity.isHiding) return false
         return super.canContinueToUse()
     }
 
