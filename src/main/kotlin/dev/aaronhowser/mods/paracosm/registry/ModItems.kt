@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.paracosm.registry
 
 import dev.aaronhowser.mods.paracosm.Paracosm
+import dev.aaronhowser.mods.paracosm.item.TowelCapeItem
 import dev.aaronhowser.mods.paracosm.item.ToyGunItem
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemNameBlockItem
@@ -16,5 +17,7 @@ object ModItems {
         ITEM_REGISTRY.registerItem("cotton") { ItemNameBlockItem(ModBlocks.COTTON.get(), Item.Properties()) }
     val TOY_GUN: DeferredItem<ToyGunItem> =
         ITEM_REGISTRY.registerItem("toy_gun") { ToyGunItem() }
+    val TOWEL_CAPE: DeferredItem<TowelCapeItem> =
+        ITEM_REGISTRY.registerItem("towel_cape") { TowelCapeItem() }
 
 }

@@ -12,6 +12,7 @@ class ToyGunItem : RequiresWhimsy, Item(
 ) {
 
     override val requiredWhimsy: Float = 5f
+    override val hasCustomModelHandling: Boolean = true
 
     override fun getName(stack: ItemStack): Component {
         return if (ClientUtil.whimsy >= requiredWhimsy) {
@@ -20,7 +21,6 @@ class ToyGunItem : RequiresWhimsy, Item(
             Component.literal("Toy gun")
         }
     }
-
 
 
 }
