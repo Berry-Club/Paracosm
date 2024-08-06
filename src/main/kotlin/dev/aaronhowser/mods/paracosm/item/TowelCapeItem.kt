@@ -27,7 +27,6 @@ class TowelCapeItem : RequiresWhimsy, ElytraItem(
     }
 
     override val requiredWhimsy: Float = 10f
-    override val hasCustomModelHandling: Boolean = false
 
     override fun inventoryTick(stack: ItemStack, level: Level, entity: Entity, slotId: Int, isSelected: Boolean) {
         if (level.isClientSide) return

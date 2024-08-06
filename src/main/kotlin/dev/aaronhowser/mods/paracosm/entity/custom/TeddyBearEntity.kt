@@ -31,7 +31,6 @@ class TeddyBearEntity(
 ) : ToyEntity(entityType, level) {
 
     override val requiredWhimsy: Float = 10f
-    override val hasCustomModelHandling: Boolean = false
 
     companion object {
 

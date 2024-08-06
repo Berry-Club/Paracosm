@@ -7,8 +7,6 @@ interface RequiresWhimsy {
 
     val requiredWhimsy: Float
 
-    val hasCustomModelHandling: Boolean
-
     fun hasEnoughWhimsy(otherEntity: LivingEntity): Boolean {
         return (otherEntity.whimsy) >= requiredWhimsy
     }
