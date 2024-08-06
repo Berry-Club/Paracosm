@@ -13,6 +13,7 @@ object ModCommands {
             Commands
                 .literal(Paracosm.ID)
                 .then(SetWhimsyCommand.register())
+                .then(GetWhimsyCommand.register())
         )
 
     }
