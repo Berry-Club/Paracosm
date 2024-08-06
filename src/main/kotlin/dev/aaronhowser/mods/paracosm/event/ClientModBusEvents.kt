@@ -39,7 +39,7 @@ object ClientModBusEvents {
         ItemProperties.register(
             ModItems.TOY_GUN.get(),
             OtherUtil.modResource("whimsical"),
-            ItemPropertyFunction { stack, _, entity, _ ->
+            ItemPropertyFunction { stack, _, _, _ ->
                 val item = stack.item as? ToyGunItem ?: return@ItemPropertyFunction 0f
 
                 if (item.requiredWhimsy >= ClientUtil.whimsy) 1f else 0f
