@@ -39,7 +39,7 @@ class SeeingStone : ICurioItem, Item(
     }
 
     override fun curioTick(slotContext: SlotContext?, stack: ItemStack?) {
-        println("Curio tick")
+//        println("Curio tick")
     }
 
 }

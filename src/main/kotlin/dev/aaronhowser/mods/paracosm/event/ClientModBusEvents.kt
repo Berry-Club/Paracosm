@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.paracosm.event
 
 import dev.aaronhowser.mods.paracosm.Paracosm
+import dev.aaronhowser.mods.paracosm.client.render.curio.SeeingStoneCurioRenderer
 import dev.aaronhowser.mods.paracosm.client.render.entity.TeddyBearRenderer
 import dev.aaronhowser.mods.paracosm.client.render.layer.TowelCapeLayer
 import dev.aaronhowser.mods.paracosm.item.ToyGunItem
@@ -26,6 +27,7 @@ import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent
 import net.neoforged.neoforge.client.event.EntityRenderersEvent
 import net.neoforged.neoforge.client.event.ModelEvent
+import top.theillusivec4.curios.api.client.CuriosRendererRegistry
 
 @EventBusSubscriber(
     modid = Paracosm.ID,
@@ -40,6 +42,11 @@ object ClientModBusEvents {
         EntityRenderers.register(
             ModEntityTypes.TEDDY_BEAR.get(),
             ::TeddyBearRenderer
+        )
+
+        CuriosRendererRegistry.register(
+            ModItems.SEEING_STONE.get(),
+            ::SeeingStoneCurioRenderer
         )
 
     }
