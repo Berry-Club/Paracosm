@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.paracosm.command
 import com.mojang.brigadier.arguments.FloatArgumentType
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
+import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.attachment.Whimsy.Companion.whimsy
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
@@ -36,15 +37,19 @@ object SetWhimsyCommand {
         context: CommandContext<CommandSourceStack>,
         entity: Entity?
     ): Int {
-        val commandSender = context.source.entity as? Player ?: return 0
+        val commandSender = context.source.entity
         val target = (entity ?: context.source.entity) as? Player ?: return 0
 
         val amount = FloatArgumentType.getFloat(context, AMOUNT_ARGUMENT)
 
         target.whimsy = amount
 
-        commandSender.sendSystemMessage(Component.literal("Set ${target.gameProfile.name}'s Whimsy to $amount"))
-        if (target != commandSender) target.sendSystemMessage(Component.literal("${commandSender.gameProfile.name} set your Whimsy to $amount"))
+        if (commandSender is Player) {
+            commandSender.sendSystemMessage(Component.literal("Set ${target.gameProfile.name}'s Whimsy to $amount"))
+            if (target != commandSender) target.sendSystemMessage(Component.literal("${commandSender.gameProfile.name} set your Whimsy to $amount"))
+        }
+
+        Paracosm.LOGGER.info("Set ${target.gameProfile.name}'s Whimsy to $amount")
 
         return 1
     }
