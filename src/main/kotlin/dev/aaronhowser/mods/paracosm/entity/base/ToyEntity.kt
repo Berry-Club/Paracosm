@@ -3,10 +3,24 @@ package dev.aaronhowser.mods.paracosm.entity.base
 import dev.aaronhowser.mods.paracosm.attachment.RequiresWhimsy
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.TamableAnimal
+import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.Level
 import software.bernie.geckolib.animatable.GeoEntity
 
 abstract class ToyEntity(
     entityType: EntityType<out TamableAnimal>,
     level: Level
-) : TamableAnimal(entityType, level), RequiresWhimsy, GeoEntity
+) : TamableAnimal(entityType, level), RequiresWhimsy, GeoEntity {
+
+    fun hidingFromPlayers(): List<Player> {
+        return level().players().filter {
+            !canBeSeenReal(it)
+                    && it.distanceToSqr(this) < 10.0 * 10.0
+                    && it.hasLineOfSight(this)
+        }
+    }
+
+    val isHiding
+        get() = hidingFromPlayers().isNotEmpty()
+
+}

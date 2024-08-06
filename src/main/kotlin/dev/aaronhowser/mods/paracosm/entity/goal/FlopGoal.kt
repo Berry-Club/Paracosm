@@ -13,20 +13,11 @@ class FlopGoal(
     override fun canUse(): Boolean {
         if (!this.toyEntity.isTame) return false
 
-        val badPlayers = this.toyEntity.level().players().filter {
-            it.distanceToSqr(this.toyEntity) < 10.0 * 10.0
-                    && toyEntity.canBeSeenReal(it)
-                    && it.hasLineOfSight(this.toyEntity)
-        }
-
-        lowWhimsyObservers.clear()
-        lowWhimsyObservers.addAll(badPlayers)
-
-        return lowWhimsyObservers.isNotEmpty()
+        return toyEntity.isHiding
     }
 
     override fun canContinueToUse(): Boolean {
-        return lowWhimsyObservers.isNotEmpty()
+        return toyEntity.isHiding
     }
 
     override fun tick() {
