@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.paracosm.registry
 
 import dev.aaronhowser.mods.paracosm.Paracosm
-import dev.aaronhowser.mods.paracosm.item.DodgeBallItem
+import dev.aaronhowser.mods.paracosm.item.DodgeballItem
 import dev.aaronhowser.mods.paracosm.item.SeeingStone
 import dev.aaronhowser.mods.paracosm.item.TowelCapeItem
 import dev.aaronhowser.mods.paracosm.item.ToyGunItem
@@ -23,7 +23,7 @@ object ModItems {
         ITEM_REGISTRY.registerItem("towel_cape") { TowelCapeItem() }
     val SEEING_STONE: DeferredItem<SeeingStone> =
         ITEM_REGISTRY.registerItem("seeing_stone") { SeeingStone() }
-    val DODGE_BALL: DeferredItem<DodgeBallItem> =
-        ITEM_REGISTRY.registerItem("dodge_ball") { DodgeBallItem() }
+    val DODGEBALL: DeferredItem<DodgeballItem> =
+        ITEM_REGISTRY.registerItem("dodgeball") { DodgeballItem() }
 
 }

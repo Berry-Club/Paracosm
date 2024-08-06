@@ -11,7 +11,7 @@ import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.EntityHitResult
 import net.minecraft.world.phys.Vec3
 
-class DodgeBallEntity : ThrowableItemProjectile {
+class DodgeballEntity : ThrowableItemProjectile {
 
     constructor(
         entityType: EntityType<out ThrowableItemProjectile>,
@@ -23,15 +23,15 @@ class DodgeBallEntity : ThrowableItemProjectile {
         x: Double,
         y: Double,
         z: Double
-    ) : super(ModEntityTypes.DODGE_BALL.get(), x, y, z, level)
+    ) : super(ModEntityTypes.DODGEBALL.get(), x, y, z, level)
 
     constructor(
         level: Level,
         shooter: LivingEntity
-    ) : super(ModEntityTypes.DODGE_BALL.get(), shooter, level)
+    ) : super(ModEntityTypes.DODGEBALL.get(), shooter, level)
 
     override fun getDefaultItem(): Item {
-        return ModItems.DODGE_BALL.get()
+        return ModItems.DODGEBALL.get()
     }
 
     override fun onHitEntity(result: EntityHitResult) {

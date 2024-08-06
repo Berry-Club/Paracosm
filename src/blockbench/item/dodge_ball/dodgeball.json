@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "paracosm:item/dodge_ball",
-		"particle": "paracosm:item/dodge_ball"
+		"0": "paracosm:item/dodgeball",
+		"particle": "paracosm:item/dodgeball"
 	},
 	"elements": [
 		{

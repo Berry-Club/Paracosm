@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.paracosm.registry
 
 import dev.aaronhowser.mods.paracosm.Paracosm
-import dev.aaronhowser.mods.paracosm.entity.custom.DodgeBallEntity
+import dev.aaronhowser.mods.paracosm.entity.custom.DodgeballEntity
 import dev.aaronhowser.mods.paracosm.entity.custom.TeddyBearEntity
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.entity.EntityType
@@ -25,14 +25,14 @@ object ModEntityTypes {
                 .build("teddy_bear")
         })
 
-    val DODGE_BALL: DeferredHolder<EntityType<*>, EntityType<DodgeBallEntity>> =
-        ENTITY_TYPE_REGISTRY.register("dodge_ball", Supplier {
+    val DODGEBALL: DeferredHolder<EntityType<*>, EntityType<DodgeballEntity>> =
+        ENTITY_TYPE_REGISTRY.register("dodgeball", Supplier {
             EntityType.Builder.of(
-                { type, level -> DodgeBallEntity(type, level) },
+                { type, level -> DodgeballEntity(type, level) },
                 MobCategory.MISC
             )
                 .sized(0.25f, 0.25f)
-                .build("dodge_ball")
+                .build("dodgeball")
         })
 
 }

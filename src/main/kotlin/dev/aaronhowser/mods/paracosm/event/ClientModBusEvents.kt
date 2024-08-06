@@ -46,7 +46,7 @@ object ClientModBusEvents {
         )
 
         EntityRenderers.register(
-            ModEntityTypes.DODGE_BALL.get(),
+            ModEntityTypes.DODGEBALL.get(),
             ::ThrownItemRenderer
         )
 
