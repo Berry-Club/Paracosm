@@ -13,6 +13,7 @@ import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.EntityHitResult
 import net.minecraft.world.phys.HitResult
 import net.minecraft.world.phys.Vec3
+import kotlin.random.Random
 
 class DodgeballEntity : ThrowableItemProjectile {
 
@@ -82,7 +83,7 @@ class DodgeballEntity : ThrowableItemProjectile {
             ModSounds.DODGEBALL.get(),
             this.soundSource,
             1f,
-            1f
+            0.8f + Random.nextFloat() * 0.2f
         )
     }
 
