@@ -20,6 +20,7 @@ class ModBlockStateProvider(
     override fun registerStatesAndModels() {
         nightLight()
         cotton()
+        pressurePlateBlock(ModBlocks.WHOOPEE_CUSHION.get(), modLoc("block/whoopee_cushion"))    //TODO: Make this fancier, add the mouth part
     }
 
     private fun nightLight() {
