@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.aaronhowser.mods.paracosm.mixin",
+  "mixins": [
+    "ElytraLayerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
