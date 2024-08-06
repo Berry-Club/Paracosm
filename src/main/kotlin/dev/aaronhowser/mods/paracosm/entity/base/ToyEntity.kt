@@ -20,7 +20,12 @@ abstract class ToyEntity(
         }
     }
 
-    val isHiding
-        get() = hidingFromPlayers().isNotEmpty()
+    override fun tick() {
+        super.tick()
+        isHiding = hidingFromPlayers().isNotEmpty()
+    }
+
+    var isHiding: Boolean = false
+        private set
 
 }
