@@ -4,6 +4,8 @@ import dev.aaronhowser.mods.paracosm.entity.base.ToyEntity
 import dev.aaronhowser.mods.paracosm.entity.goal.FlopGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyLookAtPlayerGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyRandomLookAroundGoal
+import net.minecraft.network.chat.Component
+import net.minecraft.network.chat.HoverEvent
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
@@ -74,7 +76,22 @@ class TeddyBearEntity(
             level().broadcastEntityEvent(this, 7)
         }
 
-        if (hand == InteractionHand.MAIN_HAND) isOrderedToSit = !isOrderedToSit
+        if (hand == InteractionHand.MAIN_HAND && !player.level().isClientSide) {
+
+            val component = Component.literal("I can't move because ")
+                .append(Component.literal("[these players]").withStyle { style ->
+                    style.withHoverEvent(
+                        HoverEvent(
+                            HoverEvent.Action.SHOW_TEXT,
+                            Component.literal(hidingFromPlayers().joinToString("\n") { it.gameProfile.name })
+                        )
+                    )
+                })
+                .append(Component.literal(" are looking at me and don't believe!"))
+
+            player.sendSystemMessage(component)
+
+        }
 
         return InteractionResult.SUCCESS_NO_ITEM_USED
     }
