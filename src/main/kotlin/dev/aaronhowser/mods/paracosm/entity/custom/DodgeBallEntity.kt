@@ -9,6 +9,7 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.EntityHitResult
+import net.minecraft.world.phys.Vec3
 
 class DodgeBallEntity : ThrowableItemProjectile {
 
@@ -49,8 +50,26 @@ class DodgeBallEntity : ThrowableItemProjectile {
     override fun onHitBlock(result: BlockHitResult) {
         super.onHitBlock(result)
 
+        if (result.isInside) {
+            this.deltaMovement = this.deltaMovement.scale(-1.0)
+            return
+        }
+
         val sideHit = result.direction
-        println(sideHit.toString())
+
+        this.addDeltaMovement(
+            Vec3(
+                sideHit.stepX.toDouble(),
+                sideHit.stepY.toDouble(),
+                sideHit.stepZ.toDouble()
+            )
+        )
+    }
+
+    override fun tick() {
+        super.tick()
+
+        if (this.tickCount > 20 * 10) discard()
     }
 
 }
