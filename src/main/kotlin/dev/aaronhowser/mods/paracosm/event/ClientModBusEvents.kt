@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.paracosm.event
 
 import dev.aaronhowser.mods.paracosm.Paracosm
-import dev.aaronhowser.mods.paracosm.entity.client.TeddyBearRenderer
+import dev.aaronhowser.mods.paracosm.client.entity.TeddyBearRenderer
 import dev.aaronhowser.mods.paracosm.item.ToyGunItem
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.registry.ModItems
