@@ -10,6 +10,15 @@ class ModLanguageProvider(output: PackOutput) : LanguageProvider(output, Paracos
 
     object Item {
         const val COTTON = "item.paracosm.cotton"
+        const val TOWEL_CAPE = "item.paracosm.towel_cape"
+    }
+
+    object Block {
+        const val NIGHT_LIGHT = "block.paracosm.night_light"
+    }
+
+    object Entity {
+        const val TEDDY_BEAR = "entity.paracosm.teddy_bear"
     }
 
     object Misc {
@@ -22,6 +31,11 @@ class ModLanguageProvider(output: PackOutput) : LanguageProvider(output, Paracos
 
     override fun addTranslations() {
         add(Item.COTTON, "Cotton")
+        add(Item.TOWEL_CAPE, "Towel Cape")
+
+        add(Block.NIGHT_LIGHT, "Night Light")
+
+        add(Entity.TEDDY_BEAR, "Teddy Bear")
 
         add(Misc.CREATIVE_TAB, "Paracosm")
 
