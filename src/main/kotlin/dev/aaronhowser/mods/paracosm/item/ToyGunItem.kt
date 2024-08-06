@@ -1,12 +1,10 @@
 package dev.aaronhowser.mods.paracosm.item
 
-import dev.aaronhowser.mods.paracosm.attachment.RequiresWhimsy
-import dev.aaronhowser.mods.paracosm.util.ClientUtil
+import dev.aaronhowser.mods.paracosm.item.base.ToyItem
 import net.minecraft.network.chat.Component
-import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 
-class ToyGunItem : RequiresWhimsy, Item(
+class ToyGunItem : ToyItem(
     Properties()
         .stacksTo(1)
 ) {
@@ -14,13 +12,12 @@ class ToyGunItem : RequiresWhimsy, Item(
     override val requiredWhimsy: Float = 5f
 
     override fun getName(stack: ItemStack): Component {
-        return if (ClientUtil.whimsy >= requiredWhimsy) {
+        return if (true /* Some value that changes depending on who's reading the tooltip */) {
             Component.literal("Super cool gun")
         } else {
             Component.literal("Toy gun")
         }
     }
-
 
 
 }
