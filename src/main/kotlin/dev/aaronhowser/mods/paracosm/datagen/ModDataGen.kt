@@ -68,6 +68,11 @@ object ModDataGen {
             ModLootTableProvider.create(output, lookupProvider)
         )
 
+        val curiosProvider = generator.addProvider(
+            event.includeServer(),
+            ModCurioProvider(output, existingFileHelper, lookupProvider)
+        )
+
     }
 
 }
