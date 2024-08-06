@@ -9,7 +9,7 @@ interface RequiresWhimsy {
 
     val hasCustomModelHandling: Boolean
 
-    fun canBeSeenReal(otherEntity: LivingEntity): Boolean {
+    fun hasEnoughWhimsy(otherEntity: LivingEntity): Boolean {
         return (otherEntity.whimsy) >= requiredWhimsy
     }
 

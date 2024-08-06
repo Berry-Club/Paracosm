@@ -15,7 +15,7 @@ abstract class ToyEntity(
 
     fun hidingFromPlayers(): List<Player> {
         return level().players().filter {
-            !canBeSeenReal(it)
+            !hasEnoughWhimsy(it)
                     && it.distanceToSqr(this) < 10.0 * 10.0
                     && OtherUtil.isLookingAtPos(it, eyePosition, 75f)
                     && it.hasLineOfSight(this)
