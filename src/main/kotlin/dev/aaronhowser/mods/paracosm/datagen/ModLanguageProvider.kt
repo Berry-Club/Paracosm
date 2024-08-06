@@ -11,6 +11,7 @@ class ModLanguageProvider(output: PackOutput) : LanguageProvider(output, Paracos
     object Item {
         const val COTTON = "item.paracosm.cotton"
         const val TOWEL_CAPE = "item.paracosm.towel_cape"
+        const val SEEING_STONE = "item.paracosm.seeing_stone"
     }
 
     object Block {
@@ -25,6 +26,10 @@ class ModLanguageProvider(output: PackOutput) : LanguageProvider(output, Paracos
         const val CREATIVE_TAB = "itemGroup.paracosm"
     }
 
+    object Curios {
+        const val SEEING_STONE = "curios.identifier.seeing_stone"
+    }
+
     companion object {
         fun String.toComponent(vararg args: Any): MutableComponent = Component.translatable(this, *args)
     }
@@ -32,6 +37,7 @@ class ModLanguageProvider(output: PackOutput) : LanguageProvider(output, Paracos
     override fun addTranslations() {
         add(Item.COTTON, "Cotton")
         add(Item.TOWEL_CAPE, "Towel Cape")
+        add(Item.SEEING_STONE, "Seeing Stone")
 
         add(Block.NIGHT_LIGHT, "Night Light")
 
@@ -39,5 +45,6 @@ class ModLanguageProvider(output: PackOutput) : LanguageProvider(output, Paracos
 
         add(Misc.CREATIVE_TAB, "Paracosm")
 
+        add(Curios.SEEING_STONE, "Seeing Stone")
     }
 }
