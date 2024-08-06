@@ -11,12 +11,13 @@ import top.theillusivec4.curios.api.client.ICurioRenderer
 
 class SeeingStoneCurioRenderer : ICurioRenderer {
 
+    //TODO
     override fun <T : LivingEntity, M : EntityModel<T>> render(
         stack: ItemStack,
         slotContext: SlotContext,
         matrixStack: PoseStack,
         renderLayerParent: RenderLayerParent<T, M>,
-        renderTypeBuffer: MultiBufferSource?,
+        renderTypeBuffer: MultiBufferSource,
         light: Int,
         limbSwing: Float,
         limbSwingAmount: Float,
