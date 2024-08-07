@@ -16,6 +16,7 @@ class ModLanguageProvider(output: PackOutput) : LanguageProvider(output, Paracos
 
     object Block {
         const val NIGHT_LIGHT = "block.paracosm.night_light"
+        const val WHOOPEE_CUSHION = "block.paracosm.whoopee_cushion"
     }
 
     object Entity {
@@ -40,6 +41,7 @@ class ModLanguageProvider(output: PackOutput) : LanguageProvider(output, Paracos
         add(Item.SEEING_STONE, "Seeing Stone")
 
         add(Block.NIGHT_LIGHT, "Night Light")
+        add(Block.WHOOPEE_CUSHION, "Whoopee Cushion")
 
         add(Entity.TEDDY_BEAR, "Teddy Bear")
 
