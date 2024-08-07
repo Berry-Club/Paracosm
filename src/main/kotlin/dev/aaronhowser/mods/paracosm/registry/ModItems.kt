@@ -1,10 +1,9 @@
 package dev.aaronhowser.mods.paracosm.registry
 
 import dev.aaronhowser.mods.paracosm.Paracosm
-import dev.aaronhowser.mods.paracosm.item.DodgeballItem
-import dev.aaronhowser.mods.paracosm.item.SeeingStone
-import dev.aaronhowser.mods.paracosm.item.TowelCapeItem
-import dev.aaronhowser.mods.paracosm.item.ToyGunItem
+import dev.aaronhowser.mods.paracosm.item.*
+import dev.aaronhowser.mods.paracosm.item.FoodItem.Companion.fast
+import net.minecraft.world.food.FoodProperties
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemNameBlockItem
 import net.neoforged.neoforge.registries.DeferredItem
@@ -25,5 +24,17 @@ object ModItems {
         ITEM_REGISTRY.registerItem("seeing_stone") { SeeingStone() }
     val DODGEBALL: DeferredItem<DodgeballItem> =
         ITEM_REGISTRY.registerItem("dodgeball") { DodgeballItem() }
+    val CANDY: DeferredItem<Item> =
+        ITEM_REGISTRY.registerItem("candy") {
+            FoodItem(
+                99,
+                FoodProperties
+                    .Builder()
+                    .nutrition(1)
+                    .saturationModifier(-0.1f)
+                    .fast(0.1f)
+                    .build()
+            )
+        }
 
 }
