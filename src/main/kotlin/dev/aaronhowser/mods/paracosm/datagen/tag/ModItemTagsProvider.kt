@@ -35,7 +35,9 @@ class ModItemTagsProvider(
 
         this.tag(SWEETS)
             .add(
-                Items.COOKIE
+                Items.COOKIE,
+                ModItems.CANDY.get(),
+                ModItems.SODA.get()
             )
 
         this.tag(SEEING_STONE)

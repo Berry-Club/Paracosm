@@ -1,11 +1,8 @@
 package dev.aaronhowser.mods.paracosm.datagen.model
 
 import dev.aaronhowser.mods.paracosm.Paracosm
-import dev.aaronhowser.mods.paracosm.attachment.RequiresWhimsy
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import net.minecraft.data.PackOutput
-import net.minecraft.world.item.BlockItem
-import net.minecraft.world.item.ItemNameBlockItem
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider
 import net.neoforged.neoforge.common.data.ExistingFileHelper
 
@@ -18,7 +15,9 @@ class ModItemModelProvider(
 
         val makeModelsFor = listOf(
             ModItems.COTTON,
-            ModItems.TOWEL_CAPE
+            ModItems.TOWEL_CAPE,
+            ModItems.CANDY,
+            ModItems.SODA
         )
 
         for (item in makeModelsFor) {

@@ -12,6 +12,9 @@ class ModLanguageProvider(output: PackOutput) : LanguageProvider(output, Paracos
         const val COTTON = "item.paracosm.cotton"
         const val TOWEL_CAPE = "item.paracosm.towel_cape"
         const val SEEING_STONE = "item.paracosm.seeing_stone"
+        const val DODGEBALL = "item.paracosm.dodgeball"
+        const val CANDY = "item.paracosm.candy"
+        const val SODA = "item.paracosm.soda"
     }
 
     object Block {
@@ -21,6 +24,7 @@ class ModLanguageProvider(output: PackOutput) : LanguageProvider(output, Paracos
 
     object Entity {
         const val TEDDY_BEAR = "entity.paracosm.teddy_bear"
+        const val DODGEBALL = "entity.paracosm.dodgeball"
     }
 
     object Misc {
@@ -39,11 +43,15 @@ class ModLanguageProvider(output: PackOutput) : LanguageProvider(output, Paracos
         add(Item.COTTON, "Cotton")
         add(Item.TOWEL_CAPE, "Towel Cape")
         add(Item.SEEING_STONE, "Seeing Stone")
+        add(Item.DODGEBALL, "Dodgeball")
+        add(Item.CANDY, "Candy")
+        add(Item.SODA, "Soda")
 
         add(Block.NIGHT_LIGHT, "Night Light")
         add(Block.WHOOPEE_CUSHION, "Whoopee Cushion")
 
         add(Entity.TEDDY_BEAR, "Teddy Bear")
+        add(Entity.DODGEBALL, "Dodgeball")
 
         add(Misc.CREATIVE_TAB, "Paracosm")
 
