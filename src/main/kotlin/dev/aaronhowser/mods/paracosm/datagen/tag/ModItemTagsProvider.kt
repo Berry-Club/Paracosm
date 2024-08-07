@@ -24,7 +24,7 @@ class ModItemTagsProvider(
 ) : ItemTagsProvider(pOutput, pLookupProvider, pBlockTags, Paracosm.ID, existingFileHelper) {
 
     companion object {
-        private fun create(name: String): TagKey<Item> = TagKey.create(Registries.ITEM, OtherUtil.modResource(name))
+        private fun create(name: String): TagKey<Item> = create(OtherUtil.modResource(name))
         private fun create(rl: ResourceLocation): TagKey<Item> = TagKey.create(Registries.ITEM, rl)
 
         val SWEETS = create("sweets")
