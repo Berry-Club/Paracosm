@@ -24,15 +24,28 @@ object ModItems {
         ITEM_REGISTRY.registerItem("seeing_stone") { SeeingStone() }
     val DODGEBALL: DeferredItem<DodgeballItem> =
         ITEM_REGISTRY.registerItem("dodgeball") { DodgeballItem() }
-    val CANDY: DeferredItem<Item> =
+    val CANDY: DeferredItem<FoodItem> =
         ITEM_REGISTRY.registerItem("candy") {
             FoodItem(
-                99,
+                stacksTo = 99,
+                isDrink = false,
                 FoodProperties
                     .Builder()
                     .nutrition(1)
                     .saturationModifier(-0.1f)
                     .fast(0.1f)
+                    .build()
+            )
+        }
+    val SODA: DeferredItem<FoodItem> =
+        ITEM_REGISTRY.registerItem("soda") {
+            FoodItem(
+                stacksTo = 1,
+                isDrink = true,
+                FoodProperties
+                    .Builder()
+                    .nutrition(1)
+                    .saturationModifier(0.1f)
                     .build()
             )
         }
