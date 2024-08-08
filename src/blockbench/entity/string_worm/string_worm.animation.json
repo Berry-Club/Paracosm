@@ -3,34 +3,7 @@
 	"animations": {
 		"animation.stringworm.slither": {
 			"loop": true,
-			"animation_length": 3.3333,
-			"bones": {
-				"one": {
-					"rotation": {
-						"vector": [0, "5*Math.sin((query.anim_time*5) * 90)", 0]
-					}
-				},
-				"two": {
-					"rotation": {
-						"vector": [0, "6*Math.sin((query.anim_time*5-1) * 90)", 0]
-					}
-				},
-				"three": {
-					"rotation": {
-						"vector": [0, "7*Math.sin((query.anim_time*5-2) )", 0]
-					}
-				},
-				"four": {
-					"rotation": {
-						"vector": [0, "8*Math.sin((query.anim_time*5-3) * 90)", 0]
-					}
-				},
-				"five": {
-					"rotation": {
-						"vector": [0, "9*Math.sin((query.anim_time*5-4) * 90)", 0]
-					}
-				}
-			}
+			"animation_length": 1
 		}
 	},
 	"geckolib_format_version": 2
