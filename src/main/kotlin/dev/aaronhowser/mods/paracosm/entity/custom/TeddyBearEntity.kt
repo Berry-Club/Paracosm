@@ -56,15 +56,6 @@ class TeddyBearEntity(
         }
     }
 
-
-    override fun getBreedOffspring(p0: ServerLevel, p1: AgeableMob): AgeableMob? {
-        return null
-    }
-
-    override fun isFood(p0: ItemStack): Boolean {
-        return false
-    }
-
     override fun registerControllers(controllers: AnimatableManager.ControllerRegistrar) {
         controllers.add(AnimationController(this, "controller", 0, this::predicate))
     }
