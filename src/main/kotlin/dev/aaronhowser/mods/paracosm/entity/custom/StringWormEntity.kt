@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.paracosm.entity.goal.ToyRandomLookAroundGoal
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.EntityType
+import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.PlayerRideableJumping
 import net.minecraft.world.entity.TamableAnimal
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier
@@ -17,6 +18,7 @@ import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal
 import net.minecraft.world.entity.monster.Monster
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.Level
+import net.minecraft.world.phys.Vec3
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache
 import software.bernie.geckolib.animation.*
@@ -25,6 +27,8 @@ open class StringWormEntity(
     entityType: EntityType<out TamableAnimal>,
     level: Level
 ) : ToyEntity(entityType, level), PlayerRideableJumping {
+
+    // Entity setup
 
     override val requiredWhimsy: Float = 5f
 
@@ -51,6 +55,8 @@ open class StringWormEntity(
             it.addGoal(5, ToyRandomLookAroundGoal(this))
         }
     }
+
+    // Animation
 
     override fun registerControllers(controllers: AnimatableManager.ControllerRegistrar) {
         controllers.add(AnimationController(this, "controller", 0, this::predicate))
@@ -79,6 +85,8 @@ open class StringWormEntity(
         return cache
     }
 
+    // Behavior
+
     override fun mobInteract(player: Player, hand: InteractionHand): InteractionResult {
         if (this.isVehicle || player.isSecondaryUseActive) return super.mobInteract(player, hand)
 
@@ -100,6 +108,37 @@ open class StringWormEntity(
         player.yRot = this.yRot
         player.xRot = this.xRot
         player.startRiding(this)
+    }
+
+    override fun isTame(): Boolean {
+        return true
+    }
+
+    override fun getControllingPassenger(): LivingEntity? {
+        return passengers.firstOrNull() as? LivingEntity
+    }
+
+    override fun getRiddenInput(player: Player, travelVector: Vec3): Vec3 {
+        val leftRight = player.xxa * 0.5f
+        var forwardBackward = player.zza
+        if (forwardBackward <= 0.0f) {
+            forwardBackward *= 0.25f
+        }
+
+        return Vec3(leftRight.toDouble(), 0.0, forwardBackward.toDouble())
+    }
+
+    override fun getRiddenSpeed(player: Player): Float {
+        return 0.2f
+    }
+
+    override fun tickRidden(player: Player, travelVector: Vec3) {
+        super.tickRidden(player, travelVector)
+
+        this.setRot(player.yRot, player.xRot)
+        this.yRotO = this.yRot
+        this.yBodyRot = this.yRot
+        this.yHeadRot = this.yRot
     }
 
     private var playerJumpPendingScale = 0f
