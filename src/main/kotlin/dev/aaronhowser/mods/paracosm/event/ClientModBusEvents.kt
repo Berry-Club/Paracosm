@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.paracosm.event
 
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.client.render.curio.SeeingStoneCurioRenderer
+import dev.aaronhowser.mods.paracosm.client.render.entity.StringWormRenderer
 import dev.aaronhowser.mods.paracosm.client.render.entity.TeddyBearRenderer
 import dev.aaronhowser.mods.paracosm.client.render.layer.TowelCapeLayer
 import dev.aaronhowser.mods.paracosm.item.ToyGunItem
@@ -43,6 +44,11 @@ object ClientModBusEvents {
         EntityRenderers.register(
             ModEntityTypes.TEDDY_BEAR.get(),
             ::TeddyBearRenderer
+        )
+
+        EntityRenderers.register(
+            ModEntityTypes.STRING_WORM.get(),
+            ::StringWormRenderer
         )
 
         EntityRenderers.register(

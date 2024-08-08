@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.paracosm.registry
 
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.entity.custom.DodgeballEntity
+import dev.aaronhowser.mods.paracosm.entity.custom.StringWormEntity
 import dev.aaronhowser.mods.paracosm.entity.custom.TeddyBearEntity
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.entity.EntityType
@@ -23,6 +24,16 @@ object ModEntityTypes {
             )
                 .sized(1f, 1f)
                 .build("teddy_bear")
+        })
+
+    val STRING_WORM: DeferredHolder<EntityType<*>, EntityType<StringWormEntity>> =
+        ENTITY_TYPE_REGISTRY.register("string_worm", Supplier {
+            EntityType.Builder.of(
+                { type, level -> StringWormEntity(type, level) },
+                MobCategory.MISC
+            )
+                .sized(1f, 1f)
+                .build("string_worm")
         })
 
     val DODGEBALL: DeferredHolder<EntityType<*>, EntityType<DodgeballEntity>> =

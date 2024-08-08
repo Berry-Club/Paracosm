@@ -6,10 +6,8 @@ import dev.aaronhowser.mods.paracosm.entity.goal.ToyLookAtPlayerGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyRandomLookAroundGoal
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
-import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
-import net.minecraft.world.entity.AgeableMob
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.TamableAnimal
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier
@@ -19,7 +17,6 @@ import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal
 import net.minecraft.world.entity.monster.Monster
 import net.minecraft.world.entity.player.Player
-import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache
@@ -56,10 +53,6 @@ class TeddyBearEntity(
         }
     }
 
-    override fun registerControllers(controllers: AnimatableManager.ControllerRegistrar) {
-        controllers.add(AnimationController(this, "controller", 0, this::predicate))
-    }
-
     override fun mobInteract(player: Player, hand: InteractionHand): InteractionResult {
         if (!isTame) {
             tame(player)
@@ -84,6 +77,10 @@ class TeddyBearEntity(
         }
 
         return InteractionResult.SUCCESS_NO_ITEM_USED
+    }
+
+    override fun registerControllers(controllers: AnimatableManager.ControllerRegistrar) {
+        controllers.add(AnimationController(this, "controller", 0, this::predicate))
     }
 
     private fun predicate(animationState: AnimationState<TeddyBearEntity>): PlayState {
