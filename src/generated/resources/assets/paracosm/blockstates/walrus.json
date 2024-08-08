@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "paracosm:block/walrus",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "paracosm:block/walrus"
+    },
+    "facing=south": {
+      "model": "paracosm:block/walrus",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "paracosm:block/walrus",
+      "y": 270
+    }
+  }
+}

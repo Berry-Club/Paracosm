@@ -21,6 +21,41 @@ class ModBlockStateProvider(
         nightLight()
         cotton()
         whoopeeCushion()
+        walrus()
+    }
+
+    private fun walrus() {
+        val block = ModBlocks.WALRUS.get()
+
+        getVariantBuilder(block)
+            .forAllStates {
+                val facing = it.getValue(HorizontalDirectionalBlock.FACING)
+                val yRotation = when (facing) {
+                    Direction.NORTH -> 0
+                    Direction.EAST -> 90
+                    Direction.SOUTH -> 180
+                    Direction.WEST -> 270
+                    else -> throw IllegalStateException("Invalid facing direction")
+                }
+
+                ConfiguredModel
+                    .builder()
+                    .modelFile(
+                        models()
+                            .getExistingFile(modLoc("block/walrus"))
+                    )
+                    .rotationY(yRotation)
+                    .build()
+            }
+
+        simpleBlockItem(
+            block,
+            ItemModelBuilder(
+                modLoc("block/walrus"),
+                existingFileHelper
+            )
+        )
+
     }
 
     private fun whoopeeCushion() {

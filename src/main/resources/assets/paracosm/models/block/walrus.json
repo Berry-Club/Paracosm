@@ -1,0 +1,8 @@
+{
+  "loader": "neoforge:obj",
+  "model": "paracosm:models/block/walrus.obj",
+  "textures": {
+    "texture0": "paracosm:block/walrus",
+    "particle": "paracosm:block/walrus"
+  }
+}
