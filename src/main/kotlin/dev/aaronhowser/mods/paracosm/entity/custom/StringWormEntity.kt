@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.paracosm.entity.base.ToyEntity
 import dev.aaronhowser.mods.paracosm.entity.goal.FlopGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyLookAtPlayerGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyRandomLookAroundGoal
+import dev.aaronhowser.mods.paracosm.registry.ModItems
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.EntityType
@@ -17,6 +18,7 @@ import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal
 import net.minecraft.world.entity.monster.Monster
 import net.minecraft.world.entity.player.Player
+import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.Vec3
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache
@@ -40,6 +42,7 @@ open class StringWormEntity(
                 .add(Attributes.ATTACK_DAMAGE, 2.0)
                 .add(Attributes.ATTACK_SPEED, 1.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.2)
+                .add(Attributes.SCALE, 0.1)
                 .build()
         }
 
@@ -87,20 +90,49 @@ open class StringWormEntity(
 
     // Behavior
 
+    override fun isFood(p0: ItemStack): Boolean {
+        return p0.item == ModItems.COTTON.get()
+    }
+
+
+    private fun fedFood(usedStack: ItemStack): InteractionResult {
+        if (!this.isFood(usedStack)) return InteractionResult.FAIL
+
+        if (this.health < this.maxHealth) {
+            val healAmount = 1f
+            this.heal(healAmount)
+
+            return InteractionResult.sidedSuccess(level().isClientSide)
+        }
+
+        if (this.scale < 2.0) {
+            this.getAttribute(Attributes.SCALE)?.let {
+                it.baseValue += 0.1
+            }
+
+            return InteractionResult.sidedSuccess(level().isClientSide)
+        }
+
+        return InteractionResult.PASS
+    }
+
     override fun mobInteract(player: Player, hand: InteractionHand): InteractionResult {
         if (this.isVehicle || player.isSecondaryUseActive) return super.mobInteract(player, hand)
 
         val usedStack = player.getItemInHand(hand)
 
         if (!usedStack.isEmpty) {
-            val itemUseResult = usedStack.interactLivingEntity(player, this, hand)
+            if (this.isFood(usedStack)) return this.fedFood(usedStack)
 
+            val itemUseResult = usedStack.interactLivingEntity(player, this, hand)
             if (itemUseResult.consumesAction()) return itemUseResult
         }
 
         this.doPlayerRide(player)
         return InteractionResult.sidedSuccess(level().isClientSide)
     }
+
+    // Riding
 
     private fun doPlayerRide(player: Player) {
         if (level().isClientSide) return
@@ -129,7 +161,7 @@ open class StringWormEntity(
     }
 
     override fun getRiddenSpeed(player: Player): Float {
-        return 0.2f
+        return (getAttributeValue(Attributes.MOVEMENT_SPEED) * getAttributeValue(Attributes.SCALE)).toFloat()
     }
 
     override fun tickRidden(player: Player, travelVector: Vec3) {
