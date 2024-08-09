@@ -110,6 +110,8 @@ open class StringWormEntity(
                 it.baseValue += 0.1
             }
 
+            this.refreshDimensions()
+
             return InteractionResult.sidedSuccess(level().isClientSide)
         }
 
