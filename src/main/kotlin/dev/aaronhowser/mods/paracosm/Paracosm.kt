@@ -63,6 +63,7 @@ class Paracosm(
      * - Cardboard armor that looks different
      * - Minecart pants that make you run fast
      * - Glitter that blinds you (using a new thing rather than the black blindness effect, maybe particles that obscure vision)
+     * - Toy Train minecart
      *
      * Toys (some are tools some are mobs)
      * - Come in 3 forms: items, blocks, and mobs. Maybe something to turn them from items/blocks into mobs?
@@ -93,12 +94,17 @@ class Paracosm(
      * - Pillow fights
      * - Couch pillow fortress
      * - Shrink ray
+     * - Slinky whip
      *
      * Spiderwick Chronicles style stuff
      * - Hole with a rock in it, lets anyone see imagination stuff, not required for people with high imagination
      * - Naturally spawning mobs like fairies and stuff
      * - Maybe they live in structure
      * - Fairies are just blue cubes that have wings and glow, require low imagination to see (or maybe none?) and they drop/give Fairy Dust which is used for stuff
+     * - Smurf style village with mushroom houses
+     * - Talking trees (block) that give Delusion from breaking, even if you cant see them
+     * - Will o the wisp
+     * - Redcaps (maybe they pretend to be other mobs?)
      *
      * Bad imagination stuff
      * Not the lack of imagination, but the presence of bad imagination
@@ -119,6 +125,7 @@ class Paracosm(
      * - Some punishment for being in the dark for too long?
      * - Zombies etc that run towards you super fast then vanish
      * - Stress toys that reduce bad imagination when used or lessen the effects of bad imagination, but cause problems when overused
+     * - Shuffles your inventory around slightly
      *
      * Misc
      * - Dreamcatchers that do stuff, maybe prevents nightmares and lets you use those dreams for something, but if you don't use them they ferment into something worse
