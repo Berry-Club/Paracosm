@@ -1,9 +1,6 @@
 package dev.aaronhowser.mods.paracosm.entity.custom
 
 import dev.aaronhowser.mods.paracosm.entity.base.ToyEntity
-import dev.aaronhowser.mods.paracosm.entity.goal.FlopGoal
-import dev.aaronhowser.mods.paracosm.entity.goal.ToyLookAtPlayerGoal
-import dev.aaronhowser.mods.paracosm.entity.goal.ToyRandomLookAroundGoal
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
@@ -13,8 +10,6 @@ import net.minecraft.world.entity.PlayerRideableJumping
 import net.minecraft.world.entity.TamableAnimal
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier
 import net.minecraft.world.entity.ai.attributes.Attributes
-import net.minecraft.world.entity.ai.goal.FloatGoal
-import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal
 import net.minecraft.world.entity.monster.Monster
 import net.minecraft.world.entity.player.Player
@@ -66,7 +61,13 @@ class StringWormEntity(
     }
 
     private fun predicate(animationState: AnimationState<StringWormEntity>): PlayState {
-        val animationName = "animation.stringworm.slither"
+        val animationName = if (this.isHiding) {
+            return PlayState.STOP
+        } else if (animationState.isMoving) {
+            "animation.stringworm.slither"
+        } else {
+            return PlayState.STOP
+        }
 
         animationState.controller.setAnimation(
             RawAnimation.begin().then(
