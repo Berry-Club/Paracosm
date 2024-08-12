@@ -25,7 +25,7 @@ import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache
 import software.bernie.geckolib.animation.*
 
-open class StringWormEntity(
+class StringWormEntity(
     entityType: EntityType<out TamableAnimal>,
     level: Level
 ) : ToyEntity(entityType, level), PlayerRideableJumping {
