@@ -25,11 +25,8 @@ data class Whimsy(
 
                 val level = this.level()
                 if (level is ServerLevel) {
-                    ModPacketHandler.messageNearbyPlayers(
+                    ModPacketHandler.messageAllPlayers(
                         UpdateWhimsyValue(this.id, value, true),
-                        level,
-                        this.position(),
-                        128.0
                     )
                 }
             }

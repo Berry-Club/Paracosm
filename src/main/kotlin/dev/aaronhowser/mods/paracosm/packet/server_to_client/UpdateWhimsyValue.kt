@@ -25,6 +25,7 @@ class UpdateWhimsyValue(
 
     override fun receiveMessage(context: IPayloadContext) {
         context.enqueueWork {
+            // Return if not near player
             val entity = context.player().level().getEntity(entityId) as? LivingEntity ?: return@enqueueWork
 
             if (isWhimsy) {
