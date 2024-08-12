@@ -6,27 +6,27 @@
 			"bones": {
 				"one": {
 					"position": {
-						"vector": ["Math.sin(q.anim_time * 200)", "Math.max(0, Math.sin(q.anim_time * 360))", 0]
+						"vector": ["v.time = q.anim_time;Math.sin((v.time) * 200)", "v.t=query.anim_time * 5;math.max(0, math.sin(v.t*90) * 1.5)", 0]
 					}
 				},
 				"two": {
 					"position": {
-						"vector": ["Math.sin((q.anim_time - 0.1) * 200)", "2*Math.max(0, Math.sin((q.anim_time - 0.15) * 360))", 0]
+						"vector": ["v.time = q.anim_time - 0.1;Math.sin((v.time) * 200)", "v.t=query.anim_time * 5 - 0.75;math.max(0, math.sin(v.t*90) * 2.5)", 0]
 					}
 				},
 				"three": {
 					"position": {
-						"vector": ["Math.sin((q.anim_time - 0.2) * 200)", "2*Math.max(0, Math.sin((q.anim_time - 0.3) * 360))", 0]
+						"vector": ["v.time = q.anim_time - 0.2;Math.sin((v.time) * 200)", "v.t=query.anim_time * 5 - 1.5;math.max(0, math.sin(v.t*90) * 2.5)", 0]
 					}
 				},
 				"four": {
 					"position": {
-						"vector": ["Math.sin((q.anim_time - 0.4) * 200)", "Math.max(0, Math.sin((q.anim_time - 0.45) * 360))", 0]
+						"vector": ["v.time = q.anim_time - 0.3;Math.sin((v.time) * 200)", "v.t=query.anim_time * 5 - 2.25;math.max(0, math.sin(v.t*90) * 1.5)", 0]
 					}
 				},
 				"five": {
 					"position": {
-						"vector": ["Math.sin((q.anim_time- 0.5) * 200)", "Math.max(0, Math.sin((q.anim_time- 0.6) * 360))", 0]
+						"vector": ["v.time = q.anim_time - 0.4;Math.sin((v.time) * 200)", "v.t=query.anim_time * 5 - 3;math.max(0, math.sin(v.t*90) * 1.5)", 0]
 					}
 				}
 			}
