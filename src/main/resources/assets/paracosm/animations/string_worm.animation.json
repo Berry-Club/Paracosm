@@ -6,27 +6,27 @@
 			"bones": {
 				"one": {
 					"position": {
-						"vector": ["Math.sin(query.modified_distance_moved * 200)", 0, 0]
+						"vector": ["Math.sin(q.modified_distance_moved * 200)", "Math.max(0, Math.sin(q.modified_distance_moved * 360))", 0]
 					}
 				},
 				"two": {
 					"position": {
-						"vector": ["Math.sin((query.modified_distance_moved - 0.1) * 200)", 0, 0]
+						"vector": ["Math.sin((query.modified_distance_moved - 0.1) * 200)", "2*Math.max(0, Math.sin((q.modified_distance_moved - 0.1) * 360))", 0]
 					}
 				},
 				"three": {
 					"position": {
-						"vector": ["Math.sin((query.modified_distance_moved - 0.2) * 200)", 0, 0]
+						"vector": ["Math.sin((query.modified_distance_moved - 0.2) * 200)", "2*Math.max(0, Math.sin((q.modified_distance_moved - 0.2) * 360))", 0]
 					}
 				},
 				"four": {
 					"position": {
-						"vector": ["Math.sin((query.modified_distance_moved - 0.4) * 200) ", 0, 0]
+						"vector": ["Math.sin((query.modified_distance_moved - 0.4) * 200) ", "Math.max(0, Math.sin((q.modified_distance_moved - 0.3) * 360))", 0]
 					}
 				},
 				"five": {
 					"position": {
-						"vector": ["Math.sin((query.modified_distance_moved - 0.5) * 200)", 0, 0]
+						"vector": ["Math.sin((query.modified_distance_moved - 0.5) * 200)", "Math.max(0, Math.sin((q.modified_distance_moved - 0.4) * 360))", 0]
 					}
 				}
 			}
