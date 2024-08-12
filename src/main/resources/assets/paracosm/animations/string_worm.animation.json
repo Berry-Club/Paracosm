@@ -7,8 +7,8 @@
 				"one": {
 					"position": {
 						"vector": [
-							"v.time = q.anim_time;Math.sin((v.time) * 200)",
-							"v.t=math.mod(math.max(q.anim_time-1.0, 0), 2);v.hop=0.5;v.t >= v.hop ? 0 : math.sin(math.mod(v.t, v.hop) / v.hop * 180)",
+							"math.sin((q.anim_time) * 200)",
+							"math.mod(math.max(q.anim_time - 1.0, 0), 2) >= 0.5 ? 0 : math.sin(math.mod(math.mod(math.max(q.anim_time - 1.0, 0), 2), 0.5) / 0.5 * 180)\n",
 							0
 						]
 					}
@@ -16,7 +16,7 @@
 				"two": {
 					"position": {
 						"vector": [
-							"v.time = q.anim_time - 0.1;Math.sin((v.time) * 200)",
+							"math.sin((q.anim_time - 0.1) * 200)",
 							"v.t=math.mod(math.max(q.anim_time-1.25, 0), 2);v.hop=0.5;v.t >= v.hop ? 0 : math.sin(math.mod(v.t, v.hop) / v.hop * 180)",
 							0
 						]
@@ -25,7 +25,7 @@
 				"three": {
 					"position": {
 						"vector": [
-							"v.time = q.anim_time - 0.2;Math.sin((v.time) * 200)",
+							"math.sin((q.anim_time - 0.2) * 200)",
 							"v.t=math.mod(math.max(q.anim_time-1.5, 0), 2);v.hop=0.5;v.t >= v.hop ? 0 : math.sin(math.mod(v.t, v.hop) / v.hop * 180)",
 							0
 						]
@@ -34,7 +34,7 @@
 				"four": {
 					"position": {
 						"vector": [
-							"v.time = q.anim_time - 0.3;Math.sin((v.time) * 200)",
+							"math.sin((q.anim_time - 0.3) * 200)",
 							"v.t=math.mod(math.max(q.anim_time-1.75, 0), 2);v.hop=0.5;v.t >= v.hop ? 0 : math.sin(math.mod(v.t, v.hop) / v.hop * 180)",
 							0
 						]
@@ -43,7 +43,7 @@
 				"five": {
 					"position": {
 						"vector": [
-							"v.time = q.anim_time - 0.4;Math.sin((v.time) * 200)",
+							"math.sin((q.anim_time - 0.4) * 200)",
 							"v.t=math.mod(math.max(q.anim_time-2.0, 0), 2);v.hop=0.5;v.t >= v.hop ? 0 : math.sin(math.mod(v.t, v.hop) / v.hop * 180)",
 							0
 						]
