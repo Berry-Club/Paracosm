@@ -50,12 +50,12 @@ open class StringWormEntity(
 
     override fun registerGoals() {
         this.goalSelector.let {
-            it.addGoal(0, FloatGoal(this))
-            it.addGoal(1, FlopGoal(this))
-            it.addGoal(2, SitWhenOrderedToGoal(this))
+//            it.addGoal(0, FloatGoal(this))
+//            it.addGoal(1, FlopGoal(this))
+//            it.addGoal(2, SitWhenOrderedToGoal(this))
             it.addGoal(3, WaterAvoidingRandomStrollGoal(this, 1.0))
-            it.addGoal(4, ToyLookAtPlayerGoal(this))
-            it.addGoal(5, ToyRandomLookAroundGoal(this))
+//            it.addGoal(4, ToyLookAtPlayerGoal(this))
+//            it.addGoal(5, ToyRandomLookAroundGoal(this))
         }
     }
 
