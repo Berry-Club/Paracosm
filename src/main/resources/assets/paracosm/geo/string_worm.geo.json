@@ -42,12 +42,7 @@
 					]
 				},
 				{
-					"name": "torso",
-					"pivot": [0, 0, 0]
-				},
-				{
 					"name": "one",
-					"parent": "torso",
 					"pivot": [0, 2, 2],
 					"cubes": [
 						{
@@ -66,7 +61,6 @@
 				},
 				{
 					"name": "two",
-					"parent": "one",
 					"pivot": [0, 0, 12],
 					"cubes": [
 						{
@@ -85,7 +79,6 @@
 				},
 				{
 					"name": "three",
-					"parent": "two",
 					"pivot": [0, 0, 22],
 					"cubes": [
 						{
@@ -104,7 +97,6 @@
 				},
 				{
 					"name": "four",
-					"parent": "three",
 					"pivot": [0, 0, 32],
 					"cubes": [
 						{
@@ -123,7 +115,6 @@
 				},
 				{
 					"name": "five",
-					"parent": "four",
 					"pivot": [0, 0, 42],
 					"cubes": [
 						{

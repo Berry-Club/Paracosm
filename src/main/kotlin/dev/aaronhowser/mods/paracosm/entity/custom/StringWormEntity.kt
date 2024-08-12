@@ -66,9 +66,7 @@ open class StringWormEntity(
     }
 
     private fun predicate(animationState: AnimationState<StringWormEntity>): PlayState {
-        val animationName = if (isHiding) {
-            return PlayState.STOP
-        } else if (animationState.isMoving) {
+        val animationName = if (animationState.isMoving) {
             "animation.stringworm.slither"
         } else return PlayState.STOP
 
