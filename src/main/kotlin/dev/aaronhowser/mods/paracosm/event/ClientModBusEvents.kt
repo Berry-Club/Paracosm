@@ -6,11 +6,11 @@ import dev.aaronhowser.mods.paracosm.client.render.entity.AaronberryRenderer
 import dev.aaronhowser.mods.paracosm.client.render.entity.StringWormRenderer
 import dev.aaronhowser.mods.paracosm.client.render.entity.TeddyBearRenderer
 import dev.aaronhowser.mods.paracosm.client.render.layer.TowelCapeLayer
+import dev.aaronhowser.mods.paracosm.datagen.model.ModItemModelProvider
 import dev.aaronhowser.mods.paracosm.item.ToyGunItem
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import dev.aaronhowser.mods.paracosm.util.ClientUtil
-import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.client.model.EntityModel
 import net.minecraft.client.renderer.entity.EntityRendererProvider
 import net.minecraft.client.renderer.entity.EntityRenderers
@@ -74,7 +74,7 @@ object ClientModBusEvents {
 
         ItemProperties.register(
             ModItems.TOY_GUN.get(),
-            OtherUtil.modResource("whimsical"),
+            ModItemModelProvider.whimsyPredicateName,
             ItemPropertyFunction { stack, _, _, _ ->
                 val item = stack.item as? ToyGunItem ?: return@ItemPropertyFunction 0f
 
