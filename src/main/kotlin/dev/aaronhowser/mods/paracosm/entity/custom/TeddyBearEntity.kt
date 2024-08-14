@@ -57,9 +57,11 @@ class TeddyBearEntity(
         if (!isTame) {
             tame(player)
             level().broadcastEntityEvent(this, 7)
+
+            return InteractionResult.SUCCESS_NO_ITEM_USED
         }
 
-        if (hand == InteractionHand.MAIN_HAND && !player.level().isClientSide) {
+        if (hand == InteractionHand.MAIN_HAND && !player.level().isClientSide && isHiding) {
 
             val component = Component.literal("I can't move because ")
                 .append(Component.literal("[these players]").withStyle { style ->
@@ -74,9 +76,10 @@ class TeddyBearEntity(
 
             player.sendSystemMessage(component)
 
+            return InteractionResult.PASS
         }
 
-        return InteractionResult.SUCCESS_NO_ITEM_USED
+        return InteractionResult.PASS
     }
 
     override fun registerControllers(controllers: AnimatableManager.ControllerRegistrar) {
