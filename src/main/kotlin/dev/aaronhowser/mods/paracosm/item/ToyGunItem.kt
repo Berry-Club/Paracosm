@@ -19,7 +19,7 @@ class ToyGunItem : RequiresWhimsy, Item(
     private val nameComponent = VariableComponent(
         componentTrue = ModLanguageProvider.Item.COOL_GUN.toComponent(),
         componentFalse = ModLanguageProvider.Item.TOY_GUN.toComponent()
-    ) { ClientUtil.whimsy >= requiredWhimsy }
+    ) { ClientUtil.hasWhimsy(requiredWhimsy) }
 
     override fun getName(stack: ItemStack): Component {
         return nameComponent

@@ -12,4 +12,6 @@ object ClientUtil {
     val whimsy: Float
         get() = localPlayer?.whimsy ?: 0f
 
+    fun hasWhimsy(requiredWhimsy: Float): Boolean = whimsy >= requiredWhimsy
+
 }

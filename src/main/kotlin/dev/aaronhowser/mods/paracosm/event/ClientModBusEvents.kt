@@ -78,7 +78,7 @@ object ClientModBusEvents {
             ItemPropertyFunction { stack, _, _, _ ->
                 val item = stack.item as? ToyGunItem ?: return@ItemPropertyFunction 0f
 
-                if (item.requiredWhimsy <= ClientUtil.whimsy) 1f else 0f
+                if (ClientUtil.hasWhimsy(item.requiredWhimsy)) 1f else 0f
             }
         )
 
