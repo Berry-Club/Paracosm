@@ -15,6 +15,8 @@ class ModLanguageProvider(output: PackOutput) : LanguageProvider(output, Paracos
         const val DODGEBALL = "item.paracosm.dodgeball"
         const val CANDY = "item.paracosm.candy"
         const val SODA = "item.paracosm.soda"
+        const val TOY_GUN = "item.paracosm.toy_gun"
+        const val COOL_GUN = "item.paracosm.cool_gun"
     }
 
     object Block {
@@ -55,6 +57,8 @@ class ModLanguageProvider(output: PackOutput) : LanguageProvider(output, Paracos
         add(Item.DODGEBALL, "Dodgeball")
         add(Item.CANDY, "Candy")
         add(Item.SODA, "Soda")
+        add(Item.TOY_GUN, "Toy Gun")
+        add(Item.COOL_GUN, "Cool Gun")
 
         add(Block.NIGHT_LIGHT, "Night Light")
         add(Block.WHOOPEE_CUSHION, "Whoopee Cushion")
