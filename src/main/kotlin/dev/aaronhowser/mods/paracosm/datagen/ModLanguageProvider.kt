@@ -36,6 +36,13 @@ class ModLanguageProvider(output: PackOutput) : LanguageProvider(output, Paracos
         const val SEEING_STONE = "curios.identifier.seeing_stone"
     }
 
+    object Subtitle {
+        const val FART = "subtitle.paracosm.fart"
+        const val UNFART = "subtitle.paracosm.unfart"
+        const val DODGEBALL = "subtitle.paracosm.dodgeball"
+        const val SQUEE = "subtitle.paracosm.squee"
+    }
+
     companion object {
         fun String.toComponent(vararg args: Any): MutableComponent = Component.translatable(this, *args)
     }
@@ -58,5 +65,11 @@ class ModLanguageProvider(output: PackOutput) : LanguageProvider(output, Paracos
         add(Misc.CREATIVE_TAB, "Paracosm")
 
         add(Curios.SEEING_STONE, "Seeing Stone")
+
+        add(Subtitle.FART, "Pbbbbt")
+        add(Subtitle.UNFART, "Bbbtpp")
+        add(Subtitle.DODGEBALL, "PHONK")
+        add(Subtitle.SQUEE, "Squee")
+
     }
 }
