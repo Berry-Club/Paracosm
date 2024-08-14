@@ -7,10 +7,7 @@ import dev.aaronhowser.mods.paracosm.entity.goal.ToyRandomLookAroundGoal
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
-import net.minecraft.world.entity.EntityType
-import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.entity.PlayerRideableJumping
-import net.minecraft.world.entity.TamableAnimal
+import net.minecraft.world.entity.*
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier
 import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.ai.goal.FloatGoal
@@ -23,6 +20,7 @@ import net.minecraft.world.phys.Vec3
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache
 import software.bernie.geckolib.animation.*
+import software.bernie.geckolib.animation.AnimationState
 
 class StringWormEntity(
     entityType: EntityType<out TamableAnimal>,
@@ -36,7 +34,7 @@ class StringWormEntity(
     companion object {
 
         fun setAttributes(): AttributeSupplier {
-            return LivingEntity.createLivingAttributes()
+            return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 20.0)
                 .add(Attributes.ATTACK_DAMAGE, 2.0)
                 .add(Attributes.ATTACK_SPEED, 1.0)

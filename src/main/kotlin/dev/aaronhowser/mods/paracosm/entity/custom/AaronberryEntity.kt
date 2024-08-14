@@ -5,13 +5,13 @@ import dev.aaronhowser.mods.paracosm.entity.goal.FlopGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyLookAtPlayerGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyRandomLookAroundGoal
 import net.minecraft.world.entity.EntityType
+import net.minecraft.world.entity.Mob
 import net.minecraft.world.entity.TamableAnimal
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier
 import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.ai.goal.FloatGoal
 import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal
-import net.minecraft.world.entity.monster.Monster
 import net.minecraft.world.level.Level
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache
@@ -27,7 +27,7 @@ class AaronberryEntity(
     companion object {
 
         fun setAttributes(): AttributeSupplier {
-            return Monster.createMobAttributes()
+            return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 20.0)
                 .add(Attributes.ATTACK_DAMAGE, 2.0)
                 .add(Attributes.ATTACK_SPEED, 1.0)
