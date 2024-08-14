@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.paracosm.item
 
 import dev.aaronhowser.mods.paracosm.attachment.ShrinkRayEffect.Companion.shrinkRayEffect
+import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.InteractionResultHolder
@@ -19,15 +20,16 @@ class ShrinkRayItem : Item(
 
     companion object {
 
-        private fun changeScale(entity: LivingEntity, scaleChange: Double): Boolean {
+        private fun changeScale(
+            entity: LivingEntity,
+            scaleChange: Double,
+            changer: Player? = null
+        ): Boolean {
             val scaleBefore = entity.getAttributeValue(Attributes.SCALE)
 
             entity.shrinkRayEffect += scaleChange
 
-            val a = entity.shrinkRayEffect
-            val abs = abs(a)
-
-            if (abs < 0.01) {
+            if (abs(entity.shrinkRayEffect) < 0.01) {
                 entity.shrinkRayEffect = 0.0
             }
 
@@ -37,7 +39,19 @@ class ShrinkRayItem : Item(
 
             if (scaleChanged) {
                 entity.refreshDimensions()
+
+                val entityName = entity.name.string
+                val afterString = "%.2f".format(scaleAfter)
+                val changeMessage = Component.literal("$entityName scale effect changed to $afterString")
+
+                changer?.displayClientMessage(changeMessage, true)
+
+                if (changer != entity && entity is Player) {
+                    entity.displayClientMessage(changeMessage, true)
+                }
+
             }
+
             return scaleChanged
         }
 
@@ -51,7 +65,7 @@ class ShrinkRayItem : Item(
     ): InteractionResult {
         val changeAmount = if (player.isShiftKeyDown) -0.1 else 0.1
 
-        val scaleChanged = changeScale(interactionTarget, changeAmount)
+        val scaleChanged = changeScale(interactionTarget, changeAmount, player)
 
         return if (scaleChanged) {
             InteractionResult.sidedSuccess(interactionTarget.level().isClientSide)
