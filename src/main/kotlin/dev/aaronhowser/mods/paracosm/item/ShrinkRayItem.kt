@@ -22,7 +22,9 @@ class ShrinkRayItem : Item(
         interactionTarget: LivingEntity,
         usedHand: InteractionHand
     ): InteractionResult {
-        if (player.level().isClientSide || player.cooldowns.isOnCooldown(this)) return InteractionResult.PASS
+        if (player.level().isClientSide || player.cooldowns.isOnCooldown(this)) {
+            return InteractionResult.PASS
+        }
 
         val scaleBefore = interactionTarget.getAttributeValue(Attributes.SCALE)
 
@@ -46,9 +48,9 @@ class ShrinkRayItem : Item(
     override fun use(level: Level, player: Player, usedHand: InteractionHand): InteractionResultHolder<ItemStack> {
         val usedStack = player.getItemInHand(usedHand)
 
-        if (player.level().isClientSide || player.cooldowns.isOnCooldown(this)) return InteractionResultHolder.pass(
-            usedStack
-        )
+        if (player.level().isClientSide || player.cooldowns.isOnCooldown(this)) {
+            return InteractionResultHolder.pass(usedStack)
+        }
 
         val scaleBefore = player.getAttributeValue(Attributes.SCALE)
 
