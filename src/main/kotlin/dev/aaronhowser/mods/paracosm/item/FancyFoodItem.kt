@@ -5,7 +5,7 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.UseAnim
 
-class FoodItem(
+class FancyFoodItem(
     stacksTo: Int,
     private val isDrink: Boolean,
     foodProperties: FoodProperties

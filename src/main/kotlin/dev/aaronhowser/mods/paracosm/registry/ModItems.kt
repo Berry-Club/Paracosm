@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.paracosm.registry
 
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.item.*
-import dev.aaronhowser.mods.paracosm.item.FoodItem.Companion.fast
+import dev.aaronhowser.mods.paracosm.item.FancyFoodItem.Companion.fast
 import net.minecraft.world.food.FoodProperties
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemNameBlockItem
@@ -24,9 +24,9 @@ object ModItems {
         ITEM_REGISTRY.registerItem("seeing_stone") { SeeingStone() }
     val DODGEBALL: DeferredItem<DodgeballItem> =
         ITEM_REGISTRY.registerItem("dodgeball") { DodgeballItem() }
-    val CANDY: DeferredItem<FoodItem> =
+    val CANDY: DeferredItem<FancyFoodItem> =
         ITEM_REGISTRY.registerItem("candy") {
-            FoodItem(
+            FancyFoodItem(
                 stacksTo = 99,
                 isDrink = false,
                 FoodProperties
@@ -37,9 +37,9 @@ object ModItems {
                     .build()
             )
         }
-    val SODA: DeferredItem<FoodItem> =
+    val SODA: DeferredItem<FancyFoodItem> =
         ITEM_REGISTRY.registerItem("soda") {
-            FoodItem(
+            FancyFoodItem(
                 stacksTo = 1,
                 isDrink = true,
                 FoodProperties
