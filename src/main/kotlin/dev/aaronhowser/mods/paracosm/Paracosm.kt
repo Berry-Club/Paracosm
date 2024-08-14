@@ -95,6 +95,9 @@ class Paracosm(
      * - Couch pillow fortress
      * - Shrink ray
      * - Slinky whip
+     * - Glow in the dark stars
+     * - Slingshot
+     * - Slowstick?
      *
      * Spiderwick Chronicles style stuff
      * - Hole with a rock in it, lets anyone see imagination stuff, not required for people with high imagination
