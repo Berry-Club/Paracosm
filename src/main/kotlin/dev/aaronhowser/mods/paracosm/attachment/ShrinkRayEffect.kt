@@ -17,6 +17,8 @@ data class ShrinkRayEffect(
         val CODEC: Codec<ShrinkRayEffect> =
             Codec.DOUBLE.xmap(::ShrinkRayEffect, ShrinkRayEffect::amount)
 
+        val attributeModifierId = OtherUtil.modResource("shrink_ray_effect")
+
         var LivingEntity.shrinkRayEffect: Double
             get() = this.getData(ModAttachmentTypes.SHRINK_RAY_EFFECT).amount
             set(valueBad) {
@@ -26,12 +28,16 @@ data class ShrinkRayEffect(
 
                 val scaleAttribute = this.getAttribute(Attributes.SCALE) ?: return
                 val modifier = AttributeModifier(
-                    OtherUtil.modResource("shrink_ray_effect"),
+                    attributeModifierId,
                     shrinkRayEffect,
                     AttributeModifier.Operation.ADD_VALUE
                 )
 
                 scaleAttribute.addOrReplacePermanentModifier(modifier)
+
+                if (value == 0.0) {
+                    scaleAttribute.removeModifier(modifier)
+                }
 
                 if (!this.level().isClientSide) {
                     val nameString = this.name.string
