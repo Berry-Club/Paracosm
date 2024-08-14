@@ -67,7 +67,7 @@
 - [ ] Stress ball
 - [x] Dodgeball weapon that knocks back mobs, maybe upgrade it with imagination (homing (rainbow trail?), fire), maybe
   if you have bad imagination they just fly out of nowhere sometimes and hit you in the face (needs a sound)
-- [ ] Aaronberry plush that looks like https://quickvids.app/v/7397148460467621126
+- [x] Aaronberry plush that looks like https://quickvids.app/v/7397148460467621126
 - [ ] Cardboard tube sword/lightsaber
 - [ ] Flying UFO?
 - [ ] Dragon plush
