@@ -1,0 +1,11 @@
+{
+  "aliases": [
+    {
+      "stacks": ["item:paracosm:toy_gun"],
+      "text": [
+        "item.paracosm.toy_gun",
+        "item.paracosm.cool_gun"
+      ]
+    }
+  ]
+}
