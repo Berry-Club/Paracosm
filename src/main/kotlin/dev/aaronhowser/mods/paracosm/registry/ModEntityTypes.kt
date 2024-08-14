@@ -23,7 +23,7 @@ object ModEntityTypes {
                 { type, level -> TeddyBearEntity(type, level) },
                 MobCategory.MISC
             )
-                .sized(1f, 1f)
+                .sized(0.5f, 1.1f)
                 .build("teddy_bear")
         })
 
@@ -43,7 +43,7 @@ object ModEntityTypes {
                 { type, level -> AaronberryEntity(type, level) },
                 MobCategory.MISC
             )
-                .sized(1f, 1f)
+                .sized(0.3f, 0.6f)
                 .build("aaronberry")
         })
 
