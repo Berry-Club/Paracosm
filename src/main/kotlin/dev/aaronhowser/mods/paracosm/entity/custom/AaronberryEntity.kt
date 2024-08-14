@@ -54,7 +54,7 @@ class AaronberryEntity(
 
     private fun predicate(animationState: AnimationState<AaronberryEntity>): PlayState {
         val animationName = if (isHiding) {
-            "animation.aaronberry.flop"
+            "animation.aaronberry.sit"
         } else if (animationState.isMoving) {
             "animation.aaronberry.walk"
         } else return PlayState.STOP
