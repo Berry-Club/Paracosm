@@ -37,16 +37,16 @@ object SetDelusionCommand {
         context: CommandContext<CommandSourceStack>,
         entity: Entity?
     ): Int {
-        val commandSender = context.source.entity
+        val commandSender = context.source
         val target = (entity ?: context.source.entity) as? Player ?: return 0
 
         val amount = FloatArgumentType.getFloat(context, AMOUNT_ARGUMENT)
 
         target.delusion = amount
 
-        if (commandSender is Player) {
-            commandSender.sendSystemMessage(Component.literal("Set ${target.gameProfile.name}'s Delusion to $amount"))
-            if (target != commandSender) target.sendSystemMessage(Component.literal("${commandSender.gameProfile.name} set your Delusion to $amount"))
+        target.sendSystemMessage(Component.literal("Your Delusion has been set to $amount"))
+        if (commandSender != target) {
+            commandSender.sendSystemMessage(Component.literal("${target.gameProfile.name}'s Delusion has been set to $amount"))
         }
 
         Paracosm.LOGGER.info("Set ${target.gameProfile.name}'s Delusion to $amount")

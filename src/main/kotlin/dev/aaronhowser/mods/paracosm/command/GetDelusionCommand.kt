@@ -30,7 +30,7 @@ object GetDelusionCommand {
         context: CommandContext<CommandSourceStack>,
         entity: Entity?
     ): Int {
-        val commandSender = context.source.entity as? Player ?: return 0
+        val commandSender = context.source
         val target = (entity ?: context.source.entity) as? Player ?: return 0
 
         val targetDelusion = target.delusion

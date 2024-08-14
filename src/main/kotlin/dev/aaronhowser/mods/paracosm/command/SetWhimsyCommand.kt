@@ -37,16 +37,16 @@ object SetWhimsyCommand {
         context: CommandContext<CommandSourceStack>,
         entity: Entity?
     ): Int {
-        val commandSender = context.source.entity
+        val commandSender = context.source
         val target = (entity ?: context.source.entity) as? Player ?: return 0
 
         val amount = FloatArgumentType.getFloat(context, AMOUNT_ARGUMENT)
 
         target.whimsy = amount
 
-        if (commandSender is Player) {
-            commandSender.sendSystemMessage(Component.literal("Set ${target.gameProfile.name}'s Whimsy to $amount"))
-            if (target != commandSender) target.sendSystemMessage(Component.literal("${commandSender.gameProfile.name} set your Whimsy to $amount"))
+        target.sendSystemMessage(Component.literal("Your Whimsy has been set to $amount"))
+        if (commandSender != target) {
+            commandSender.sendSystemMessage(Component.literal("${target.gameProfile.name}'s Whimsy has been set to $amount"))
         }
 
         Paracosm.LOGGER.info("Set ${target.gameProfile.name}'s Whimsy to $amount")
