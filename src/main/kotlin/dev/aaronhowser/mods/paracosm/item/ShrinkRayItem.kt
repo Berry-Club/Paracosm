@@ -22,7 +22,7 @@ class ShrinkRayItem : Item(
         interactionTarget: LivingEntity,
         usedHand: InteractionHand
     ): InteractionResult {
-        if (player.level().isClientSide) return InteractionResult.PASS
+        if (player.level().isClientSide || player.cooldowns.isOnCooldown(this)) return InteractionResult.PASS
 
         val scaleBefore = interactionTarget.getAttributeValue(Attributes.SCALE)
 
@@ -34,18 +34,23 @@ class ShrinkRayItem : Item(
 
         val scaleAfter = interactionTarget.getAttributeValue(Attributes.SCALE)
 
+        player.cooldowns.addCooldown(this, 1)
+
         return if (scaleBefore != scaleAfter) {
-            InteractionResult.CONSUME
+            InteractionResult.SUCCESS
         } else {
             InteractionResult.PASS
         }
     }
 
-    //FIXME: Still procs when you click an entity
     override fun use(level: Level, player: Player, usedHand: InteractionHand): InteractionResultHolder<ItemStack> {
         val usedStack = player.getItemInHand(usedHand)
 
-        if (player.level().isClientSide) return InteractionResultHolder.pass(usedStack)
+        if (player.level().isClientSide || player.cooldowns.isOnCooldown(this)) return InteractionResultHolder.pass(
+            usedStack
+        )
+
+        val scaleBefore = player.getAttributeValue(Attributes.SCALE)
 
         if (player.isSecondaryUseActive) {
             player.shrinkRayEffect -= 0.1
@@ -53,7 +58,15 @@ class ShrinkRayItem : Item(
             player.shrinkRayEffect += 0.1
         }
 
-        return InteractionResultHolder.pass(usedStack)
+        val scaleAfter = player.getAttributeValue(Attributes.SCALE)
+
+        player.cooldowns.addCooldown(this, 1)
+
+        return if (scaleBefore != scaleAfter) {
+            InteractionResultHolder.success(usedStack)
+        } else {
+            InteractionResultHolder.pass(usedStack)
+        }
     }
 
 }
