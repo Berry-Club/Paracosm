@@ -33,8 +33,10 @@ data class ShrinkRayEffect(
 
                 scaleAttribute.addOrReplacePermanentModifier(modifier)
 
-                val nameString = this.name.string
-                Paracosm.LOGGER.debug("$nameString's Shrink Ray effect value is now $value")
+                if (!this.level().isClientSide) {
+                    val nameString = this.name.string
+                    Paracosm.LOGGER.debug("$nameString's Shrink Ray effect value is now $value")
+                }
             }
 
     }
