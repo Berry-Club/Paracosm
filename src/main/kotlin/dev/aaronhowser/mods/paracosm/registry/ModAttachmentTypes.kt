@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.paracosm.registry
 
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.attachment.Delusion
+import dev.aaronhowser.mods.paracosm.attachment.ShrinkRayEffect
 import dev.aaronhowser.mods.paracosm.attachment.Whimsy
 import net.neoforged.neoforge.attachment.AttachmentType
 import net.neoforged.neoforge.registries.DeferredHolder
@@ -28,6 +29,15 @@ object ModAttachmentTypes {
             AttachmentType
                 .builder(Supplier { Delusion() })
                 .serialize(Delusion.CODEC)
+                .copyOnDeath()
+                .build()
+        })
+
+    val SHRINK_RAY_EFFECT: DeferredHolder<AttachmentType<*>, AttachmentType<ShrinkRayEffect>> =
+        ATTACHMENT_TYPES_REGISTRY.register("shrink_ray_effect", Supplier {
+            AttachmentType
+                .builder(Supplier { ShrinkRayEffect(0.0) })
+                .serialize(ShrinkRayEffect.CODEC)
                 .copyOnDeath()
                 .build()
         })

@@ -24,6 +24,8 @@ object ModItems {
         ITEM_REGISTRY.registerItem("seeing_stone") { SeeingStone() }
     val DODGEBALL: DeferredItem<DodgeballItem> =
         ITEM_REGISTRY.registerItem("dodgeball") { DodgeballItem() }
+    val SHRINK_RAY: DeferredItem<ShrinkRayItem> =
+        ITEM_REGISTRY.registerItem("shrink_ray") { ShrinkRayItem() }
     val CANDY: DeferredItem<FancyFoodItem> =
         ITEM_REGISTRY.registerItem("candy") {
             FancyFoodItem(
