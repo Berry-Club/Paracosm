@@ -27,4 +27,8 @@ object OtherUtil {
         return angle < angleDegrees
     }
 
+    fun Number.map(min1: Float, max1: Float, min2: Float, max2: Float): Float {
+        return min2 + (max2 - min2) * ((this.toFloat() - min1) / (max1 - min1))
+    }
+
 }
