@@ -10,11 +10,38 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
+import kotlin.math.abs
 
 class ShrinkRayItem : Item(
     Properties()
         .stacksTo(1)
 ) {
+
+    companion object {
+
+        private fun changeScale(entity: LivingEntity, scaleChange: Double): Boolean {
+            val scaleBefore = entity.getAttributeValue(Attributes.SCALE)
+
+            entity.shrinkRayEffect += scaleChange
+
+            val a = entity.shrinkRayEffect
+            val abs = abs(a)
+
+            if (abs < 0.01) {
+                entity.shrinkRayEffect = 0.0
+            }
+
+            val scaleAfter = entity.getAttributeValue(Attributes.SCALE)
+
+            val scaleChanged = scaleBefore != scaleAfter
+
+            if (scaleChanged) {
+                entity.refreshDimensions()
+            }
+            return scaleChanged
+        }
+
+    }
 
     override fun interactLivingEntity(
         stack: ItemStack,
@@ -22,24 +49,12 @@ class ShrinkRayItem : Item(
         interactionTarget: LivingEntity,
         usedHand: InteractionHand
     ): InteractionResult {
-        if (player.level().isClientSide || player.cooldowns.isOnCooldown(this)) {
-            return InteractionResult.PASS
-        }
+        val changeAmount = if (player.isShiftKeyDown) -0.1 else 0.1
 
-        val scaleBefore = interactionTarget.getAttributeValue(Attributes.SCALE)
+        val scaleChanged = changeScale(interactionTarget, changeAmount)
 
-        if (player.isShiftKeyDown) {
-            interactionTarget.shrinkRayEffect -= 0.1
-        } else {
-            interactionTarget.shrinkRayEffect += 0.1
-        }
-
-        val scaleAfter = interactionTarget.getAttributeValue(Attributes.SCALE)
-
-        player.cooldowns.addCooldown(this, 1)
-
-        return if (scaleBefore != scaleAfter) {
-            InteractionResult.SUCCESS
+        return if (scaleChanged) {
+            InteractionResult.sidedSuccess(interactionTarget.level().isClientSide)
         } else {
             InteractionResult.PASS
         }
@@ -48,24 +63,12 @@ class ShrinkRayItem : Item(
     override fun use(level: Level, player: Player, usedHand: InteractionHand): InteractionResultHolder<ItemStack> {
         val usedStack = player.getItemInHand(usedHand)
 
-        if (player.level().isClientSide || player.cooldowns.isOnCooldown(this)) {
-            return InteractionResultHolder.pass(usedStack)
-        }
+        val changeAmount = if (player.isShiftKeyDown) -0.1 else 0.1
 
-        val scaleBefore = player.getAttributeValue(Attributes.SCALE)
+        val scaleChanged = changeScale(player, changeAmount)
 
-        if (player.isSecondaryUseActive) {
-            player.shrinkRayEffect -= 0.1
-        } else {
-            player.shrinkRayEffect += 0.1
-        }
-
-        val scaleAfter = player.getAttributeValue(Attributes.SCALE)
-
-        player.cooldowns.addCooldown(this, 1)
-
-        return if (scaleBefore != scaleAfter) {
-            InteractionResultHolder.success(usedStack)
+        return if (scaleChanged) {
+            InteractionResultHolder.sidedSuccess(usedStack, level.isClientSide)
         } else {
             InteractionResultHolder.pass(usedStack)
         }
