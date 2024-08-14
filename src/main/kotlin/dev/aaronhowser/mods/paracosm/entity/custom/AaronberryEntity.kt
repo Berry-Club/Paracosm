@@ -11,7 +11,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier
 import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.ai.goal.FloatGoal
 import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal
 import net.minecraft.world.level.Level
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache
@@ -52,7 +51,7 @@ class AaronberryEntity(
     }
 
     private fun predicate(animationState: AnimationState<AaronberryEntity>): PlayState {
-        val animationName = if (isHiding) {
+        val animationName = if (isHiding || isInSittingPose) {
             "animation.aaronberry.sit"
         } else if (animationState.isMoving) {
             "animation.aaronberry.walk"
