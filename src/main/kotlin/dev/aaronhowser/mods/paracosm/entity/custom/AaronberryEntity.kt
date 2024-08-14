@@ -4,35 +4,30 @@ import dev.aaronhowser.mods.paracosm.entity.base.ToyEntity
 import dev.aaronhowser.mods.paracosm.entity.goal.FlopGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyLookAtPlayerGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyRandomLookAroundGoal
-import net.minecraft.network.chat.Component
-import net.minecraft.network.chat.HoverEvent
-import net.minecraft.world.InteractionHand
-import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.EntityType
-import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.TamableAnimal
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier
 import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.ai.goal.FloatGoal
 import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal
-import net.minecraft.world.entity.player.Player
+import net.minecraft.world.entity.monster.Monster
 import net.minecraft.world.level.Level
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache
 import software.bernie.geckolib.animation.*
 
-class TeddyBearEntity(
+class AaronberryEntity(
     entityType: EntityType<out TamableAnimal>,
     level: Level
 ) : ToyEntity(entityType, level) {
 
-    override val requiredWhimsy: Float = 10f
+    override val requiredWhimsy: Float = 1f
 
     companion object {
 
         fun setAttributes(): AttributeSupplier {
-            return LivingEntity.createLivingAttributes()
+            return Monster.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 20.0)
                 .add(Attributes.ATTACK_DAMAGE, 2.0)
                 .add(Attributes.ATTACK_SPEED, 1.0)
@@ -53,44 +48,15 @@ class TeddyBearEntity(
         }
     }
 
-    override fun mobInteract(player: Player, hand: InteractionHand): InteractionResult {
-        if (!isTame) {
-            tame(player)
-            level().broadcastEntityEvent(this, 7)
-
-            return InteractionResult.SUCCESS_NO_ITEM_USED
-        }
-
-        if (hand == InteractionHand.MAIN_HAND && !player.level().isClientSide && isHiding) {
-
-            val component = Component.literal("I can't move because ")
-                .append(Component.literal("[these players]").withStyle { style ->
-                    style.withHoverEvent(
-                        HoverEvent(
-                            HoverEvent.Action.SHOW_TEXT,
-                            Component.literal(hidingFromPlayers().joinToString("\n") { it.gameProfile.name })
-                        )
-                    )
-                })
-                .append(Component.literal(" are looking at me and don't believe!"))
-
-            player.sendSystemMessage(component)
-
-            return InteractionResult.PASS
-        }
-
-        return InteractionResult.PASS
-    }
-
     override fun registerControllers(controllers: AnimatableManager.ControllerRegistrar) {
         controllers.add(AnimationController(this, "controller", 0, this::predicate))
     }
 
-    private fun predicate(animationState: AnimationState<TeddyBearEntity>): PlayState {
+    private fun predicate(animationState: AnimationState<AaronberryEntity>): PlayState {
         val animationName = if (isHiding) {
-            "animation.teddybear.flop"
+            "animation.aaronberry.flop"
         } else if (animationState.isMoving) {
-            "animation.teddybear.walk"
+            "animation.aaronberry.walk"
         } else return PlayState.STOP
 
         animationState.controller.setAnimation(

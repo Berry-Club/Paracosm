@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.paracosm.registry
 
 import dev.aaronhowser.mods.paracosm.Paracosm
+import dev.aaronhowser.mods.paracosm.entity.custom.AaronberryEntity
 import dev.aaronhowser.mods.paracosm.entity.custom.DodgeballEntity
 import dev.aaronhowser.mods.paracosm.entity.custom.StringWormEntity
 import dev.aaronhowser.mods.paracosm.entity.custom.TeddyBearEntity
@@ -34,6 +35,16 @@ object ModEntityTypes {
             )
                 .sized(1f, 1f)
                 .build("string_worm")
+        })
+
+    val AARONBERRY: DeferredHolder<EntityType<*>, EntityType<AaronberryEntity>> =
+        ENTITY_TYPE_REGISTRY.register("aaronberry", Supplier {
+            EntityType.Builder.of(
+                { type, level -> AaronberryEntity(type, level) },
+                MobCategory.MISC
+            )
+                .sized(1f, 1f)
+                .build("aaronberry")
         })
 
     val DODGEBALL: DeferredHolder<EntityType<*>, EntityType<DodgeballEntity>> =
