@@ -6,23 +6,23 @@ import net.minecraft.network.chat.Style
 import net.minecraft.util.FormattedCharSequence
 
 class VariableComponent(
-    val componentOne: Component,
-    val componentTwo: Component,
+    val componentTrue: Component,
+    val componentFalse: Component,
     val condition: () -> Boolean
 ) : Component {
     override fun getStyle(): Style {
-        return if (condition()) componentOne.style else componentTwo.style
+        return if (condition()) componentTrue.style else componentFalse.style
     }
 
     override fun getContents(): ComponentContents {
-        return if (condition()) componentOne.contents else componentTwo.contents
+        return if (condition()) componentTrue.contents else componentFalse.contents
     }
 
     override fun getSiblings(): MutableList<Component> {
-        return if (condition()) componentOne.siblings else componentTwo.siblings
+        return if (condition()) componentTrue.siblings else componentFalse.siblings
     }
 
     override fun getVisualOrderText(): FormattedCharSequence {
-        return if (condition()) componentOne.visualOrderText else componentTwo.visualOrderText
+        return if (condition()) componentTrue.visualOrderText else componentFalse.visualOrderText
     }
 }
