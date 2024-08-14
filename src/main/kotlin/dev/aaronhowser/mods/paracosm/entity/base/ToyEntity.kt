@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.paracosm.entity.base
 
 import dev.aaronhowser.mods.paracosm.attachment.RequiresWhimsy
+import dev.aaronhowser.mods.paracosm.config.ServerConfig
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.AgeableMob
@@ -10,6 +11,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 import software.bernie.geckolib.animatable.GeoEntity
+import kotlin.math.pow
 
 abstract class ToyEntity(
     entityType: EntityType<out TamableAnimal>,
@@ -19,7 +21,7 @@ abstract class ToyEntity(
     fun hidingFromPlayers(): List<Player> {
         return level().players().filter {
             !hasEnoughWhimsy(it)
-                    && it.distanceToSqr(this) < 10.0 * 10.0
+                    && it.distanceToSqr(this) < ServerConfig.TOY_FLOP_RANGE.get().pow(2)
                     && OtherUtil.isLookingAtPos(it, eyePosition, 75f)
                     && it.hasLineOfSight(this)
         }
