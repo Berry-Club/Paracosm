@@ -28,12 +28,15 @@ class AaronberryModel : GeoModel<AaronberryEntity>() {
         instanceId: Long,
         animationState: AnimationState<AaronberryEntity>
     ) {
+        if (animatable?.isHiding == true) return
+
         val face: GeoBone? = animationProcessor.getBone("face")
 
         if (face != null) {
             val entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA)
 
             face.posY = entityData.headPitch.map(-90f, 90f, -3f, 3f)
+            face.posX = entityData.netHeadYaw.map(-90f, 90f, -2f, 2f)
         }
     }
 
