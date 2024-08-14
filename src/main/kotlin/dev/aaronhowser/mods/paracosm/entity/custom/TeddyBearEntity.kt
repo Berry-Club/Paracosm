@@ -9,6 +9,7 @@ import net.minecraft.network.chat.HoverEvent
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.EntityType
+import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.TamableAnimal
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier
 import net.minecraft.world.entity.ai.attributes.Attributes
@@ -32,7 +33,7 @@ class TeddyBearEntity(
     companion object {
 
         fun setAttributes(): AttributeSupplier {
-            return Monster.createMobAttributes()
+            return LivingEntity.createLivingAttributes()
                 .add(Attributes.MAX_HEALTH, 20.0)
                 .add(Attributes.ATTACK_DAMAGE, 2.0)
                 .add(Attributes.ATTACK_SPEED, 1.0)
