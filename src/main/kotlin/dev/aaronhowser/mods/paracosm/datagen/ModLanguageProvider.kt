@@ -26,6 +26,7 @@ class ModLanguageProvider(output: PackOutput) : LanguageProvider(output, Paracos
         const val TEDDY_BEAR = "entity.paracosm.teddy_bear"
         const val DODGEBALL = "entity.paracosm.dodgeball"
         const val STRING_WORM = "entity.paracosm.string_worm"
+        const val AARONBERRY = "entity.paracosm.aaronberry"
     }
 
     object Misc {
@@ -61,6 +62,7 @@ class ModLanguageProvider(output: PackOutput) : LanguageProvider(output, Paracos
         add(Entity.TEDDY_BEAR, "Teddy Bear")
         add(Entity.DODGEBALL, "Dodgeball")
         add(Entity.STRING_WORM, "String Worm")
+        add(Entity.AARONBERRY, "Aaronberry")
 
         add(Misc.CREATIVE_TAB, "Paracosm")
 
