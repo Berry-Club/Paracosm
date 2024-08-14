@@ -23,6 +23,11 @@
 					"rotation": {
 						"vector": ["math.sin(query.anim_time*360)*45", 0, 0]
 					}
+				},
+				"face": {
+					"position": {
+						"vector": [0, "0.125*math.sin(query.anim_time*360)", 0]
+					}
 				}
 			}
 		}
