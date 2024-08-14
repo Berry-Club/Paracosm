@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.paracosm.entity.base.ToyEntity
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyLookAtPlayerGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyRandomLookAroundGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyStrollGoal
+import dev.aaronhowser.mods.paracosm.registry.ModSounds
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
 import net.minecraft.world.InteractionHand
@@ -20,6 +21,7 @@ import net.minecraft.world.level.Level
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache
 import software.bernie.geckolib.animation.*
+import kotlin.random.Random
 
 class TeddyBearEntity(
     entityType: EntityType<out TamableAnimal>,
@@ -52,11 +54,21 @@ class TeddyBearEntity(
     }
 
     override fun mobInteract(player: Player, hand: InteractionHand): InteractionResult {
+
+        if (!this.level().isClientSide && hand == InteractionHand.MAIN_HAND) {
+            this.level().playSound(
+                this,
+                this.blockPosition(),
+                ModSounds.SQUEE.get(),
+                this.soundSource,
+                1f,
+                1f
+            )
+        }
+
         if (!isTame) {
             tame(player)
             level().broadcastEntityEvent(this, 7)
-
-            return InteractionResult.SUCCESS_NO_ITEM_USED
         }
 
         if (hand == InteractionHand.MAIN_HAND && !player.level().isClientSide && isHiding) {
@@ -73,11 +85,9 @@ class TeddyBearEntity(
                 .append(Component.literal(" are looking at me and don't believe!"))
 
             player.sendSystemMessage(component)
-
-            return InteractionResult.PASS
         }
 
-        return InteractionResult.PASS
+        return InteractionResult.SUCCESS_NO_ITEM_USED
     }
 
     override fun registerControllers(controllers: AnimatableManager.ControllerRegistrar) {

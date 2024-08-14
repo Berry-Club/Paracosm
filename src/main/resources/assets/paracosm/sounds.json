@@ -20,5 +20,11 @@
       "paracosm:unfart3"
     ],
     "subtitle": "subtitle.paracosm.unfart"
+  },
+  "squee": {
+    "sounds": [
+      "paracosm:squee"
+    ],
+    "subtitle": "subtitle.paracosm.squee"
   }
 }

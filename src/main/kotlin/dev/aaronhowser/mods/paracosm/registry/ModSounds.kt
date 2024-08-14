@@ -28,4 +28,9 @@ object ModSounds {
             SoundEvent.createVariableRangeEvent(OtherUtil.modResource("unfart"))
         })
 
+    val SQUEE: DeferredHolder<SoundEvent, SoundEvent> =
+        SOUND_EVENT_REGISTRY.register("squee", Supplier {
+            SoundEvent.createVariableRangeEvent(OtherUtil.modResource("squee"))
+        })
+
 }
