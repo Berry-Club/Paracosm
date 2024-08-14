@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.paracosm.attachment
 
 import com.mojang.serialization.Codec
+import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateWhimsyValue
 import dev.aaronhowser.mods.paracosm.registry.ModAttachmentTypes
@@ -26,9 +27,21 @@ data class Whimsy(
                 val level = this.level()
                 if (level is ServerLevel) {
                     ModPacketHandler.messageAllPlayers(
-                        UpdateWhimsyValue(this.id, value, true),
+                        UpdateWhimsyValue(
+                            this.id,
+                            value,
+                            true
+                        )
                     )
                 }
+
+                val nameString = this.name.string
+                if (level is ServerLevel) {
+                    Paracosm.LOGGER.debug("Whimsy for $nameString set to $value")
+                } else {
+                    Paracosm.LOGGER.debug("Whimsy for $nameString set to $value on client")
+                }
+
             }
 
     }
