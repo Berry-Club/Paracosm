@@ -45,7 +45,7 @@ object SetWhimsyCommand {
         target.whimsy = amount
 
         target.sendSystemMessage(Component.literal("Your Whimsy has been set to $amount"))
-        if (commandSender != target) {
+        if (commandSender.entity != target) {
             commandSender.sendSystemMessage(Component.literal("${target.gameProfile.name}'s Whimsy has been set to $amount"))
         }
 
