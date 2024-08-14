@@ -22,7 +22,7 @@
 - [ ] Coloring books? Could build up imagination as you color. Maybe its imagination storage?
 - [ ] Exploring?
 - [ ] Taming pets
-- [ ] Eating sweets, sweets also have other effects
+- [x] Eating sweets, sweets also have other effects
 - [ ] Video games
 - [ ] Listening to music (via note blocks, jukeboxes, or Pitch Perfect)
 - [ ] Pranks (whoopie cushions, bucket on door)
@@ -42,7 +42,7 @@
 - [ ]  Spongebob imagination box? What would that even be, a dimension?
 - [ ]  3D goggles that, at low imagination just enable stereoscopic, but at high imagination does something else. night
   vision? show secret doors?
-- [ ]  Towel cape. Super hero powers? Maybe a worse elytra? curio
+- [x]  Towel cape. Super hero powers? Maybe a worse elytra? curio
 - [ ]  Cardboard armor that looks different
 - [ ]  Minecart pants that make you run fast
 - [ ]  Glitter that blinds you (using a new thing rather than the black blindness effect, maybe particles that obscure
