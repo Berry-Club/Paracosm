@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.paracosm.datagen.loot.ModLootTableProvider
 import dev.aaronhowser.mods.paracosm.datagen.model.ModBlockStateProvider
 import dev.aaronhowser.mods.paracosm.datagen.model.ModItemModelProvider
 import dev.aaronhowser.mods.paracosm.datagen.tag.ModBlockTagsProvider
+import dev.aaronhowser.mods.paracosm.datagen.tag.ModEntityTypeTagsProvider
 import dev.aaronhowser.mods.paracosm.datagen.tag.ModItemTagsProvider
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.DataGenerator
@@ -48,10 +49,10 @@ object ModDataGen {
             event.includeServer(),
             ModItemTagsProvider(output, lookupProvider, blockTagProvider.contentsGetter(), existingFileHelper)
         )
-//        val entityTypeTagProvider = generator.addProvider(
-//            event.includeServer(),
-//            ModEntityTypeTagsProvider(output, lookupProvider, existingFileHelper)
-//        )
+        val entityTypeTagProvider = generator.addProvider(
+            event.includeServer(),
+            ModEntityTypeTagsProvider(output, lookupProvider, existingFileHelper)
+        )
 //
 //        val advancementProvider = generator.addProvider(
 //            event.includeServer(),
