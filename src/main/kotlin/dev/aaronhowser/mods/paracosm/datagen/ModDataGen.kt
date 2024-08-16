@@ -68,6 +68,11 @@ object ModDataGen {
             ModLootTableProvider.create(output, lookupProvider)
         )
 
+        val soundDefinitionsProvider = generator.addProvider(
+            event.includeClient(),
+            ModSoundDefinitionsProvider(output, existingFileHelper)
+        )
+
         val curiosProvider = generator.addProvider(
             event.includeServer(),
             ModCurioProvider(output, existingFileHelper, lookupProvider)

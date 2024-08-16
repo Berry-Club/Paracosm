@@ -13,6 +13,12 @@
     ],
     "subtitle": "subtitle.paracosm.fart"
   },
+  "squee": {
+    "sounds": [
+      "paracosm:squee"
+    ],
+    "subtitle": "subtitle.paracosm.squee"
+  },
   "unfart": {
     "sounds": [
       "paracosm:unfart1",
@@ -20,11 +26,5 @@
       "paracosm:unfart3"
     ],
     "subtitle": "subtitle.paracosm.unfart"
-  },
-  "squee": {
-    "sounds": [
-      "paracosm:squee"
-    ],
-    "subtitle": "subtitle.paracosm.squee"
   }
 }
