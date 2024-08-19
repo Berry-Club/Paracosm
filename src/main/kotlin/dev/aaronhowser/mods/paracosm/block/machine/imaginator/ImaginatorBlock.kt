@@ -18,6 +18,8 @@ import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
+import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.toVec3
+import kotlin.math.pow
 
 class ImaginatorBlock(
     properties: Properties = Properties.of()
@@ -36,7 +38,7 @@ class ImaginatorBlock(
 
     override fun getStateForPlacement(context: BlockPlaceContext): BlockState? {
         return defaultBlockState()
-            .setValue(IS_CLOSED, true)
+            .setValue(IS_CLOSED, false)
     }
 
     override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
@@ -80,32 +82,68 @@ class ImaginatorBlock(
         hitResult: BlockHitResult
     ): InteractionResult {
         val playerIsInBlock = player.blockPosition() == pos
-        if (!playerIsInBlock) return InteractionResult.PASS
+        if (!playerIsInBlock) {
+            clickFromOutside(state, level, pos, player)
+            return InteractionResult.PASS
+        }
 
         val isClosed = state.getValue(IS_CLOSED)
         level.setBlock(pos, state.setValue(IS_CLOSED, !isClosed), 1 or 2)
 
-        val scaleAttribute = player.getAttribute(Attributes.SCALE) ?: return InteractionResult.SUCCESS
-
         if (isClosed) {
-            scaleAttribute.removeModifier(scaleAttributeModifierId)
+            unShrinkPlayer(player)
         } else {
-            val currentScale = scaleAttribute.value
-
-            // Multiplies their scale to 0.25
-            val scaleFactor = 0.25 / currentScale
-
-            scaleAttribute.addOrUpdateTransientModifier(
-                AttributeModifier(
-                    scaleAttributeModifierId,
-                    scaleFactor,
-                    AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
-                )
-            )
-
+            shrinkPlayer(player)
         }
 
         return InteractionResult.SUCCESS
+    }
+
+    private fun shrinkPlayer(player: Player) {
+        val scaleAttribute = player.getAttribute(Attributes.SCALE) ?: return
+        if (scaleAttribute.hasModifier(scaleAttributeModifierId)) return
+
+        val currentScale = scaleAttribute.value
+
+        println("Current scale: $currentScale")
+
+        // Subtracts their scale to 0.25
+        val scaleModifier = 0.25 - currentScale
+
+        println("Scale factor: $scaleModifier")
+        println("New scale should be: ${currentScale * scaleModifier}")
+
+        scaleAttribute.addOrUpdateTransientModifier(
+            AttributeModifier(
+                scaleAttributeModifierId,
+                scaleModifier,
+                AttributeModifier.Operation.ADD_VALUE
+            )
+        )
+
+        println("New scale: ${scaleAttribute.value}")
+
+    }
+
+    private fun unShrinkPlayer(player: Player) {
+        val scaleAttribute = player.getAttribute(Attributes.SCALE) ?: return
+        scaleAttribute.removeModifier(scaleAttributeModifierId)
+    }
+
+    private fun unShrinkNearbyPlayers(level: Level, pos: BlockPos) {
+        val playersNearby = level.players().filter { it.distanceToSqr(pos.toVec3()) < 4.0.pow(2) }
+        for (playerNearby in playersNearby) {
+            unShrinkPlayer(playerNearby)
+        }
+    }
+
+    private fun clickFromOutside(state: BlockState, level: Level, pos: BlockPos, player: Player) {
+        if (!state.getValue(IS_CLOSED)) return
+
+        level.setBlock(pos, state.setValue(IS_CLOSED, false), 1 or 2)
+
+        unShrinkNearbyPlayers(level, pos)
+        unShrinkPlayer(player)
     }
 
 }
