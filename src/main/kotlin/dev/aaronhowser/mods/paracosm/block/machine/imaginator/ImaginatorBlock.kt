@@ -1,7 +1,10 @@
 package dev.aaronhowser.mods.paracosm.block.machine.imaginator
 
+import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.core.BlockPos
 import net.minecraft.world.InteractionResult
+import net.minecraft.world.entity.ai.attributes.AttributeModifier
+import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.BlockGetter
@@ -63,6 +66,8 @@ class ImaginatorBlock(
 
         private val SHAPE_OPEN = Shapes.or(BOTTOM, NORTH, EAST, SOUTH, WEST)
         private val SHAPE_CLOSED = Shapes.or(SHAPE_OPEN, TOP)
+
+        private val scaleAttributeModifierId = OtherUtil.modResource("imaginator_scale")
     }
 
     // Using
@@ -79,6 +84,26 @@ class ImaginatorBlock(
 
         val isClosed = state.getValue(IS_CLOSED)
         level.setBlock(pos, state.setValue(IS_CLOSED, !isClosed), 1 or 2)
+
+        val scaleAttribute = player.getAttribute(Attributes.SCALE) ?: return InteractionResult.SUCCESS
+
+        if (isClosed) {
+            scaleAttribute.removeModifier(scaleAttributeModifierId)
+        } else {
+            val currentScale = scaleAttribute.value
+
+            // Multiplies their scale to 0.25
+            val scaleFactor = 0.25 / currentScale
+
+            scaleAttribute.addOrUpdateTransientModifier(
+                AttributeModifier(
+                    scaleAttributeModifierId,
+                    scaleFactor,
+                    AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
+                )
+            )
+
+        }
 
         return InteractionResult.SUCCESS
     }
