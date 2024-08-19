@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.SoundType
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.BooleanProperty
+import net.minecraft.world.level.material.PushReaction
 import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.Shapes
@@ -25,6 +26,7 @@ class ImaginatorBlock(
     properties: Properties = Properties.of()
         .sound(SoundType.WOOD)
         .strength(0.3f)
+        .pushReaction(PushReaction.DESTROY)
 ) : Block(properties) {
 
     // State
@@ -56,7 +58,7 @@ class ImaginatorBlock(
         return if (state.getValue(IS_CLOSED)) SHAPE_CLOSED else SHAPE_OPEN
     }
 
-    // Using
+    // Behavior
 
     override fun useWithoutItem(
         state: BlockState,
@@ -83,6 +85,20 @@ class ImaginatorBlock(
         return InteractionResult.SUCCESS
     }
 
+    override fun onRemove(
+        state: BlockState,
+        level: Level,
+        pos: BlockPos,
+        newState: BlockState,
+        movedByPiston: Boolean
+    ) {
+        super.onRemove(state, level, pos, newState, movedByPiston)
+
+        if (state.getValue(IS_CLOSED)) {
+            unShrinkNearbyPlayers(level, pos)
+        }
+    }
+
     companion object {
 
         // State
@@ -101,7 +117,7 @@ class ImaginatorBlock(
         private val SHAPE_OPEN = Shapes.or(BOTTOM, NORTH, EAST, SOUTH, WEST)
         private val SHAPE_CLOSED = Shapes.or(SHAPE_OPEN, TOP)
 
-        // Using
+        // Behavior
 
         private val scaleAttributeModifierId = OtherUtil.modResource("imaginator_scale")
 
@@ -111,13 +127,8 @@ class ImaginatorBlock(
 
             val currentScale = scaleAttribute.value
 
-            println("Current scale: $currentScale")
-
             // Subtracts their scale to 0.25
             val scaleModifier = 0.25 - currentScale
-
-            println("Scale factor: $scaleModifier")
-            println("New scale should be: ${currentScale * scaleModifier}")
 
             scaleAttribute.addOrUpdateTransientModifier(
                 AttributeModifier(
@@ -126,9 +137,6 @@ class ImaginatorBlock(
                     AttributeModifier.Operation.ADD_VALUE
                 )
             )
-
-            println("New scale: ${scaleAttribute.value}")
-
         }
 
         private fun unShrinkPlayer(player: Player) {
