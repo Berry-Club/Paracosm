@@ -39,9 +39,13 @@ class ModBlockStateProvider(
                     "block/imaginator_open"
                 }
 
+                //TODO: Replace with actual texture
+                val texture = mcLoc("block/oak_planks")
+
                 val builder = models()
                     .getBuilder("${Paracosm.ID}:$modelLoc")
-                    .texture("texture", mcLoc("block/oak_planks"))
+                    .texture("texture", texture)
+                    .texture("particle", texture)
 
                 val bottom = builder.element()
                     .from(0f, 0f, 0f)
@@ -85,6 +89,14 @@ class ModBlockStateProvider(
                     )
                     .build()
             }
+
+        simpleBlockItem(
+            block,
+            ItemModelBuilder(
+                modLoc("block/imaginator_open"),
+                existingFileHelper
+            )
+        )
 
     }
 

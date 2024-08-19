@@ -162,6 +162,7 @@
     }
   ],
   "textures": {
+    "particle": "minecraft:block/oak_planks",
     "texture": "minecraft:block/oak_planks"
   }
 }
