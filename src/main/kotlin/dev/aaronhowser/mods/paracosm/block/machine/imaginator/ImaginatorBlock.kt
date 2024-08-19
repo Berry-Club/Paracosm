@@ -56,22 +56,6 @@ class ImaginatorBlock(
         return if (state.getValue(IS_CLOSED)) SHAPE_CLOSED else SHAPE_OPEN
     }
 
-    companion object {
-        val IS_CLOSED: BooleanProperty = BooleanProperty.create("is_closed")
-
-        private val BOTTOM = box(0.0, 0.0, 0.0, 16.0, 0.5, 16.0)
-        private val NORTH = box(0.0, 0.0, 0.0, 16.0, 16.0, 0.5)
-        private val EAST = box(15.5, 0.0, 0.0, 16.0, 16.0, 16.0)
-        private val SOUTH = box(0.0, 0.0, 15.5, 16.0, 16.0, 16.0)
-        private val WEST = box(0.0, 0.0, 0.0, 0.5, 16.0, 16.0)
-        private val TOP = box(0.0, 15.5, 0.0, 16.0, 16.0, 16.0)
-
-        private val SHAPE_OPEN = Shapes.or(BOTTOM, NORTH, EAST, SOUTH, WEST)
-        private val SHAPE_CLOSED = Shapes.or(SHAPE_OPEN, TOP)
-
-        private val scaleAttributeModifierId = OtherUtil.modResource("imaginator_scale")
-    }
-
     // Using
 
     override fun useWithoutItem(
@@ -99,51 +83,74 @@ class ImaginatorBlock(
         return InteractionResult.SUCCESS
     }
 
-    private fun shrinkPlayer(player: Player) {
-        val scaleAttribute = player.getAttribute(Attributes.SCALE) ?: return
-        if (scaleAttribute.hasModifier(scaleAttributeModifierId)) return
+    companion object {
 
-        val currentScale = scaleAttribute.value
+        // State
 
-        println("Current scale: $currentScale")
+        val IS_CLOSED: BooleanProperty = BooleanProperty.create("is_closed")
 
-        // Subtracts their scale to 0.25
-        val scaleModifier = 0.25 - currentScale
+        // Shape
 
-        println("Scale factor: $scaleModifier")
-        println("New scale should be: ${currentScale * scaleModifier}")
+        private val BOTTOM = box(0.0, 0.0, 0.0, 16.0, 0.5, 16.0)
+        private val NORTH = box(0.0, 0.0, 0.0, 16.0, 16.0, 0.5)
+        private val EAST = box(15.5, 0.0, 0.0, 16.0, 16.0, 16.0)
+        private val SOUTH = box(0.0, 0.0, 15.5, 16.0, 16.0, 16.0)
+        private val WEST = box(0.0, 0.0, 0.0, 0.5, 16.0, 16.0)
+        private val TOP = box(0.0, 15.5, 0.0, 16.0, 16.0, 16.0)
 
-        scaleAttribute.addOrUpdateTransientModifier(
-            AttributeModifier(
-                scaleAttributeModifierId,
-                scaleModifier,
-                AttributeModifier.Operation.ADD_VALUE
+        private val SHAPE_OPEN = Shapes.or(BOTTOM, NORTH, EAST, SOUTH, WEST)
+        private val SHAPE_CLOSED = Shapes.or(SHAPE_OPEN, TOP)
+
+        // Using
+
+        private val scaleAttributeModifierId = OtherUtil.modResource("imaginator_scale")
+
+        private fun shrinkPlayer(player: Player) {
+            val scaleAttribute = player.getAttribute(Attributes.SCALE) ?: return
+            if (scaleAttribute.hasModifier(scaleAttributeModifierId)) return
+
+            val currentScale = scaleAttribute.value
+
+            println("Current scale: $currentScale")
+
+            // Subtracts their scale to 0.25
+            val scaleModifier = 0.25 - currentScale
+
+            println("Scale factor: $scaleModifier")
+            println("New scale should be: ${currentScale * scaleModifier}")
+
+            scaleAttribute.addOrUpdateTransientModifier(
+                AttributeModifier(
+                    scaleAttributeModifierId,
+                    scaleModifier,
+                    AttributeModifier.Operation.ADD_VALUE
+                )
             )
-        )
 
-        println("New scale: ${scaleAttribute.value}")
+            println("New scale: ${scaleAttribute.value}")
 
-    }
-
-    private fun unShrinkPlayer(player: Player) {
-        val scaleAttribute = player.getAttribute(Attributes.SCALE) ?: return
-        scaleAttribute.removeModifier(scaleAttributeModifierId)
-    }
-
-    private fun unShrinkNearbyPlayers(level: Level, pos: BlockPos) {
-        val playersNearby = level.players().filter { it.distanceToSqr(pos.toVec3()) < 4.0.pow(2) }
-        for (playerNearby in playersNearby) {
-            unShrinkPlayer(playerNearby)
         }
-    }
 
-    private fun clickFromOutside(state: BlockState, level: Level, pos: BlockPos, player: Player) {
-        if (!state.getValue(IS_CLOSED)) return
+        private fun unShrinkPlayer(player: Player) {
+            val scaleAttribute = player.getAttribute(Attributes.SCALE) ?: return
+            scaleAttribute.removeModifier(scaleAttributeModifierId)
+        }
 
-        level.setBlock(pos, state.setValue(IS_CLOSED, false), 1 or 2)
+        private fun unShrinkNearbyPlayers(level: Level, pos: BlockPos) {
+            val playersNearby = level.players().filter { it.distanceToSqr(pos.toVec3()) < 4.0.pow(2) }
+            for (playerNearby in playersNearby) {
+                unShrinkPlayer(playerNearby)
+            }
+        }
 
-        unShrinkNearbyPlayers(level, pos)
-        unShrinkPlayer(player)
+        private fun clickFromOutside(state: BlockState, level: Level, pos: BlockPos, player: Player) {
+            if (!state.getValue(IS_CLOSED)) return
+
+            level.setBlock(pos, state.setValue(IS_CLOSED, false), 1 or 2)
+
+            unShrinkNearbyPlayers(level, pos)
+            unShrinkPlayer(player)
+        }
     }
 
 }
