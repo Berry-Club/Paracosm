@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "is_closed=false": {
+      "model": "paracosm:block/imaginator_open"
+    },
+    "is_closed=true": {
+      "model": "paracosm:block/imaginator_closed"
+    }
+  }
+}

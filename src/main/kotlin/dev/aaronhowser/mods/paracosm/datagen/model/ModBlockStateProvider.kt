@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.paracosm.datagen.model
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.block.CottonBlock
 import dev.aaronhowser.mods.paracosm.block.NightLightBlock
+import dev.aaronhowser.mods.paracosm.block.machine.imaginator.ImaginatorBlock
 import dev.aaronhowser.mods.paracosm.registry.ModBlocks
 import net.minecraft.core.Direction
 import net.minecraft.data.PackOutput
@@ -22,6 +23,69 @@ class ModBlockStateProvider(
         cotton()
         whoopeeCushion()
         walrus()
+        imaginator()
+    }
+
+    private fun imaginator() {
+        val block = ModBlocks.IMAGINATOR.get()
+
+        getVariantBuilder(block)
+            .forAllStates {
+                val isClosed = it.getValue(ImaginatorBlock.IS_CLOSED)
+
+                val modelLoc = if (isClosed) {
+                    "block/imaginator_closed"
+                } else {
+                    "block/imaginator_open"
+                }
+
+                val builder = models()
+                    .getBuilder("${Paracosm.ID}:$modelLoc")
+                    .texture("texture", mcLoc("block/oak_planks"))
+
+                val bottom = builder.element()
+                    .from(0f, 0f, 0f)
+                    .to(16f, 1f, 16f)
+                    .textureAll("#texture")
+                    .end()
+
+                val north = builder.element()
+                    .from(0f, 1f, 0f)
+                    .to(16f, 16f, 1f)
+                    .textureAll("#texture")
+                    .end()
+                val south = builder.element()
+                    .from(0f, 1f, 15f)
+                    .to(16f, 16f, 16f)
+                    .textureAll("#texture")
+                    .end()
+                val east = builder.element()
+                    .from(15f, 1f, 0f)
+                    .to(16f, 16f, 16f)
+                    .textureAll("#texture")
+                    .end()
+                val west = builder.element()
+                    .from(0f, 1f, 0f)
+                    .to(1f, 16f, 16f)
+                    .textureAll("#texture")
+                    .end()
+
+                if (isClosed) {
+                    val top = builder.element()
+                        .from(0f, 15f, 0f)
+                        .to(16f, 16f, 16f)
+                        .textureAll("#texture")
+                        .end()
+                }
+
+                ConfiguredModel
+                    .builder()
+                    .modelFile(
+                        builder
+                    )
+                    .build()
+            }
+
     }
 
     private fun walrus() {
