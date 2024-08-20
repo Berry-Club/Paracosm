@@ -23,16 +23,16 @@ class ShrinkRayProjectile(
     level: Level
 ) : Arrow(entityType, level) {
 
-    constructor(shooter: ServerPlayer, isGrow: Boolean) : this(
+    constructor(shooter: ServerPlayer) : this(
         ModEntityTypes.SHRINK_RAY_PROJECTILE.get(),
         shooter.level()
     ) {
-        this.isGrow = isGrow
+        this.isGrow = shooter.isSecondaryUseActive
+
+        this.moveTo(shooter.x, shooter.eyeY, shooter.z)
 
         this.owner = shooter
     }
-
-    var isGrow: Boolean = false
 
     companion object {
         val IS_GROW: EntityDataAccessor<Boolean> =
@@ -79,9 +79,13 @@ class ShrinkRayProjectile(
         }
     }
 
+    var isGrow: Boolean
+        get() = entityData.get(IS_GROW)
+        set(value) = entityData.set(IS_GROW, value)
 
     override fun defineSynchedData(builder: SynchedEntityData.Builder) {
-        builder.define(IS_GROW, isGrow)
+        super.defineSynchedData(builder)
+        builder.define(IS_GROW, false)
     }
 
     override fun addAdditionalSaveData(compound: CompoundTag) {
@@ -94,21 +98,28 @@ class ShrinkRayProjectile(
         isGrow = compound.getBoolean(IS_GROW_NBT)
     }
 
+    //TODO: If it hits a block with #reflective tag, it bounces off. Eg mirror? glass?
     override fun onHitBlock(result: BlockHitResult) {
-        super.onHitBlock(result)
-        if (!level().isClientSide) {
-            remove(RemovalReason.DISCARDED)
-        }
+        this.discard()
     }
 
     override fun onHitEntity(result: EntityHitResult) {
-        super.onHitEntity(result)
-
         val target = result.entity as? LivingEntity ?: return
         val amount = if (isGrow) 0.1 else -0.1
         val shooter = owner as? Player
 
         changeEntityScale(target, amount, shooter)
+
+        this.discard()
+    }
+
+    private var age = 0
+    override fun tick() {
+        super.tick()
+        age++
+        if (age > 20 * 1) {
+            this.discard()
+        }
     }
 
     override fun getDefaultGravity(): Double {

@@ -25,7 +25,7 @@ class ShrinkRayItem : RequiresWhimsy, Item(
         }
 
         if (player is ServerPlayer) {
-            val shrinkRayProjectile = ShrinkRayProjectile(player, player.isSecondaryUseActive)
+            val shrinkRayProjectile = ShrinkRayProjectile(player)
 
             shrinkRayProjectile.shootFromRotation(
                 player,
