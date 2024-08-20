@@ -1,10 +1,7 @@
 package dev.aaronhowser.mods.paracosm.registry
 
 import dev.aaronhowser.mods.paracosm.Paracosm
-import dev.aaronhowser.mods.paracosm.entity.custom.AaronberryEntity
-import dev.aaronhowser.mods.paracosm.entity.custom.DodgeballEntity
-import dev.aaronhowser.mods.paracosm.entity.custom.StringWormEntity
-import dev.aaronhowser.mods.paracosm.entity.custom.TeddyBearEntity
+import dev.aaronhowser.mods.paracosm.entity.custom.*
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.MobCategory
@@ -20,7 +17,7 @@ object ModEntityTypes {
     val TEDDY_BEAR: DeferredHolder<EntityType<*>, EntityType<TeddyBearEntity>> =
         ENTITY_TYPE_REGISTRY.register("teddy_bear", Supplier {
             EntityType.Builder.of(
-                { type, level -> TeddyBearEntity(type, level) },
+                ::TeddyBearEntity,
                 MobCategory.CREATURE
             )
                 .sized(0.5f, 1.1f)
@@ -30,7 +27,7 @@ object ModEntityTypes {
     val STRING_WORM: DeferredHolder<EntityType<*>, EntityType<StringWormEntity>> =
         ENTITY_TYPE_REGISTRY.register("string_worm", Supplier {
             EntityType.Builder.of(
-                { type, level -> StringWormEntity(type, level) },
+                ::StringWormEntity,
                 MobCategory.CREATURE
             )
                 .sized(1f, 1f)
@@ -40,7 +37,7 @@ object ModEntityTypes {
     val AARONBERRY: DeferredHolder<EntityType<*>, EntityType<AaronberryEntity>> =
         ENTITY_TYPE_REGISTRY.register("aaronberry", Supplier {
             EntityType.Builder.of(
-                { type, level -> AaronberryEntity(type, level) },
+                ::AaronberryEntity,
                 MobCategory.CREATURE
             )
                 .sized(0.3f, 0.6f)
@@ -50,7 +47,7 @@ object ModEntityTypes {
     val DODGEBALL: DeferredHolder<EntityType<*>, EntityType<DodgeballEntity>> =
         ENTITY_TYPE_REGISTRY.register("dodgeball", Supplier {
             EntityType.Builder.of(
-                { type, level -> DodgeballEntity(type, level) },
+                ::DodgeballEntity,
                 MobCategory.MISC
             )
                 .sized(0.25f, 0.25f)
