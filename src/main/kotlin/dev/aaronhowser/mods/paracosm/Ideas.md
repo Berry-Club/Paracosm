@@ -122,6 +122,7 @@
 - [ ] Stress toys that reduce bad imagination when used or lessen the effects of bad imagination, but cause problems
   when overused
 - [ ] Shuffles your inventory around slightly
+- [ ] Hear chests and doors opening and closing when they arent (or maybe actually opening them?)
 
 # Misc
 
