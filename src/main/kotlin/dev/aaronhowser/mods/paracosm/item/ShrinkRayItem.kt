@@ -18,7 +18,9 @@ class ShrinkRayItem : RequiresWhimsy, Item(
     override fun use(level: Level, player: Player, usedHand: InteractionHand): InteractionResultHolder<ItemStack> {
         val usedStack = player.getItemInHand(usedHand)
 
-        if (hasEnoughWhimsy(player)) {
+        //TODO: If no whimsy, make "pew" sound. If high whimsy, make laser sound
+
+        if (!hasEnoughWhimsy(player)) {
             return InteractionResultHolder.fail(usedStack)
         }
 
