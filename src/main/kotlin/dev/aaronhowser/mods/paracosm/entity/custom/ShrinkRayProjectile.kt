@@ -16,8 +16,6 @@ import net.minecraft.world.entity.projectile.Projectile
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.EntityHitResult
-import java.util.*
-import kotlin.jvm.optionals.getOrNull
 import kotlin.math.abs
 
 class ShrinkRayProjectile(
@@ -30,11 +28,11 @@ class ShrinkRayProjectile(
         shooter.level()
     ) {
         this.isGrow = isGrow
-        this.shooterUuid = Optional.of(shooter.uuid)
+
+        this.owner = shooter
     }
 
     var isGrow: Boolean = false
-    var shooterUuid: Optional<UUID> = Optional.empty()
 
     companion object {
         val IS_GROW: EntityDataAccessor<Boolean> =
@@ -43,14 +41,7 @@ class ShrinkRayProjectile(
                 EntityDataSerializers.BOOLEAN
             )
 
-        val SHOOTER: EntityDataAccessor<Optional<UUID>> =
-            SynchedEntityData.defineId(
-                ShrinkRayProjectile::class.java,
-                EntityDataSerializers.OPTIONAL_UUID
-            )
-
         const val IS_GROW_NBT = "IsGrow"
-        const val SHOOTER_UUID_NBT = "ShooterUUID"
 
         private fun changeEntityScale(
             target: LivingEntity,
@@ -89,26 +80,18 @@ class ShrinkRayProjectile(
     }
 
 
-
     override fun defineSynchedData(builder: SynchedEntityData.Builder) {
         builder.define(IS_GROW, isGrow)
-        builder.define(SHOOTER, shooterUuid)
     }
 
     override fun addAdditionalSaveData(compound: CompoundTag) {
         super.addAdditionalSaveData(compound)
         compound.putBoolean(IS_GROW_NBT, isGrow)
-        shooterUuid.ifPresent { compound.putUUID(SHOOTER_UUID_NBT, it) }
     }
 
     override fun readAdditionalSaveData(compound: CompoundTag) {
         super.readAdditionalSaveData(compound)
         isGrow = compound.getBoolean(IS_GROW_NBT)
-        shooterUuid = if (compound.contains(SHOOTER_UUID_NBT)) {
-            Optional.of(compound.getUUID(SHOOTER_UUID_NBT))
-        } else {
-            Optional.empty()
-        }
     }
 
     override fun onHitBlock(result: BlockHitResult) {
@@ -123,15 +106,9 @@ class ShrinkRayProjectile(
 
         val target = result.entity as? LivingEntity ?: return
         val amount = if (isGrow) 0.1 else -0.1
-        val shooterUuid = shooterUuid.getOrNull()
+        val shooter = owner as? Player
 
-        val shooterPlayer = if (shooterUuid != null) {
-            level().players().find { it.uuid == shooterUuid }
-        } else {
-            null
-        }
-
-        changeEntityScale(target, amount, shooterPlayer)
+        changeEntityScale(target, amount, shooter)
     }
 
     override fun getDefaultGravity(): Double {
