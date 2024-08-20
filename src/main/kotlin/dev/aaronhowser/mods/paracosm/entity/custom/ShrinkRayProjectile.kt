@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.paracosm.entity.custom
 
 import dev.aaronhowser.mods.paracosm.attachment.ShrinkRayEffect.Companion.shrinkRayEffect
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
+import dev.aaronhowser.mods.paracosm.registry.ModItems
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.Component
 import net.minecraft.network.syncher.EntityDataAccessor
@@ -48,6 +49,13 @@ class ShrinkRayProjectile(
             scaleChange: Double,
             changer: Player? = null
         ): Boolean {
+
+            if (target is Player) {
+                if (target.isSpectator) return false
+
+                if (!ModItems.SHRINK_RAY.get().hasEnoughWhimsy(target)) return false
+            }
+
             val scaleBefore = target.getAttributeValue(Attributes.SCALE)
 
             target.shrinkRayEffect += scaleChange
