@@ -51,5 +51,7 @@ object ModItems {
                     .build()
             )
         }
+    val WARM_MILK: DeferredItem<WarmMilkItem> =
+        ITEM_REGISTRY.registerItem("warm_milk") { WarmMilkItem() }
 
 }
