@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.paracosm.event
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.client.render.curio.SeeingStoneCurioRenderer
 import dev.aaronhowser.mods.paracosm.client.render.entity.AaronberryRenderer
+import dev.aaronhowser.mods.paracosm.client.render.entity.ShrinkRayProjectileRenderer
 import dev.aaronhowser.mods.paracosm.client.render.entity.StringWormRenderer
 import dev.aaronhowser.mods.paracosm.client.render.entity.TeddyBearRenderer
 import dev.aaronhowser.mods.paracosm.client.render.layer.TowelCapeLayer
@@ -31,6 +32,7 @@ import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent
 import net.neoforged.neoforge.client.event.EntityRenderersEvent
 import net.neoforged.neoforge.client.event.ModelEvent
+import net.neoforged.neoforge.registries.DeferredHolder
 import top.theillusivec4.curios.api.client.CuriosRendererRegistry
 
 @EventBusSubscriber(
@@ -47,10 +49,18 @@ object ClientModBusEvents {
             EntityRenderers.register(entityType, provider)
         }
 
-        register(ModEntityTypes.TEDDY_BEAR.get(), ::TeddyBearRenderer)
-        register(ModEntityTypes.STRING_WORM.get(), ::StringWormRenderer)
-        register(ModEntityTypes.AARONBERRY.get(), ::AaronberryRenderer)
-        register(ModEntityTypes.DODGEBALL.get(), ::ThrownItemRenderer)
+        fun <T : Entity> register(
+            entityHolder: DeferredHolder<EntityType<*>, EntityType<T>>,
+            provider: EntityRendererProvider<T>
+        ) {
+            register(entityHolder.get(), provider)
+        }
+
+        register(ModEntityTypes.TEDDY_BEAR, ::TeddyBearRenderer)
+        register(ModEntityTypes.STRING_WORM, ::StringWormRenderer)
+        register(ModEntityTypes.AARONBERRY, ::AaronberryRenderer)
+        register(ModEntityTypes.DODGEBALL, ::ThrownItemRenderer)
+        register(ModEntityTypes.SHRINK_RAY_PROJECTILE, ::ShrinkRayProjectileRenderer)
 
         CuriosRendererRegistry.register(
             ModItems.SEEING_STONE.get(),

@@ -12,16 +12,16 @@ import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.player.Player
-import net.minecraft.world.entity.projectile.Projectile
+import net.minecraft.world.entity.projectile.Arrow
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.EntityHitResult
 import kotlin.math.abs
 
 class ShrinkRayProjectile(
-    entityType: EntityType<out Projectile>,
+    entityType: EntityType<out Arrow>,
     level: Level
-) : Projectile(entityType, level) {
+) : Arrow(entityType, level) {
 
     constructor(shooter: ServerPlayer, isGrow: Boolean) : this(
         ModEntityTypes.SHRINK_RAY_PROJECTILE.get(),
