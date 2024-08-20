@@ -6,6 +6,6 @@
       "type": "minecraft:fixed",
       "biome": "paracosm:test_biome"
     },
-    "settings": "minecraft:amplified"
+    "settings": "minecraft:overworld"
   }
 }

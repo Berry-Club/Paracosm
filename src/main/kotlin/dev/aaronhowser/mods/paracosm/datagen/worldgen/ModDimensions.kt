@@ -61,7 +61,7 @@ object ModDimensions {
 
         val singleBiomeGen = NoiseBasedChunkGenerator(
             FixedBiomeSource(biomeRegistry.getOrThrow(ModBiomes.TEST_BIOME_KEY)),
-            noiseGenSettings.getOrThrow(NoiseGeneratorSettings.AMPLIFIED)
+            noiseGenSettings.getOrThrow(NoiseGeneratorSettings.OVERWORLD)
         )
 
         context.register(

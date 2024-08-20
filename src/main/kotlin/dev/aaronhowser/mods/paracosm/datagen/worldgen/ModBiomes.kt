@@ -65,10 +65,10 @@ object ModBiomes {
         BiomeDefaultFeatures.addTallBirchTrees(biomeBuilder)
 
         val specialEffects = BiomeSpecialEffects.Builder()
-            .waterColor(0x3939C9)
-            .waterFogColor(0x05006B)
-            .fogColor(0xC0D8DF)
-            .skyColor(0x30c918)
+            .waterColor(0x99D3E9)
+            .waterFogColor(0x7BAFBD)
+            .fogColor(0xBCE5EB)
+            .skyColor(0xADECF1)
             .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
             .build()
 
