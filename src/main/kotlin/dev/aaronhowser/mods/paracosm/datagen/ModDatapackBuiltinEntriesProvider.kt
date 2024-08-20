@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.paracosm.datagen
 
 import dev.aaronhowser.mods.paracosm.Paracosm
+import dev.aaronhowser.mods.paracosm.datagen.worldgen.ModBiomes
 import dev.aaronhowser.mods.paracosm.datagen.worldgen.ModDimensions
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.RegistrySetBuilder
@@ -21,6 +22,7 @@ class ModDatapackBuiltinEntriesProvider(
 
     companion object {
         val BUILDER: RegistrySetBuilder = RegistrySetBuilder()
+            .add(Registries.BIOME, ModBiomes::boostrap)
             .add(Registries.DIMENSION_TYPE, ModDimensions::bootstrapDimensionType)
             .add(Registries.LEVEL_STEM, ModDimensions::bootstrapLevelStem)
     }

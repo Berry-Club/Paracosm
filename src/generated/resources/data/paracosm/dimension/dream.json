@@ -4,8 +4,8 @@
     "type": "minecraft:noise",
     "biome_source": {
       "type": "minecraft:fixed",
-      "biome": "minecraft:sunflower_plains"
+      "biome": "paracosm:test_biome"
     },
-    "settings": "minecraft:floating_islands"
+    "settings": "minecraft:amplified"
   }
 }

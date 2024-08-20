@@ -8,7 +8,6 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.BlockTags
 import net.minecraft.util.valueproviders.UniformInt
 import net.minecraft.world.level.Level
-import net.minecraft.world.level.biome.Biomes
 import net.minecraft.world.level.biome.FixedBiomeSource
 import net.minecraft.world.level.dimension.DimensionType
 import net.minecraft.world.level.dimension.LevelStem
@@ -61,7 +60,7 @@ object ModDimensions {
         val noiseGenSettings = context.lookup(Registries.NOISE_SETTINGS)
 
         val singleBiomeGen = NoiseBasedChunkGenerator(
-            FixedBiomeSource(biomeRegistry.getOrThrow(Biomes.SUNFLOWER_PLAINS)),
+            FixedBiomeSource(biomeRegistry.getOrThrow(ModBiomes.TEST_BIOME_KEY)),
             noiseGenSettings.getOrThrow(NoiseGeneratorSettings.AMPLIFIED)
         )
 
