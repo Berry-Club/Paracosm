@@ -22,6 +22,7 @@ import net.minecraft.client.renderer.entity.player.PlayerRenderer
 import net.minecraft.client.renderer.item.ItemProperties
 import net.minecraft.client.renderer.item.ItemPropertyFunction
 import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import net.neoforged.api.distmarker.Dist
@@ -42,25 +43,14 @@ object ClientModBusEvents {
     @SubscribeEvent
     fun onClientSetup(event: FMLClientSetupEvent) {
 
-        EntityRenderers.register(
-            ModEntityTypes.TEDDY_BEAR.get(),
-            ::TeddyBearRenderer
-        )
+        fun <T : Entity> register(entityType: EntityType<T>, provider: EntityRendererProvider<T>) {
+            EntityRenderers.register(entityType, provider)
+        }
 
-        EntityRenderers.register(
-            ModEntityTypes.STRING_WORM.get(),
-            ::StringWormRenderer
-        )
-
-        EntityRenderers.register(
-            ModEntityTypes.AARONBERRY.get(),
-            ::AaronberryRenderer
-        )
-
-        EntityRenderers.register(
-            ModEntityTypes.DODGEBALL.get(),
-            ::ThrownItemRenderer
-        )
+        register(ModEntityTypes.TEDDY_BEAR.get(), ::TeddyBearRenderer)
+        register(ModEntityTypes.STRING_WORM.get(), ::StringWormRenderer)
+        register(ModEntityTypes.AARONBERRY.get(), ::AaronberryRenderer)
+        register(ModEntityTypes.DODGEBALL.get(), ::ThrownItemRenderer)
 
         CuriosRendererRegistry.register(
             ModItems.SEEING_STONE.get(),
