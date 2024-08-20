@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.paracosm.datagen
 
 import dev.aaronhowser.mods.paracosm.Paracosm
+import dev.aaronhowser.mods.paracosm.datagen.datapack.ModDatapackBuiltinEntriesProvider
 import dev.aaronhowser.mods.paracosm.datagen.loot.ModLootTableProvider
 import dev.aaronhowser.mods.paracosm.datagen.model.ModBlockStateProvider
 import dev.aaronhowser.mods.paracosm.datagen.model.ModItemModelProvider
@@ -72,6 +73,11 @@ object ModDataGen {
         val soundDefinitionsProvider = generator.addProvider(
             event.includeClient(),
             ModSoundDefinitionsProvider(output, existingFileHelper)
+        )
+
+        val datapackRegistrySets = generator.addProvider(
+            event.includeServer(),
+            ModDatapackBuiltinEntriesProvider(output, lookupProvider)
         )
 
         val curiosProvider = generator.addProvider(
