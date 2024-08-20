@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.paracosm.entity.custom
 
 import dev.aaronhowser.mods.paracosm.attachment.ShrinkRayEffect.Companion.shrinkRayEffect
+import dev.aaronhowser.mods.paracosm.datagen.tag.ModBlockTagsProvider
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import net.minecraft.nbt.CompoundTag
@@ -17,6 +18,7 @@ import net.minecraft.world.entity.projectile.Arrow
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.EntityHitResult
+import net.minecraft.world.phys.HitResult
 import kotlin.math.abs
 
 class ShrinkRayProjectile(
@@ -106,9 +108,27 @@ class ShrinkRayProjectile(
         isGrow = compound.getBoolean(IS_GROW_NBT)
     }
 
-    //TODO: If it hits a block with #reflective tag, it bounces off. Eg mirror? glass?
     override fun onHitBlock(result: BlockHitResult) {
-        this.discard()
+        if (result.type == HitResult.Type.MISS) return
+
+        val blockHit = level().getBlockState(result.blockPos)
+        if (!blockHit.`is`(ModBlockTagsProvider.REFLECTIVE)) {
+            this.discard()
+            return
+        }
+
+        val directionNormal = result.direction.normal
+
+        val newX = if (directionNormal.x != 0) -deltaMovement.x else deltaMovement.x
+        val newY = if (directionNormal.y != 0) -deltaMovement.y else deltaMovement.y
+        val newZ = if (directionNormal.z != 0) -deltaMovement.z else deltaMovement.z
+
+        this.setDeltaMovement(newX, newY, newZ)
+
+        xRotO = xRot
+        yRotO = yRot
+
+        this.age = 0
     }
 
     override fun onHitEntity(result: EntityHitResult) {
