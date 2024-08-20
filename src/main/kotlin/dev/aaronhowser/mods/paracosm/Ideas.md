@@ -139,3 +139,8 @@
 - [ ] A way to opt out of the visuals of having high imagination, so everything still looks like stupid kid toys rather
   than hallucinating
 - [ ] Fairy lights
+
+# Dimension
+- [ ] Dream dimension
+- [ ] Like Puhoy from Adventure Time, everything is made out of pillows and stuff
+- [ ] Enter it by drinking some warm milk and going to bed
