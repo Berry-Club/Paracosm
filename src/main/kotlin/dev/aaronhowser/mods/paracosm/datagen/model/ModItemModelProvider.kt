@@ -22,7 +22,9 @@ class ModItemModelProvider(
             ModItems.COTTON,
             ModItems.TOWEL_CAPE,
             ModItems.CANDY,
-            ModItems.SODA
+            ModItems.SODA,
+            ModItems.WARM_MILK,
+            ModItems.SHRINK_RAY, //TODO: Make whimsy
         )
 
         for (item in basicModels) {
