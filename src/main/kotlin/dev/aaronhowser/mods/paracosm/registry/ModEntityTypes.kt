@@ -21,7 +21,7 @@ object ModEntityTypes {
         ENTITY_TYPE_REGISTRY.register("teddy_bear", Supplier {
             EntityType.Builder.of(
                 { type, level -> TeddyBearEntity(type, level) },
-                MobCategory.MISC
+                MobCategory.CREATURE
             )
                 .sized(0.5f, 1.1f)
                 .build("teddy_bear")
@@ -31,7 +31,7 @@ object ModEntityTypes {
         ENTITY_TYPE_REGISTRY.register("string_worm", Supplier {
             EntityType.Builder.of(
                 { type, level -> StringWormEntity(type, level) },
-                MobCategory.MISC
+                MobCategory.CREATURE
             )
                 .sized(1f, 1f)
                 .build("string_worm")
@@ -41,7 +41,7 @@ object ModEntityTypes {
         ENTITY_TYPE_REGISTRY.register("aaronberry", Supplier {
             EntityType.Builder.of(
                 { type, level -> AaronberryEntity(type, level) },
-                MobCategory.MISC
+                MobCategory.CREATURE
             )
                 .sized(0.3f, 0.6f)
                 .build("aaronberry")
