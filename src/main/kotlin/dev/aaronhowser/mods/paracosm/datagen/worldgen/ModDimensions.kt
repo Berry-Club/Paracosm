@@ -62,7 +62,7 @@ object ModDimensions {
 
         val singleBiomeGen = NoiseBasedChunkGenerator(
             FixedBiomeSource(biomeRegistry.getOrThrow(Biomes.SUNFLOWER_PLAINS)),
-            noiseGenSettings.getOrThrow(NoiseGeneratorSettings.FLOATING_ISLANDS)
+            noiseGenSettings.getOrThrow(NoiseGeneratorSettings.AMPLIFIED)
         )
 
         context.register(
