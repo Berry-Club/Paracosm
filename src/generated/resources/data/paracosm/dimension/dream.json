@@ -1,0 +1,11 @@
+{
+  "type": "paracosm:dream",
+  "generator": {
+    "type": "minecraft:noise",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "minecraft:sunflower_plains"
+    },
+    "settings": "minecraft:floating_islands"
+  }
+}

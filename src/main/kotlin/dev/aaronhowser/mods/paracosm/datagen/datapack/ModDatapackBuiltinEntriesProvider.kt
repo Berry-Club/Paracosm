@@ -20,7 +20,8 @@ class ModDatapackBuiltinEntriesProvider(
 
     companion object {
         val BUILDER: RegistrySetBuilder = RegistrySetBuilder()
-            .add(Registries.DIMENSION_TYPE, ModDimensions::bootstrap)
+            .add(Registries.DIMENSION_TYPE, ModDimensions::bootstrapDimensionType)
+            .add(Registries.LEVEL_STEM, ModDimensions::bootstrapLevelStem)
     }
 
 }
