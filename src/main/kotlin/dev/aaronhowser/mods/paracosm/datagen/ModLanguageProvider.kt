@@ -31,6 +31,11 @@ class ModLanguageProvider(output: PackOutput) : LanguageProvider(output, Paracos
         const val SQUEE = "subtitle.paracosm.squee"
     }
 
+    object Emi {
+        const val SEEING_STONE_TAG = "tag.item.curios.seeing_stone"
+        const val SWEETS_TAG = "tag.item.paracosm.sweets"
+    }
+
     companion object {
         fun String.toComponent(vararg args: Any): MutableComponent = Component.translatable(this, *args)
     }
@@ -67,5 +72,7 @@ class ModLanguageProvider(output: PackOutput) : LanguageProvider(output, Paracos
         add(Subtitle.DODGEBALL, "PHONK")
         add(Subtitle.SQUEE, "Squee")
 
+        add(Emi.SEEING_STONE_TAG, "Seeing Stone")
+        add(Emi.SWEETS_TAG, "Sweets")
     }
 }
