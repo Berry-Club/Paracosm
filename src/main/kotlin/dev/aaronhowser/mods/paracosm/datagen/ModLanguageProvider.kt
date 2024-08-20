@@ -1,6 +1,9 @@
 package dev.aaronhowser.mods.paracosm.datagen
 
 import dev.aaronhowser.mods.paracosm.Paracosm
+import dev.aaronhowser.mods.paracosm.registry.ModBlocks
+import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
+import dev.aaronhowser.mods.paracosm.registry.ModItems
 import net.minecraft.data.PackOutput
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.MutableComponent
@@ -9,26 +12,8 @@ import net.neoforged.neoforge.common.data.LanguageProvider
 class ModLanguageProvider(output: PackOutput) : LanguageProvider(output, Paracosm.ID, "en_us") {
 
     object Item {
-        const val COTTON = "item.paracosm.cotton"
-        const val TOWEL_CAPE = "item.paracosm.towel_cape"
-        const val SEEING_STONE = "item.paracosm.seeing_stone"
-        const val DODGEBALL = "item.paracosm.dodgeball"
-        const val CANDY = "item.paracosm.candy"
-        const val SODA = "item.paracosm.soda"
         const val TOY_GUN = "item.paracosm.toy_gun"
         const val COOL_GUN = "item.paracosm.cool_gun"
-    }
-
-    object Block {
-        const val NIGHT_LIGHT = "block.paracosm.night_light"
-        const val WHOOPEE_CUSHION = "block.paracosm.whoopee_cushion"
-    }
-
-    object Entity {
-        const val TEDDY_BEAR = "entity.paracosm.teddy_bear"
-        const val DODGEBALL = "entity.paracosm.dodgeball"
-        const val STRING_WORM = "entity.paracosm.string_worm"
-        const val AARONBERRY = "entity.paracosm.aaronberry"
     }
 
     object Misc {
@@ -51,22 +36,22 @@ class ModLanguageProvider(output: PackOutput) : LanguageProvider(output, Paracos
     }
 
     override fun addTranslations() {
-        add(Item.COTTON, "Cotton")
-        add(Item.TOWEL_CAPE, "Towel Cape")
-        add(Item.SEEING_STONE, "Seeing Stone")
-        add(Item.DODGEBALL, "Dodgeball")
-        add(Item.CANDY, "Candy")
-        add(Item.SODA, "Soda")
+        addItem(ModItems.COTTON, "Cotton")
+        addItem(ModItems.TOWEL_CAPE, "Towel Cape")
+        addItem(ModItems.SEEING_STONE, "Seeing Stone")
+        addItem(ModItems.DODGEBALL, "Dodgeball")
+        addItem(ModItems.CANDY, "Candy")
+        addItem(ModItems.SODA, "Soda")
         add(Item.TOY_GUN, "Toy Gun")
         add(Item.COOL_GUN, "Cool Gun")
 
-        add(Block.NIGHT_LIGHT, "Night Light")
-        add(Block.WHOOPEE_CUSHION, "Whoopee Cushion")
+        addBlock(ModBlocks.NIGHT_LIGHT, "Night Light")
+        addBlock(ModBlocks.WHOOPEE_CUSHION, "Whoopee Cushion")
 
-        add(Entity.TEDDY_BEAR, "Teddy Bear")
-        add(Entity.DODGEBALL, "Dodgeball")
-        add(Entity.STRING_WORM, "String Worm")
-        add(Entity.AARONBERRY, "Aaronberry")
+        addEntityType(ModEntityTypes.TEDDY_BEAR, "Teddy Bear")
+        addEntityType(ModEntityTypes.DODGEBALL, "Dodgeball")
+        addEntityType(ModEntityTypes.STRING_WORM, "String Worm")
+        addEntityType(ModEntityTypes.AARONBERRY, "Aaronberry")
 
         add(Misc.CREATIVE_TAB, "Paracosm")
 
