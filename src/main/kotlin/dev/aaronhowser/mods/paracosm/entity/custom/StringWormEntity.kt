@@ -12,7 +12,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier
 import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.ai.goal.FloatGoal
 import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
@@ -167,7 +166,11 @@ class StringWormEntity(
     override fun tickRidden(player: Player, travelVector: Vec3) {
         super.tickRidden(player, travelVector)
 
-        this.setRot(player.yRot, player.xRot)
+        this.setRot(
+            player.yRot,
+            (player.xRot * 0.5f).coerceIn(-25f..0f)
+        )
+
         this.yRotO = this.yRot
         this.yBodyRot = this.yRot
         this.yHeadRot = this.yRot
