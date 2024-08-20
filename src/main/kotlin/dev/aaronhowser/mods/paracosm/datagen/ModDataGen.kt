@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.paracosm.datagen
 
 import dev.aaronhowser.mods.paracosm.Paracosm
-import dev.aaronhowser.mods.paracosm.datagen.datapack.ModDatapackBuiltinEntriesProvider
 import dev.aaronhowser.mods.paracosm.datagen.loot.ModLootTableProvider
 import dev.aaronhowser.mods.paracosm.datagen.model.ModBlockStateProvider
 import dev.aaronhowser.mods.paracosm.datagen.model.ModItemModelProvider

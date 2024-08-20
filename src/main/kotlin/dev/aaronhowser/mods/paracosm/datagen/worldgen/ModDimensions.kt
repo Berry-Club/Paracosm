@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.paracosm.datagen.datapack
+package dev.aaronhowser.mods.paracosm.datagen.worldgen
 
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.core.registries.Registries

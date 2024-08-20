@@ -1,6 +1,7 @@
-package dev.aaronhowser.mods.paracosm.datagen.datapack
+package dev.aaronhowser.mods.paracosm.datagen
 
 import dev.aaronhowser.mods.paracosm.Paracosm
+import dev.aaronhowser.mods.paracosm.datagen.worldgen.ModDimensions
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.RegistrySetBuilder
 import net.minecraft.core.registries.Registries
