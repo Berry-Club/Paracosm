@@ -17,7 +17,7 @@ class StickyHandItem : Item(
 ) {
 
     companion object {
-        private val playerStickyHands = mutableMapOf<Player, StickyHandProjectile>()
+        val playerStickyHands = mutableMapOf<Player, StickyHandProjectile>()
     }
 
     override fun use(level: Level, player: Player, usedHand: InteractionHand): InteractionResultHolder<ItemStack> {
@@ -57,6 +57,7 @@ class StickyHandItem : Item(
             )
 
             if (level is ServerLevel) {
+                playerStickyHands.remove(player)
                 playerHand.retrieve()
             }
 

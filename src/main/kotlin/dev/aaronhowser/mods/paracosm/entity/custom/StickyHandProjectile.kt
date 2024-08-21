@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.entity.custom
 
+import dev.aaronhowser.mods.paracosm.item.StickyHandItem
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import net.minecraft.network.syncher.EntityDataAccessor
@@ -8,6 +9,7 @@ import net.minecraft.network.syncher.SynchedEntityData
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.MoverType
+import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.entity.projectile.Projectile
 import net.minecraft.world.entity.projectile.ProjectileUtil
@@ -74,7 +76,13 @@ class StickyHandProjectile(
         if (level().isClientSide) return
 
         if (shouldDiscard()) {
+            val owner = this.owner
+            if (owner is Player) {
+                StickyHandItem.playerStickyHands.remove(owner)
+            }
+
             this.discard()
+
             return
         }
 
@@ -148,8 +156,44 @@ class StickyHandProjectile(
         return false
     }
 
-    fun retrieve() {
+    fun retrieve(): Int {
+        if (this.level().isClientSide || this.shouldDiscard()) return 0
 
+        var i = 0
+        val grabbedEntity = this.grabbedEntity
+
+        if (grabbedEntity != null) {
+            this.pullEntity(grabbedEntity)
+            level().broadcastEntityEvent(this, 31.toByte())
+            i = if (grabbedEntity is ItemEntity) 3 else 5
+        }
+
+        if (this.onGround()) i = 2
+
+        this.discard()
+
+        return i
+    }
+
+    override fun handleEntityEvent(id: Byte) {
+        val grabbedEntity = this.grabbedEntity
+        if (id.toInt() == 31 && level().isClientSide && grabbedEntity is Player && grabbedEntity.isLocalPlayer) {
+            this.pullEntity(grabbedEntity)
+        }
+
+        super.handleEntityEvent(id)
+    }
+
+    private fun pullEntity(grabbedEntity: Entity) {
+        val owner = this.owner ?: return
+
+        val vec3 = Vec3(
+            owner.x - grabbedEntity.x,
+            owner.y - grabbedEntity.y,
+            owner.z - grabbedEntity.z
+        ).scale(0.1)
+
+        grabbedEntity.deltaMovement = grabbedEntity.deltaMovement.add(vec3)
     }
 
     private var currentState = StickyHandState.FLYING
