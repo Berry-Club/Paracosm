@@ -1,8 +1,6 @@
 package dev.aaronhowser.mods.paracosm.entity.base
 
 import dev.aaronhowser.mods.paracosm.attachment.RequiresWhimsy
-import dev.aaronhowser.mods.paracosm.config.ServerConfig
-import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.AgeableMob
 import net.minecraft.world.entity.EntityType
@@ -11,7 +9,6 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 import software.bernie.geckolib.animatable.GeoEntity
-import kotlin.math.pow
 
 abstract class ToyEntity(
     entityType: EntityType<out TamableAnimal>,
@@ -19,12 +16,7 @@ abstract class ToyEntity(
 ) : TamableAnimal(entityType, level), RequiresWhimsy, GeoEntity {
 
     fun hidingFromPlayers(): List<Player> {
-        return level().players().filter {
-            !hasEnoughWhimsy(it)
-                    && it.distanceToSqr(this) < ServerConfig.TOY_FLOP_RANGE.get().pow(2)
-                    && OtherUtil.isLookingAtPos(it, eyePosition, 75f)
-                    && it.hasLineOfSight(this)
-        }
+        return super.hidingFromPlayers(level(), eyePosition)
     }
 
     override fun getBreedOffspring(p0: ServerLevel, p1: AgeableMob): AgeableMob? {
@@ -37,7 +29,7 @@ abstract class ToyEntity(
 
     override fun tick() {
         super.tick()
-        isHiding = hidingFromPlayers().isNotEmpty()
+        isHiding = super.isHiding(level(), eyePosition)
     }
 
     var isHiding: Boolean = false
