@@ -162,7 +162,7 @@ class ShrinkRayProjectile(
         }
 
         age++
-        if (age > 20 * 100) {
+        if (age > 20 * 1) {
             this.discard()
         }
     }
