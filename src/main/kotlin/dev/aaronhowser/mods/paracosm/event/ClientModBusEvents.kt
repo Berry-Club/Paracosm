@@ -120,7 +120,7 @@ object ClientModBusEvents {
 
             val layerClass = layerRenderer.javaClass
             if (layerClass == ElytraLayer::class.java) {
-                layersToAdd["Elytra"] = TowelCapeLayer(renderer, context.modelSet)
+                layersToAdd["TowelCape"] = TowelCapeLayer(renderer, context.modelSet)
 
                 break
             }
