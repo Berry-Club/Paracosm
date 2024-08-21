@@ -49,8 +49,6 @@ object SetWhimsyCommand {
             commandSender.sendSystemMessage(Component.literal("${target.gameProfile.name}'s Whimsy has been set to $amount"))
         }
 
-        Paracosm.LOGGER.info("Set ${target.gameProfile.name}'s Whimsy to $amount")
-
         return 1
     }
 

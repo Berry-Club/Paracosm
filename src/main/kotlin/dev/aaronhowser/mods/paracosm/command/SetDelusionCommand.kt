@@ -49,8 +49,6 @@ object SetDelusionCommand {
             commandSender.sendSystemMessage(Component.literal("${target.gameProfile.name}'s Delusion has been set to $amount"))
         }
 
-        Paracosm.LOGGER.info("Set ${target.gameProfile.name}'s Delusion to $amount")
-
         return 1
     }
 
