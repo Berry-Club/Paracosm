@@ -1,7 +1,8 @@
 package dev.aaronhowser.mods.paracosm.attachment
 
 import com.mojang.serialization.Codec
-import dev.aaronhowser.mods.paracosm.Paracosm
+import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
+import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateShrinkRayScale
 import dev.aaronhowser.mods.paracosm.registry.ModAttachmentTypes
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.world.entity.LivingEntity
@@ -24,6 +25,15 @@ data class ShrinkRayEffect(
             set(valueBad) {
                 val value = valueBad.coerceIn(-0.9, 2.0)
 
+                if (!this.level().isClientSide) {
+                    ModPacketHandler.messageAllPlayers(
+                        UpdateShrinkRayScale(
+                            this.id,
+                            value
+                        )
+                    )
+                }
+
                 this.setData(ModAttachmentTypes.SHRINK_RAY_EFFECT, ShrinkRayEffect(value))
 
                 val scaleAttribute = this.getAttribute(Attributes.SCALE) ?: return
@@ -37,11 +47,6 @@ data class ShrinkRayEffect(
 
                 if (value == 0.0) {
                     scaleAttribute.removeModifier(modifier)
-                }
-
-                if (!this.level().isClientSide) {
-                    val nameString = this.name.string
-                    Paracosm.LOGGER.debug("$nameString's Shrink Ray effect value is now $value")
                 }
             }
 
