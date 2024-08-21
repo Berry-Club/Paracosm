@@ -112,8 +112,7 @@ object ClientModBusEvents {
         context: EntityRendererProvider.Context
     ) {
 
-        val layerTypes = 2
-        val layersToAdd: HashMap<String, RenderLayer<E, M>> = HashMap(layerTypes)
+        val layersToAdd: MutableMap<String, RenderLayer<E, M>> = mutableMapOf()
 
         for (layerRenderer in renderer.layers) {
             if (layerRenderer == null) continue
