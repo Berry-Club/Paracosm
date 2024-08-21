@@ -159,7 +159,7 @@ class ShrinkRayProjectile(
     override fun tick() {
         super.tick()
 
-        if (hidingFromPlayers(level(), position()).isNotEmpty()) {
+        if (isHiding(level(), position())) {
             this.discard()
             return
         }
