@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.entity.custom
 
+import dev.aaronhowser.mods.paracosm.attachment.RequiresWhimsy
 import dev.aaronhowser.mods.paracosm.attachment.ShrinkRayEffect.Companion.shrinkRayEffect
 import dev.aaronhowser.mods.paracosm.datagen.tag.ModBlockTagsProvider
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
@@ -25,7 +26,7 @@ import kotlin.math.abs
 class ShrinkRayProjectile(
     entityType: EntityType<out Arrow>,
     level: Level
-) : Arrow(entityType, level) {
+) : RequiresWhimsy, Arrow(entityType, level) {
 
     constructor(shooter: ServerPlayer) : this(
         ModEntityTypes.SHRINK_RAY_PROJECTILE.get(),
@@ -38,7 +39,12 @@ class ShrinkRayProjectile(
         this.owner = shooter
     }
 
-    companion object {
+    override val requiredWhimsy: Float = Companion.requiredWhimsy
+
+    companion object : RequiresWhimsy {
+
+        override val requiredWhimsy: Float = ModItems.SHRINK_RAY.get().requiredWhimsy
+
         val IS_GROW: EntityDataAccessor<Boolean> =
             SynchedEntityData.defineId(
                 ShrinkRayProjectile::class.java,
@@ -56,7 +62,7 @@ class ShrinkRayProjectile(
             if (target is Player) {
                 if (target.isSpectator) return false
 
-                if (!ModItems.SHRINK_RAY.get().hasEnoughWhimsy(target)) return false
+                if (!hasEnoughWhimsy(target)) return false
             }
 
             val scaleBefore = target.getAttributeValue(Attributes.SCALE)
@@ -149,8 +155,14 @@ class ShrinkRayProjectile(
     private var age = 0
     override fun tick() {
         super.tick()
+
+        if (hidingFromPlayers(level(), position()).isNotEmpty()) {
+            this.discard()
+            return
+        }
+
         age++
-        if (age > 20 * 1) {
+        if (age > 20 * 100) {
             this.discard()
         }
     }
