@@ -5,7 +5,6 @@ import dev.aaronhowser.mods.paracosm.registry.ModItems
 import net.minecraft.network.syncher.EntityDataAccessor
 import net.minecraft.network.syncher.EntityDataSerializers
 import net.minecraft.network.syncher.SynchedEntityData
-import net.minecraft.util.Mth
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.MoverType
@@ -16,10 +15,8 @@ import net.minecraft.world.level.Level
 import net.minecraft.world.phys.HitResult
 import net.minecraft.world.phys.Vec3
 import net.neoforged.neoforge.event.EventHooks
-import kotlin.math.PI
-import kotlin.math.cos
-import kotlin.math.pow
-import kotlin.math.sin
+import java.lang.Math.clamp
+import kotlin.math.*
 
 class StickyHandProjectile(
     entityType: EntityType<out Projectile>,
@@ -38,14 +35,14 @@ class StickyHandProjectile(
 
         var velocity = Vec3(
             -sin(yaw).toDouble(),
-            Mth.clamp(-sin(pitch) / Mth.cos(pitch), -5f, 5f).toDouble(),
+            clamp(-sin(pitch) / cos(pitch), -5f, 5f).toDouble(),
             -cos(yaw).toDouble()
         )
         velocity = velocity.scale(0.6 / velocity.length() + this.random.triangle(0.5, 0.0103365))
 
         this.deltaMovement = velocity
-        this.yRot = (Mth.atan2(velocity.x, velocity.z) * 180 / PI).toFloat()
-        this.xRot = (Mth.atan2(velocity.y, velocity.horizontalDistance()) * 180 / PI).toFloat()
+        this.yRot = (atan2(velocity.x, velocity.z) * 180 / PI).toFloat()
+        this.xRot = (atan2(velocity.y, velocity.horizontalDistance()) * 180 / PI).toFloat()
 
         this.yRotO = this.yRot
         this.xRotO = this.xRot
