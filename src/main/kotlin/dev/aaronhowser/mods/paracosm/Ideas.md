@@ -32,9 +32,9 @@
 
 # Uses
 
-- [ ]  Toy mob companions that do things but if someone without imagination looks at them, they flop to the ground Toy
+- [x]  Toy mob companions that do things but if someone without imagination looks at them, they flop to the ground Toy
   Story style
-- [ ]  A gun that if you have imagination works normal but to everyone else it sounds like me going pew pew
+- [x]  A gun that if you have imagination works normal but to everyone else it sounds like me going pew pew
 - [ ]  Chalk-based stuff, like hopscotch that makes more agile, portals, portables holes
 - [ ]  Mental dimension, mindspace etc? Storage? Mind Palace? What if it gets bigger the more imaginative you are?
 - [ ]  If you go to sleep, add a button to go to a dream world
