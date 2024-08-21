@@ -64,4 +64,14 @@ object ModEntityTypes {
                 .build("shrink_ray_projectile")
         })
 
+    val STICKY_HAND_PROJECTILE: DeferredHolder<EntityType<*>, EntityType<StickyHandProjectile>> =
+        ENTITY_TYPE_REGISTRY.register("sticky_hand_projectile", Supplier {
+            EntityType.Builder.of(
+                ::StickyHandProjectile,
+                MobCategory.MISC
+            )
+                .sized(0.25f, 0.25f)
+                .build("sticky_hand_projectile")
+        })
+
 }
