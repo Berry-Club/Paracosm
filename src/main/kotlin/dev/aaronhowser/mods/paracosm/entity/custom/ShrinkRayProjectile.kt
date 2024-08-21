@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.paracosm.attachment.ShrinkRayEffect.Companion.shrink
 import dev.aaronhowser.mods.paracosm.datagen.tag.ModBlockTagsProvider
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.registry.ModItems
+import net.minecraft.commands.arguments.EntityAnchorArgument
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.Component
 import net.minecraft.network.syncher.EntityDataAccessor
@@ -136,8 +137,10 @@ class ShrinkRayProjectile(
 
         this.setDeltaMovement(newX, newY, newZ)
 
-        xRotO = xRot
-        yRotO = yRot
+        this.lookAt(
+            EntityAnchorArgument.Anchor.EYES,
+            this.position().add(newX, newY, newZ)
+        )
 
         this.age = 0
     }
