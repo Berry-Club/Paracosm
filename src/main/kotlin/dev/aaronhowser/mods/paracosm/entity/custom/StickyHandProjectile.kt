@@ -5,18 +5,21 @@ import dev.aaronhowser.mods.paracosm.registry.ModItems
 import net.minecraft.network.syncher.EntityDataAccessor
 import net.minecraft.network.syncher.EntityDataSerializers
 import net.minecraft.network.syncher.SynchedEntityData
+import net.minecraft.util.Mth
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.MoverType
 import net.minecraft.world.entity.player.Player
-import net.minecraft.world.entity.projectile.FishingHook
 import net.minecraft.world.entity.projectile.Projectile
 import net.minecraft.world.entity.projectile.ProjectileUtil
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.HitResult
 import net.minecraft.world.phys.Vec3
 import net.neoforged.neoforge.event.EventHooks
+import kotlin.math.PI
+import kotlin.math.cos
 import kotlin.math.pow
+import kotlin.math.sin
 
 class StickyHandProjectile(
     entityType: EntityType<out Projectile>,
@@ -27,13 +30,30 @@ class StickyHandProjectile(
         ModEntityTypes.STICKY_HAND_PROJECTILE.get(),
         owner.level()
     ) {
-        this.moveTo(owner.x, owner.eyeY, owner.z)
+        this.moveTo(owner.x, owner.eyeY, owner.z, owner.yRot, owner.xRot)
         this.owner = owner
+
+        val pitch = owner.xRot
+        val yaw = owner.yRot
+
+        var velocity = Vec3(
+            -sin(yaw).toDouble(),
+            Mth.clamp(-sin(pitch) / Mth.cos(pitch), -5f, 5f).toDouble(),
+            -cos(yaw).toDouble()
+        )
+        velocity = velocity.scale(0.6 / velocity.length() + this.random.triangle(0.5, 0.0103365))
+
+        this.deltaMovement = velocity
+        this.yRot = (Mth.atan2(velocity.x, velocity.z) * 180 / PI).toFloat()
+        this.xRot = (Mth.atan2(velocity.y, velocity.horizontalDistance()) * 180 / PI).toFloat()
+
+        this.yRotO = this.yRot
+        this.xRotO = this.xRot
     }
 
     companion object {
         val HOOKED_ENTITY: EntityDataAccessor<Int> =
-            SynchedEntityData.defineId(FishingHook::class.java, EntityDataSerializers.INT)
+            SynchedEntityData.defineId(StickyHandProjectile::class.java, EntityDataSerializers.INT)
     }
 
     var grabbedEntity: Entity? = null
@@ -129,6 +149,10 @@ class StickyHandProjectile(
         }
 
         return false
+    }
+
+    fun retrieve() {
+
     }
 
     private var currentState = StickyHandState.FLYING
