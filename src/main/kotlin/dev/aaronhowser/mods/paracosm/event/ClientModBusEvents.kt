@@ -2,10 +2,7 @@ package dev.aaronhowser.mods.paracosm.event
 
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.client.render.curio.SeeingStoneCurioRenderer
-import dev.aaronhowser.mods.paracosm.client.render.entity.AaronberryRenderer
-import dev.aaronhowser.mods.paracosm.client.render.entity.ShrinkRayProjectileRenderer
-import dev.aaronhowser.mods.paracosm.client.render.entity.StringWormRenderer
-import dev.aaronhowser.mods.paracosm.client.render.entity.TeddyBearRenderer
+import dev.aaronhowser.mods.paracosm.client.render.entity.*
 import dev.aaronhowser.mods.paracosm.client.render.layer.TowelCapeLayer
 import dev.aaronhowser.mods.paracosm.datagen.model.ModItemModelProvider
 import dev.aaronhowser.mods.paracosm.item.ToyGunItem
@@ -45,15 +42,11 @@ object ClientModBusEvents {
     @SubscribeEvent
     fun onClientSetup(event: FMLClientSetupEvent) {
 
-        fun <T : Entity> register(entityType: EntityType<T>, provider: EntityRendererProvider<T>) {
-            EntityRenderers.register(entityType, provider)
-        }
-
         fun <T : Entity> register(
             entityHolder: DeferredHolder<EntityType<*>, EntityType<T>>,
             provider: EntityRendererProvider<T>
         ) {
-            register(entityHolder.get(), provider)
+            EntityRenderers.register(entityHolder.get(), provider)
         }
 
         register(ModEntityTypes.TEDDY_BEAR, ::TeddyBearRenderer)
@@ -61,6 +54,7 @@ object ClientModBusEvents {
         register(ModEntityTypes.AARONBERRY, ::AaronberryRenderer)
         register(ModEntityTypes.DODGEBALL, ::ThrownItemRenderer)
         register(ModEntityTypes.SHRINK_RAY_PROJECTILE, ::ShrinkRayProjectileRenderer)
+        register(ModEntityTypes.STICKY_HAND_PROJECTILE, ::StickyHandProjectileRenderer)
 
         CuriosRendererRegistry.register(
             ModItems.SEEING_STONE.get(),
