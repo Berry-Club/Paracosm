@@ -68,7 +68,7 @@ class StickyHandProjectile(
         }
     }
 
-    var life = 0
+    var ticksOnGround = 0
 
     override fun tick() {
         super.tick()
@@ -87,9 +87,9 @@ class StickyHandProjectile(
         }
 
         if (this.onGround()) {
-            this.life++
+            this.ticksOnGround++
         } else {
-            this.life = 0
+            this.ticksOnGround = 0
         }
 
         if (this.currentState == StickyHandState.FLYING) {
@@ -138,7 +138,7 @@ class StickyHandProjectile(
     private fun shouldDiscard(): Boolean {
         val player = owner as? Player ?: return true
 
-        if (this.life > 20 * 10) {
+        if (this.ticksOnGround > 20 * 10) {
             return true
         }
 
