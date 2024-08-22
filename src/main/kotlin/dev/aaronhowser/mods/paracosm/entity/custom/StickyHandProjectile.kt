@@ -76,13 +76,7 @@ class StickyHandProjectile(
         if (level().isClientSide) return
 
         if (shouldDiscard()) {
-            val owner = this.owner
-            if (owner is Player) {
-                StickyHandItem.playerStickyHands.remove(owner)
-            }
-
             this.discard()
-
             return
         }
 
@@ -125,6 +119,15 @@ class StickyHandProjectile(
 
         this.deltaMovement = this.deltaMovement.scale(0.92) //What?
         this.reapplyPosition()
+    }
+
+    override fun onRemovedFromLevel() {
+        val owner = this.owner
+        if (owner is Player) {
+            StickyHandItem.playerStickyHands.remove(owner)
+        }
+
+        super.onRemovedFromLevel()
     }
 
     private fun checkCollision() {
