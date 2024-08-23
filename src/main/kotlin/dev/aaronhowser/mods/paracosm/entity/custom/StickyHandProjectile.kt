@@ -145,10 +145,10 @@ class StickyHandProjectile(
             return true
         }
 
-        val mainHandItem = player.mainHandItem
-        val offHandItem = player.offhandItem
-
-        if (mainHandItem.item != ModItems.STICKY_HAND.get() && offHandItem.item != ModItems.STICKY_HAND.get()) {
+        if (
+            player.mainHandItem.item != ModItems.STICKY_HAND.get()
+            && player.offhandItem.item != ModItems.STICKY_HAND.get()
+        ) {
             return true
         }
 
