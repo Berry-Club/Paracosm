@@ -1,28 +1,124 @@
 {
   "variants": {
-    "segment=0": {
+    "facing=east,segment=0": {
+      "model": "paracosm:block/city_rug0",
+      "y": 90
+    },
+    "facing=east,segment=1": {
+      "model": "paracosm:block/city_rug1",
+      "y": 90
+    },
+    "facing=east,segment=2": {
+      "model": "paracosm:block/city_rug2",
+      "y": 90
+    },
+    "facing=east,segment=3": {
+      "model": "paracosm:block/city_rug3",
+      "y": 90
+    },
+    "facing=east,segment=4": {
+      "model": "paracosm:block/city_rug4",
+      "y": 90
+    },
+    "facing=east,segment=5": {
+      "model": "paracosm:block/city_rug5",
+      "y": 90
+    },
+    "facing=east,segment=6": {
+      "model": "paracosm:block/city_rug6",
+      "y": 90
+    },
+    "facing=east,segment=7": {
+      "model": "paracosm:block/city_rug7",
+      "y": 90
+    },
+    "facing=north,segment=0": {
       "model": "paracosm:block/city_rug0"
     },
-    "segment=1": {
+    "facing=north,segment=1": {
       "model": "paracosm:block/city_rug1"
     },
-    "segment=2": {
+    "facing=north,segment=2": {
       "model": "paracosm:block/city_rug2"
     },
-    "segment=3": {
+    "facing=north,segment=3": {
       "model": "paracosm:block/city_rug3"
     },
-    "segment=4": {
+    "facing=north,segment=4": {
       "model": "paracosm:block/city_rug4"
     },
-    "segment=5": {
+    "facing=north,segment=5": {
       "model": "paracosm:block/city_rug5"
     },
-    "segment=6": {
+    "facing=north,segment=6": {
       "model": "paracosm:block/city_rug6"
     },
-    "segment=7": {
+    "facing=north,segment=7": {
       "model": "paracosm:block/city_rug7"
+    },
+    "facing=south,segment=0": {
+      "model": "paracosm:block/city_rug0",
+      "y": 180
+    },
+    "facing=south,segment=1": {
+      "model": "paracosm:block/city_rug1",
+      "y": 180
+    },
+    "facing=south,segment=2": {
+      "model": "paracosm:block/city_rug2",
+      "y": 180
+    },
+    "facing=south,segment=3": {
+      "model": "paracosm:block/city_rug3",
+      "y": 180
+    },
+    "facing=south,segment=4": {
+      "model": "paracosm:block/city_rug4",
+      "y": 180
+    },
+    "facing=south,segment=5": {
+      "model": "paracosm:block/city_rug5",
+      "y": 180
+    },
+    "facing=south,segment=6": {
+      "model": "paracosm:block/city_rug6",
+      "y": 180
+    },
+    "facing=south,segment=7": {
+      "model": "paracosm:block/city_rug7",
+      "y": 180
+    },
+    "facing=west,segment=0": {
+      "model": "paracosm:block/city_rug0",
+      "y": 270
+    },
+    "facing=west,segment=1": {
+      "model": "paracosm:block/city_rug1",
+      "y": 270
+    },
+    "facing=west,segment=2": {
+      "model": "paracosm:block/city_rug2",
+      "y": 270
+    },
+    "facing=west,segment=3": {
+      "model": "paracosm:block/city_rug3",
+      "y": 270
+    },
+    "facing=west,segment=4": {
+      "model": "paracosm:block/city_rug4",
+      "y": 270
+    },
+    "facing=west,segment=5": {
+      "model": "paracosm:block/city_rug5",
+      "y": 270
+    },
+    "facing=west,segment=6": {
+      "model": "paracosm:block/city_rug6",
+      "y": 270
+    },
+    "facing=west,segment=7": {
+      "model": "paracosm:block/city_rug7",
+      "y": 270
     }
   }
 }

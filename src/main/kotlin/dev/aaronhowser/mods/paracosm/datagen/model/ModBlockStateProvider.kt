@@ -34,6 +34,14 @@ class ModBlockStateProvider(
         getVariantBuilder(block)
             .forAllStates {
                 val segment = it.getValue(CityRugBlock.SEGMENT)
+                val facing = it.getValue(HorizontalDirectionalBlock.FACING)
+                val yRotation = when (facing) {
+                    Direction.NORTH -> 0
+                    Direction.EAST -> 90
+                    Direction.SOUTH -> 180
+                    Direction.WEST -> 270
+                    else -> throw IllegalStateException("Invalid facing direction")
+                }
 
                 val texture = modLoc("block/city_rug$segment")
 
@@ -49,6 +57,7 @@ class ModBlockStateProvider(
                 ConfiguredModel
                     .builder()
                     .modelFile(model)
+                    .rotationY(yRotation)
                     .build()
             }
 

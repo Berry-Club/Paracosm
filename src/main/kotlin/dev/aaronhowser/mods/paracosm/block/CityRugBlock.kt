@@ -7,6 +7,7 @@ import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.HorizontalDirectionalBlock
 import net.minecraft.world.level.block.RenderShape
 import net.minecraft.world.level.block.SoundType
 import net.minecraft.world.level.block.state.BlockState
@@ -22,25 +23,25 @@ class CityRugBlock(
         .sound(SoundType.WOOL)
         .ignitedByLava()
         .mapColor(MapColor.COLOR_LIGHT_GRAY)
-) : Block(properties) {
+) : HorizontalDirectionalBlock(properties) {
 
     init {
         registerDefaultState(
             stateDefinition.any()
-//                .setValue(FACING, Direction.NORTH)
+                .setValue(FACING, Direction.NORTH)
                 .setValue(SEGMENT, 0)
         )
     }
 
     override fun getStateForPlacement(context: BlockPlaceContext): BlockState? {
         return defaultBlockState()
-//            .setValue(FACING, context.horizontalDirection)
+            .setValue(FACING, context.horizontalDirection)
             .setValue(SEGMENT, 0)
     }
 
     override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
         super.createBlockStateDefinition(builder)
-        builder.add(SEGMENT)
+        builder.add(FACING, SEGMENT)
     }
 
     @Suppress("OVERRIDE_DEPRECATION")
@@ -58,11 +59,11 @@ class CityRugBlock(
         val segment = state.getValue(SEGMENT)
         if (segment != 0) return
 
-//        val facing = state.getValue(FACING)
-        val facing = Direction.EAST
+        val facing = state.getValue(FACING)
+        val clockwise = facing.clockWise    // You place the top left, and it places the rest to the right
 
         for (i in 1..3) {
-            val otherPos = pos.relative(facing, i)
+            val otherPos = pos.relative(clockwise, i)
             val otherState = level.getBlockState(otherPos)
 
             if (otherState.isEmpty) {
@@ -71,7 +72,7 @@ class CityRugBlock(
         }
 
         for (i in 4..7) {
-            val otherPos = pos.relative(facing, i - 4).relative(facing.clockWise, 1)
+            val otherPos = pos.relative(clockwise, i - 4).relative(clockwise.clockWise, 1)
             val otherState = level.getBlockState(otherPos)
 
             if (otherState.isEmpty) {
