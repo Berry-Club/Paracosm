@@ -36,9 +36,9 @@ class ModBlockStateProvider(
                 val segment = it.getValue(CityRugBlock.SEGMENT)
 
                 val texture = if (segment < 4) {
-                    modLoc("block/city_rug_left")
+                    mcLoc("block/white_wool")
                 } else {
-                    modLoc("block/city_rug_right")
+                    mcLoc("block/black_wool")
                 }
 
                 val fromX = when (segment) {
@@ -66,23 +66,12 @@ class ModBlockStateProvider(
                 }
 
                 val model = models()
-                    .getBuilder("city_rug$segment")
+                    .withExistingParent("city_rug$segment", mcLoc("block/thin_block"))
                     .texture("#texture", texture)
 
                     .element()
                     .from(0f, 0f, 0f)
                     .to(16f, 1f, 16f)
-                    .textureAll("#texture")
-
-//                    .face(Direction.UP)
-//                    .uvs(
-//                        fromX.toFloat(),
-//                        fromZ.toFloat(),
-//                        toX.toFloat(),
-//                        toZ.toFloat()
-//                    )
-//                    .end()
-
                     .end()
 
                 ConfiguredModel

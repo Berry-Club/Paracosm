@@ -1,26 +1,7 @@
 {
+  "parent": "minecraft:block/thin_block",
   "elements": [
     {
-      "faces": {
-        "down": {
-          "texture": "#texture"
-        },
-        "east": {
-          "texture": "#texture"
-        },
-        "north": {
-          "texture": "#texture"
-        },
-        "south": {
-          "texture": "#texture"
-        },
-        "up": {
-          "texture": "#texture"
-        },
-        "west": {
-          "texture": "#texture"
-        }
-      },
       "from": [
         0,
         0,
@@ -33,26 +14,6 @@
       ]
     },
     {
-      "faces": {
-        "down": {
-          "texture": "#texture"
-        },
-        "east": {
-          "texture": "#texture"
-        },
-        "north": {
-          "texture": "#texture"
-        },
-        "south": {
-          "texture": "#texture"
-        },
-        "up": {
-          "texture": "#texture"
-        },
-        "west": {
-          "texture": "#texture"
-        }
-      },
       "from": [
         0,
         0,
@@ -65,26 +26,6 @@
       ]
     },
     {
-      "faces": {
-        "down": {
-          "texture": "#texture"
-        },
-        "east": {
-          "texture": "#texture"
-        },
-        "north": {
-          "texture": "#texture"
-        },
-        "south": {
-          "texture": "#texture"
-        },
-        "up": {
-          "texture": "#texture"
-        },
-        "west": {
-          "texture": "#texture"
-        }
-      },
       "from": [
         0,
         0,
@@ -97,26 +38,6 @@
       ]
     },
     {
-      "faces": {
-        "down": {
-          "texture": "#texture"
-        },
-        "east": {
-          "texture": "#texture"
-        },
-        "north": {
-          "texture": "#texture"
-        },
-        "south": {
-          "texture": "#texture"
-        },
-        "up": {
-          "texture": "#texture"
-        },
-        "west": {
-          "texture": "#texture"
-        }
-      },
       "from": [
         0,
         0,
@@ -130,6 +51,6 @@
     }
   ],
   "textures": {
-    "#texture": "paracosm:block/city_rug_left"
+    "#texture": "minecraft:block/white_wool"
   }
 }
