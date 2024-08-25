@@ -1,0 +1,71 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.sticky_hand.fist": {
+			"loop": "hold_on_last_frame",
+			"bones": {
+				"index": {
+					"rotation": {
+						"vector": [-77.5, 0, 0]
+					}
+				},
+				"index_top": {
+					"rotation": {
+						"vector": [-122.5, 0, 0]
+					}
+				},
+				"middle": {
+					"rotation": {
+						"vector": [-77.5, 0, 0]
+					}
+				},
+				"middle_top": {
+					"rotation": {
+						"vector": [-122.5, 0, 0]
+					}
+				},
+				"ring": {
+					"rotation": {
+						"vector": [-77.5, 0, 0]
+					}
+				},
+				"pinky": {
+					"rotation": {
+						"vector": [-77.5, 0, 0]
+					}
+				},
+				"pinky_top": {
+					"rotation": {
+						"vector": [-122.5, 0, 0]
+					}
+				},
+				"ring_top": {
+					"rotation": {
+						"vector": [-122.5, 0, 0]
+					}
+				},
+				"thumb": {
+					"rotation": {
+						"vector": [-77.5, 0, 35]
+					}
+				},
+				"thumb_top": {
+					"rotation": {
+						"vector": [-122.5, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.sticky_hand.flat": {
+			"loop": true,
+			"bones": {
+				"thumb": {
+					"rotation": {
+						"vector": [0, 0, 35]
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}
