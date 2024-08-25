@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.paracosm.datagen.model
 
 import dev.aaronhowser.mods.paracosm.Paracosm
+import dev.aaronhowser.mods.paracosm.block.CityRugBlock
 import dev.aaronhowser.mods.paracosm.block.CottonBlock
 import dev.aaronhowser.mods.paracosm.block.NightLightBlock
 import dev.aaronhowser.mods.paracosm.block.machine.imaginator.ImaginatorBlock
@@ -24,6 +25,50 @@ class ModBlockStateProvider(
         whoopeeCushion()
         walrus()
         imaginator()
+        cityRug()
+    }
+
+    private fun cityRug() {
+        val block = ModBlocks.CITY_RUG.get()
+
+        getVariantBuilder(block)
+            .forAllStates {
+                val segment = it.getValue(CityRugBlock.SEGMENT)
+
+                val modelLoc = modLoc("block/city_rug_segment$segment")
+
+                val texture = when (segment) {
+                    0 -> mcLoc("block/white_wool")
+                    1 -> mcLoc("block/light_gray_wool")
+                    2 -> mcLoc("block/gray_wool")
+                    3 -> mcLoc("block/black_wool")
+                    4 -> mcLoc("block/red_wool")
+                    5 -> mcLoc("block/orange_wool")
+                    6 -> mcLoc("block/yellow_wool")
+                    7 -> mcLoc("block/lime_wool")
+                    else -> throw IllegalStateException("Invalid segment")
+                }
+
+                ConfiguredModel
+                    .builder()
+                    .modelFile(
+                        models()
+                            .carpet(
+                                "city_rug$segment",
+                                texture
+                            )
+                    )
+                    .build()
+            }
+
+        simpleBlockItem(
+            block,
+            ItemModelBuilder(
+                modLoc("block/city_rug0"),
+                existingFileHelper
+            )
+        )
+
     }
 
     private fun imaginator() {
