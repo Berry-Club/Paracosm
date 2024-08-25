@@ -79,7 +79,7 @@ class ModBlockStateProvider(
             .forAllStates {
                 val isClosed = it.getValue(ImaginatorBlock.IS_CLOSED)
 
-                val modelLoc = if (isClosed) {
+                val modelName = if (isClosed) {
                     "block/imaginator_closed"
                 } else {
                     "block/imaginator_open"
@@ -89,7 +89,7 @@ class ModBlockStateProvider(
                 val texture = mcLoc("block/oak_planks")
 
                 val builder = models()
-                    .getBuilder("${Paracosm.ID}:$modelLoc")
+                    .withExistingParent(modelName, mcLoc("block/block"))
                     .texture("texture", texture)
                     .texture("particle", texture)
 
