@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.paracosm.block.machine.imaginator
+package dev.aaronhowser.mods.paracosm.block.imaginator
 
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.core.BlockPos

@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.paracosm.registry
 
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.block.*
-import dev.aaronhowser.mods.paracosm.block.machine.imaginator.ImaginatorBlock
+import dev.aaronhowser.mods.paracosm.block.imaginator.ImaginatorBlock
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockBehaviour
 import net.neoforged.neoforge.registries.DeferredBlock

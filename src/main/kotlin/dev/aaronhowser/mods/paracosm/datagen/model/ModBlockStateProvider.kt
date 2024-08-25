@@ -4,7 +4,7 @@ import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.block.CityRugBlock
 import dev.aaronhowser.mods.paracosm.block.CottonBlock
 import dev.aaronhowser.mods.paracosm.block.NightLightBlock
-import dev.aaronhowser.mods.paracosm.block.machine.imaginator.ImaginatorBlock
+import dev.aaronhowser.mods.paracosm.block.imaginator.ImaginatorBlock
 import dev.aaronhowser.mods.paracosm.registry.ModBlocks
 import net.minecraft.core.Direction
 import net.minecraft.data.PackOutput
