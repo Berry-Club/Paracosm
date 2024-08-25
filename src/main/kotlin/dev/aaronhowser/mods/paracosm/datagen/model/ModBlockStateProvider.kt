@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.paracosm.datagen.model
 
 import dev.aaronhowser.mods.paracosm.Paracosm
+import dev.aaronhowser.mods.paracosm.block.CityRugBlock
 import dev.aaronhowser.mods.paracosm.block.CottonBlock
 import dev.aaronhowser.mods.paracosm.block.NightLightBlock
 import dev.aaronhowser.mods.paracosm.block.machine.imaginator.ImaginatorBlock
@@ -24,6 +25,79 @@ class ModBlockStateProvider(
         whoopeeCushion()
         walrus()
         imaginator()
+        cityRug()
+    }
+
+    private fun cityRug() {
+        val block = ModBlocks.CITY_RUG.get()
+
+        getVariantBuilder(block)
+            .forAllStates {
+                val segment = it.getValue(CityRugBlock.SEGMENT)
+
+                val texture = if (segment < 4) {
+                    modLoc("block/city_rug_left")
+                } else {
+                    modLoc("block/city_rug_right")
+                }
+
+                val fromX = when (segment) {
+                    0, 1, 2, 3 -> 0
+                    4, 5, 6, 7 -> 16
+                    else -> throw IllegalStateException("Invalid segment")
+                }
+
+                val fromZ = when (segment) {
+                    0, 2, 4, 6 -> 0
+                    1, 3, 5, 7 -> 16
+                    else -> throw IllegalStateException("Invalid segment")
+                }
+
+                val toX = when (segment) {
+                    0, 1, 2, 3 -> 16
+                    4, 5, 6, 7 -> 0
+                    else -> throw IllegalStateException("Invalid segment")
+                }
+
+                val toZ = when (segment) {
+                    0, 2, 4, 6 -> 16
+                    1, 3, 5, 7 -> 0
+                    else -> throw IllegalStateException("Invalid segment")
+                }
+
+                val model = models()
+                    .getBuilder("city_rug$segment")
+
+                    .element()
+                    .from(0f, 0f, 0f)
+                    .to(16f, 1f, 16f)
+                    .textureAll(texture.toString())
+
+                    .face(Direction.UP)
+                    .uvs(
+                        fromX.toFloat(),
+                        fromZ.toFloat(),
+                        toX.toFloat(),
+                        toZ.toFloat()
+                    )
+                    .end()
+
+                    .end()
+
+                ConfiguredModel
+                    .builder()
+                    .modelFile(model)
+                    .build()
+            }
+
+        simpleBlockItem(
+            block,
+            ItemModelBuilder(
+                modLoc("block/city_rug0"),
+                existingFileHelper
+            )
+        )
+
     }
 
     private fun imaginator() {
