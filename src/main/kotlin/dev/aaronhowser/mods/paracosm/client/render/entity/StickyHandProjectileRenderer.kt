@@ -5,16 +5,16 @@ import com.mojang.blaze3d.vertex.VertexConsumer
 import dev.aaronhowser.mods.paracosm.entity.custom.StickyHandProjectile
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import dev.aaronhowser.mods.paracosm.util.ClientUtil
+import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.RenderType
-import net.minecraft.client.renderer.entity.EntityRenderer
 import net.minecraft.client.renderer.entity.EntityRendererProvider
-import net.minecraft.client.renderer.texture.OverlayTexture
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth.lerp
 import net.minecraft.world.entity.HumanoidArm
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.phys.Vec3
+import software.bernie.geckolib.renderer.GeoEntityRenderer
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.sqrt
@@ -24,11 +24,10 @@ import kotlin.math.sqrt
  */
 class StickyHandProjectileRenderer(
     context: EntityRendererProvider.Context
-) : EntityRenderer<StickyHandProjectile>(context) {
+) : GeoEntityRenderer<StickyHandProjectile>(context, StickyHandProjectileModel()) {
 
     companion object {
-        val TEXTURE: ResourceLocation =
-            ResourceLocation.withDefaultNamespace("textures/entity/fishing_hook.png")
+        val TEXTURE: ResourceLocation = OtherUtil.modResource("textures/entity/sticky_hand.png")
 
         val RENDER_TYPE: RenderType = RenderType.entityCutout(TEXTURE)
     }
@@ -48,17 +47,6 @@ class StickyHandProjectileRenderer(
         val player = stickyHandEntity.owner as? Player ?: return
 
         poseStack.pushPose()
-        poseStack.pushPose()
-        poseStack.scale(0.5f, 0.5f, 0.5f)
-        poseStack.mulPose(entityRenderDispatcher.cameraOrientation())
-        val pose = poseStack.last()
-
-        val vertexConsumer = buffer.getBuffer(RENDER_TYPE)
-        vertex(vertexConsumer, pose, packedLight, 0.0f, 0, 0, 1)
-        vertex(vertexConsumer, pose, packedLight, 1.0f, 0, 1, 1)
-        vertex(vertexConsumer, pose, packedLight, 1.0f, 1, 1, 0)
-        vertex(vertexConsumer, pose, packedLight, 0.0f, 1, 0, 0)
-        poseStack.popPose()
 
         val f = player.getAttackAnim(partialTick)
         val f1 = sin(sqrt(f) * 3.1415927f)
@@ -116,30 +104,6 @@ class StickyHandProjectileRenderer(
             .add(-d1 * d2 - d0 * d3, f2.toDouble() - 0.45 * f1.toDouble(), -d0 * d2 + d1 * d3)
     }
 
-
-    private fun vertex(
-        consumer: VertexConsumer,
-        pose: PoseStack.Pose,
-        packedLight: Int,
-        x: Float,
-        y: Int,
-        u: Int,
-        v: Int
-    ) {
-        consumer
-            .addVertex(
-                pose,
-                x - 0.5f,
-                y.toFloat() - 0.5f,
-                0.0f
-            )
-            .setColor(-1)
-            .setUv(u.toFloat(), v.toFloat())
-            .setOverlay(OverlayTexture.NO_OVERLAY)
-            .setLight(packedLight)
-            .setNormal(pose, 0.0f, 1.0f, 0.0f)
-    }
-
     private fun stringVertex(
         x: Float,
         y: Float,
@@ -161,7 +125,7 @@ class StickyHandProjectileRenderer(
         f5 /= f6
         consumer
             .addVertex(pose, f, f1, f2)
-            .setColor(-16777216)
+            .setColor(-0x5ECD80)    // The opposite of the color of the sticky hand (this is green, so color is purple)
             .setNormal(pose, f3, f4, f5)
     }
 
