@@ -1,3 +1,7 @@
-// 1.21	2024-08-03T20:42:26.9954566	Loot Tables
+// 1.21	2024-08-25T15:18:33.8681052	Loot Tables
+d0825b3fc1e2cd02a459c56dd105566daf55d6d0 data/paracosm/loot_table/blocks/city_rug.json
 9000ebd661fbff1e3f883499ff20109ef2fe106d data/paracosm/loot_table/blocks/cotton.json
+3101d5a883a1bc081b62d8069315e79dad5c64e1 data/paracosm/loot_table/blocks/imaginator.json
 0ea27f71b9d348aedc12e9dfd6e95838c21b5c48 data/paracosm/loot_table/blocks/night_light.json
+a80ed57ab52aa824919e428d5334535f2b1959ff data/paracosm/loot_table/blocks/walrus.json
+ba6f5b4f070a2e4ba498d87f2d759f5e0fb28d21 data/paracosm/loot_table/blocks/whoopee_cushion.json

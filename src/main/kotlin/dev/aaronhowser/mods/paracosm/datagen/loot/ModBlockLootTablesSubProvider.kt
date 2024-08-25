@@ -16,6 +16,10 @@ class ModBlockLootTablesSubProvider(
 
     override fun generate() {
         dropSelf(ModBlocks.NIGHT_LIGHT.get())
+        dropSelf(ModBlocks.WALRUS.get())
+        dropSelf(ModBlocks.WHOOPEE_CUSHION.get())
+        dropSelf(ModBlocks.IMAGINATOR.get())
+        dropSelf(ModBlocks.CITY_RUG.get())
 
         cotton()
     }
@@ -46,7 +50,11 @@ class ModBlockLootTablesSubProvider(
     override fun getKnownBlocks(): List<Block> {
         return listOf(
             ModBlocks.NIGHT_LIGHT.get(),
-            ModBlocks.COTTON.get()
+            ModBlocks.COTTON.get(),
+            ModBlocks.WALRUS.get(),
+            ModBlocks.WHOOPEE_CUSHION.get(),
+            ModBlocks.IMAGINATOR.get(),
+            ModBlocks.CITY_RUG.get(),
         )
     }
 
