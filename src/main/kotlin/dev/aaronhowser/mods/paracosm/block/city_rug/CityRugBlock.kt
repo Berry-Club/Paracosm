@@ -3,6 +3,8 @@ package dev.aaronhowser.mods.paracosm.block.city_rug
 import com.mojang.serialization.MapCodec
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
+import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.ai.targeting.TargetingConditions
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
@@ -14,6 +16,7 @@ import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.IntegerProperty
 import net.minecraft.world.level.material.MapColor
+import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.VoxelShape
 
@@ -122,6 +125,20 @@ class CityRugBlock(
 
             fun isPosGood(otherPos: BlockPos): Boolean {
                 if (level.isEmptyBlock(otherPos.below())) return false
+
+                if (level is Level) {
+                    val entityInBlock = level.getNearestEntity(
+                        LivingEntity::class.java,
+                        TargetingConditions.forNonCombat().range(1.0).ignoreInvisibilityTesting().ignoreLineOfSight(),
+                        null,
+                        otherPos.x.toDouble(),
+                        otherPos.y.toDouble(),
+                        otherPos.z.toDouble(),
+                        AABB.ofSize(otherPos.bottomCenter, 1.0, 1.0 / 16, 1.0)
+                    )
+
+                    if (entityInBlock != null) return false
+                }
 
                 val otherState = level.getBlockState(otherPos)
                 return otherState.canBeReplaced()
