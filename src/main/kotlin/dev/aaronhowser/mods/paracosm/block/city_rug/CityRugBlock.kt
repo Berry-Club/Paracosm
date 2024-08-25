@@ -126,22 +126,24 @@ class CityRugBlock(
             fun isPosGood(otherPos: BlockPos): Boolean {
                 if (level.isEmptyBlock(otherPos.below())) return false
 
+                val otherState = level.getBlockState(otherPos)
+                if (!otherState.canBeReplaced()) return false
+
                 if (level is Level) {
                     val entityInBlock = level.getNearestEntity(
                         LivingEntity::class.java,
                         TargetingConditions.forNonCombat().range(1.0).ignoreInvisibilityTesting().ignoreLineOfSight(),
                         null,
-                        otherPos.x.toDouble(),
+                        otherPos.x.toDouble() + 0.5,
                         otherPos.y.toDouble(),
-                        otherPos.z.toDouble(),
+                        otherPos.z.toDouble() + 0.5,
                         AABB.ofSize(otherPos.bottomCenter, 1.0, 1.0 / 16, 1.0)
                     )
 
                     if (entityInBlock != null) return false
                 }
 
-                val otherState = level.getBlockState(otherPos)
-                return otherState.canBeReplaced()
+                return true
             }
 
             for (i in 1..3) {
