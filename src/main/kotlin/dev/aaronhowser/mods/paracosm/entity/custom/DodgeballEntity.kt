@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import dev.aaronhowser.mods.paracosm.registry.ModSounds
 import net.minecraft.sounds.SoundSource
+import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile
@@ -38,16 +39,24 @@ class DodgeballEntity : ThrowableItemProjectile {
         return ModItems.DODGEBALL.get()
     }
 
+    override fun push(entity: Entity) {
+        if (entity.type != ModEntityTypes.DODGEBALL.get()) {
+            super.push(entity)
+        }
+    }
+
     override fun onHitEntity(result: EntityHitResult) {
+        if (result.entity.type == ModEntityTypes.DODGEBALL.get()) return
+
         super.onHitEntity(result)
 
         val entity = result.entity
         if (entity is LivingEntity) {
-            val vec = entity.position().subtract(this.position())
+            val vec = this.position().subtract(entity.position())
 
-            entity.knockback(0.5, vec.x, vec.z)
+            entity.knockback(this.deltaMovement.horizontalDistance(), vec.x, vec.z)
 
-            this.deltaMovement = vec.normalize().scale(-1.0)
+            this.deltaMovement = vec.normalize()
         }
     }
 
