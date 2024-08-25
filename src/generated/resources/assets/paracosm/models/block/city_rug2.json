@@ -131,6 +131,7 @@
     }
   ],
   "textures": {
+    "particle": "paracosm:block/city_rug2",
     "texture": "paracosm:block/city_rug2"
   }
 }

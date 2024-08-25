@@ -132,7 +132,11 @@ class CityRugBlock(
                 if (level is Level) {
                     val entityInBlock = level.getNearestEntity(
                         LivingEntity::class.java,
-                        TargetingConditions.forNonCombat().range(1.0).ignoreInvisibilityTesting().ignoreLineOfSight(),
+                        TargetingConditions
+                            .forNonCombat()
+                            .range(1.0)
+                            .ignoreInvisibilityTesting()
+                            .ignoreLineOfSight(),
                         null,
                         otherPos.x.toDouble() + 0.5,
                         otherPos.y.toDouble(),

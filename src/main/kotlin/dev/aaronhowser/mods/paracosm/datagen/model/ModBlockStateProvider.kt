@@ -48,6 +48,7 @@ class ModBlockStateProvider(
                 val model = models()
                     .withExistingParent("city_rug$segment", mcLoc("block/thin_block"))
                     .texture("texture", texture)
+                    .texture("particle", texture)
                     .element()
                     .from(0f, 0f, 0f)
                     .to(16f, 1f, 16f)
