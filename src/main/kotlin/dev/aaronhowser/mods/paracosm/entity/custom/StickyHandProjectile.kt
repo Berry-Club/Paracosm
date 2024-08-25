@@ -21,7 +21,7 @@ import java.lang.Math.clamp
 import kotlin.math.*
 
 class StickyHandProjectile(
-    entityType: EntityType<out Projectile>,
+    entityType: EntityType<StickyHandProjectile>,
     level: Level
 ) : Projectile(entityType, level) {
 

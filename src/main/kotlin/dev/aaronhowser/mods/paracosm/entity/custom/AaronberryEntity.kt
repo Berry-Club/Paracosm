@@ -6,7 +6,6 @@ import dev.aaronhowser.mods.paracosm.entity.goal.ToyRandomLookAroundGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyStrollGoal
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.Mob
-import net.minecraft.world.entity.TamableAnimal
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier
 import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.ai.goal.FloatGoal
@@ -17,7 +16,7 @@ import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceC
 import software.bernie.geckolib.animation.*
 
 class AaronberryEntity(
-    entityType: EntityType<out TamableAnimal>,
+    entityType: EntityType<AaronberryEntity>,
     level: Level
 ) : ToyEntity(entityType, level) {
 

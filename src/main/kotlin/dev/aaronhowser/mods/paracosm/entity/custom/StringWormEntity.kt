@@ -22,7 +22,7 @@ import software.bernie.geckolib.animation.*
 import software.bernie.geckolib.animation.AnimationState
 
 class StringWormEntity(
-    entityType: EntityType<out TamableAnimal>,
+    entityType: EntityType<StringWormEntity>,
     level: Level
 ) : ToyEntity(entityType, level), PlayerRideableJumping {
 

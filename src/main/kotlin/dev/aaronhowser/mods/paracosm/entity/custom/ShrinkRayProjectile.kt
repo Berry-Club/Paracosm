@@ -25,7 +25,7 @@ import net.minecraft.world.phys.HitResult
 import kotlin.math.abs
 
 class ShrinkRayProjectile(
-    entityType: EntityType<out Arrow>,
+    entityType: EntityType<ShrinkRayProjectile>,
     level: Level
 ) : RequiresWhimsy, Arrow(entityType, level) {
 
