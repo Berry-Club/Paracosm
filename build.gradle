@@ -114,6 +114,13 @@ repositories {
     }
 
     maven {
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
+
+    maven {
         name = 'GeckoLib'
         url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
         content {
@@ -137,13 +144,13 @@ repositories {
 dependencies {
     // Must use the '-neoforge' version on NeoForge. If on regular forge, omit the '-neoforge'
     implementation 'thedarkcolour:kotlinforforge-neoforge:5.4.0'
-
     implementation "software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}"
-
     implementation "top.theillusivec4.curios:curios-neoforge:${curios_version}"
 
-    // EMI
     runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
+    runtimeOnly "curse.maven:atlasviewer-633577:5490697"
+    runtimeOnly "curse.maven:spark-361579:5434153"
+
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
