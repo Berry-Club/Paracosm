@@ -1,10 +1,7 @@
 package dev.aaronhowser.mods.paracosm.registry
 
 import dev.aaronhowser.mods.paracosm.Paracosm
-import dev.aaronhowser.mods.paracosm.block.CottonBlock
-import dev.aaronhowser.mods.paracosm.block.NightLightBlock
-import dev.aaronhowser.mods.paracosm.block.WalrusBlock
-import dev.aaronhowser.mods.paracosm.block.WhoopeeCushionBlock
+import dev.aaronhowser.mods.paracosm.block.*
 import dev.aaronhowser.mods.paracosm.block.machine.imaginator.ImaginatorBlock
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockBehaviour
@@ -21,6 +18,7 @@ object ModBlocks {
     val WHOOPEE_CUSHION = registerBlock("whoopee_cushion") { WhoopeeCushionBlock() }
     val WALRUS = registerBlock("walrus") { WalrusBlock() }
     val IMAGINATOR = registerBlock("imaginator") { ImaginatorBlock() }
+    val CITY_RUG = registerBlock("city_rug") { CityRugBlock() }
 
     private fun <T : Block> registerBlock(
         name: String,
