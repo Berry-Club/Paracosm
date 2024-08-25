@@ -74,4 +74,14 @@ object ModEntityTypes {
                 .build("sticky_hand_projectile")
         })
 
+    val CITY_RUG: DeferredHolder<EntityType<*>, EntityType<CityRugEntity>> =
+        ENTITY_TYPE_REGISTRY.register("city_rug", Supplier {
+            EntityType.Builder.of(
+                ::CityRugEntity,
+                MobCategory.MISC
+            )
+                .sized(0.5f, 0.0625f)
+                .build("city_rug")
+        })
+
 }

@@ -55,6 +55,7 @@ object ClientModBusEvents {
         register(ModEntityTypes.DODGEBALL, ::ThrownItemRenderer)
         register(ModEntityTypes.SHRINK_RAY_PROJECTILE, ::ShrinkRayProjectileRenderer)
         register(ModEntityTypes.STICKY_HAND_PROJECTILE, ::StickyHandProjectileRenderer)
+        register(ModEntityTypes.CITY_RUG, ::CityRugRenderer)
 
         CuriosRendererRegistry.register(
             ModItems.SEEING_STONE.get(),

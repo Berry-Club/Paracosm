@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.item.*
 import dev.aaronhowser.mods.paracosm.item.FancyFoodItem.Companion.fast
 import net.minecraft.world.food.FoodProperties
+import net.minecraft.world.item.HangingEntityItem
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemNameBlockItem
 import net.neoforged.neoforge.registries.DeferredItem
@@ -28,6 +29,9 @@ object ModItems {
         ITEM_REGISTRY.registerItem("shrink_ray") { ShrinkRayItem() }
     val STICKY_HAND: DeferredItem<StickyHandItem> =
         ITEM_REGISTRY.registerItem("sticky_hand") { StickyHandItem() }
+    val CITY_RUG: DeferredItem<HangingEntityItem> =
+        ITEM_REGISTRY.registerItem("city_rug") { HangingEntityItem(ModEntityTypes.CITY_RUG.get(), Item.Properties()) }
+
     val CANDY: DeferredItem<FancyFoodItem> =
         ITEM_REGISTRY.registerItem("candy") {
             FancyFoodItem(
