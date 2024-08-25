@@ -1,15 +1,13 @@
 package dev.aaronhowser.mods.paracosm.block
 
 import com.mojang.serialization.MapCodec
+import dev.aaronhowser.mods.paracosm.registry.ModBlocks
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
-import net.minecraft.world.level.block.Block
-import net.minecraft.world.level.block.HorizontalDirectionalBlock
-import net.minecraft.world.level.block.RenderShape
-import net.minecraft.world.level.block.SoundType
+import net.minecraft.world.level.block.*
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.IntegerProperty
@@ -62,6 +60,21 @@ class CityRugBlock(
         placeAll(pos, level, state)
     }
 
+    override fun onRemove(
+        state: BlockState,
+        level: Level,
+        pos: BlockPos,
+        newState: BlockState,
+        movedByPiston: Boolean
+    ) {
+        val originPos = getOrigin(pos, level, state)
+        val originState = level.getBlockState(originPos)
+
+        breakAll(originPos, level, originState)
+
+        super.onRemove(state, level, pos, newState, movedByPiston)
+    }
+
     companion object {
 
         fun canPlaceAll(pos: BlockPos, level: Level, facing: Direction): Boolean {
@@ -106,6 +119,45 @@ class CityRugBlock(
 
                 if (otherState.isEmpty) {
                     level.setBlockAndUpdate(otherPos, blockState.setValue(SEGMENT, i))
+                }
+            }
+
+            return true
+        }
+
+        fun getOrigin(pos: BlockPos, level: Level, blockState: BlockState): BlockPos {
+            val direction = blockState.getValue(FACING)
+            val segment = blockState.getValue(SEGMENT)
+
+            if (segment == 0) return pos
+
+            val originX = pos.x - direction.clockWise.stepX * (segment - 1)
+            val originZ = pos.z - direction.clockWise.stepZ * (segment - 1)
+
+            return BlockPos(originX, pos.y, originZ)
+        }
+
+        fun breakAll(pos: BlockPos, level: Level, blockState: BlockState): Boolean {
+            if (blockState.block != ModBlocks.CITY_RUG.get()) return false
+
+            val direction = blockState.getValue(FACING)
+            val clockwise = direction.clockWise
+
+            for (i in 1..3) {
+                val otherPos = pos.relative(clockwise, i)
+                val otherState = level.getBlockState(otherPos)
+
+                if (otherState.block == ModBlocks.CITY_RUG.get()) {
+                    level.setBlockAndUpdate(otherPos, Blocks.AIR.defaultBlockState())
+                }
+            }
+
+            for (i in 4..7) {
+                val otherPos = pos.relative(clockwise, i - 4).relative(clockwise.clockWise, 1)
+                val otherState = level.getBlockState(otherPos)
+
+                if (otherState.block == ModBlocks.CITY_RUG.get()) {
+                    level.setBlockAndUpdate(otherPos, Blocks.AIR.defaultBlockState())
                 }
             }
 
