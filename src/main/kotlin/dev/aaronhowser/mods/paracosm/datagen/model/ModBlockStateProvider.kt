@@ -55,32 +55,33 @@ class ModBlockStateProvider(
 
                 val toX = when (segment) {
                     0, 1, 2, 3 -> 16
-                    4, 5, 6, 7 -> 0
+                    4, 5, 6, 7 -> 32
                     else -> throw IllegalStateException("Invalid segment")
                 }
 
                 val toZ = when (segment) {
                     0, 2, 4, 6 -> 16
-                    1, 3, 5, 7 -> 0
+                    1, 3, 5, 7 -> 32
                     else -> throw IllegalStateException("Invalid segment")
                 }
 
                 val model = models()
                     .getBuilder("city_rug$segment")
+                    .texture("#texture", texture)
 
                     .element()
                     .from(0f, 0f, 0f)
                     .to(16f, 1f, 16f)
-                    .textureAll(texture.toString())
+                    .textureAll("#texture")
 
-                    .face(Direction.UP)
-                    .uvs(
-                        fromX.toFloat(),
-                        fromZ.toFloat(),
-                        toX.toFloat(),
-                        toZ.toFloat()
-                    )
-                    .end()
+//                    .face(Direction.UP)
+//                    .uvs(
+//                        fromX.toFloat(),
+//                        fromZ.toFloat(),
+//                        toX.toFloat(),
+//                        toZ.toFloat()
+//                    )
+//                    .end()
 
                     .end()
 

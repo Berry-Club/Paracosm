@@ -3,28 +3,22 @@
     {
       "faces": {
         "down": {
-          "texture": "paracosm:block/city_rug_right"
+          "texture": "#texture"
         },
         "east": {
-          "texture": "paracosm:block/city_rug_right"
+          "texture": "#texture"
         },
         "north": {
-          "texture": "paracosm:block/city_rug_right"
+          "texture": "#texture"
         },
         "south": {
-          "texture": "paracosm:block/city_rug_right"
+          "texture": "#texture"
         },
         "up": {
-          "texture": "paracosm:block/city_rug_right",
-          "uv": [
-            16.0,
-            16.0,
-            0.0,
-            0.0
-          ]
+          "texture": "#texture"
         },
         "west": {
-          "texture": "paracosm:block/city_rug_right"
+          "texture": "#texture"
         }
       },
       "from": [
@@ -41,28 +35,22 @@
     {
       "faces": {
         "down": {
-          "texture": "paracosm:block/city_rug_right"
+          "texture": "#texture"
         },
         "east": {
-          "texture": "paracosm:block/city_rug_right"
+          "texture": "#texture"
         },
         "north": {
-          "texture": "paracosm:block/city_rug_right"
+          "texture": "#texture"
         },
         "south": {
-          "texture": "paracosm:block/city_rug_right"
+          "texture": "#texture"
         },
         "up": {
-          "texture": "paracosm:block/city_rug_right",
-          "uv": [
-            16.0,
-            16.0,
-            0.0,
-            0.0
-          ]
+          "texture": "#texture"
         },
         "west": {
-          "texture": "paracosm:block/city_rug_right"
+          "texture": "#texture"
         }
       },
       "from": [
@@ -79,28 +67,22 @@
     {
       "faces": {
         "down": {
-          "texture": "paracosm:block/city_rug_right"
+          "texture": "#texture"
         },
         "east": {
-          "texture": "paracosm:block/city_rug_right"
+          "texture": "#texture"
         },
         "north": {
-          "texture": "paracosm:block/city_rug_right"
+          "texture": "#texture"
         },
         "south": {
-          "texture": "paracosm:block/city_rug_right"
+          "texture": "#texture"
         },
         "up": {
-          "texture": "paracosm:block/city_rug_right",
-          "uv": [
-            16.0,
-            16.0,
-            0.0,
-            0.0
-          ]
+          "texture": "#texture"
         },
         "west": {
-          "texture": "paracosm:block/city_rug_right"
+          "texture": "#texture"
         }
       },
       "from": [
@@ -117,28 +99,22 @@
     {
       "faces": {
         "down": {
-          "texture": "paracosm:block/city_rug_right"
+          "texture": "#texture"
         },
         "east": {
-          "texture": "paracosm:block/city_rug_right"
+          "texture": "#texture"
         },
         "north": {
-          "texture": "paracosm:block/city_rug_right"
+          "texture": "#texture"
         },
         "south": {
-          "texture": "paracosm:block/city_rug_right"
+          "texture": "#texture"
         },
         "up": {
-          "texture": "paracosm:block/city_rug_right",
-          "uv": [
-            16.0,
-            16.0,
-            0.0,
-            0.0
-          ]
+          "texture": "#texture"
         },
         "west": {
-          "texture": "paracosm:block/city_rug_right"
+          "texture": "#texture"
         }
       },
       "from": [
@@ -152,5 +128,8 @@
         16
       ]
     }
-  ]
+  ],
+  "textures": {
+    "#texture": "paracosm:block/city_rug_right"
+  }
 }
