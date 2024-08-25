@@ -17,6 +17,10 @@ import net.minecraft.world.level.Level
 import net.minecraft.world.phys.HitResult
 import net.minecraft.world.phys.Vec3
 import net.neoforged.neoforge.event.EventHooks
+import software.bernie.geckolib.animatable.GeoEntity
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache
+import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache
+import software.bernie.geckolib.animation.*
 import java.lang.Math.clamp
 import kotlin.math.*
 
@@ -24,7 +28,7 @@ import kotlin.math.*
 class StickyHandProjectile(
     entityType: EntityType<StickyHandProjectile>,
     level: Level
-) : Projectile(entityType, level) {
+) : Projectile(entityType, level), GeoEntity {
 
     constructor(owner: Player) : this(
         ModEntityTypes.STICKY_HAND_PROJECTILE.get(),
@@ -206,6 +210,35 @@ class StickyHandProjectile(
         FLYING,
         STUCK_ON_BLOCK,
         STUCK_ON_ENTITY
+    }
+
+    override fun registerControllers(controllers: AnimatableManager.ControllerRegistrar) {
+        controllers.add(AnimationController(this, "controller", 0, this::predicate))
+    }
+
+    private var isFist = false
+
+    private fun predicate(animationState: AnimationState<StickyHandProjectile>): PlayState {
+        val animationName = if (isFist) {
+            "animation.sticky_hand.sit"
+        } else if (animationState.isMoving) {
+            "animation.aaronberry.walk"
+        } else return PlayState.STOP
+
+        animationState.controller.setAnimation(
+            RawAnimation.begin().then(
+                animationName,
+                Animation.LoopType.LOOP
+            )
+        )
+
+        return PlayState.CONTINUE
+    }
+
+    private val cache = SingletonAnimatableInstanceCache(this)
+
+    override fun getAnimatableInstanceCache(): AnimatableInstanceCache {
+        return cache
     }
 
 }
