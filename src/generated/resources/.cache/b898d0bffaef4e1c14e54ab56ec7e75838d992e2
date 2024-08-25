@@ -1,8 +1,9 @@
-// 1.21	2024-08-20T14:34:32.5635979	Item Models: paracosm
+// 1.21	2024-08-25T18:49:11.8616708	Item Models: paracosm
 9bf3a355896cf086aa2a477cf80aa6a02cee41b8 assets/paracosm/models/item/candy.json
 2013e1546b218961a92875a099c0602d7ae580cf assets/paracosm/models/item/cotton.json
 5d165852ab60268cf09ba2488531abe07b4a459e assets/paracosm/models/item/shrink_ray.json
 1320fd102cf40afab498681f44e2df375c079ed2 assets/paracosm/models/item/soda.json
+6149d45a94350ee38f76cac6d9e984e0e4630d33 assets/paracosm/models/item/sticky_hand.json
 e5a01083dbb8c2def12a366a5ce3e0e0b48d6057 assets/paracosm/models/item/towel_cape.json
 f79493ea0f689e199e79dd1cb70b87478f2061d4 assets/paracosm/models/item/toy_gun.json
 848dfadf0ac405c10a66bd390d1eee2dae9cfdf9 assets/paracosm/models/item/toy_gun_whimsy.json
