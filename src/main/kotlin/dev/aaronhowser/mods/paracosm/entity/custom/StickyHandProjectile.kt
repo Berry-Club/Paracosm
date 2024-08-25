@@ -20,6 +20,7 @@ import net.neoforged.neoforge.event.EventHooks
 import java.lang.Math.clamp
 import kotlin.math.*
 
+//TODO: Make the hand mirror when held in offhand
 class StickyHandProjectile(
     entityType: EntityType<StickyHandProjectile>,
     level: Level
