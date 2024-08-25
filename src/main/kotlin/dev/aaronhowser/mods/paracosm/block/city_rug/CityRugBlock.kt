@@ -1,11 +1,13 @@
 package dev.aaronhowser.mods.paracosm.block.city_rug
 
 import com.mojang.serialization.MapCodec
+import dev.aaronhowser.mods.paracosm.registry.ModBlocks
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
+import net.minecraft.world.level.LevelAccessor
 import net.minecraft.world.level.LevelReader
 import net.minecraft.world.level.block.*
 import net.minecraft.world.level.block.entity.BlockEntity
@@ -80,8 +82,28 @@ class CityRugBlock(
     override fun canSurvive(state: BlockState, level: LevelReader, pos: BlockPos): Boolean {
         if (level.isEmptyBlock(pos.below())) return false
 
+        val segment = state.getValue(SEGMENT)
+        if (segment != 0) return true
+
         val facing = state.getValue(FACING)
         return canPlaceAll(pos, level, facing)
+    }
+
+    override fun updateShape(
+        state: BlockState,
+        direction: Direction,
+        neighborState: BlockState,
+        level: LevelAccessor,
+        pos: BlockPos,
+        neighborPos: BlockPos
+    ): BlockState {
+        return if (!canSurvive(state, level, pos)) {
+            println("Can't survive")
+            canSurvive(state, level, pos)
+            Blocks.AIR.defaultBlockState()
+        } else {
+            super.updateShape(state, direction, neighborState, level, pos, neighborPos)
+        }
     }
 
     companion object {
@@ -101,20 +123,31 @@ class CityRugBlock(
         fun canPlaceAll(pos: BlockPos, level: LevelReader, facing: Direction): Boolean {
             val clockwise = facing.clockWise
 
-            for (i in 1..3) {
-                val otherPos = pos.relative(clockwise, i)
+            fun isPosGood(otherPos: BlockPos): Boolean {
                 if (level.isEmptyBlock(otherPos.below())) return false
 
                 val otherState = level.getBlockState(otherPos)
+
+                if (otherState.block == ModBlocks.CITY_RUG.get()) {
+                    val otherBe = level.getBlockEntity(otherPos)
+                    if (otherBe is CityRugBlockEntity) {
+                        if (otherBe.origin != pos) return false
+                    }
+                }
+
                 if (!otherState.canBeReplaced()) return false
+
+                return true
+            }
+
+            for (i in 1..3) {
+                val otherPos = pos.relative(clockwise, i)
+                if (!isPosGood(otherPos)) return false
             }
 
             for (i in 4..7) {
                 val otherPos = pos.relative(clockwise, i - 4).relative(clockwise.clockWise, 1)
-                if (level.isEmptyBlock(otherPos.below())) return false
-
-                val otherState = level.getBlockState(otherPos)
-                if (!otherState.canBeReplaced()) return false
+                if (!isPosGood(otherPos)) return false
             }
 
             return true
