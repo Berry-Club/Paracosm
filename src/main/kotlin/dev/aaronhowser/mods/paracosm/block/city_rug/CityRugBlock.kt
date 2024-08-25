@@ -6,10 +6,8 @@ import net.minecraft.core.Direction
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
-import net.minecraft.world.level.block.Block
-import net.minecraft.world.level.block.HorizontalDirectionalBlock
-import net.minecraft.world.level.block.RenderShape
-import net.minecraft.world.level.block.SoundType
+import net.minecraft.world.level.block.*
+import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.IntegerProperty
@@ -23,7 +21,7 @@ class CityRugBlock(
         .sound(SoundType.WOOL)
         .ignitedByLava()
         .mapColor(MapColor.COLOR_LIGHT_GRAY)
-) : HorizontalDirectionalBlock(properties) {
+) : HorizontalDirectionalBlock(properties), EntityBlock {
 
     init {
         registerDefaultState(
@@ -86,10 +84,11 @@ class CityRugBlock(
 
         fun placeAll(pos: BlockPos, level: Level, blockState: BlockState): Boolean {
             val direction = blockState.getValue(FACING)
-
             if (!canPlaceAll(pos, level, direction)) return false
 
             val clockwise = direction.clockWise    // You place the top left, and it places the rest to the right
+
+            val childBlocks = mutableListOf<BlockPos>()
 
             for (i in 1..3) {
                 val otherPos = pos.relative(clockwise, i)
@@ -97,6 +96,14 @@ class CityRugBlock(
 
                 if (otherState.isEmpty) {
                     level.setBlockAndUpdate(otherPos, blockState.setValue(SEGMENT, i))
+
+                    val thatBe = level.getBlockEntity(otherPos)
+                    if (thatBe is CityRugBlockEntity) {
+                        thatBe.origin = pos
+                        thatBe.setChanged()
+                    }
+
+                    childBlocks.add(otherPos)
                 }
             }
 
@@ -106,7 +113,23 @@ class CityRugBlock(
 
                 if (otherState.isEmpty) {
                     level.setBlockAndUpdate(otherPos, blockState.setValue(SEGMENT, i))
+
+                    val thatBe = level.getBlockEntity(otherPos)
+                    if (thatBe is CityRugBlockEntity) {
+                        thatBe.origin = pos
+                        thatBe.setChanged()
+                    }
+
+                    childBlocks.add(otherPos)
                 }
+            }
+
+            val thisBe = level.getBlockEntity(pos)
+            if (thisBe is CityRugBlockEntity) {
+                thisBe.origin = pos
+                thisBe.childBlocks = childBlocks
+
+                thisBe.setChanged()
             }
 
             return true
@@ -119,5 +142,9 @@ class CityRugBlock(
 
     override fun codec(): MapCodec<CityRugBlock> {
         return CODEC
+    }
+
+    override fun newBlockEntity(pPos: BlockPos, pState: BlockState): BlockEntity {
+        return CityRugBlockEntity(pPos, pState)
     }
 }
