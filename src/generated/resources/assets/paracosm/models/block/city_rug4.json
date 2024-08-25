@@ -2,42 +2,32 @@
   "parent": "minecraft:block/thin_block",
   "elements": [
     {
-      "from": [
-        0,
-        0,
-        0
-      ],
-      "to": [
-        16,
-        1,
-        16
-      ]
-    },
-    {
-      "from": [
-        0,
-        0,
-        0
-      ],
-      "to": [
-        16,
-        1,
-        16
-      ]
-    },
-    {
-      "from": [
-        0,
-        0,
-        0
-      ],
-      "to": [
-        16,
-        1,
-        16
-      ]
-    },
-    {
+      "faces": {
+        "down": {
+          "texture": "#texture"
+        },
+        "east": {
+          "texture": "#texture"
+        },
+        "north": {
+          "texture": "#texture"
+        },
+        "south": {
+          "texture": "#texture"
+        },
+        "up": {
+          "texture": "#texture",
+          "uv": [
+            16.0,
+            0.0,
+            32.0,
+            16.0
+          ]
+        },
+        "west": {
+          "texture": "#texture"
+        }
+      },
       "from": [
         0,
         0,
@@ -51,6 +41,6 @@
     }
   ],
   "textures": {
-    "#texture": "minecraft:block/black_wool"
+    "texture": "paracosm:block/city_rug_right"
   }
 }

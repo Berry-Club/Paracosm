@@ -36,42 +36,48 @@ class ModBlockStateProvider(
                 val segment = it.getValue(CityRugBlock.SEGMENT)
 
                 val texture = if (segment < 4) {
-                    mcLoc("block/white_wool")
+                    modLoc("block/city_rug_left")
                 } else {
-                    mcLoc("block/black_wool")
+                    modLoc("block/city_rug_right")
                 }
 
                 val fromX = when (segment) {
-                    0, 1, 2, 3 -> 0
-                    4, 5, 6, 7 -> 16
+                    0, 1, 2, 3 -> 0f
+                    4, 5, 6, 7 -> 16f
                     else -> throw IllegalStateException("Invalid segment")
                 }
 
                 val fromZ = when (segment) {
-                    0, 2, 4, 6 -> 0
-                    1, 3, 5, 7 -> 16
+                    0, 2, 4, 6 -> 0f
+                    1, 3, 5, 7 -> 16f
                     else -> throw IllegalStateException("Invalid segment")
                 }
 
                 val toX = when (segment) {
-                    0, 1, 2, 3 -> 16
-                    4, 5, 6, 7 -> 32
+                    0, 1, 2, 3 -> 16f
+                    4, 5, 6, 7 -> 32f
                     else -> throw IllegalStateException("Invalid segment")
                 }
 
                 val toZ = when (segment) {
-                    0, 2, 4, 6 -> 16
-                    1, 3, 5, 7 -> 32
+                    0, 2, 4, 6 -> 16f
+                    1, 3, 5, 7 -> 32f
                     else -> throw IllegalStateException("Invalid segment")
                 }
 
                 val model = models()
                     .withExistingParent("city_rug$segment", mcLoc("block/thin_block"))
-                    .texture("#texture", texture)
+                    .texture("texture", texture)
 
                     .element()
                     .from(0f, 0f, 0f)
                     .to(16f, 1f, 16f)
+
+                    .face(Direction.UP)
+                    .uvs(fromX, fromZ, toX, toZ)
+                    .end()
+
+                    .textureAll("#texture")
                     .end()
 
                 ConfiguredModel
