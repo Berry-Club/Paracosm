@@ -1,5 +1,6 @@
 {
 	"credit": "Made with Blockbench",
+	"parent": "minecraft:block/block",
 	"textures": {
 		"0": "paracosm:block/night_light",
 		"particle": "paracosm:block/night_light"
