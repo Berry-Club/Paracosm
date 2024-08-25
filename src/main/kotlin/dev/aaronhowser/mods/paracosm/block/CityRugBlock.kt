@@ -7,7 +7,6 @@ import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
-import net.minecraft.world.level.block.HorizontalDirectionalBlock
 import net.minecraft.world.level.block.RenderShape
 import net.minecraft.world.level.block.SoundType
 import net.minecraft.world.level.block.state.BlockState
@@ -23,25 +22,25 @@ class CityRugBlock(
         .sound(SoundType.WOOL)
         .ignitedByLava()
         .mapColor(MapColor.COLOR_LIGHT_GRAY)
-) : HorizontalDirectionalBlock(properties) {
+) : Block(properties) {
 
     init {
         registerDefaultState(
             stateDefinition.any()
-                .setValue(FACING, Direction.NORTH)
+//                .setValue(FACING, Direction.NORTH)
                 .setValue(SEGMENT, 0)
         )
     }
 
     override fun getStateForPlacement(context: BlockPlaceContext): BlockState? {
         return defaultBlockState()
-            .setValue(FACING, context.horizontalDirection)
+//            .setValue(FACING, context.horizontalDirection)
             .setValue(SEGMENT, 0)
     }
 
     override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
         super.createBlockStateDefinition(builder)
-        builder.add(FACING, SEGMENT)
+        builder.add(SEGMENT)
     }
 
     @Suppress("OVERRIDE_DEPRECATION")
@@ -59,7 +58,8 @@ class CityRugBlock(
         val segment = state.getValue(SEGMENT)
         if (segment != 0) return
 
-        val facing = state.getValue(FACING)
+//        val facing = state.getValue(FACING)
+        val facing = Direction.NORTH
 
         for (i in 1..3) {
             val otherPos = pos.relative(facing, i)
