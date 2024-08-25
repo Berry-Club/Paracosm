@@ -6,6 +6,7 @@ import net.minecraft.core.Direction
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
+import net.minecraft.world.level.LevelReader
 import net.minecraft.world.level.block.*
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
@@ -57,25 +58,62 @@ class CityRugBlock(
         val segment = state.getValue(SEGMENT)
         if (segment != 0) return
 
-        placeAll(pos, level, state)
+        val success = placeAll(pos, level, state)
+
+        if (!success) {
+            level.removeBlock(pos, false)
+        }
+    }
+
+    override fun onRemove(
+        state: BlockState,
+        level: Level,
+        pos: BlockPos,
+        newState: BlockState,
+        movedByPiston: Boolean
+    ) {
+        breakAll(pos, level)
+
+        super.onRemove(state, level, pos, newState, movedByPiston)
+    }
+
+    override fun canSurvive(state: BlockState, level: LevelReader, pos: BlockPos): Boolean {
+        if (level.isEmptyBlock(pos.below())) return false
+
+        val facing = state.getValue(FACING)
+        return canPlaceAll(pos, level, facing)
     }
 
     companion object {
 
-        fun canPlaceAll(pos: BlockPos, level: Level, facing: Direction): Boolean {
+        fun breakAll(pos: BlockPos, level: Level) {
+            val blockEntity = level.getBlockEntity(pos) as? CityRugBlockEntity ?: return
+            val origin = blockEntity.origin ?: return
+            val originEntity = level.getBlockEntity(origin) as? CityRugBlockEntity ?: return
+
+            for (childPos in originEntity.childBlocks) {
+                level.setBlockAndUpdate(childPos, Blocks.AIR.defaultBlockState())
+            }
+
+            level.setBlockAndUpdate(origin, Blocks.AIR.defaultBlockState())
+        }
+
+        fun canPlaceAll(pos: BlockPos, level: LevelReader, facing: Direction): Boolean {
             val clockwise = facing.clockWise
 
             for (i in 1..3) {
                 val otherPos = pos.relative(clockwise, i)
-                val otherState = level.getBlockState(otherPos)
+                if (level.isEmptyBlock(otherPos.below())) return false
 
+                val otherState = level.getBlockState(otherPos)
                 if (!otherState.canBeReplaced()) return false
             }
 
             for (i in 4..7) {
                 val otherPos = pos.relative(clockwise, i - 4).relative(clockwise.clockWise, 1)
-                val otherState = level.getBlockState(otherPos)
+                if (level.isEmptyBlock(otherPos.below())) return false
 
+                val otherState = level.getBlockState(otherPos)
                 if (!otherState.canBeReplaced()) return false
             }
 
