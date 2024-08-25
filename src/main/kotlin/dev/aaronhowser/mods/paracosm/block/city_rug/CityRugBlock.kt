@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.paracosm.block
+package dev.aaronhowser.mods.paracosm.block.city_rug
 
 import com.mojang.serialization.MapCodec
 import net.minecraft.core.BlockPos
