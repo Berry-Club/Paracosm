@@ -16,13 +16,7 @@
           "texture": "#texture"
         },
         "up": {
-          "texture": "#texture",
-          "uv": [
-            16.0,
-            0.0,
-            32.0,
-            16.0
-          ]
+          "texture": "#texture"
         },
         "west": {
           "texture": "#texture"
@@ -41,6 +35,6 @@
     }
   ],
   "textures": {
-    "texture": "paracosm:block/city_rug_right"
+    "texture": "paracosm:block/city_rug6"
   }
 }

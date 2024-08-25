@@ -59,7 +59,7 @@ class CityRugBlock(
         if (segment != 0) return
 
 //        val facing = state.getValue(FACING)
-        val facing = Direction.NORTH
+        val facing = Direction.EAST
 
         for (i in 1..3) {
             val otherPos = pos.relative(facing, i)
