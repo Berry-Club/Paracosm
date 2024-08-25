@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.BlockGetter
+import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.HorizontalDirectionalBlock
 import net.minecraft.world.level.block.RenderShape
@@ -28,14 +29,14 @@ class CityRugBlock(
         registerDefaultState(
             stateDefinition.any()
                 .setValue(FACING, Direction.NORTH)
-                .setValue(SEGMENT, 1)
+                .setValue(SEGMENT, 0)
         )
     }
 
     override fun getStateForPlacement(context: BlockPlaceContext): BlockState? {
         return defaultBlockState()
             .setValue(FACING, context.horizontalDirection)
-            .setValue(SEGMENT, 1)
+            .setValue(SEGMENT, 0)
     }
 
     override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
@@ -50,6 +51,34 @@ class CityRugBlock(
 
     override fun getShape(state: BlockState, level: BlockGetter, pos: BlockPos, context: CollisionContext): VoxelShape {
         return SHAPE
+    }
+
+    override fun onPlace(state: BlockState, level: Level, pos: BlockPos, oldState: BlockState, movedByPiston: Boolean) {
+        super.onPlace(state, level, pos, oldState, movedByPiston)
+
+        val segment = state.getValue(SEGMENT)
+        if (segment != 0) return
+
+        val facing = state.getValue(FACING)
+
+        for (i in 1..3) {
+            val otherPos = pos.relative(facing, i)
+            val otherState = level.getBlockState(otherPos)
+
+            if (otherState.isEmpty) {
+                level.setBlockAndUpdate(otherPos, state.setValue(SEGMENT, i))
+            }
+        }
+
+        for (i in 4..7) {
+            val otherPos = pos.relative(facing, i - 4).relative(facing.clockWise, 1)
+            val otherState = level.getBlockState(otherPos)
+
+            if (otherState.isEmpty) {
+                level.setBlockAndUpdate(otherPos, state.setValue(SEGMENT, i))
+            }
+        }
+
     }
 
     companion object {
