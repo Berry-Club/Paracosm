@@ -35,29 +35,58 @@ class ModBlockStateProvider(
             .forAllStates {
                 val segment = it.getValue(CityRugBlock.SEGMENT)
 
-                val modelLoc = modLoc("block/city_rug_segment$segment")
+                val texture = if (segment < 4) {
+                    modLoc("block/city_rug_left")
+                } else {
+                    modLoc("block/city_rug_right")
+                }
 
-                val texture = when (segment) {
-                    0 -> mcLoc("block/white_wool")
-                    1 -> mcLoc("block/light_gray_wool")
-                    2 -> mcLoc("block/gray_wool")
-                    3 -> mcLoc("block/black_wool")
-                    4 -> mcLoc("block/red_wool")
-                    5 -> mcLoc("block/orange_wool")
-                    6 -> mcLoc("block/yellow_wool")
-                    7 -> mcLoc("block/lime_wool")
+                val fromX = when (segment) {
+                    0, 1, 2, 3 -> 0
+                    4, 5, 6, 7 -> 16
                     else -> throw IllegalStateException("Invalid segment")
                 }
 
+                val fromZ = when (segment) {
+                    0, 2, 4, 6 -> 0
+                    1, 3, 5, 7 -> 16
+                    else -> throw IllegalStateException("Invalid segment")
+                }
+
+                val toX = when (segment) {
+                    0, 1, 2, 3 -> 16
+                    4, 5, 6, 7 -> 0
+                    else -> throw IllegalStateException("Invalid segment")
+                }
+
+                val toZ = when (segment) {
+                    0, 2, 4, 6 -> 16
+                    1, 3, 5, 7 -> 0
+                    else -> throw IllegalStateException("Invalid segment")
+                }
+
+                val model = models()
+                    .getBuilder("city_rug$segment")
+
+                    .element()
+                    .from(0f, 0f, 0f)
+                    .to(16f, 1f, 16f)
+                    .textureAll(texture.toString())
+
+                    .face(Direction.UP)
+                    .uvs(
+                        fromX.toFloat(),
+                        fromZ.toFloat(),
+                        toX.toFloat(),
+                        toZ.toFloat()
+                    )
+                    .end()
+
+                    .end()
+
                 ConfiguredModel
                     .builder()
-                    .modelFile(
-                        models()
-                            .carpet(
-                                "city_rug$segment",
-                                texture
-                            )
-                    )
+                    .modelFile(model)
                     .build()
             }
 
