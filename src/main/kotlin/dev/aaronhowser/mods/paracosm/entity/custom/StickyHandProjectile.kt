@@ -221,14 +221,12 @@ class StickyHandProjectile(
     private fun predicate(animationState: AnimationState<StickyHandProjectile>): PlayState {
         val animationName = if (isFist) {
             "animation.stickyhand.fist"
-        } else {
-            "animation.stickyhand.flat"
-        }
+        } else return PlayState.STOP
 
         animationState.controller.setAnimation(
             RawAnimation.begin().then(
                 animationName,
-                Animation.LoopType.HOLD_ON_LAST_FRAME
+                Animation.LoopType.LOOP
             )
         )
 
