@@ -11,6 +11,7 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 
+//TODO: Alternate upgrade that makes it PUNCH
 class StickyHandItem : Item(
     Properties()
         .stacksTo(1)
