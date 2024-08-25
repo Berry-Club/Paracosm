@@ -1,4 +1,5 @@
 {
+  "block.paracosm.city_rug": "City Rug",
   "block.paracosm.cotton": "Cotton",
   "block.paracosm.imaginator": "Imaginator",
   "block.paracosm.night_light": "Night Light",
@@ -16,6 +17,7 @@
   "item.paracosm.seeing_stone": "Seeing Stone",
   "item.paracosm.shrink_ray": "Shrink Ray",
   "item.paracosm.soda": "Soda",
+  "item.paracosm.sticky_hand": "Sticky Hand",
   "item.paracosm.towel_cape": "Towel Cape",
   "item.paracosm.toy_gun": "Toy Gun",
   "item.paracosm.warm_milk": "Warm Milk",

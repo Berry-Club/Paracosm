@@ -51,12 +51,14 @@ class ModLanguageProvider(output: PackOutput) : LanguageProvider(output, Paracos
         addItem(ModItems.SHRINK_RAY, "Shrink Ray")
         add(Item.TOY_GUN, "Toy Gun")
         add(Item.COOL_GUN, "Cool Gun")
+        addItem(ModItems.STICKY_HAND, "Sticky Hand")
 
         addBlock(ModBlocks.NIGHT_LIGHT, "Night Light")
         addBlock(ModBlocks.WHOOPEE_CUSHION, "Whoopee Cushion")
         addBlock(ModBlocks.COTTON, "Cotton")
         addBlock(ModBlocks.WALRUS, "Walrus")
         addBlock(ModBlocks.IMAGINATOR, "Imaginator")
+        addBlock(ModBlocks.CITY_RUG, "City Rug")
 
         addEntityType(ModEntityTypes.TEDDY_BEAR, "Teddy Bear")
         addEntityType(ModEntityTypes.DODGEBALL, "Dodgeball")
