@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.paracosm.block.city_rug
 
 import com.mojang.serialization.MapCodec
-import dev.aaronhowser.mods.paracosm.registry.ModBlocks
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.world.item.context.BlockPlaceContext
@@ -97,9 +96,7 @@ class CityRugBlock(
         pos: BlockPos,
         neighborPos: BlockPos
     ): BlockState {
-        return if (!canSurvive(state, level, pos)) {
-            println("Can't survive")
-            canSurvive(state, level, pos)
+        return if (neighborState.block == Blocks.AIR && pos.below() == neighborPos) {
             Blocks.AIR.defaultBlockState()
         } else {
             super.updateShape(state, direction, neighborState, level, pos, neighborPos)
@@ -127,17 +124,7 @@ class CityRugBlock(
                 if (level.isEmptyBlock(otherPos.below())) return false
 
                 val otherState = level.getBlockState(otherPos)
-
-                if (otherState.block == ModBlocks.CITY_RUG.get()) {
-                    val otherBe = level.getBlockEntity(otherPos)
-                    if (otherBe is CityRugBlockEntity) {
-                        if (otherBe.origin != pos) return false
-                    }
-                }
-
-                if (!otherState.canBeReplaced()) return false
-
-                return true
+                return otherState.canBeReplaced()
             }
 
             for (i in 1..3) {
