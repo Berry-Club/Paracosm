@@ -7,6 +7,7 @@ import net.minecraft.commands.arguments.EntityAnchorArgument
 import net.minecraft.network.syncher.EntityDataAccessor
 import net.minecraft.network.syncher.EntityDataSerializers
 import net.minecraft.network.syncher.SynchedEntityData
+import net.minecraft.util.Mth
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.MoverType
@@ -22,7 +23,6 @@ import software.bernie.geckolib.animatable.GeoEntity
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache
 import software.bernie.geckolib.animation.*
-import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.pow
 import kotlin.math.sin
@@ -43,10 +43,10 @@ class StickyHandProjectile(
         val pitch = owner.xRot
         val yaw = owner.yRot
 
-        var velocity = Vec3(
-            -sin(yaw * PI / 180.0) * cos(pitch * PI / 180.0),
-            -sin(pitch * PI / 180.0),
-            cos(yaw * PI / 180.0) * cos(pitch * PI / 180.0)
+        val velocity = Vec3(
+            -sin(yaw * Mth.DEG_TO_RAD) * cos(pitch * Mth.DEG_TO_RAD).toDouble(),
+            -sin(pitch * Mth.DEG_TO_RAD).toDouble(),
+            cos(yaw * Mth.DEG_TO_RAD) * cos(pitch * Mth.DEG_TO_RAD).toDouble()
         )
 
         this.deltaMovement = velocity
@@ -89,12 +89,6 @@ class StickyHandProjectile(
             this.ticksOnGround = 0
         }
 
-        val velocity = this.deltaMovement
-        if (velocity.lengthSqr() > 0.1) {
-            val nextPos = this.position().add(velocity)
-            lookAt(EntityAnchorArgument.Anchor.EYES, nextPos)
-        }
-
         if (this.currentState == StickyHandState.FLYING) {
             if (this.grabbedEntity != null) {
                 this.currentState = StickyHandState.STUCK_ON_ENTITY
@@ -120,13 +114,20 @@ class StickyHandProjectile(
         }
 
         this.move(MoverType.SELF, this.deltaMovement)
-        this.updateRotation()
+
+        this.deltaMovement = this.deltaMovement.scale(0.99)
+        this.deltaMovement = this.deltaMovement.subtract(0.0, 0.03, 0.0)
 
         if (this.currentState == StickyHandState.FLYING && (this.onGround() || this.horizontalCollision)) {
             this.deltaMovement = Vec3.ZERO
         }
 
-        this.deltaMovement = this.deltaMovement.scale(0.92) //What?
+        val velocity = this.deltaMovement
+        if (velocity.lengthSqr() > 0.1) {
+            val nextPos = this.position().add(velocity)
+            lookAt(EntityAnchorArgument.Anchor.EYES, nextPos)
+        }
+
         this.reapplyPosition()
     }
 
