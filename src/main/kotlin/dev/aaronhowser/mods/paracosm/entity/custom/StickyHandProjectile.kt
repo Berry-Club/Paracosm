@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.paracosm.entity.custom
 import dev.aaronhowser.mods.paracosm.item.StickyHandItem
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.registry.ModItems
+import net.minecraft.commands.arguments.EntityAnchorArgument
 import net.minecraft.network.syncher.EntityDataAccessor
 import net.minecraft.network.syncher.EntityDataSerializers
 import net.minecraft.network.syncher.SynchedEntityData
@@ -21,8 +22,10 @@ import software.bernie.geckolib.animatable.GeoEntity
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache
 import software.bernie.geckolib.animation.*
-import java.lang.Math.clamp
-import kotlin.math.*
+import kotlin.math.PI
+import kotlin.math.cos
+import kotlin.math.pow
+import kotlin.math.sin
 
 //TODO: Make the hand mirror when held in offhand
 class StickyHandProjectile(
@@ -41,18 +44,12 @@ class StickyHandProjectile(
         val yaw = owner.yRot
 
         var velocity = Vec3(
-            -sin(yaw).toDouble(),
-            clamp(-sin(pitch) / cos(pitch), -5f, 5f).toDouble(),
-            -cos(yaw).toDouble()
+            -sin(yaw * PI / 180.0) * cos(pitch * PI / 180.0),
+            -sin(pitch * PI / 180.0),
+            cos(yaw * PI / 180.0) * cos(pitch * PI / 180.0)
         )
-        velocity = velocity.scale(0.6 / velocity.length() + this.random.triangle(0.5, 0.0103365))
 
         this.deltaMovement = velocity
-        this.yRot = (atan2(velocity.x, velocity.z) * 180 / PI).toFloat()
-        this.xRot = (atan2(velocity.y, velocity.horizontalDistance()) * 180 / PI).toFloat()
-
-        this.yRotO = this.yRot
-        this.xRotO = this.xRot
     }
 
     companion object {
@@ -74,6 +71,7 @@ class StickyHandProjectile(
     }
 
     var ticksOnGround = 0
+    var ticksAlive = 0
 
     override fun tick() {
         super.tick()
@@ -89,6 +87,12 @@ class StickyHandProjectile(
             this.ticksOnGround++
         } else {
             this.ticksOnGround = 0
+        }
+
+        val velocity = this.deltaMovement
+        if (velocity.lengthSqr() > 0.1) {
+            val nextPos = this.position().add(velocity)
+            lookAt(EntityAnchorArgument.Anchor.EYES, nextPos)
         }
 
         if (this.currentState == StickyHandState.FLYING) {
@@ -219,7 +223,11 @@ class StickyHandProjectile(
     private var isFist = false
 
     private fun predicate(animationState: AnimationState<StickyHandProjectile>): PlayState {
-        val animationName = if (isFist) {
+        val animationName = if (
+            isFist
+            || currentState == StickyHandState.STUCK_ON_ENTITY
+            || currentState == StickyHandState.STUCK_ON_BLOCK
+        ) {
             "animation.stickyhand.fist"
         } else return PlayState.STOP
 
