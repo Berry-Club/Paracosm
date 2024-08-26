@@ -116,7 +116,7 @@ class StickyHandProjectile(
         this.move(MoverType.SELF, this.deltaMovement)
 
         this.deltaMovement = this.deltaMovement.scale(0.99)
-        this.deltaMovement = this.deltaMovement.subtract(0.0, 0.03, 0.0)
+        this.deltaMovement = this.deltaMovement.subtract(0.0, 0.0125, 0.0)
 
         if (this.currentState == StickyHandState.FLYING && (this.onGround() || this.horizontalCollision)) {
             this.deltaMovement = Vec3.ZERO
