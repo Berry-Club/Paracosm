@@ -33,4 +33,14 @@ object ModSounds {
             SoundEvent.createVariableRangeEvent(OtherUtil.modResource("squee"))
         })
 
+    val STICKY_HAND_THROW: DeferredHolder<SoundEvent, SoundEvent> =
+        SOUND_EVENT_REGISTRY.register("sticky_hand_throw", Supplier {
+            SoundEvent.createVariableRangeEvent(OtherUtil.modResource("sticky_hand_throw"))
+        })
+
+    val STICKY_HAND_RETRIEVE: DeferredHolder<SoundEvent, SoundEvent> =
+        SOUND_EVENT_REGISTRY.register("sticky_hand_retrieve", Supplier {
+            SoundEvent.createVariableRangeEvent(OtherUtil.modResource("sticky_hand_retrieve"))
+        })
+
 }

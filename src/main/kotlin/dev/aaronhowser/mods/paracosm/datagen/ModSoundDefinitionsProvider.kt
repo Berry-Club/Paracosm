@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.registry.ModSounds
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.data.PackOutput
+import net.minecraft.sounds.SoundEvents
 import net.neoforged.neoforge.common.data.ExistingFileHelper
 import net.neoforged.neoforge.common.data.SoundDefinition
 import net.neoforged.neoforge.common.data.SoundDefinitionsProvider
@@ -53,6 +54,24 @@ class ModSoundDefinitionsProvider(
                     sound(OtherUtil.modResource("dodgeball"), SoundDefinition.SoundType.SOUND)
                 )
                 .subtitle(ModLanguageProvider.Subtitle.DODGEBALL)
+        )
+
+        add(
+            ModSounds.STICKY_HAND_THROW,
+            SoundDefinition.definition()
+                .with(
+                    sound(SoundEvents.SLIME_BLOCK_PLACE.location)
+                )
+                .subtitle(ModLanguageProvider.Subtitle.STICKY_HAND_THROW)
+        )
+
+        add(
+            ModSounds.STICKY_HAND_RETRIEVE,
+            SoundDefinition.definition()
+                .with(
+                    sound(SoundEvents.SLIME_BLOCK_BREAK.location)
+                )
+                .subtitle(ModLanguageProvider.Subtitle.STICKY_HAND_RETRIEVE)
         )
 
     }

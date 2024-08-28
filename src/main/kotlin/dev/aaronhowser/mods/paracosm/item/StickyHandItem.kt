@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.paracosm.item
 
 import dev.aaronhowser.mods.paracosm.entity.custom.StickyHandProjectile
+import dev.aaronhowser.mods.paracosm.registry.ModSounds
 import net.minecraft.server.level.ServerLevel
-import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
@@ -32,7 +32,7 @@ class StickyHandItem : Item(
                 player.x,
                 player.y,
                 player.z,
-                SoundEvents.FISHING_BOBBER_THROW,
+                ModSounds.STICKY_HAND_THROW.get(),
                 SoundSource.NEUTRAL,
                 0.5f,
                 0.4f / (level.getRandom().nextFloat() * 0.4f + 0.8f)
@@ -51,7 +51,7 @@ class StickyHandItem : Item(
                 player.x,
                 player.y,
                 player.z,
-                SoundEvents.FISHING_BOBBER_RETRIEVE,
+                ModSounds.STICKY_HAND_RETRIEVE.get(),
                 SoundSource.NEUTRAL,
                 0.5f,
                 0.4f / (level.getRandom().nextFloat() * 0.4f + 0.8f)

@@ -29,6 +29,8 @@ class ModLanguageProvider(output: PackOutput) : LanguageProvider(output, Paracos
         const val UNFART = "subtitle.paracosm.unfart"
         const val DODGEBALL = "subtitle.paracosm.dodgeball"
         const val SQUEE = "subtitle.paracosm.squee"
+        const val STICKY_HAND_THROW = "subtitle.paracosm.sticky_hand_throw"
+        const val STICKY_HAND_RETRIEVE = "subtitle.paracosm.sticky_hand_retrieve"
     }
 
     object Emi {
@@ -73,6 +75,8 @@ class ModLanguageProvider(output: PackOutput) : LanguageProvider(output, Paracos
         add(Subtitle.UNFART, "Bbbtpp")
         add(Subtitle.DODGEBALL, "PHONK")
         add(Subtitle.SQUEE, "Squee")
+        add(Subtitle.STICKY_HAND_THROW, "Throw Sticky Hand")
+        add(Subtitle.STICKY_HAND_RETRIEVE, "Retrieve Sticky Hand")
 
         add(Emi.SEEING_STONE_TAG, "Seeing Stone")
         add(Emi.SWEETS_TAG, "Sweets")
