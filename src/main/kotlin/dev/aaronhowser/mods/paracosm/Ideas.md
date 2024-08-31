@@ -80,11 +80,22 @@
 - [ ] Maybe like an Atari or whatever with playable games (that would be absolutely impossible though lmao)
 - [ ] Pillow fights
 - [ ] Couch pillow fortress
-- [ ] Shrink ray
+- [x] Shrink ray
 - [ ] Slinky whip
 - [ ] Glow in the dark stars
 - [ ] Slingshot
-- [ ] Slowstick?
+- [ ] Glowstick?
+- [ ] Water gun
+- [ ] Nerf gun
+- [ ] Suction cup darts
+- [ ] Boomerang
+- [ ] Yo-yo
+- [ ] Jump rope
+- [ ] Hula hoop
+- [ ] Pogo stick
+- [ ] Roller skates
+- [ ] Skateboard
+- [ ] Scooter
 
 # Spiderwick Chronicles style stuff
 
