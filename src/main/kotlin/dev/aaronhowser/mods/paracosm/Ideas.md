@@ -17,7 +17,7 @@
 # Sources
 
 - [ ] TV with cartoons, says in chat like "You spend some time watching cartoons, you feel more imaginative"
-- [ ] Tree houses
+- [ ] Tree houses (maybe a structure that spawns in the world like witch huts?)
 - [ ] Making / playing with toys
 - [ ] Coloring books? Could build up imagination as you color. Maybe its imagination storage?
 - [ ] Exploring?
