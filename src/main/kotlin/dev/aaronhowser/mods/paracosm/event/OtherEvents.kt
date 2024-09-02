@@ -5,7 +5,7 @@ import dev.aaronhowser.mods.paracosm.attachment.Delusion.Companion.delusion
 import dev.aaronhowser.mods.paracosm.attachment.Whimsy.Companion.whimsy
 import dev.aaronhowser.mods.paracosm.command.ModCommands
 import dev.aaronhowser.mods.paracosm.datagen.tag.ModItemTagsProvider
-import dev.aaronhowser.mods.paracosm.item.PogoStickItem
+import dev.aaronhowser.mods.paracosm.item.pogo_stick.BounceHandler
 import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateWhimsyValue
 import net.minecraft.server.level.ServerPlayer
@@ -91,12 +91,12 @@ object OtherEvents {
 
     @SubscribeEvent
     fun onLivingFall(event: LivingFallEvent) {
-        PogoStickItem.handleEvent(event)
+        BounceHandler.handleEvent(event)
     }
 
     @SubscribeEvent
     fun onFlyableFall(event: PlayerFlyableFallEvent) {
-        PogoStickItem.handleEvent(event)
+        BounceHandler.handleEvent(event)
     }
 
 }

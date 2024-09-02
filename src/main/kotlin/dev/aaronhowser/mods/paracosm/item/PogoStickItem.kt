@@ -1,15 +1,10 @@
 package dev.aaronhowser.mods.paracosm.item
 
-import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
-import dev.aaronhowser.mods.paracosm.packet.client_to_server.SetPogoBounceForce
 import dev.aaronhowser.mods.paracosm.registry.ModItems
-import dev.aaronhowser.mods.paracosm.util.ClientUtil
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
-import net.neoforged.neoforge.event.entity.living.LivingFallEvent
-import net.neoforged.neoforge.event.entity.player.PlayerFlyableFallEvent
 
 class PogoStickItem(
     properties: Properties = Properties()
@@ -17,58 +12,6 @@ class PogoStickItem(
 ) : Item(properties) {
 
     companion object {
-
-        fun handleEvent(event: LivingFallEvent) {
-            val player = event.entity as? Player ?: return
-
-            if (handlePogoLand(player, event.distance)) {
-                event.isCanceled = true
-            }
-        }
-
-        fun handleEvent(event: PlayerFlyableFallEvent) {
-            val player = event.entity
-            handlePogoLand(player, event.distance)
-        }
-
-        fun handlePogoLand(player: Player, distance: Float): Boolean {
-            if (distance < 0.5f) return false
-            if (player.isSuppressingBounce) return false
-
-            val pogoStickStack = getHeldPogoStick(player) ?: return false
-
-            player.hurtMarked = true
-
-            if (player.level().isClientSide) {
-                val delta = player.deltaMovement
-
-                //FIXME: Totally doesnt work on servers
-                val bounceForce = if (ClientUtil.isJumpKeyHeld()) {
-                    3f
-                } else {
-                    0.9f
-                }
-
-                var newY = delta.y * -bounceForce
-                newY = newY.coerceAtMost(10.0)
-
-                player.setDeltaMovement(
-                    delta.x,
-                    newY,
-                    delta.z
-                )
-
-                ModPacketHandler.messageServer(SetPogoBounceForce(newY))
-            }
-
-            if (distance > 2f) {
-                val equipmentSlot = player.getEquipmentSlotForItem(pogoStickStack)
-                pogoStickStack.hurtAndBreak(1, player, equipmentSlot)
-            }
-
-            return true
-        }
-
         fun getHeldPogoStick(player: Player): ItemStack? {
             val mainHandStack = player.getItemInHand(InteractionHand.MAIN_HAND)
             if (mainHandStack.item == ModItems.POGO_STICK.get()) {

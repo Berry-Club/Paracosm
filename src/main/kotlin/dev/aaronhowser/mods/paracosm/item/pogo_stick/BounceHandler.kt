@@ -4,6 +4,8 @@ import dev.aaronhowser.mods.paracosm.item.PogoStickItem
 import net.minecraft.client.player.LocalPlayer
 import net.minecraft.world.level.block.Blocks
 import net.neoforged.neoforge.common.NeoForge
+import net.neoforged.neoforge.event.entity.living.LivingFallEvent
+import net.neoforged.neoforge.event.entity.player.PlayerFlyableFallEvent
 
 object BounceHandler {
 
@@ -77,7 +79,29 @@ object BounceHandler {
 
     }
 
-    private fun shouldPlayerBounce(player: LocalPlayer, distance: Double): Boolean {
+    fun handleEvent(event: PlayerFlyableFallEvent) {
+        val player = event.entity as? LocalPlayer ?: return
+
+        if (!shouldPlayerBounce(player, event.distance)) return
+
+        handlePlayerFall(player)
+
+        player.fallDistance = 0f
+    }
+
+    fun handleEvent(event: LivingFallEvent) {
+        val player = event.entity as? LocalPlayer ?: return
+
+        if (!shouldPlayerBounce(player, event.distance)) return
+
+        handlePlayerFall(player)
+
+        event.isCanceled = true
+        event.damageMultiplier = 0f
+        player.fallDistance = 0f
+    }
+
+    private fun shouldPlayerBounce(player: LocalPlayer, distance: Float): Boolean {
         return distance >= 1 && PogoStickItem.getHeldPogoStick(player) != null
     }
 
