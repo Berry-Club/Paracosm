@@ -71,7 +71,6 @@ object BounceHandler {
 
         var motion = player.deltaMovement.y * if (isJumping) 0.5 else 1.0
 
-        //TODO: Block tag for extra bouncy blocks?
         val bouncedOffSlime =
             player.level().getBlockState(player.blockPosition().below()).`is`(ModBlockTagsProvider.POGO_BOOST)
         if (!isSneaking && bouncedOffSlime) {
