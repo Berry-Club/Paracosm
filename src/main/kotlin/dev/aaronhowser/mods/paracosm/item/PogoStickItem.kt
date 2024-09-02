@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.paracosm.item
 
 import dev.aaronhowser.mods.paracosm.registry.ModItems
-import net.minecraft.network.chat.Component
+import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
@@ -16,13 +16,14 @@ class PogoStickItem(
     companion object {
 
         fun onPlayerLand(event: LivingFallEvent) {
-            val player = event.entity
-            if (player.level().isClientSide) return
+            val player = event.entity as? ServerPlayer ?: return
+
+            val pogoStick = getHeldPogoStick(player) ?: return
+
             val distance = event.distance
             val damageMultiplier = event.damageMultiplier
 
-            player.sendSystemMessage(Component.literal("Distance: $distance"))
-            player.sendSystemMessage(Component.literal("Damage Multiplier: $damageMultiplier"))
+            event.isCanceled = true
         }
 
         fun getHeldPogoStick(player: Player): ItemStack? {
