@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.paracosm.item
 import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
 import dev.aaronhowser.mods.paracosm.packet.client_to_server.SetPogoBounceForce
 import dev.aaronhowser.mods.paracosm.registry.ModItems
+import dev.aaronhowser.mods.paracosm.util.ClientUtil
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
@@ -41,14 +42,15 @@ class PogoStickItem(
             if (player.level().isClientSide) {
                 val delta = player.deltaMovement
 
-                val bounceForce = if (player.jumping) {
+                //FIXME: Totally doesnt work on servers
+                val bounceForce = if (ClientUtil.isJumpKeyHeld()) {
                     3f
                 } else {
                     0.9f
                 }
 
                 var newY = delta.y * -bounceForce
-//                newY = newY.coerceAtMost(10.0)
+                newY = newY.coerceAtMost(10.0)
 
                 player.setDeltaMovement(
                     delta.x,

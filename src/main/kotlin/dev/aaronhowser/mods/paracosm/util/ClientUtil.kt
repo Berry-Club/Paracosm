@@ -14,4 +14,10 @@ object ClientUtil {
 
     fun hasWhimsy(requiredWhimsy: Float): Boolean = whimsy >= requiredWhimsy
 
+    fun isJumpKeyHeld(): Boolean {
+        val player = localPlayer ?: return false
+
+        return player.input.jumping
+    }
+
 }
