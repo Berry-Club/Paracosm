@@ -9,26 +9,27 @@ import net.neoforged.neoforge.event.entity.player.PlayerFlyableFallEvent
 
 object BounceHandler {
 
-    private val bouncers: MutableMap<LocalPlayer, Bouncing> = mutableMapOf()
+    private var currentBounce: Bouncing? = null
 
     fun addBouncer(player: LocalPlayer, velocity: Double) {
-        val existing = bouncers[player]
 
+        val existing = currentBounce
         if (existing != null) {
             existing.updateVelocity(velocity)
             return
         }
 
         val bouncer = Bouncing(player, velocity)
-        bouncers[player] = bouncer
+        currentBounce = bouncer
 
         NeoForge.EVENT_BUS.register(bouncer)
     }
 
-    fun removeBouncer(player: LocalPlayer) {
-        val bouncer = bouncers.remove(player) ?: return
-
+    fun removeBouncer() {
+        val bouncer = currentBounce ?: return
         NeoForge.EVENT_BUS.unregister(bouncer)
+
+        currentBounce = null
     }
 
     private fun handlePlayerFall(player: LocalPlayer) {
@@ -74,7 +75,7 @@ object BounceHandler {
             addBouncer(player, motion)
             //TODO: Packet
         } else {
-            removeBouncer(player)
+            removeBouncer()
         }
 
     }
