@@ -150,7 +150,6 @@ dependencies {
     runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
     runtimeOnly "curse.maven:atlasviewer-633577:5490697"
     runtimeOnly "curse.maven:spark-361579:5434153"
-
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
