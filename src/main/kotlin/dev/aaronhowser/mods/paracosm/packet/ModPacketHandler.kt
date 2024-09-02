@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.packet
 
+import dev.aaronhowser.mods.paracosm.packet.client_to_server.SetPogoBounceForce
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateShrinkRayScale
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateWhimsyValue
 import net.minecraft.server.level.ServerLevel
@@ -26,6 +27,15 @@ object ModPacketHandler {
         registrar.playToClient(
             UpdateShrinkRayScale.TYPE,
             UpdateShrinkRayScale.STREAM_CODEC,
+            DirectionalPayloadHandler(
+                { packet, context -> packet.receiveMessage(context) },
+                { packet, context -> packet.receiveMessage(context) }
+            )
+        )
+
+        registrar.playToServer(
+            SetPogoBounceForce.TYPE,
+            SetPogoBounceForce.STREAM_CODEC,
             DirectionalPayloadHandler(
                 { packet, context -> packet.receiveMessage(context) },
                 { packet, context -> packet.receiveMessage(context) }

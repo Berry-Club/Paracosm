@@ -1,5 +1,7 @@
 package dev.aaronhowser.mods.paracosm.item
 
+import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
+import dev.aaronhowser.mods.paracosm.packet.client_to_server.SetPogoBounceForce
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.entity.player.Player
@@ -29,23 +31,25 @@ class PogoStickItem(
         }
 
         fun handlePogoLand(player: Player, distance: Float): Boolean {
-//            if (distance < 0.5f) return false
+            if (distance < 0.5f) return false
             if (player.isSuppressingBounce) return false
 
             val pogoStickStack = getHeldPogoStick(player) ?: return false
 
             player.hurtMarked = true
 
-            val delta = player.deltaMovement
-            if (!player.level().isClientSide) println("Bounce down ${delta.y}")
-            val newY = minOf(delta.y * -10, 1000000000.0)
-            if (!player.level().isClientSide) println("Bounce up $newY")
+            if (player.level().isClientSide) {
+                val delta = player.deltaMovement
+                val newY = minOf(delta.y * -0.5, 10.0)
 
-            player.setDeltaMovement(
-                delta.x,
-                newY,
-                delta.z
-            )
+                player.setDeltaMovement(
+                    delta.x,
+                    newY,
+                    delta.z
+                )
+
+                ModPacketHandler.messageServer(SetPogoBounceForce(newY))
+            }
 
             val equipmentSlot = player.getEquipmentSlotForItem(pogoStickStack)
             pogoStickStack.hurtAndBreak(1, player, equipmentSlot)
