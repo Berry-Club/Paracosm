@@ -28,6 +28,10 @@ object ModItems {
         ITEM_REGISTRY.registerItem("shrink_ray") { ShrinkRayItem() }
     val STICKY_HAND: DeferredItem<StickyHandItem> =
         ITEM_REGISTRY.registerItem("sticky_hand") { StickyHandItem() }
+    val POGO_STICK: DeferredItem<PogoStickItem> =
+        ITEM_REGISTRY.registerItem("pogo_stick") { PogoStickItem() }
+
+    // Foods
     val CANDY: DeferredItem<FancyFoodItem> =
         ITEM_REGISTRY.registerItem("candy") {
             FancyFoodItem(
