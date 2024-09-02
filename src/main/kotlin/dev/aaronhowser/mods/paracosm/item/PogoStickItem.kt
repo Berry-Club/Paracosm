@@ -38,9 +38,8 @@ class PogoStickItem(
 
             player.playSound(SoundEvents.PISTON_EXTEND)
 
-            val packet = TellClientsUsedPogo(player)
             ModPacketHandler.messageNearbyPlayers(
-                packet,
+                TellClientsUsedPogo(player),
                 player.level() as ServerLevel,
                 player.eyePosition,
                 64.0
