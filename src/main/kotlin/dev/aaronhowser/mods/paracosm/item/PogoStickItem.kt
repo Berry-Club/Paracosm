@@ -34,20 +34,19 @@ class PogoStickItem(
 
             val pogoStickStack = getHeldPogoStick(player) ?: return false
 
-            // Player movement is entirely clientside.
-            // Handling this on the server actually breaks it, because Mojang is a small indie company
-            if (player.level().isClientSide) {
-                val delta = player.deltaMovement
-                val newY = minOf(delta.y * -10, 1000.0)
+            player.hurtMarked = true
 
-                player.setDeltaMovement(
-                    delta.x,
-                    newY,
-                    delta.z
-                )
+            val delta = player.deltaMovement
+            val newY = minOf(delta.y * -10, 1000000000.0)
 
-                player.hurtMarked = true
-            }
+            player.setDeltaMovement(
+                delta.x,
+                newY,
+                delta.z
+            )
+
+            val equipmentSlot = player.getEquipmentSlotForItem(pogoStickStack)
+            pogoStickStack.hurtAndBreak(1, player, equipmentSlot)
 
             return true
         }
