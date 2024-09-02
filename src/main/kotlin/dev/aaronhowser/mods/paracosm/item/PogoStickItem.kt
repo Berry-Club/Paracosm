@@ -34,6 +34,14 @@ class PogoStickItem(
 
             val pogoStickStack = getHeldPogoStick(player) ?: return false
 
+            val delta = player.deltaMovement
+            player.setDeltaMovement(
+                delta.x,
+                minOf(-delta.y.toFloat() * 10, 1000f).toDouble(),
+                delta.z
+            )
+            player.hurtMarked = true
+
             return true
         }
 
