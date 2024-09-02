@@ -29,7 +29,7 @@ class PogoStickItem(
         }
 
         fun handlePogoLand(player: Player, distance: Float): Boolean {
-            if (distance < 0.5f) return false
+//            if (distance < 0.5f) return false
             if (player.isSuppressingBounce) return false
 
             val pogoStickStack = getHeldPogoStick(player) ?: return false
@@ -37,7 +37,9 @@ class PogoStickItem(
             player.hurtMarked = true
 
             val delta = player.deltaMovement
+            if (!player.level().isClientSide) println("Bounce down ${delta.y}")
             val newY = minOf(delta.y * -10, 1000000000.0)
+            if (!player.level().isClientSide) println("Bounce up $newY")
 
             player.setDeltaMovement(
                 delta.x,
