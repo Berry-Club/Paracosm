@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.BlockTags
 import net.minecraft.tags.TagKey
 import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.Blocks
 import net.neoforged.neoforge.common.Tags
 import net.neoforged.neoforge.common.data.BlockTagsProvider
 import net.neoforged.neoforge.common.data.ExistingFileHelper
@@ -26,6 +27,7 @@ class ModBlockTagsProvider(
         fun create(rl: ResourceLocation): TagKey<Block> = TagKey.create(Registries.BLOCK, rl)
 
         val REFLECTIVE = create("reflective")
+        val POGO_BOOST = create("pogo_boost")
     }
 
     override fun addTags(pProvider: HolderLookup.Provider) {
@@ -33,6 +35,10 @@ class ModBlockTagsProvider(
         this.tag(REFLECTIVE)
             .addTags(Tags.Blocks.GLASS_BLOCKS)
             .addTags(Tags.Blocks.GLAZED_TERRACOTTAS)
+
+        this.tag(POGO_BOOST)
+            .add(Blocks.SLIME_BLOCK)
+            .addTags(BlockTags.BEDS)
 
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
             .add(ModBlocks.NIGHT_LIGHT.get())

@@ -1,6 +1,7 @@
-// 1.21	2024-08-22T05:07:19.2694043	Tags for minecraft:block mod id paracosm
+// 1.21	2024-09-02T12:00:04.7069281	Tags for minecraft:block mod id paracosm
 0fcba97f63d39fa1a4ce0822c3069d977fad8b5f data/minecraft/tags/block/crops.json
 757fcaff69f2ee3711a190ae0faea976cd3f52ff data/minecraft/tags/block/mineable/axe.json
 00f0a565025e8f14ac7f07dc3d82d76429e0d4b5 data/minecraft/tags/block/mineable/pickaxe.json
 88408995384bef35b5542377e1f669891de16ed6 data/minecraft/tags/block/pressure_plates.json
+70e07b3c6aaa905e1a0e599ba5d635cc0dc37101 data/paracosm/tags/block/pogo_boost.json
 c64e53f547739607d1d8917e6d92b276c425b94c data/paracosm/tags/block/reflective.json

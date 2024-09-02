@@ -1,11 +1,11 @@
 package dev.aaronhowser.mods.paracosm.item.pogo_stick
 
+import dev.aaronhowser.mods.paracosm.datagen.tag.ModBlockTagsProvider
 import dev.aaronhowser.mods.paracosm.item.PogoStickItem
 import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
 import dev.aaronhowser.mods.paracosm.packet.client_to_server.ClientUsePogoStick
 import net.minecraft.client.player.LocalPlayer
 import net.minecraft.world.entity.player.Player
-import net.minecraft.world.level.block.Blocks
 import net.neoforged.neoforge.common.NeoForge
 import net.neoforged.neoforge.event.entity.living.LivingFallEvent
 import net.neoforged.neoforge.event.entity.player.PlayerFlyableFallEvent
@@ -72,7 +72,8 @@ object BounceHandler {
         var motion = player.deltaMovement.y * if (isJumping) 0.5 else 1.0
 
         //TODO: Block tag for extra bouncy blocks?
-        val bouncedOffSlime = player.level().getBlockState(player.blockPosition().below()).block == Blocks.SLIME_BLOCK
+        val bouncedOffSlime =
+            player.level().getBlockState(player.blockPosition().below()).`is`(ModBlockTagsProvider.POGO_BOOST)
         if (!isSneaking && bouncedOffSlime) {
             motion *= 1.5
         }
