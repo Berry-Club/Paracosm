@@ -56,23 +56,24 @@ class ModSoundDefinitionsProvider(
                 .subtitle(ModLanguageProvider.Subtitle.DODGEBALL)
         )
 
-        add(
-            ModSounds.STICKY_HAND_THROW,
-            SoundDefinition.definition()
-                .with(
-                    sound(SoundEvents.SLIME_BLOCK_PLACE.location)
-                )
-                .subtitle(ModLanguageProvider.Subtitle.STICKY_HAND_THROW)
-        )
-
-        add(
-            ModSounds.STICKY_HAND_RETRIEVE,
-            SoundDefinition.definition()
-                .with(
-                    sound(SoundEvents.SLIME_BLOCK_BREAK.location)
-                )
-                .subtitle(ModLanguageProvider.Subtitle.STICKY_HAND_RETRIEVE)
-        )
+        //FIXME: You can't use vanilla sounds here
+//        add(
+//            ModSounds.STICKY_HAND_THROW,
+//            SoundDefinition.definition()
+//                .with(
+//                    sound(SoundEvents.SLIME_BLOCK_PLACE.location)
+//                )
+//                .subtitle(ModLanguageProvider.Subtitle.STICKY_HAND_THROW)
+//        )
+//
+//        add(
+//            ModSounds.STICKY_HAND_RETRIEVE,
+//            SoundDefinition.definition()
+//                .with(
+//                    sound(SoundEvents.SLIME_BLOCK_BREAK.location)
+//                )
+//                .subtitle(ModLanguageProvider.Subtitle.STICKY_HAND_RETRIEVE)
+//        )
 
     }
 

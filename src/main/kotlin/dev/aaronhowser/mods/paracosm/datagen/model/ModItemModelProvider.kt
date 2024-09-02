@@ -25,7 +25,8 @@ class ModItemModelProvider(
             ModItems.SODA,
             ModItems.WARM_MILK,
             ModItems.SHRINK_RAY, //TODO: Make whimsy
-            ModItems.STICKY_HAND
+            ModItems.STICKY_HAND,
+            ModItems.POGO_STICK
         )
 
         for (item in basicModels) {
