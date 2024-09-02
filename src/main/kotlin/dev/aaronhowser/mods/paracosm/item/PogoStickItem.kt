@@ -7,6 +7,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.neoforged.neoforge.event.entity.living.LivingFallEvent
+import net.neoforged.neoforge.event.entity.player.PlayerFlyableFallEvent
 
 class PogoStickItem(
     properties: Properties = Properties()
@@ -15,15 +16,23 @@ class PogoStickItem(
 
     companion object {
 
-        fun onPlayerLand(event: LivingFallEvent) {
-            val player = event.entity as? ServerPlayer ?: return
+        fun handleEvent(event: LivingFallEvent) {
+            val player = event.entity as? Player ?: return
 
-            val pogoStick = getHeldPogoStick(player) ?: return
+            if (handlePogoLand(player, event.distance)) {
+                event.isCanceled = true
+            }
+        }
 
-            val distance = event.distance
-            val damageMultiplier = event.damageMultiplier
+        fun handleEvent(event: PlayerFlyableFallEvent) {
+            val player = event.entity
+            handlePogoLand(player, event.distance)
+        }
 
-            event.isCanceled = true
+        fun handlePogoLand(player: Player, distance: Float): Boolean {
+            val pogoStickStack = getHeldPogoStick(player) ?: return false
+
+            return true
         }
 
         fun getHeldPogoStick(player: Player): ItemStack? {

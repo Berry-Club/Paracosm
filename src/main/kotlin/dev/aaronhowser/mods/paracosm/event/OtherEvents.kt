@@ -91,7 +91,12 @@ object OtherEvents {
 
     @SubscribeEvent
     fun onLivingFall(event: LivingFallEvent) {
-        PogoStickItem.onPlayerLand(event)
+        PogoStickItem.handleEvent(event)
+    }
+
+    @SubscribeEvent
+    fun onFlyableFall(event: PlayerFlyableFallEvent) {
+        PogoStickItem.handleEvent(event)
     }
 
 }
