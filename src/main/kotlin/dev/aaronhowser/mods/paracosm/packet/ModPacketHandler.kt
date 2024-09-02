@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.paracosm.packet
 
-import dev.aaronhowser.mods.paracosm.packet.client_to_server.SetPogoBounceForce
+import dev.aaronhowser.mods.paracosm.packet.client_to_server.ClientUsePogoStick
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateShrinkRayScale
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateWhimsyValue
 import net.minecraft.server.level.ServerLevel
@@ -34,8 +34,8 @@ object ModPacketHandler {
         )
 
         registrar.playToServer(
-            SetPogoBounceForce.TYPE,
-            SetPogoBounceForce.STREAM_CODEC,
+            ClientUsePogoStick.TYPE,
+            ClientUsePogoStick.STREAM_CODEC,
             DirectionalPayloadHandler(
                 { packet, context -> packet.receiveMessage(context) },
                 { packet, context -> packet.receiveMessage(context) }
@@ -47,8 +47,8 @@ object ModPacketHandler {
 
     fun messageNearbyPlayers(packet: ModPacket, serverLevel: ServerLevel, origin: Vec3, radius: Double) {
         for (player in serverLevel.players()) {
-            val distance = player.distanceToSqr(origin.x(), origin.y(), origin.z())
-            if (distance < radius * radius) {
+            val distSqr = player.distanceToSqr(origin.x(), origin.y(), origin.z())
+            if (distSqr < radius * radius) {
                 messagePlayer(player, packet)
             }
         }

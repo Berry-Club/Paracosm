@@ -1,6 +1,8 @@
 package dev.aaronhowser.mods.paracosm.item.pogo_stick
 
 import dev.aaronhowser.mods.paracosm.item.PogoStickItem
+import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
+import dev.aaronhowser.mods.paracosm.packet.client_to_server.ClientUsePogoStick
 import net.minecraft.client.player.LocalPlayer
 import net.minecraft.world.level.block.Blocks
 import net.neoforged.neoforge.common.NeoForge
@@ -12,7 +14,6 @@ object BounceHandler {
     private var currentBounce: Bouncing? = null
 
     fun addBouncer(player: LocalPlayer, velocity: Double) {
-
         val existing = currentBounce
         if (existing != null) {
             existing.updateVelocity(velocity)
@@ -30,6 +31,10 @@ object BounceHandler {
         NeoForge.EVENT_BUS.unregister(bouncer)
 
         currentBounce = null
+    }
+
+    fun isBouncing(): Boolean {
+        return currentBounce != null
     }
 
     private fun handlePlayerFall(player: LocalPlayer) {
@@ -73,7 +78,7 @@ object BounceHandler {
 
         if (motion != 0.0) {
             addBouncer(player, motion)
-            //TODO: Packet
+            ModPacketHandler.messageServer(ClientUsePogoStick.INSTANCE)
         } else {
             removeBouncer()
         }
