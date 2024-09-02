@@ -40,7 +40,15 @@ class PogoStickItem(
 
             if (player.level().isClientSide) {
                 val delta = player.deltaMovement
-                val newY = minOf(delta.y * -0.5, 10.0)
+
+                val bounceForce = if (player.jumping) {
+                    3f
+                } else {
+                    0.9f
+                }
+
+                var newY = delta.y * -bounceForce
+//                newY = newY.coerceAtMost(10.0)
 
                 player.setDeltaMovement(
                     delta.x,
@@ -51,8 +59,10 @@ class PogoStickItem(
                 ModPacketHandler.messageServer(SetPogoBounceForce(newY))
             }
 
-            val equipmentSlot = player.getEquipmentSlotForItem(pogoStickStack)
-            pogoStickStack.hurtAndBreak(1, player, equipmentSlot)
+            if (distance > 2f) {
+                val equipmentSlot = player.getEquipmentSlotForItem(pogoStickStack)
+                pogoStickStack.hurtAndBreak(1, player, equipmentSlot)
+            }
 
             return true
         }
