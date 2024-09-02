@@ -1,8 +1,6 @@
 package dev.aaronhowser.mods.paracosm.item.pogo_stick
 
 import dev.aaronhowser.mods.paracosm.item.PogoStickItem
-import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
-import dev.aaronhowser.mods.paracosm.packet.client_to_server.ClientUsePogoStick
 import net.minecraft.client.player.LocalPlayer
 import net.minecraft.world.level.block.Blocks
 import net.neoforged.neoforge.common.NeoForge
@@ -11,26 +9,26 @@ import net.neoforged.neoforge.event.entity.player.PlayerFlyableFallEvent
 
 object BounceHandler {
 
-    private var currentBounce: Bouncing? = null
+    private val bouncers: MutableMap<LocalPlayer, Bouncing> = mutableMapOf()
 
     fun addBouncer(player: LocalPlayer, velocity: Double) {
-        val existing = currentBounce
+        val existing = bouncers[player]
+
         if (existing != null) {
             existing.updateVelocity(velocity)
             return
         }
 
         val bouncer = Bouncing(player, velocity)
-        currentBounce = bouncer
+        bouncers[player] = bouncer
 
         NeoForge.EVENT_BUS.register(bouncer)
     }
 
-    fun removeBouncer() {
-        val bouncer = currentBounce ?: return
-        NeoForge.EVENT_BUS.unregister(bouncer)
+    fun removeBouncer(player: LocalPlayer) {
+        val bouncer = bouncers.remove(player) ?: return
 
-        currentBounce = null
+        NeoForge.EVENT_BUS.unregister(bouncer)
     }
 
     fun isBouncing(): Boolean {
@@ -80,7 +78,7 @@ object BounceHandler {
             addBouncer(player, motion)
             ModPacketHandler.messageServer(ClientUsePogoStick.INSTANCE)
         } else {
-            removeBouncer()
+            removeBouncer(player)
         }
 
     }
