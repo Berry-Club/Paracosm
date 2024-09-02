@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.paracosm.item.pogo_stick
 
 import net.minecraft.client.player.LocalPlayer
+import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.neoforge.event.tick.PlayerTickEvent
 
 class Bouncing(
@@ -27,6 +28,7 @@ class Bouncing(
         this.lastVelocityTicks = player.tickCount
     }
 
+    @SubscribeEvent
     fun tick(event: PlayerTickEvent.Post) {
         val player = event.entity
         if (player.isFallFlying) return
@@ -56,7 +58,7 @@ class Bouncing(
                 this.lastMotionX = playerMovement().x
                 this.lastMotionZ = playerMovement().z
 
-                this.player.setOnGround(false)
+                this.player.setOnGround(false)  //FIXME: This is technically supposed to be isInAir = true or something, but that doesn't exist now
             }
         }
 
