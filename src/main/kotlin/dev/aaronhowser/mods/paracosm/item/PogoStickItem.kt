@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.paracosm.item
 
 import dev.aaronhowser.mods.paracosm.registry.ModItems
-import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
@@ -30,6 +29,9 @@ class PogoStickItem(
         }
 
         fun handlePogoLand(player: Player, distance: Float): Boolean {
+            if (distance < 0.5f) return false
+            if (player.isSuppressingBounce) return false
+
             val pogoStickStack = getHeldPogoStick(player) ?: return false
 
             return true
