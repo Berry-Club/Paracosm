@@ -5,7 +5,6 @@ import dev.aaronhowser.mods.paracosm.item.PogoStickItem
 import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
 import dev.aaronhowser.mods.paracosm.packet.client_to_server.TellServerUsedPogo
 import net.minecraft.client.player.LocalPlayer
-import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Player
 import net.neoforged.neoforge.common.NeoForge
 import net.neoforged.neoforge.event.entity.living.LivingFallEvent
