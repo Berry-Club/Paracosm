@@ -54,6 +54,7 @@ class ModLanguageProvider(output: PackOutput) : LanguageProvider(output, Paracos
         add(Item.TOY_GUN, "Toy Gun")
         add(Item.COOL_GUN, "Cool Gun")
         addItem(ModItems.STICKY_HAND, "Sticky Hand")
+        addItem(ModItems.POGO_STICK, "Pogo Stick")
 
         addBlock(ModBlocks.NIGHT_LIGHT, "Night Light")
         addBlock(ModBlocks.WHOOPEE_CUSHION, "Whoopee Cushion")
