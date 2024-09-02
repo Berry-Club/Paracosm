@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.paracosm.item.PogoStickItem
 import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
 import dev.aaronhowser.mods.paracosm.packet.client_to_server.TellServerUsedPogo
 import net.minecraft.client.player.LocalPlayer
+import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Player
 import net.neoforged.neoforge.common.NeoForge
 import net.neoforged.neoforge.event.entity.living.LivingFallEvent
@@ -42,11 +43,24 @@ object BounceHandler {
         val isSneaking = player.isSuppressingBounce
         val isJumping = player.input.jumping && !isSneaking
 
+        val yBefore = player.deltaMovement.y
+
         player.setDeltaMovement(
             player.deltaMovement.x * 1.05,
-            player.deltaMovement.y * if (isJumping) -0.9 else -0.7,
+            player.deltaMovement.y * if (isJumping) -1.3 else -0.9,
             player.deltaMovement.z * 1.05
         )
+
+        val yAfter = player.deltaMovement.y
+
+        val messageString = """
+            |  yBefore: $yBefore
+            |  yAfter: $yAfter
+            |  3x before: ${yBefore * -3}
+            
+        """.trimIndent()
+
+//        player.sendSystemMessage(Component.literal(messageString))
 
         val minVelocity = if (isJumping) 0.0 else 0.2
 
