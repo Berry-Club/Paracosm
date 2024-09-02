@@ -57,7 +57,9 @@ class TellServerUsedPogo private constructor() : ModPacket {
             }
 
             val shouldFallDamageItem =
-                player.fallDistance > 1f && !player.level()
+                !player.isCreative
+                        && player.fallDistance > 1f
+                        && !player.level()
                     .getBlockState(player.blockPosition().below())
                     .`is`(ModBlockTagsProvider.POGO_BOOST)
 
