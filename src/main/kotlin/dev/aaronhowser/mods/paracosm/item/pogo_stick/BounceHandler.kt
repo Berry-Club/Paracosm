@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.paracosm.item.pogo_stick
 import dev.aaronhowser.mods.paracosm.datagen.tag.ModBlockTagsProvider
 import dev.aaronhowser.mods.paracosm.item.PogoStickItem
 import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
-import dev.aaronhowser.mods.paracosm.packet.client_to_server.ClientUsePogoStick
+import dev.aaronhowser.mods.paracosm.packet.client_to_server.TellServerUsedPogo
 import net.minecraft.client.player.LocalPlayer
 import net.minecraft.world.entity.player.Player
 import net.neoforged.neoforge.common.NeoForge
@@ -79,7 +79,7 @@ object BounceHandler {
 
         if (motion != 0.0) {
             addBouncer(player, motion)
-            ModPacketHandler.messageServer(ClientUsePogoStick.INSTANCE)
+            ModPacketHandler.messageServer(TellServerUsedPogo.INSTANCE)
         } else {
             removeBouncer(player)
         }
