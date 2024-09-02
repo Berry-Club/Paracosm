@@ -1,11 +1,11 @@
 package dev.aaronhowser.mods.paracosm.item.pogo_stick
 
-import net.minecraft.client.player.LocalPlayer
+import net.minecraft.world.entity.player.Player
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.neoforge.event.tick.PlayerTickEvent
 
 class Bouncing(
-    val player: LocalPlayer,
+    val player: Player,
     velocity: Double
 ) {
 
