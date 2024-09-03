@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.entity.custom
 
+import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.syncher.EntityDataAccessor
@@ -22,6 +23,15 @@ class PogoStickVehicle(
     entityType: EntityType<*>,
     level: Level
 ) : VehicleEntity(entityType, level), PlayerRideableJumping, GeoEntity {
+
+    constructor(
+        level: Level,
+        x: Double,
+        y: Double,
+        z: Double
+    ) : this(ModEntityTypes.POGO_STICK_VEHICLE.get(), level) {
+        this.setPos(x, y, z)
+    }
 
     companion object {
         val tiltX: EntityDataAccessor<Float> =

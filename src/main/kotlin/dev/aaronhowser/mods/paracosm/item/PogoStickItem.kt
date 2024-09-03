@@ -1,12 +1,38 @@
 package dev.aaronhowser.mods.paracosm.item
 
+import dev.aaronhowser.mods.paracosm.entity.custom.PogoStickVehicle
+import net.minecraft.world.InteractionResult
 import net.minecraft.world.item.Item
+import net.minecraft.world.item.context.UseOnContext
+import net.minecraft.world.level.gameevent.GameEvent
 
 class PogoStickItem(
     properties: Properties = Properties()
         .durability(256)
 ) : Item(properties) {
 
-    // like boat, it spawns a vehicle
+    override fun useOn(context: UseOnContext): InteractionResult {
+        val usedStack = context.itemInHand
+        val level = context.level
+        val pos = context.clickedPos
+
+        if (!level.isClientSide) {
+            val pogoStickVehicle = PogoStickVehicle(
+                level,
+                pos.x.toDouble(),
+                pos.y.toDouble() + 2.0,
+                pos.z.toDouble()
+            )
+            level.addFreshEntity(pogoStickVehicle)
+            level.gameEvent(
+                GameEvent.ENTITY_PLACE,
+                pos,
+                GameEvent.Context.of(context.player, level.getBlockState(pos.below()))
+            )
+        }
+
+        usedStack.consume(1, context.player)
+        return InteractionResult.sidedSuccess(level.isClientSide)
+    }
 
 }
