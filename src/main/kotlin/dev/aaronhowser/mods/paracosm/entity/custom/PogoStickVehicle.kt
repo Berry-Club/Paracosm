@@ -53,12 +53,15 @@ class PogoStickVehicle(
             SynchedEntityData.defineId(PogoStickVehicle::class.java, EntityDataSerializers.FLOAT)
         val tiltNorth: EntityDataAccessor<Float> =
             SynchedEntityData.defineId(PogoStickVehicle::class.java, EntityDataSerializers.FLOAT)
+        val jumpAmount: EntityDataAccessor<Float> =
+            SynchedEntityData.defineId(PogoStickVehicle::class.java, EntityDataSerializers.FLOAT)
     }
 
     override fun defineSynchedData(builder: SynchedEntityData.Builder) {
         super.defineSynchedData(builder)
-        builder.define(tiltEast, 0.0f)
-        builder.define(tiltNorth, 0.0f)
+        builder.define(tiltEast, 0f)
+        builder.define(tiltNorth, 0f)
+        builder.define(jumpAmount, 0f)
     }
 
     override fun readAdditionalSaveData(p0: CompoundTag) {
@@ -156,6 +159,7 @@ class PogoStickVehicle(
     private fun updateTilt() {
         var currentTiltNorth = this.entityData.get(tiltNorth)
         var currentTiltEast = this.entityData.get(tiltEast)
+        var currentJumpAmount = this.entityData.get(jumpAmount)
 
         if (this.forwardImpulse > 0) {
             currentTiltNorth += 0.1f
@@ -179,15 +183,24 @@ class PogoStickVehicle(
             }
         }
 
+        if (jumping) {
+            currentJumpAmount += 0.1f
+        } else {
+            currentJumpAmount = 0f
+        }
+
         currentTiltNorth = currentTiltNorth.coerceIn(-1.0f, 1.0f)
         currentTiltEast = currentTiltEast.coerceIn(-1.0f, 1.0f)
+        currentJumpAmount = currentJumpAmount.coerceIn(0.0f, 1.0f)
 
         this.entityData.set(tiltNorth, currentTiltNorth)
         this.entityData.set(tiltEast, currentTiltEast)
+        this.entityData.set(jumpAmount, currentJumpAmount)
     }
 
     override fun getPassengerAttachmentPoint(entity: Entity, dimensions: EntityDimensions, partialTick: Float): Vec3 {
-        return Vec3(0.0, 1.0, 0.0)
+        val height = 1 - 0.5 * this.entityData.get(jumpAmount).toDouble()
+        return Vec3(0.0, height, 0.0)
             .xRot(this.entityData.get(tiltNorth))
             .zRot(this.entityData.get(tiltEast))
     }
