@@ -33,33 +33,8 @@ class Bouncing(
         val player = event.entity
         if (player.isFallFlying) return
 
-        fun playerMovement() = this.player.deltaMovement
-
         if (this.verticalVelocity != 0.0) {
-
-            if (this.player.tickCount == this.lastVelocityTicks) {
-                this.player.setDeltaMovement(
-                    playerMovement().x,
-                    this.verticalVelocity,
-                    playerMovement().z
-                )
-                this.lastVelocityTicks = 0
-            }
-
-            if (!(this.player.onGround() || this.lastMotionX == playerMovement().x && this.lastMotionZ == playerMovement().z)) {
-                val a = 1.05
-
-                this.player.setDeltaMovement(
-                    playerMovement().x * a,
-                    playerMovement().y,
-                    playerMovement().z * a
-                )
-
-                this.lastMotionX = playerMovement().x
-                this.lastMotionZ = playerMovement().z
-
-                this.player.setOnGround(false)  //FIXME: This is technically supposed to be isInAir = true or something, but that doesn't exist now
-            }
+            bounce()
         }
 
         if (!this.wasInAir || !this.player.onGround()) {
@@ -78,6 +53,34 @@ class Bouncing(
             this.ticksOnGround = 0
         }
 
+    }
+
+    private fun bounce() {
+        fun currentDelta() = this.player.deltaMovement
+
+        if (this.player.tickCount == this.lastVelocityTicks) {
+            this.player.setDeltaMovement(
+                currentDelta().x,
+                this.verticalVelocity,
+                currentDelta().z
+            )
+            this.lastVelocityTicks = 0
+        }
+
+        if (!(this.player.onGround() || this.lastMotionX == currentDelta().x && this.lastMotionZ == currentDelta().z)) {
+            val horizontalAcceleration = 1.25
+
+            this.player.setDeltaMovement(
+                currentDelta().x * horizontalAcceleration,
+                currentDelta().y,
+                currentDelta().z * horizontalAcceleration
+            )
+
+            this.lastMotionX = currentDelta().x
+            this.lastMotionZ = currentDelta().z
+
+            this.player.setOnGround(false)  //FIXME: This is technically supposed to be isInAir = true or something, but that doesn't exist now
+        }
     }
 
 }
