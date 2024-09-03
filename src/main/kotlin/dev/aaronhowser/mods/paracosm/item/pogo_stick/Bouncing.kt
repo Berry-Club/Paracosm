@@ -72,7 +72,7 @@ class Bouncing(
             this.ticksOnGround++
 
             if (this.ticksOnGround > 1) {
-                BounceHandler.removeBouncer(this.player)
+                CommonBounceHandler.removeBouncer(this.player)
             }
         } else {
             this.ticksOnGround = 0

@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.paracosm.packet.server_to_client
 
-import dev.aaronhowser.mods.paracosm.item.pogo_stick.BounceHandler
+import dev.aaronhowser.mods.paracosm.item.pogo_stick.CommonBounceHandler
 import dev.aaronhowser.mods.paracosm.packet.ModPacket
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import io.netty.buffer.ByteBuf
@@ -26,7 +26,7 @@ class TellClientsUsedPogo(
         context.enqueueWork {
             val player = context.player().level().getPlayerByUUID(getUuid()) ?: return@enqueueWork
 
-            BounceHandler.addBouncer(player, 0.0)
+            CommonBounceHandler.addBouncer(player, 0.0)
         }
     }
 

@@ -5,7 +5,6 @@ import dev.aaronhowser.mods.paracosm.attachment.Delusion.Companion.delusion
 import dev.aaronhowser.mods.paracosm.attachment.Whimsy.Companion.whimsy
 import dev.aaronhowser.mods.paracosm.command.ModCommands
 import dev.aaronhowser.mods.paracosm.datagen.tag.ModItemTagsProvider
-import dev.aaronhowser.mods.paracosm.item.pogo_stick.BounceHandler
 import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateWhimsyValue
 import net.minecraft.server.level.ServerPlayer
@@ -14,9 +13,7 @@ import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.event.RegisterCommandsEvent
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent
-import net.neoforged.neoforge.event.entity.living.LivingFallEvent
 import net.neoforged.neoforge.event.entity.player.PlayerEvent
-import net.neoforged.neoforge.event.entity.player.PlayerFlyableFallEvent
 
 @EventBusSubscriber(
     modid = Paracosm.ID
@@ -88,15 +85,4 @@ object OtherEvents {
             )
         )
     }
-
-    @SubscribeEvent
-    fun onLivingFall(event: LivingFallEvent) {
-        BounceHandler.handleEvent(event)
-    }
-
-    @SubscribeEvent
-    fun onFlyableFall(event: PlayerFlyableFallEvent) {
-        BounceHandler.handleEvent(event)
-    }
-
 }
