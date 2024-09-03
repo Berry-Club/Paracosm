@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.paracosm.entity.custom
 import dev.aaronhowser.mods.paracosm.item.StickyHandItem
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.registry.ModItems
+import dev.aaronhowser.mods.paracosm.util.OtherUtil.isClientSide
 import net.minecraft.commands.arguments.EntityAnchorArgument
 import net.minecraft.network.syncher.EntityDataAccessor
 import net.minecraft.network.syncher.EntityDataSerializers
@@ -76,7 +77,7 @@ class StickyHandProjectile(
     override fun tick() {
         super.tick()
 
-        if (level().isClientSide) return
+        if (this.isClientSide) return
 
         if (shouldDiscard()) {
             this.discard()
@@ -170,7 +171,7 @@ class StickyHandProjectile(
     }
 
     fun retrieve(): Int {
-        if (this.level().isClientSide || this.shouldDiscard()) return 0
+        if (this.isClientSide || this.shouldDiscard()) return 0
 
         var i = 0
         val grabbedEntity = this.grabbedEntity
@@ -190,7 +191,7 @@ class StickyHandProjectile(
 
     override fun handleEntityEvent(id: Byte) {
         val grabbedEntity = this.grabbedEntity
-        if (id.toInt() == 31 && level().isClientSide && grabbedEntity is Player && grabbedEntity.isLocalPlayer) {
+        if (id.toInt() == 31 && this.isClientSide && grabbedEntity is Player && grabbedEntity.isLocalPlayer) {
             this.pullEntity(grabbedEntity)
         }
 

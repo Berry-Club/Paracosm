@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.paracosm.item
 import dev.aaronhowser.mods.paracosm.attachment.RequiresWhimsy
 import dev.aaronhowser.mods.paracosm.attachment.Whimsy.Companion.whimsy
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
+import dev.aaronhowser.mods.paracosm.util.OtherUtil.isClientSide
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EquipmentSlot
 import net.minecraft.world.entity.LivingEntity
@@ -43,7 +44,7 @@ class TowelCapeItem : RequiresWhimsy, ElytraItem(
     }
 
     override fun elytraFlightTick(stack: ItemStack, entity: LivingEntity, flightTicks: Int): Boolean {
-        if (entity.level().isClientSide) return true
+        if (entity.isClientSide) return true
 
         if (flightTicks >= DURATION) {
             stack.set(ModDataComponents.TOWEL_CAPE_WORKS, false)

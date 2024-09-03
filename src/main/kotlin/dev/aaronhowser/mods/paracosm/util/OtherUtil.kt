@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.paracosm.util
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.config.ServerConfig
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.level.ClipContext
 import net.minecraft.world.level.Level
@@ -56,5 +57,8 @@ object OtherUtil {
     fun Number.map(min1: Float, max1: Float, min2: Float, max2: Float): Float {
         return min2 + (max2 - min2) * ((this.toFloat() - min1) / (max1 - min1))
     }
+
+    val Entity.isClientSide: Boolean
+        get() = this.level().isClientSide
 
 }

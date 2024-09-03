@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.paracosm.entity.goal.ToyLookAtPlayerGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyRandomLookAroundGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyStrollGoal
 import dev.aaronhowser.mods.paracosm.registry.ModSounds
+import dev.aaronhowser.mods.paracosm.util.OtherUtil.isClientSide
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
 import net.minecraft.world.InteractionHand
@@ -53,7 +54,7 @@ class TeddyBearEntity(
 
     override fun mobInteract(player: Player, hand: InteractionHand): InteractionResult {
 
-        if (!this.level().isClientSide && hand == InteractionHand.MAIN_HAND) {
+        if (!this.isClientSide && hand == InteractionHand.MAIN_HAND) {
             this.level().playSound(
                 this,
                 this.blockPosition(),
@@ -69,7 +70,7 @@ class TeddyBearEntity(
             level().broadcastEntityEvent(this, 7)
         }
 
-        if (hand == InteractionHand.MAIN_HAND && !player.level().isClientSide && isHiding) {
+        if (hand == InteractionHand.MAIN_HAND && !player.isClientSide && isHiding) {
 
             val component = Component.literal("I can't move because ")
                 .append(Component.literal("[these players]").withStyle { style ->

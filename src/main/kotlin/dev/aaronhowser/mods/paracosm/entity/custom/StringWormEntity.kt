@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.paracosm.entity.goal.ToyLookAtPlayerGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyRandomLookAroundGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyStrollGoal
 import dev.aaronhowser.mods.paracosm.registry.ModItems
+import dev.aaronhowser.mods.paracosm.util.OtherUtil.isClientSide
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.*
@@ -99,7 +100,7 @@ class StringWormEntity(
             val healAmount = 1f
             this.heal(healAmount)
 
-            return InteractionResult.sidedSuccess(level().isClientSide)
+            return InteractionResult.sidedSuccess(this.isClientSide)
         }
 
         if (this.scale < 2.0) {
@@ -109,7 +110,7 @@ class StringWormEntity(
 
             this.refreshDimensions()
 
-            return InteractionResult.sidedSuccess(level().isClientSide)
+            return InteractionResult.sidedSuccess(this.isClientSide)
         }
 
         return InteractionResult.PASS
@@ -128,13 +129,13 @@ class StringWormEntity(
         }
 
         this.doPlayerRide(player)
-        return InteractionResult.sidedSuccess(level().isClientSide)
+        return InteractionResult.sidedSuccess(this.isClientSide)
     }
 
     // Riding
 
     private fun doPlayerRide(player: Player) {
-        if (level().isClientSide) return
+        if (this.isClientSide) return
 
         player.yRot = this.yRot
         player.xRot = this.xRot

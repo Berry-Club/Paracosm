@@ -24,8 +24,8 @@ class PogoStickItem(
             level.addFreshEntity(pogoStickVehicle)
             level.gameEvent(
                 GameEvent.ENTITY_PLACE,
-                blockPos,
-                GameEvent.Context.of(context.player, level.getBlockState(blockPos.below()))
+                pogoStickVehicle.position(),
+                GameEvent.Context.of(context.player)
             )
         }
 
