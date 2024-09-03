@@ -12,8 +12,7 @@ import net.minecraft.network.syncher.SynchedEntityData
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.*
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier
-import net.minecraft.world.entity.ai.attributes.Attributes
+import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.GameRules
@@ -50,16 +49,6 @@ class PogoStickVehicle(
             SynchedEntityData.defineId(PogoStickVehicle::class.java, EntityDataSerializers.FLOAT)
         val tiltZ: EntityDataAccessor<Float> =
             SynchedEntityData.defineId(PogoStickVehicle::class.java, EntityDataSerializers.FLOAT)
-
-        fun setAttributes(): AttributeSupplier {
-            return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 5.0)
-                .add(Attributes.ATTACK_DAMAGE, 0.0)
-                .add(Attributes.ATTACK_SPEED, 0.0)
-                .add(Attributes.MOVEMENT_SPEED, 0.0)
-                .add(Attributes.FOLLOW_RANGE, 0.0)
-                .build()
-        }
     }
 
     override fun defineSynchedData(builder: SynchedEntityData.Builder) {
