@@ -4,7 +4,9 @@
   "package": "dev.aaronhowser.mods.paracosm.mixins",
   "mixins": [
     "BedMixins",
-    "PlayerMixins"
+    "BlockMixins",
+    "PlayerMixins",
+    "SlimeBlockMixins"
   ],
   "injectors": {
     "defaultRequire": 1
