@@ -1,17 +1,23 @@
 package dev.aaronhowser.mods.paracosm.entity.custom
 
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
+import dev.aaronhowser.mods.paracosm.registry.ModItems
 import dev.aaronhowser.mods.paracosm.util.OtherUtil.isClientSide
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
+import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.syncher.EntityDataAccessor
 import net.minecraft.network.syncher.EntityDataSerializers
 import net.minecraft.network.syncher.SynchedEntityData
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
-import net.minecraft.world.entity.*
+import net.minecraft.world.entity.Entity
+import net.minecraft.world.entity.EntityType
+import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.PlayerRideableJumping
 import net.minecraft.world.entity.player.Player
-import net.minecraft.world.item.ItemStack
+import net.minecraft.world.entity.vehicle.VehicleEntity
+import net.minecraft.world.item.Item
 import net.minecraft.world.level.Level
 import software.bernie.geckolib.animatable.GeoEntity
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache
@@ -22,9 +28,9 @@ import software.bernie.geckolib.animation.AnimationState
 import software.bernie.geckolib.animation.PlayState
 
 class PogoStickVehicle(
-    entityType: EntityType<out LivingEntity>,
+    entityType: EntityType<*>,
     level: Level
-) : LivingEntity(entityType, level), PlayerRideableJumping, GeoEntity {
+) : VehicleEntity(entityType, level), PlayerRideableJumping, GeoEntity {
 
     constructor(
         level: Level,
@@ -54,25 +60,20 @@ class PogoStickVehicle(
         builder.define(tiltZ, 0.0f)
     }
 
+    override fun readAdditionalSaveData(p0: CompoundTag) {
+
+    }
+
+    override fun addAdditionalSaveData(p0: CompoundTag) {
+
+    }
+
+    override fun getDropItem(): Item {
+        return ModItems.POGO_STICK.get()
+    }
+
     override fun canCollideWith(entity: Entity): Boolean {
         return this.controllingPassenger != entity
-    }
-
-    // Required LivingEntity stuff
-
-    override fun getArmorSlots(): Iterable<ItemStack> {
-        return emptyList()
-    }
-
-    override fun getItemBySlot(p0: EquipmentSlot): ItemStack {
-        return ItemStack.EMPTY
-    }
-
-    override fun setItemSlot(p0: EquipmentSlot, p1: ItemStack) {
-    }
-
-    override fun getMainArm(): HumanoidArm {
-        return HumanoidArm.RIGHT
     }
 
     override fun isPushable(): Boolean {
