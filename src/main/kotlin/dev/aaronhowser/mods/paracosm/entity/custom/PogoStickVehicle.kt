@@ -133,24 +133,18 @@ class PogoStickVehicle(
         return InteractionResult.SUCCESS
     }
 
-    private var leftImpulse: Float = 0f
-    private var forwardImpulse: Float = 0f
-    private var up: Boolean = false
-    private var down: Boolean = false
-    private var left: Boolean = false
-    private var right: Boolean = false
-    private var jumping: Boolean = false
-    private var shiftKeyDown: Boolean = false
+    class Controls(
+        var leftImpulse: Float = 0f,
+        var forwardImpulse: Float = 0f,
+        var spaceHeld: Boolean = false
+    )
+
+    val controls = Controls()
 
     fun setInput(playerInput: Input) {
-        this.leftImpulse = playerInput.leftImpulse
-        this.forwardImpulse = playerInput.forwardImpulse
-        this.up = playerInput.up
-        this.down = playerInput.down
-        this.left = playerInput.left
-        this.right = playerInput.right
-        this.jumping = playerInput.jumping
-        this.shiftKeyDown = playerInput.shiftKeyDown
+        this.controls.leftImpulse = playerInput.leftImpulse
+        this.controls.forwardImpulse = playerInput.forwardImpulse
+        this.controls.spaceHeld = playerInput.jumping
     }
 
     override fun tick() {
@@ -158,14 +152,18 @@ class PogoStickVehicle(
         updateTilt()
     }
 
+    private fun tryJump() {
+        if (this.controls.spaceHeld) return
+    }
+
     private fun updateTilt() {
         var currentTiltNorth = this.entityData.get(tiltNorth)
         var currentTiltEast = this.entityData.get(tiltEast)
         var currentJumpAmount = this.entityData.get(jumpAmount)
 
-        if (this.forwardImpulse > 0) {
+        if (this.controls.forwardImpulse > 0) {
             currentTiltNorth += 0.1f
-        } else if (this.forwardImpulse < 0) {
+        } else if (this.controls.forwardImpulse < 0) {
             currentTiltNorth -= 0.1f
         } else {
             currentTiltNorth += if (currentTiltNorth > 0) -0.01f else 0.01f
@@ -174,9 +172,9 @@ class PogoStickVehicle(
             }
         }
 
-        if (this.leftImpulse > 0) {
+        if (this.controls.leftImpulse > 0) {
             currentTiltEast -= 0.1f
-        } else if (this.leftImpulse < 0) {
+        } else if (this.controls.leftImpulse < 0) {
             currentTiltEast += 0.1f
         } else {
             currentTiltEast += if (currentTiltEast > 0) -0.05f else 0.05f
@@ -185,7 +183,7 @@ class PogoStickVehicle(
             }
         }
 
-        if (jumping) {
+        if (this.controls.spaceHeld) {
             currentJumpAmount += 0.1f
         } else {
             currentJumpAmount = 0f
