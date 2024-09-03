@@ -21,6 +21,11 @@ class PogoStickVehicleModel : GeoModel<PogoStickVehicle>() {
         return OtherUtil.modResource("animations/pogo_stick.animation.json")
     }
 
+    override fun applyMolangQueries(animationState: AnimationState<PogoStickVehicle>, animTime: Double) {
+        super.applyMolangQueries(animationState, animTime)
+        //TODO
+    }
+
     override fun setCustomAnimations(
         animatable: PogoStickVehicle?,
         instanceId: Long,

@@ -6,7 +6,7 @@
 			"bones": {
 				"main": {
 					"position": {
-						"vector": [0, "math.sin(query.anim_time * 180) - 1", 0]
+						"vector": [0, "0-query.pogo_compressed", 0]
 					}
 				}
 			}
