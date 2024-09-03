@@ -148,7 +148,10 @@ class PogoStickVehicle(
 
     override fun tick() {
         super.tick()
+        updateTilt()
+    }
 
+    private fun updateTilt() {
         var currentTiltNorth = this.entityData.get(tiltNorth)
         var currentTiltWest = this.entityData.get(tiltWest)
 
