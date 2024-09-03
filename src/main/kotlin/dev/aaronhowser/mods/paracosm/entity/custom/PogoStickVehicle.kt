@@ -169,17 +169,26 @@ class PogoStickVehicle(
         var currentTiltNorth = this.entityData.get(tiltNorth)
         var currentTiltWest = this.entityData.get(tiltWest)
 
-        if (this.up) {
+        if (this.forwardImpulse > 0) {
             currentTiltNorth += 0.1f
-        }
-        if (this.down) {
+        } else if (this.forwardImpulse < 0) {
             currentTiltNorth -= 0.1f
+        } else {
+            currentTiltNorth += if (currentTiltNorth > 0) -0.01f else 0.01f
+            if (currentTiltNorth in -0.09..0.09) {
+                currentTiltNorth = 0.0f
+            }
         }
-        if (this.left) {
+
+        if (this.leftImpulse > 0) {
             currentTiltWest += 0.1f
-        }
-        if (this.right) {
+        } else if (this.leftImpulse < 0) {
             currentTiltWest -= 0.1f
+        } else {
+            currentTiltWest += if (currentTiltWest > 0) -0.05f else 0.05f
+            if (currentTiltWest in -0.09..0.09) {
+                currentTiltWest = 0.0f
+            }
         }
 
         currentTiltNorth = currentTiltNorth.coerceIn(-1.0f, 1.0f)
