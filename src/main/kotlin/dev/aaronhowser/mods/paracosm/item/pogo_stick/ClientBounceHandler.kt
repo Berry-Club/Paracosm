@@ -23,7 +23,7 @@ object ClientBounceHandler {
         val isJumping = player.input.jumping
         player.setDeltaMovement(
             player.deltaMovement.x * 1.05,
-            player.deltaMovement.y * if (isJumping) -2.0 else -1.1,
+            player.deltaMovement.y * if (isJumping) -2.0 else -1.0,
             player.deltaMovement.z * 1.05
         )
     }
