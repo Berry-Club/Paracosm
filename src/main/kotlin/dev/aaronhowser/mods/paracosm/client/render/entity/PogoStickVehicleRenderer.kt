@@ -8,7 +8,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer
 
 class PogoStickVehicleRenderer(
     context: EntityRendererProvider.Context
-) : GeoEntityRenderer<PogoStickVehicle>(context, PogoStickModel()) {
+) : GeoEntityRenderer<PogoStickVehicle>(context, PogoStickVehicleModel()) {
 
     companion object {
         val TEXTURE = OtherUtil.modResource("textures/entity/pogo_stick.png")

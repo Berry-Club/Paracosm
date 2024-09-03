@@ -5,7 +5,7 @@ import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.resources.ResourceLocation
 import software.bernie.geckolib.model.GeoModel
 
-class PogoStickModel : GeoModel<PogoStickVehicle>() {
+class PogoStickVehicleModel : GeoModel<PogoStickVehicle>() {
 
     override fun getModelResource(animatable: PogoStickVehicle?): ResourceLocation {
         return OtherUtil.modResource("geo/pogo_stick.geo.json")

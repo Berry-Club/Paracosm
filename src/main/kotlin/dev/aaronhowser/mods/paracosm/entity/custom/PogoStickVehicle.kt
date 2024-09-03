@@ -48,16 +48,16 @@ class PogoStickVehicle(
     }
 
     companion object {
-        val tiltX: EntityDataAccessor<Float> =
+        val tiltWest: EntityDataAccessor<Float> =
             SynchedEntityData.defineId(PogoStickVehicle::class.java, EntityDataSerializers.FLOAT)
-        val tiltZ: EntityDataAccessor<Float> =
+        val tiltNorth: EntityDataAccessor<Float> =
             SynchedEntityData.defineId(PogoStickVehicle::class.java, EntityDataSerializers.FLOAT)
     }
 
     override fun defineSynchedData(builder: SynchedEntityData.Builder) {
         super.defineSynchedData(builder)
-        builder.define(tiltX, 0.0f)
-        builder.define(tiltZ, 0.0f)
+        builder.define(tiltWest, 0.0f)
+        builder.define(tiltNorth, 0.0f)
     }
 
     override fun readAdditionalSaveData(p0: CompoundTag) {
@@ -143,8 +143,6 @@ class PogoStickVehicle(
         return InteractionResult.SUCCESS
     }
 
-    // Controls
-
     private var leftImpulse: Float = 0f
     private var forwardImpulse: Float = 0f
     private var up: Boolean = false
@@ -163,6 +161,32 @@ class PogoStickVehicle(
         this.right = playerInput.right
         this.jumping = playerInput.jumping
         this.shiftKeyDown = playerInput.shiftKeyDown
+    }
+
+    override fun tick() {
+        super.tick()
+
+        var currentTiltNorth = this.entityData.get(tiltNorth)
+        var currentTiltWest = this.entityData.get(tiltWest)
+
+        if (this.up) {
+            currentTiltNorth += 0.1f
+        }
+        if (this.down) {
+            currentTiltNorth -= 0.1f
+        }
+        if (this.left) {
+            currentTiltWest += 0.1f
+        }
+        if (this.right) {
+            currentTiltWest -= 0.1f
+        }
+
+        currentTiltNorth = currentTiltNorth.coerceIn(-1.0f, 1.0f)
+        currentTiltWest = currentTiltWest.coerceIn(-1.0f, 1.0f)
+
+        this.entityData.set(tiltNorth, currentTiltNorth)
+        this.entityData.set(tiltWest, currentTiltWest)
     }
 
 }
