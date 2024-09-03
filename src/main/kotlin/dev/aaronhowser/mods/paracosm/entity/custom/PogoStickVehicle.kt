@@ -2,10 +2,13 @@ package dev.aaronhowser.mods.paracosm.entity.custom
 
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.registry.ModItems
+import net.minecraft.core.BlockPos
+import net.minecraft.core.Direction
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.syncher.EntityDataAccessor
 import net.minecraft.network.syncher.EntityDataSerializers
 import net.minecraft.network.syncher.SynchedEntityData
+import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.PlayerRideableJumping
 import net.minecraft.world.entity.vehicle.VehicleEntity
@@ -26,11 +29,17 @@ class PogoStickVehicle(
 
     constructor(
         level: Level,
-        x: Double,
-        y: Double,
-        z: Double
+        placeOnBlock: BlockPos
     ) : this(ModEntityTypes.POGO_STICK_VEHICLE.get(), level) {
-        this.setPos(x, y, z)
+        val blockState = level.getBlockState(placeOnBlock)
+        val blockHeight = blockState.getShape(level, placeOnBlock).max(Direction.Axis.Y)
+
+        this.setPos(
+            placeOnBlock.x + 0.5,
+            placeOnBlock.y + blockHeight,
+            placeOnBlock.z + 0.5
+        )
+
     }
 
     companion object {
@@ -58,8 +67,8 @@ class PogoStickVehicle(
         return ModItems.POGO_STICK.get()
     }
 
-    override fun canBeCollidedWith(): Boolean {
-        return true
+    override fun canCollideWith(entity: Entity): Boolean {
+        return this.controllingPassenger != entity
     }
 
     override fun isPushable(): Boolean {
@@ -89,7 +98,7 @@ class PogoStickVehicle(
     // Jump stuff
 
     override fun onPlayerJump(p0: Int) {
-        TODO("Not yet implemented")
+
     }
 
     override fun canJump(): Boolean {

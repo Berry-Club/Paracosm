@@ -14,20 +14,18 @@ class PogoStickItem(
     override fun useOn(context: UseOnContext): InteractionResult {
         val usedStack = context.itemInHand
         val level = context.level
-        val pos = context.clickedPos
+        val blockPos = context.clickedPos
 
         if (!level.isClientSide) {
             val pogoStickVehicle = PogoStickVehicle(
-                level,
-                pos.x.toDouble(),
-                pos.y.toDouble() + 2.0,
-                pos.z.toDouble()
+                level = level,
+                placeOnBlock = blockPos
             )
             level.addFreshEntity(pogoStickVehicle)
             level.gameEvent(
                 GameEvent.ENTITY_PLACE,
-                pos,
-                GameEvent.Context.of(context.player, level.getBlockState(pos.below()))
+                blockPos,
+                GameEvent.Context.of(context.player, level.getBlockState(blockPos.below()))
             )
         }
 
