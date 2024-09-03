@@ -150,10 +150,25 @@ class PogoStickVehicle(
     override fun tick() {
         super.tick()
         updateTilt()
+        tryJump()
     }
 
     private fun tryJump() {
         if (this.controls.spaceHeld) return
+
+        val currentJumpAmount = this.entityData.get(jumpAmount)
+        if (currentJumpAmount <= 0.1) return
+
+        val currentTiltNorth = this.entityData.get(tiltNorth)
+        val currentTiltEast = this.entityData.get(tiltEast)
+
+        val vector = Vec3(0.0, 1.0, 0.0)
+            .xRot(currentTiltNorth)
+            .zRot(currentTiltEast)
+            .scale(currentJumpAmount * 5.0)
+
+        this.push(vector)
+        this.entityData.set(jumpAmount, 0.0f)
     }
 
     private fun updateTilt() {
@@ -185,8 +200,6 @@ class PogoStickVehicle(
 
         if (this.controls.spaceHeld) {
             currentJumpAmount += 0.1f
-        } else {
-            currentJumpAmount = 0f
         }
 
         currentTiltNorth = currentTiltNorth.coerceIn(-1.0f, 1.0f)
@@ -200,9 +213,11 @@ class PogoStickVehicle(
 
     override fun getPassengerAttachmentPoint(entity: Entity, dimensions: EntityDimensions, partialTick: Float): Vec3 {
         val height = 1 - JUMP_ANIM_DISTANCE * this.entityData.get(jumpAmount).toDouble()
-        return Vec3(0.0, height, 0.0)
+
+        return Vec3(0.0, 1.0, 0.0)
             .xRot(this.entityData.get(tiltNorth))
             .zRot(this.entityData.get(tiltEast))
+            .scale(height)
     }
 
 }
