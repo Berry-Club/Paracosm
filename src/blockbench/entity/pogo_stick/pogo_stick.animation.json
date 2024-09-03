@@ -1,0 +1,16 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.pogo_stick.bouncing": {
+			"loop": true,
+			"bones": {
+				"main": {
+					"position": {
+						"vector": [0, "math.sin(query.anim_time * 180) - 1", 0]
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}
