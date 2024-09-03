@@ -2,43 +2,36 @@ package dev.aaronhowser.mods.paracosm.item.pogo_stick
 
 import dev.aaronhowser.mods.paracosm.datagen.tag.ModBlockTagsProvider
 import dev.aaronhowser.mods.paracosm.item.PogoStickItem
-import dev.aaronhowser.mods.paracosm.item.pogo_stick.CommonBounceHandler.addBouncer
-import dev.aaronhowser.mods.paracosm.item.pogo_stick.CommonBounceHandler.removeBouncer
 import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
 import dev.aaronhowser.mods.paracosm.packet.client_to_server.TellServerUsedPogo
 import net.minecraft.client.player.LocalPlayer
-import net.minecraft.network.chat.Component
 import net.neoforged.neoforge.event.entity.living.LivingFallEvent
 import net.neoforged.neoforge.event.entity.player.PlayerFlyableFallEvent
 
 object ClientBounceHandler {
 
+
     private fun handlePlayerFall(player: LocalPlayer) {
         val isSneaking = player.isSuppressingBounce
         if (isSneaking) return
 
+        bounceUp(player)
+        applyVelocityAdjustments(player)
+        handleBoost(player)
+    }
+
+    private fun bounceUp(player: LocalPlayer) {
         val isJumping = player.input.jumping
-
-        val yBefore = player.deltaMovement.y
-
         player.setDeltaMovement(
             player.deltaMovement.x * 1.05,
             player.deltaMovement.y * if (isJumping) -2.0 else -1.1,
             player.deltaMovement.z * 1.05
         )
+    }
 
-        val yAfter = player.deltaMovement.y
-
-        val messageString = """
-            |  yBefore: $yBefore
-            |  yAfter: $yAfter
-            
-        """.trimIndent()
-
-        player.sendSystemMessage(Component.literal(messageString))
-
+    private fun applyVelocityAdjustments(player: LocalPlayer) {
+        val isJumping = player.input.jumping
         val minVelocity = if (isJumping) 0.0 else 0.2
-
         val jumpValue = 1.0
         val jumpMult = 1.5
 
@@ -57,22 +50,26 @@ object ClientBounceHandler {
         }
 
         player.setOnGround(false)
+    }
 
-        var motion = player.deltaMovement.y * if (isJumping) 0.5 else 1.0
+    private fun handleBoost(player: LocalPlayer) {
+        val isJumping = player.input.jumping
+        val motion = player.deltaMovement.y * if (isJumping) 0.5 else 1.0
 
-        val bouncedOffSlime =
+        val shouldBoost =
             player.level().getBlockState(player.blockPosition().below()).`is`(ModBlockTagsProvider.POGO_BOOST)
-        if (!isSneaking && bouncedOffSlime) {
-            motion *= 1.5
+
+        var adjustedMotion = motion
+        if (shouldBoost) {
+            adjustedMotion *= 1.5
         }
 
-        if (motion != 0.0) {
-            addBouncer(player, motion)
+        if (adjustedMotion != 0.0) {
+            CommonBounceHandler.addBouncer(player, adjustedMotion)
             ModPacketHandler.messageServer(TellServerUsedPogo.INSTANCE)
         } else {
-            removeBouncer(player)
+            CommonBounceHandler.removeBouncer(player)
         }
-
     }
 
     fun handleEvent(event: PlayerFlyableFallEvent) {

@@ -34,7 +34,7 @@ class Bouncing(
         if (player.isFallFlying) return
 
         if (this.verticalVelocity != 0.0) {
-            bounce()
+            whileInAir()
         }
 
         if (!this.wasInAir || !this.player.onGround()) {
@@ -55,7 +55,7 @@ class Bouncing(
 
     }
 
-    private fun bounce() {
+    private fun whileInAir() {
         fun currentDelta() = this.player.deltaMovement
 
         if (this.player.tickCount == this.lastVelocityTicks) {
@@ -68,7 +68,7 @@ class Bouncing(
         }
 
         if (!(this.player.onGround() || this.lastMotionX == currentDelta().x && this.lastMotionZ == currentDelta().z)) {
-            val horizontalAcceleration = 1.25
+            val horizontalAcceleration = 1.05
 
             this.player.setDeltaMovement(
                 currentDelta().x * horizontalAcceleration,
