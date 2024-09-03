@@ -14,7 +14,6 @@ import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
-import net.minecraft.world.entity.PlayerRideableJumping
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.entity.vehicle.VehicleEntity
 import net.minecraft.world.item.Item
@@ -30,7 +29,7 @@ import software.bernie.geckolib.animation.PlayState
 class PogoStickVehicle(
     entityType: EntityType<*>,
     level: Level
-) : VehicleEntity(entityType, level), PlayerRideableJumping, GeoEntity {
+) : VehicleEntity(entityType, level), GeoEntity {
 
     constructor(
         level: Level,
@@ -98,22 +97,6 @@ class PogoStickVehicle(
 
     override fun getAnimatableInstanceCache(): AnimatableInstanceCache {
         return cache
-    }
-
-    // Jump stuff
-
-    override fun onPlayerJump(p0: Int) {
-
-    }
-
-    override fun canJump(): Boolean {
-        return true
-    }
-
-    override fun handleStartJump(p0: Int) {
-    }
-
-    override fun handleStopJump() {
     }
 
     // Ride stuff
