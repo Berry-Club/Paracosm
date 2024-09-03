@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.paracosm.entity.custom
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import dev.aaronhowser.mods.paracosm.util.OtherUtil.isClientSide
+import net.minecraft.client.player.Input
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.nbt.CompoundTag
@@ -13,7 +14,6 @@ import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
-import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.PlayerRideableJumping
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.entity.vehicle.VehicleEntity
@@ -143,17 +143,26 @@ class PogoStickVehicle(
         return InteractionResult.SUCCESS
     }
 
-    override fun tick() {
-        super.tick()
+    // Controls
 
-        val rider = this.controllingPassenger
-        if (rider != null) {
-            tickRidden(rider)
-        }
-    }
+    private var leftImpulse: Float = 0f
+    private var forwardImpulse: Float = 0f
+    private var up: Boolean = false
+    private var down: Boolean = false
+    private var left: Boolean = false
+    private var right: Boolean = false
+    private var jumping: Boolean = false
+    private var shiftKeyDown: Boolean = false
 
-    private fun tickRidden(rider: LivingEntity) {
-        this.absRotateTo(rider.yRot, 0.0f)
+    fun setInput(playerInput: Input) {
+        this.leftImpulse = playerInput.leftImpulse
+        this.forwardImpulse = playerInput.forwardImpulse
+        this.up = playerInput.up
+        this.down = playerInput.down
+        this.left = playerInput.left
+        this.right = playerInput.right
+        this.jumping = playerInput.jumping
+        this.shiftKeyDown = playerInput.shiftKeyDown
     }
 
 }
