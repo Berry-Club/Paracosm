@@ -53,7 +53,7 @@ object ClientBounceHandler {
 
     private fun handleBoost(player: LocalPlayer) {
         val isJumping = player.input.jumping
-        val motion = player.deltaMovement.y * if (isJumping) 0.5 else 1.0
+        var motion = player.deltaMovement.y * if (isJumping) 0.5 else 1.0
 
         val posIsBoost =
             player.level().getBlockState(player.blockPosition()).`is`(ModBlockTagsProvider.POGO_BOOST)
@@ -62,13 +62,12 @@ object ClientBounceHandler {
 
         val shouldBoost = posIsBoost || belowIsBoost
 
-        var adjustedMotion = motion
         if (shouldBoost) {
-            adjustedMotion *= 1.5
+            motion *= 1.5
         }
 
-        if (adjustedMotion != 0.0) {
-            CommonBounceHandler.addBouncer(player, adjustedMotion)
+        if (motion != 0.0) {
+            CommonBounceHandler.addBouncer(player, motion)
             ModPacketHandler.messageServer(TellServerUsedPogo.INSTANCE)
         } else {
             CommonBounceHandler.removeBouncer(player)
