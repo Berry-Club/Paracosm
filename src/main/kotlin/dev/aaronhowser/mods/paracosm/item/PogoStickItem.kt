@@ -46,27 +46,9 @@ class PogoStickItem(
             )
 
             var damageItemAmount = 0
-
-            //TODO: Configurable, upgradeable?
-            val damage = minOf(player.fallDistance, 6f)
-
             if (player.fallDistance >= 2f) {
-
-                val box = AABB(
-                    player.position().x - 0.3,
-                    player.position().y - 0.0,
-                    player.position().z - 0.3,
-                    player.position().x + 0.3,
-                    player.position().y + 0.6,
-                    player.position().z + 0.3
-                )
-
-                for (entity in player.level().getEntities(player, box)) {
-                    if (entity == player) continue
-
-                    entity.hurt(player.level().damageSources().flyIntoWall(), damage)
-                    damageItemAmount++
-                }
+                val amountStomped = goombaStomp(player)
+                damageItemAmount += amountStomped
             }
 
             val shouldFallDamageItem =
@@ -84,6 +66,30 @@ class PogoStickItem(
             }
 
             player.fallDistance = 0f
+        }
+
+        private fun goombaStomp(player: ServerPlayer): Int {
+            //TODO: Configurable, upgradeable?
+            val damage = minOf(player.fallDistance, 6f)
+
+            val box = AABB(
+                player.position().x - 0.3,
+                player.position().y - 0.0,
+                player.position().z - 0.3,
+                player.position().x + 0.3,
+                player.position().y + 0.6,
+                player.position().z + 0.3
+            )
+
+            var amountStomped = 0
+            for (entity in player.level().getEntities(player, box)) {
+                if (entity == player) continue
+
+                entity.hurt(player.level().damageSources().playerAttack(player), damage)
+                amountStomped++
+            }
+
+            return amountStomped
         }
 
     }
