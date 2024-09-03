@@ -1,17 +1,21 @@
 package dev.aaronhowser.mods.paracosm.entity.custom
 
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
+import dev.aaronhowser.mods.paracosm.registry.ModItems
 import dev.aaronhowser.mods.paracosm.util.OtherUtil.isClientSide
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
+import net.minecraft.core.component.DataComponents
 import net.minecraft.network.syncher.EntityDataAccessor
 import net.minecraft.network.syncher.EntityDataSerializers
 import net.minecraft.network.syncher.SynchedEntityData
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.*
+import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.level.GameRules
 import net.minecraft.world.level.Level
 import software.bernie.geckolib.animatable.GeoEntity
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache
@@ -38,7 +42,6 @@ class PogoStickVehicle(
             placeOnBlock.y + blockHeight,
             placeOnBlock.z + 0.5
         )
-
     }
 
     companion object {
@@ -56,6 +59,16 @@ class PogoStickVehicle(
 
     override fun canCollideWith(entity: Entity): Boolean {
         return this.controllingPassenger != entity
+    }
+
+    override fun kill() {
+        super.kill()
+        if (this.level().gameRules.getBoolean(GameRules.RULE_DOENTITYDROPS)) {
+            //TODO: Make a PogoStickVehicle.getDrop() which includes the upgrades etc
+            val stack = ModItems.POGO_STICK.toStack()
+            stack.set(DataComponents.CUSTOM_NAME, this.customName)
+            this.spawnAtLocation(stack)
+        }
     }
 
     // Required LivingEntity stuff
