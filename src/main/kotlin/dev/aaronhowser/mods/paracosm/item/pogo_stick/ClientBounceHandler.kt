@@ -10,7 +10,6 @@ import net.neoforged.neoforge.event.entity.player.PlayerFlyableFallEvent
 
 object ClientBounceHandler {
 
-
     private fun handlePlayerFall(player: LocalPlayer) {
         val isSneaking = player.isSuppressingBounce
         if (isSneaking) return
@@ -56,8 +55,12 @@ object ClientBounceHandler {
         val isJumping = player.input.jumping
         val motion = player.deltaMovement.y * if (isJumping) 0.5 else 1.0
 
-        val shouldBoost =
+        val posIsBoost =
+            player.level().getBlockState(player.blockPosition()).`is`(ModBlockTagsProvider.POGO_BOOST)
+        val belowIsBoost =
             player.level().getBlockState(player.blockPosition().below()).`is`(ModBlockTagsProvider.POGO_BOOST)
+
+        val shouldBoost = posIsBoost || belowIsBoost
 
         var adjustedMotion = motion
         if (shouldBoost) {
