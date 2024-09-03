@@ -33,7 +33,7 @@ class PogoStickItem(
             return null
         }
 
-        fun usePogo(player: ServerPlayer) {
+        fun bouncePlayer(player: ServerPlayer) {
             val heldPogo = getHeldPogoStick(player) ?: return
 
             player.playSound(SoundEvents.PISTON_EXTEND)

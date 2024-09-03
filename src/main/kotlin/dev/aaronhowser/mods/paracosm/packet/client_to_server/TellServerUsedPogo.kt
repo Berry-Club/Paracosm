@@ -15,7 +15,7 @@ class TellServerUsedPogo private constructor() : ModPacket {
         context.enqueueWork {
             val player = context.player() as? ServerPlayer ?: return@enqueueWork
 
-            PogoStickItem.usePogo(player)
+            PogoStickItem.bouncePlayer(player)
         }
     }
 
