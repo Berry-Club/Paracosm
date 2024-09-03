@@ -44,23 +44,27 @@ object OtherEvents {
         val player = event.entity as? ServerPlayer ?: return
         val entity = event.target as? LivingEntity ?: return
 
-        ModPacketHandler.messagePlayer(
-            player,
-            UpdateWhimsyValue(
-                entity.id,
-                entity.whimsy,
-                true
+        if (entity.whimsy != 0f) {
+            ModPacketHandler.messagePlayer(
+                player,
+                UpdateWhimsyValue(
+                    entity.id,
+                    entity.whimsy,
+                    true
+                )
             )
-        )
+        }
 
-        ModPacketHandler.messagePlayer(
-            player,
-            UpdateWhimsyValue(
-                entity.id,
-                entity.delusion,
-                false
+        if (entity.delusion != 0f) {
+            ModPacketHandler.messagePlayer(
+                player,
+                UpdateWhimsyValue(
+                    entity.id,
+                    entity.delusion,
+                    false
+                )
             )
-        )
+        }
     }
 
     @SubscribeEvent
