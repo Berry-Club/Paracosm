@@ -30,7 +30,7 @@ class PogoStickVehicleModel : GeoModel<PogoStickVehicle>() {
 
         if (bounceRod != null && animatable != null) {
             bounceRod.rotX = animatable.entityData.get(PogoStickVehicle.tiltNorth)
-            bounceRod.rotZ = animatable.entityData.get(PogoStickVehicle.tiltWest)
+            bounceRod.rotZ = animatable.entityData.get(PogoStickVehicle.tiltEast)
         }
 
     }

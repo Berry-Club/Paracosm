@@ -13,11 +13,13 @@ import net.minecraft.network.syncher.SynchedEntityData
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.Entity
+import net.minecraft.world.entity.EntityDimensions
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.entity.vehicle.VehicleEntity
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.Level
+import net.minecraft.world.phys.Vec3
 import software.bernie.geckolib.animatable.GeoEntity
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache
@@ -47,7 +49,7 @@ class PogoStickVehicle(
     }
 
     companion object {
-        val tiltWest: EntityDataAccessor<Float> =
+        val tiltEast: EntityDataAccessor<Float> =
             SynchedEntityData.defineId(PogoStickVehicle::class.java, EntityDataSerializers.FLOAT)
         val tiltNorth: EntityDataAccessor<Float> =
             SynchedEntityData.defineId(PogoStickVehicle::class.java, EntityDataSerializers.FLOAT)
@@ -55,7 +57,7 @@ class PogoStickVehicle(
 
     override fun defineSynchedData(builder: SynchedEntityData.Builder) {
         super.defineSynchedData(builder)
-        builder.define(tiltWest, 0.0f)
+        builder.define(tiltEast, 0.0f)
         builder.define(tiltNorth, 0.0f)
     }
 
@@ -153,7 +155,7 @@ class PogoStickVehicle(
 
     private fun updateTilt() {
         var currentTiltNorth = this.entityData.get(tiltNorth)
-        var currentTiltWest = this.entityData.get(tiltWest)
+        var currentTiltEast = this.entityData.get(tiltEast)
 
         if (this.forwardImpulse > 0) {
             currentTiltNorth += 0.1f
@@ -167,21 +169,27 @@ class PogoStickVehicle(
         }
 
         if (this.leftImpulse > 0) {
-            currentTiltWest += 0.1f
+            currentTiltEast -= 0.1f
         } else if (this.leftImpulse < 0) {
-            currentTiltWest -= 0.1f
+            currentTiltEast += 0.1f
         } else {
-            currentTiltWest += if (currentTiltWest > 0) -0.05f else 0.05f
-            if (currentTiltWest in -0.09..0.09) {
-                currentTiltWest = 0.0f
+            currentTiltEast += if (currentTiltEast > 0) -0.05f else 0.05f
+            if (currentTiltEast in -0.09..0.09) {
+                currentTiltEast = 0.0f
             }
         }
 
         currentTiltNorth = currentTiltNorth.coerceIn(-1.0f, 1.0f)
-        currentTiltWest = currentTiltWest.coerceIn(-1.0f, 1.0f)
+        currentTiltEast = currentTiltEast.coerceIn(-1.0f, 1.0f)
 
         this.entityData.set(tiltNorth, currentTiltNorth)
-        this.entityData.set(tiltWest, currentTiltWest)
+        this.entityData.set(tiltEast, currentTiltEast)
+    }
+
+    override fun getPassengerAttachmentPoint(entity: Entity, dimensions: EntityDimensions, partialTick: Float): Vec3 {
+        return Vec3(0.0, 1.0, 0.0)
+            .xRot(this.entityData.get(tiltNorth))
+            .zRot(this.entityData.get(tiltEast))
     }
 
 }
