@@ -4,7 +4,6 @@ import dev.aaronhowser.mods.paracosm.entity.custom.PogoStickVehicle
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.resources.ResourceLocation
 import software.bernie.geckolib.animation.AnimationState
-import software.bernie.geckolib.cache.`object`.GeoBone
 import software.bernie.geckolib.model.GeoModel
 
 class PogoStickVehicleModel : GeoModel<PogoStickVehicle>() {
@@ -21,23 +20,21 @@ class PogoStickVehicleModel : GeoModel<PogoStickVehicle>() {
         return OtherUtil.modResource("animations/pogo_stick.animation.json")
     }
 
-    override fun applyMolangQueries(animationState: AnimationState<PogoStickVehicle>, animTime: Double) {
-        super.applyMolangQueries(animationState, animTime)
-        //TODO
-    }
-
     override fun setCustomAnimations(
         animatable: PogoStickVehicle?,
         instanceId: Long,
         animationState: AnimationState<PogoStickVehicle>
     ) {
-        val bounceRod: GeoBone? = animationProcessor.getBone("bounce_rod")
+        val bounceRod = animationProcessor.getBone("bounce_rod")
+        val mainBone = animationProcessor.getBone("main")
 
-        if (bounceRod != null && animatable != null) {
+        if (animatable != null) {
             bounceRod.rotX = animatable.entityData.get(PogoStickVehicle.tiltNorth)
             bounceRod.rotZ = animatable.entityData.get(PogoStickVehicle.tiltEast)
-        }
 
+            mainBone.posY =
+                -10 * PogoStickVehicle.JUMP_ANIM_DISTANCE.toFloat() * animatable.entityData.get(PogoStickVehicle.jumpAmount)
+        }
     }
 
 }

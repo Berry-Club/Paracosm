@@ -55,6 +55,8 @@ class PogoStickVehicle(
             SynchedEntityData.defineId(PogoStickVehicle::class.java, EntityDataSerializers.FLOAT)
         val jumpAmount: EntityDataAccessor<Float> =
             SynchedEntityData.defineId(PogoStickVehicle::class.java, EntityDataSerializers.FLOAT)
+
+        const val JUMP_ANIM_DISTANCE = 0.4
     }
 
     override fun defineSynchedData(builder: SynchedEntityData.Builder) {
@@ -199,7 +201,7 @@ class PogoStickVehicle(
     }
 
     override fun getPassengerAttachmentPoint(entity: Entity, dimensions: EntityDimensions, partialTick: Float): Vec3 {
-        val height = 1 - 0.5 * this.entityData.get(jumpAmount).toDouble()
+        val height = 1 - JUMP_ANIM_DISTANCE * this.entityData.get(jumpAmount).toDouble()
         return Vec3(0.0, height, 0.0)
             .xRot(this.entityData.get(tiltNorth))
             .zRot(this.entityData.get(tiltEast))
