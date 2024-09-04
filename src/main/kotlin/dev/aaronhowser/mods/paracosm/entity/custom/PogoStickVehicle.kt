@@ -45,7 +45,10 @@ class PogoStickVehicle(
             placeOnBlock.y + blockHeight,
             placeOnBlock.z + 0.5
         )
+    }
 
+    init {
+        this.blocksBuilding = true
     }
 
     companion object {
@@ -249,6 +252,10 @@ class PogoStickVehicle(
             .xRot(this.entityData.get(tiltNorth))
             .zRot(this.entityData.get(tiltEast))
             .scale(height)
+    }
+
+    override fun getDismountLocationForPassenger(passenger: LivingEntity): Vec3 {
+        return this.position()
     }
 
 }
