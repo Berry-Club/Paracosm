@@ -75,13 +75,13 @@ object ModEntityTypes {
         })
 
     val POGO_STICK_VEHICLE: DeferredHolder<EntityType<*>, EntityType<PogoStickVehicle>> =
-        ENTITY_TYPE_REGISTRY.register("pogo_stick_vehicle", Supplier {
+        ENTITY_TYPE_REGISTRY.register("pogo_stick", Supplier {
             EntityType.Builder.of(
                 ::PogoStickVehicle,
                 MobCategory.MISC
             )
                 .sized(0.5f, 1.5f)
-                .build("pogo_stick_vehicle")
+                .build("pogo_stick")
         })
 
 }
