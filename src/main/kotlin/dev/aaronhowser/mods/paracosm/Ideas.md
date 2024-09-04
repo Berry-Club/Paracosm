@@ -157,3 +157,5 @@
 - [ ] Dream dimension
 - [ ] Like Puhoy from Adventure Time, everything is made out of pillows and stuff
 - [ ] Enter it by drinking some warm milk and going to bed
+- [ ] Train of Thought
+- [ ] Other Sharkboy and Lavagirl references?
