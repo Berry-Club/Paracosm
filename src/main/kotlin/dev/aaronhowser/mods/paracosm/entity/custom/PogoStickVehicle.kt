@@ -3,8 +3,6 @@ package dev.aaronhowser.mods.paracosm.entity.custom
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import dev.aaronhowser.mods.paracosm.util.OtherUtil.isClientSide
-import net.minecraft.core.BlockPos
-import net.minecraft.core.Direction
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.syncher.EntityDataAccessor
 import net.minecraft.network.syncher.EntityDataSerializers
@@ -33,27 +31,9 @@ class PogoStickVehicle(
 
     constructor(
         level: Level,
-        placeOnBlock: BlockPos,
-        sideClicked: Direction = Direction.UP
+        spawnLocation: Vec3
     ) : this(ModEntityTypes.POGO_STICK_VEHICLE.get(), level) {
-        if (sideClicked == Direction.UP) {
-            val blockState = level.getBlockState(placeOnBlock)
-            val blockHeight = blockState.getShape(level, placeOnBlock).max(Direction.Axis.Y)
-
-            this.setPos(
-                placeOnBlock.x + 0.5,
-                placeOnBlock.y + blockHeight,
-                placeOnBlock.z + 0.5
-            )
-
-            return
-        }
-
-        this.setPos(
-            placeOnBlock.x + 0.5 + sideClicked.stepX,
-            placeOnBlock.y + sideClicked.stepY.toDouble(),
-            placeOnBlock.z + 0.5 + sideClicked.stepZ
-        )
+        this.setPos(spawnLocation)
     }
 
     init {
