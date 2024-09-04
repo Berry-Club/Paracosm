@@ -1,6 +1,8 @@
 package dev.aaronhowser.mods.paracosm.event
 
 import dev.aaronhowser.mods.paracosm.entity.custom.PogoStickVehicle
+import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
+import dev.aaronhowser.mods.paracosm.packet.client_to_server.UpdatePogoControls
 import net.minecraft.client.player.LocalPlayer
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.bus.api.SubscribeEvent
@@ -19,7 +21,13 @@ object ClientEvents {
 
         val vehicle = player.vehicle
         if (vehicle is PogoStickVehicle) {
-            vehicle.setInput(player.input)
+            ModPacketHandler.messageServer(
+                UpdatePogoControls(
+                    player.input.leftImpulse,
+                    player.input.forwardImpulse,
+                    player.input.jumping
+                )
+            )
         }
     }
 

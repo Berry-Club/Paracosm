@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.paracosm.entity.custom
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import dev.aaronhowser.mods.paracosm.util.OtherUtil.isClientSide
-import net.minecraft.client.player.Input
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.nbt.CompoundTag
@@ -146,17 +145,20 @@ class PogoStickVehicle(
 
     val controls = Controls()
 
-    fun setInput(playerInput: Input) {
-        this.controls.leftImpulse = playerInput.leftImpulse
-        this.controls.forwardImpulse = playerInput.forwardImpulse
-        this.controls.spaceHeld = playerInput.jumping
+    fun setInput(leftImpulse: Float, forwardImpulse: Float, jumping: Boolean) {
+        this.controls.leftImpulse = leftImpulse
+        this.controls.forwardImpulse = forwardImpulse
+        this.controls.spaceHeld = jumping
     }
 
     override fun tick() {
         super.tick()
-        tryResetControls()
-        updateTilt()
-        tryJump()
+
+        if (!this.isClientSide) {
+            tryResetControls()
+            updateTilt()
+            tryJump()
+        }
     }
 
     private fun tryResetControls() {
