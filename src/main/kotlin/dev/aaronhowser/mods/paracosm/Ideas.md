@@ -108,6 +108,7 @@
 - [ ] Talking trees (block) that give Delusion from breaking, even if you cant see them
 - [ ] Will o the wisp
 - [ ] Redcaps (maybe they pretend to be other mobs?)
+- [ ] Fairy circles
 
 # Bad imagination stuff
 
