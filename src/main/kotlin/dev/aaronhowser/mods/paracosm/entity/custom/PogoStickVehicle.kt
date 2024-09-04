@@ -15,6 +15,7 @@ import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityDimensions
 import net.minecraft.world.entity.EntityType
+import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.entity.vehicle.VehicleEntity
 import net.minecraft.world.item.Item
@@ -133,6 +134,10 @@ class PogoStickVehicle(
         return InteractionResult.SUCCESS
     }
 
+    override fun getControllingPassenger(): LivingEntity? {
+        return passengers.firstOrNull() as? LivingEntity
+    }
+
     class Controls(
         var leftImpulse: Float = 0f,
         var forwardImpulse: Float = 0f,
@@ -149,8 +154,17 @@ class PogoStickVehicle(
 
     override fun tick() {
         super.tick()
+        tryResetControls()
         updateTilt()
         tryJump()
+    }
+
+    private fun tryResetControls() {
+        if (this.hasControllingPassenger()) return
+
+        this.controls.leftImpulse = 0f
+        this.controls.forwardImpulse = 0f
+        this.controls.spaceHeld = false
     }
 
     private fun tryJump() {
@@ -172,6 +186,18 @@ class PogoStickVehicle(
     }
 
     private fun updateTilt() {
+
+        val rider = this.controllingPassenger
+        if (rider != null) {
+            this.setRot(
+                rider.yRot,
+                rider.xRot
+            )
+            this.yRotO = this.yRot
+            this.setYBodyRot(this.yRot)
+            this.yHeadRot = this.yRot
+        }
+
         var currentTiltNorth = this.entityData.get(tiltNorth)
         var currentTiltEast = this.entityData.get(tiltEast)
         var currentJumpAmount = this.entityData.get(jumpAmount)
