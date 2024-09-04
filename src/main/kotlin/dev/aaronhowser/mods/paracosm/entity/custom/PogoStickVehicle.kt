@@ -33,15 +33,26 @@ class PogoStickVehicle(
 
     constructor(
         level: Level,
-        placeOnBlock: BlockPos
+        placeOnBlock: BlockPos,
+        sideClicked: Direction = Direction.UP
     ) : this(ModEntityTypes.POGO_STICK_VEHICLE.get(), level) {
-        val blockState = level.getBlockState(placeOnBlock)
-        val blockHeight = blockState.getShape(level, placeOnBlock).max(Direction.Axis.Y)
+        if (sideClicked == Direction.UP) {
+            val blockState = level.getBlockState(placeOnBlock)
+            val blockHeight = blockState.getShape(level, placeOnBlock).max(Direction.Axis.Y)
+
+            this.setPos(
+                placeOnBlock.x + 0.5,
+                placeOnBlock.y + blockHeight,
+                placeOnBlock.z + 0.5
+            )
+
+            return
+        }
 
         this.setPos(
-            placeOnBlock.x + 0.5,
-            placeOnBlock.y + blockHeight,
-            placeOnBlock.z + 0.5
+            placeOnBlock.x + 0.5 + sideClicked.stepX,
+            placeOnBlock.y + sideClicked.stepY.toDouble(),
+            placeOnBlock.z + 0.5 + sideClicked.stepZ
         )
     }
 

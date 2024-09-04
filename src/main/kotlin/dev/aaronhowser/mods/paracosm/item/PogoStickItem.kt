@@ -19,7 +19,8 @@ class PogoStickItem(
         if (!level.isClientSide) {
             val pogoStickVehicle = PogoStickVehicle(
                 level = level,
-                placeOnBlock = blockPos
+                placeOnBlock = blockPos,
+                sideClicked = context.clickedFace
             )
             level.addFreshEntity(pogoStickVehicle)
             level.gameEvent(
