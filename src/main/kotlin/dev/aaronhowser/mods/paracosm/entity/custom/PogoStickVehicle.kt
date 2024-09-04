@@ -178,12 +178,15 @@ class PogoStickVehicle(
         val currentTiltNorth = this.entityData.get(tiltNorth)
         val currentTiltEast = this.entityData.get(tiltEast)
 
-        val vector = Vec3(0.0, 1.0, 0.0)
+        val jumpVector = Vec3(0.0, 1.0, 0.0)
             .xRot(currentTiltNorth)
             .zRot(currentTiltEast)
             .scale(currentJumpAmount * 5.0)
 
-        this.push(vector)
+        this.deltaMovement = jumpVector
+        this.hasImpulse = true
+        this.setOnGround(false)
+
         this.entityData.set(jumpAmount, 0.0f)
     }
 
