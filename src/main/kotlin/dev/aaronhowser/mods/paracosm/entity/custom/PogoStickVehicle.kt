@@ -11,10 +11,7 @@ import net.minecraft.network.syncher.EntityDataSerializers
 import net.minecraft.network.syncher.SynchedEntityData
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
-import net.minecraft.world.entity.Entity
-import net.minecraft.world.entity.EntityDimensions
-import net.minecraft.world.entity.EntityType
-import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.*
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.entity.vehicle.Boat
 import net.minecraft.world.entity.vehicle.VehicleEntity
@@ -162,7 +159,13 @@ class PogoStickVehicle(
             tryResetControls()
             updateTilt()
             tryJump()
+            doMove()
         }
+    }
+
+    private fun doMove() {
+        this.applyGravity()
+        this.move(MoverType.SELF, this.deltaMovement)
     }
 
     private fun tryResetControls() {
