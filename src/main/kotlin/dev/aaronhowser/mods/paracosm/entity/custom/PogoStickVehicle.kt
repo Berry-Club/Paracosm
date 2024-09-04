@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.paracosm.entity.custom
 
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
-import dev.aaronhowser.mods.paracosm.registry.ModItems
 import dev.aaronhowser.mods.paracosm.util.OtherUtil.isClientSide
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
@@ -11,13 +10,11 @@ import net.minecraft.network.syncher.EntityDataSerializers
 import net.minecraft.network.syncher.SynchedEntityData
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
-import net.minecraft.world.entity.Entity
-import net.minecraft.world.entity.EntityDimensions
-import net.minecraft.world.entity.EntityType
-import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.*
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier
+import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.player.Player
-import net.minecraft.world.entity.vehicle.VehicleEntity
-import net.minecraft.world.item.Item
+import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.Vec3
 import software.bernie.geckolib.animatable.GeoEntity
@@ -29,9 +26,9 @@ import software.bernie.geckolib.animation.AnimationState
 import software.bernie.geckolib.animation.PlayState
 
 class PogoStickVehicle(
-    entityType: EntityType<*>,
+    entityType: EntityType<out LivingEntity>,
     level: Level
-) : VehicleEntity(entityType, level), GeoEntity {
+) : LivingEntity(entityType, level), GeoEntity {
 
     constructor(
         level: Level,
@@ -45,7 +42,6 @@ class PogoStickVehicle(
             placeOnBlock.y + blockHeight,
             placeOnBlock.z + 0.5
         )
-
     }
 
     companion object {
@@ -57,6 +53,14 @@ class PogoStickVehicle(
             SynchedEntityData.defineId(PogoStickVehicle::class.java, EntityDataSerializers.FLOAT)
 
         const val JUMP_ANIM_DISTANCE = 0.4
+
+        fun setAttributes(): AttributeSupplier {
+            return createLivingAttributes()
+                .add(Attributes.MAX_HEALTH, 20.0)
+                .add(Attributes.MOVEMENT_SPEED, 0.0)
+                .build()
+        }
+
     }
 
     override fun defineSynchedData(builder: SynchedEntityData.Builder) {
@@ -66,17 +70,17 @@ class PogoStickVehicle(
         builder.define(jumpAmount, 0f)
     }
 
-    override fun readAdditionalSaveData(p0: CompoundTag) {
-
+    override fun readAdditionalSaveData(compound: CompoundTag) {
+        super.readAdditionalSaveData(compound)
     }
 
-    override fun addAdditionalSaveData(p0: CompoundTag) {
-
+    override fun addAdditionalSaveData(compound: CompoundTag) {
+        super.addAdditionalSaveData(compound)
     }
 
-    override fun getDropItem(): Item {
-        return ModItems.POGO_STICK.get()
-    }
+//    override fun getDropItem(): Item {
+//        return ModItems.POGO_STICK.get()
+//    }
 
     override fun canCollideWith(entity: Entity): Boolean {
         return this.controllingPassenger != entity
@@ -133,6 +137,7 @@ class PogoStickVehicle(
         return InteractionResult.SUCCESS
     }
 
+
     override fun getControllingPassenger(): LivingEntity? {
         return passengers.firstOrNull() as? LivingEntity
     }
@@ -175,8 +180,8 @@ class PogoStickVehicle(
         val currentJumpAmount = this.entityData.get(jumpAmount)
         if (currentJumpAmount <= 0.1) return
 
-        val currentTiltNorth = this.entityData.get(tiltNorth)
-        val currentTiltEast = this.entityData.get(tiltEast)
+        val currentTiltNorth = -this.entityData.get(tiltNorth)
+        val currentTiltEast = -this.entityData.get(tiltEast)
 
         val jumpVector = Vec3(0.0, 1.0, 0.0)
             .xRot(currentTiltNorth)
@@ -246,9 +251,26 @@ class PogoStickVehicle(
         val height = 1 - JUMP_ANIM_DISTANCE * this.entityData.get(jumpAmount).toDouble()
 
         return Vec3(0.0, 1.0, 0.0)
-            .xRot(this.entityData.get(tiltNorth))
-            .zRot(this.entityData.get(tiltEast))
+            .xRot(-this.entityData.get(tiltNorth))
+            .zRot(-this.entityData.get(tiltEast))
             .scale(height)
+    }
+
+    // Required LivingEntity stuff
+
+    override fun getArmorSlots(): Iterable<ItemStack> {
+        return emptyList()
+    }
+
+    override fun getItemBySlot(p0: EquipmentSlot): ItemStack {
+        return ItemStack.EMPTY
+    }
+
+    override fun setItemSlot(p0: EquipmentSlot, p1: ItemStack) {
+    }
+
+    override fun getMainArm(): HumanoidArm {
+        return HumanoidArm.RIGHT
     }
 
 }

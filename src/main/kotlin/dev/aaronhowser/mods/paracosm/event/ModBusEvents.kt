@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.paracosm.event
 
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.entity.custom.AaronberryEntity
+import dev.aaronhowser.mods.paracosm.entity.custom.PogoStickVehicle
 import dev.aaronhowser.mods.paracosm.entity.custom.StringWormEntity
 import dev.aaronhowser.mods.paracosm.entity.custom.TeddyBearEntity
 import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
@@ -27,6 +28,7 @@ object ModBusEvents {
         event.put(ModEntityTypes.TEDDY_BEAR.get(), TeddyBearEntity.setAttributes())
         event.put(ModEntityTypes.STRING_WORM.get(), StringWormEntity.setAttributes())
         event.put(ModEntityTypes.AARONBERRY.get(), AaronberryEntity.setAttributes())
+        event.put(ModEntityTypes.POGO_STICK_VEHICLE.get(), PogoStickVehicle.setAttributes())
     }
 
 }
