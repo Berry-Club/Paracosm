@@ -248,8 +248,8 @@ class PogoStickVehicle(
             val currentTiltRight = this.entityData.get(DATA_TILT_RIGHT)
 
             val jumpVector = Vec3(0.0, 1.0, 0.0)
-                .xRot(currentTiltBack)
-                .zRot(currentTiltRight)
+                .xRot(currentTiltBack * 45 * Mth.DEG_TO_RAD)
+                .zRot(currentTiltRight * 45 * Mth.DEG_TO_RAD)
                 .yRot(this.yRot * Mth.DEG_TO_RAD)
                 .scale(currentJumpAmount.toDouble())
 
