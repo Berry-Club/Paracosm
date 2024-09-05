@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.paracosm.packet
 
 import dev.aaronhowser.mods.paracosm.packet.client_to_server.UpdatePogoControls
+import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateEntityUpgrades
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateShrinkRayScale
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateWhimsyValue
 import net.minecraft.server.level.ServerLevel
@@ -36,6 +37,15 @@ object ModPacketHandler {
         registrar.playToServer(
             UpdatePogoControls.TYPE,
             UpdatePogoControls.STREAM_CODEC,
+            DirectionalPayloadHandler(
+                { packet, context -> packet.receiveMessage(context) },
+                { packet, context -> packet.receiveMessage(context) }
+            )
+        )
+
+        registrar.playToClient(
+            UpdateEntityUpgrades.TYPE,
+            UpdateEntityUpgrades.STREAM_CODEC,
             DirectionalPayloadHandler(
                 { packet, context -> packet.receiveMessage(context) },
                 { packet, context -> packet.receiveMessage(context) }

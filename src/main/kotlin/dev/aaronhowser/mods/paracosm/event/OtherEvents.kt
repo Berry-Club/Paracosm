@@ -7,7 +7,9 @@ import dev.aaronhowser.mods.paracosm.command.ModCommands
 import dev.aaronhowser.mods.paracosm.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.paracosm.entity.custom.PogoStickVehicle
 import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
+import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateEntityUpgrades
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateWhimsyValue
+import dev.aaronhowser.mods.paracosm.util.Upgradeable
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.LivingEntity
 import net.neoforged.bus.api.SubscribeEvent
@@ -64,6 +66,16 @@ object OtherEvents {
                     entity.id,
                     entity.delusion,
                     false
+                )
+            )
+        }
+
+        if (Upgradeable.getUpgrades(entity).isNotEmpty()) {
+            ModPacketHandler.messagePlayer(
+                player,
+                UpdateEntityUpgrades(
+                    entity.id,
+                    Upgradeable.getUpgrades(entity).toList()
                 )
             )
         }

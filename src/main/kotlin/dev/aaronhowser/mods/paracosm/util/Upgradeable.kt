@@ -2,10 +2,15 @@ package dev.aaronhowser.mods.paracosm.util
 
 import dev.aaronhowser.mods.paracosm.attachment.EntityUpgrades
 import dev.aaronhowser.mods.paracosm.item.component.StringListComponent
+import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
+import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateEntityUpgrades
 import dev.aaronhowser.mods.paracosm.registry.ModAttachmentTypes
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
+import dev.aaronhowser.mods.paracosm.util.OtherUtil.isClientSide
+import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.item.ItemStack
+import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.toVec3
 
 object Upgradeable {
 
@@ -37,16 +42,31 @@ object Upgradeable {
         return entity.getData(ModAttachmentTypes.ENTITY_UPGRADES.get()).upgrades
     }
 
-    fun addUpgrade(entity: Entity, upgrade: String) {
-        val upgrades = getUpgrades(entity).toMutableSet()
-        upgrades.add(upgrade)
+    fun setUpgrades(entity: Entity, upgrades: Set<String>) {
         entity.setData(ModAttachmentTypes.ENTITY_UPGRADES.get(), EntityUpgrades(upgrades))
+
+        if (!entity.isClientSide) {
+            ModPacketHandler.messageNearbyPlayers(
+                UpdateEntityUpgrades(entity.id, upgrades.toList()),
+                entity.level() as ServerLevel,
+                entity.blockPosition().toVec3(),
+                64.0
+            )
+        }
+    }
+
+    fun addUpgrade(entity: Entity, upgrade: String) {
+        setUpgrades(
+            entity,
+            getUpgrades(entity) + upgrade
+        )
     }
 
     fun removeUpgrade(entity: Entity, upgrade: String) {
-        val upgrades = getUpgrades(entity).toMutableSet()
-        upgrades.remove(upgrade)
-        entity.setData(ModAttachmentTypes.ENTITY_UPGRADES.get(), EntityUpgrades(upgrades))
+        setUpgrades(
+            entity,
+            getUpgrades(entity) - upgrade
+        )
     }
 
     fun hasUpgrade(entity: Entity, upgrade: String): Boolean {
