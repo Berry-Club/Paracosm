@@ -237,10 +237,10 @@ class PogoStickVehicle(
     private fun tryJump() {
         if (this.controls.spaceHeld) return
 
-        if (this.onGround() || Upgradeable.hasUpgrade(this, PogoStickItem.Upgrades.GEPPO)) {
-            val currentJumpAmount = this.entityData.get(DATA_JUMP_PERCENT)
-            if (currentJumpAmount <= 0.1) return
+        val currentJumpAmount = this.entityData.get(DATA_JUMP_PERCENT)
+        if (currentJumpAmount <= 0.1) return
 
+        if (this.onGround() || Upgradeable.hasUpgrade(this, PogoStickItem.Upgrades.GEPPO)) {
             val currentTiltBack = this.entityData.get(DATA_TILT_BACKWARD)
             val currentTiltRight = this.entityData.get(DATA_TILT_RIGHT)
 
