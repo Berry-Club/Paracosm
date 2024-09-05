@@ -187,20 +187,22 @@ class PogoStickVehicle(
     private fun tryJump() {
         if (this.controls.spaceHeld) return
 
-        val currentJumpAmount = this.entityData.get(DATA_JUMP_PERCENT)
-        if (currentJumpAmount <= 0.1) return
+        if (this.onGround()) {
+            val currentJumpAmount = this.entityData.get(DATA_JUMP_PERCENT)
+            if (currentJumpAmount <= 0.1) return
 
-        val currentTiltNorth = this.entityData.get(DATA_TILT_FORWARD)
-        val currentTiltEast = this.entityData.get(DATA_TILT_LEFT)
+            val currentTiltNorth = this.entityData.get(DATA_TILT_FORWARD)
+            val currentTiltEast = this.entityData.get(DATA_TILT_LEFT)
 
-        val jumpVector = Vec3(0.0, 1.0, 0.0)
-            .xRot(currentTiltNorth)
-            .zRot(currentTiltEast)
-            .scale(currentJumpAmount.toDouble())
+            val jumpVector = Vec3(0.0, 1.0, 0.0)
+                .xRot(currentTiltNorth)
+                .zRot(currentTiltEast)
+                .scale(currentJumpAmount.toDouble())
 
-        this.deltaMovement = jumpVector
-        this.hasImpulse = true
-        this.setOnGround(false)
+            this.deltaMovement = jumpVector
+            this.hasImpulse = true
+            this.setOnGround(false)
+        }
 
         this.entityData.set(DATA_JUMP_PERCENT, 0.0f)
     }
