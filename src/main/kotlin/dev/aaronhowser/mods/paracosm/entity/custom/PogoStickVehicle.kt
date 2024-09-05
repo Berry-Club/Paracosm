@@ -35,6 +35,7 @@ import software.bernie.geckolib.animation.AnimatableManager
 import software.bernie.geckolib.animation.AnimationController
 import software.bernie.geckolib.animation.AnimationState
 import software.bernie.geckolib.animation.PlayState
+import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.plus
 import kotlin.math.abs
 
 class PogoStickVehicle(
@@ -256,7 +257,7 @@ class PogoStickVehicle(
                 .yRot(this.yRot * Mth.DEG_TO_RAD)
                 .scale(currentJumpAmount.toDouble())
 
-            this.deltaMovement = jumpVector
+            this.deltaMovement += jumpVector
             this.hasImpulse = true
             this.setOnGround(false)
         }
