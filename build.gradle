@@ -133,10 +133,12 @@ repositories {
         url = uri("https://maven.octo-studios.com/releases")
     }
 
-    //For REI
+    // For KubeJS
     maven {
-        name = "TerraformersMC"
-        url = "https://maven.terraformersmc.com/"
+        url "https://maven.latvian.dev/releases"
+        content {
+            includeGroup "dev.latvian.mods"
+        }
     }
 
 }
@@ -150,6 +152,9 @@ dependencies {
     runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
     runtimeOnly "curse.maven:atlasviewer-633577:5490697"
     runtimeOnly "curse.maven:spark-361579:5434153"
+
+    // KubeJs
+    runtimeOnly "dev.latvian.mods:kubejs-neoforge:${kubejs_version}"
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
