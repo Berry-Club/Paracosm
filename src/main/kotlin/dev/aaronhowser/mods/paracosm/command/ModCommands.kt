@@ -17,6 +17,7 @@ object ModCommands {
                 .then(SetDelusionCommand.register())
                 .then(GetDelusionCommand.register())
                 .then(ResetScaleCommand.register())
+                .then(UpgradeCommand.register())
         )
 
     }

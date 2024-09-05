@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.paracosm.command
 import com.mojang.brigadier.arguments.FloatArgumentType
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
-import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.attachment.Whimsy.Companion.whimsy
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands

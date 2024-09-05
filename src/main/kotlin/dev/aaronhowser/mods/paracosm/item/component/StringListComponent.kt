@@ -5,7 +5,7 @@ import io.netty.buffer.ByteBuf
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 
-class StringListComponent(
+data class StringListComponent(
     val value: Set<String>
 ) {
 
