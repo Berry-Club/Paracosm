@@ -24,6 +24,7 @@ import net.minecraft.world.entity.vehicle.VehicleEntity
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.GameRules
 import net.minecraft.world.level.Level
+import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent
 import software.bernie.geckolib.animatable.GeoEntity
@@ -33,6 +34,7 @@ import software.bernie.geckolib.animation.AnimatableManager
 import software.bernie.geckolib.animation.AnimationController
 import software.bernie.geckolib.animation.AnimationState
 import software.bernie.geckolib.animation.PlayState
+import kotlin.math.abs
 
 class PogoStickVehicle(
     entityType: EntityType<*>,
@@ -320,6 +322,37 @@ class PogoStickVehicle(
 
     override fun getDismountLocationForPassenger(passenger: LivingEntity): Vec3 {
         return this.position()
+    }
+
+    override fun setOnGroundWithMovement(onGround: Boolean, movement: Vec3) {
+        super.setOnGroundWithMovement(onGround, movement)
+
+        if (
+            onGround
+            && movement.y < -this.gravity * 5
+            && this.hasControllingPassenger()
+            && Upgradeable.hasUpgrade(this, PogoStickItem.Upgrades.GOOMBA_STOMP)
+        ) {
+            val entityBelow = this.level().getEntities(
+                this,
+                AABB(
+                    this.x - 0.5,
+                    this.y - 0.5,
+                    this.z - 0.5,
+                    this.x + 0.5,
+                    this.y + 0.5,
+                    this.z + 0.5
+                )
+            ).filter { it != this && it is LivingEntity && it != this.controllingPassenger }
+
+            //TODO: Improve this
+            val damage = abs(movement.y.toFloat())
+
+            for (entity in entityBelow) {
+                //TODO: Add a new damage source
+                entity.hurt(this.level().damageSources().fall(), damage)
+            }
+        }
     }
 
 }
