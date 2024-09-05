@@ -2,9 +2,9 @@ package dev.aaronhowser.mods.paracosm.registry
 
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.attachment.Delusion
+import dev.aaronhowser.mods.paracosm.attachment.EntityUpgrades
 import dev.aaronhowser.mods.paracosm.attachment.ShrinkRayEffect
 import dev.aaronhowser.mods.paracosm.attachment.Whimsy
-import dev.aaronhowser.mods.paracosm.item.component.StringListComponent
 import net.neoforged.neoforge.attachment.AttachmentType
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
@@ -43,11 +43,11 @@ object ModAttachmentTypes {
                 .build()
         })
 
-    val UPGRADES: DeferredHolder<AttachmentType<*>, AttachmentType<StringListComponent>> =
+    val ENTITY_UPGRADES: DeferredHolder<AttachmentType<*>, AttachmentType<EntityUpgrades>> =
         ATTACHMENT_TYPES_REGISTRY.register("upgrades", Supplier {
             AttachmentType
-                .builder(Supplier { StringListComponent() })
-                .serialize(StringListComponent.CODEC)
+                .builder(Supplier { EntityUpgrades() })
+                .serialize(EntityUpgrades.CODEC)
                 .copyOnDeath()
                 .build()
         })

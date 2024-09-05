@@ -18,7 +18,7 @@ object ModDataComponents {
             it.persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL)
         }
 
-    val UPGRADES: DeferredHolder<DataComponentType<*>, DataComponentType<StringListComponent>> =
+    val ITEM_UPGRADES: DeferredHolder<DataComponentType<*>, DataComponentType<StringListComponent>> =
         DATA_COMPONENT_REGISTRY.registerComponentType("upgrades") {
             it.persistent(StringListComponent.CODEC).networkSynchronized(StringListComponent.STREAM_CODEC)
         }

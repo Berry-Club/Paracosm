@@ -1,9 +1,11 @@
 package dev.aaronhowser.mods.paracosm.item
 
+import dev.aaronhowser.mods.paracosm.attachment.EntityUpgrades.Companion.addUpgrade
 import dev.aaronhowser.mods.paracosm.entity.custom.PogoStickVehicle
 import dev.aaronhowser.mods.paracosm.item.component.StringListComponent
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
+import dev.aaronhowser.mods.paracosm.util.Upgradeable
 import net.minecraft.core.Direction
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.item.Item
@@ -14,7 +16,7 @@ import net.minecraft.world.phys.Vec3
 class PogoStickItem(
     properties: Properties = Properties()
         .durability(256)
-        .component(ModDataComponents.UPGRADES, StringListComponent())
+        .component(ModDataComponents.ITEM_UPGRADES, StringListComponent())
 ) : Item(properties) {
 
     object Upgrades {
@@ -61,10 +63,16 @@ class PogoStickItem(
         val level = context.level
 
         if (!level.isClientSide) {
+
             val pogoStickVehicle = PogoStickVehicle(
                 level = level,
                 spawnLocation = getPlacementPos(context)
             )
+
+            for (upgrade in Upgradeable.getUpgrades(usedStack)) {
+                pogoStickVehicle.addUpgrade(upgrade)
+            }
+
             level.addFreshEntity(pogoStickVehicle)
             level.gameEvent(
                 GameEvent.ENTITY_PLACE,
