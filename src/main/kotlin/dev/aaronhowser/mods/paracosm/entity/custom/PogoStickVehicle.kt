@@ -146,12 +146,9 @@ class PogoStickVehicle(
     override fun tick() {
         super.tick()
 
-        if (!this.isClientSide) {
-            tryResetControls()
-            updateTilt()
-            tryJump()
-            doMove()
-        }
+        updateTilt()
+        tryJump()
+        doMove()
     }
 
     override fun getDefaultGravity(): Double {
@@ -197,6 +194,8 @@ class PogoStickVehicle(
     }
 
     private fun updateTilt() {
+        if (this.isClientSide) return
+        tryResetControls()
 
         val rider = this.controllingPassenger
         if (rider != null) {
