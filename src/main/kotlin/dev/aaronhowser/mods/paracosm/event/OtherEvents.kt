@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.paracosm.attachment.Delusion.Companion.delusion
 import dev.aaronhowser.mods.paracosm.attachment.Whimsy.Companion.whimsy
 import dev.aaronhowser.mods.paracosm.command.ModCommands
 import dev.aaronhowser.mods.paracosm.datagen.tag.ModItemTagsProvider
+import dev.aaronhowser.mods.paracosm.entity.custom.PogoStickVehicle
 import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateWhimsyValue
 import net.minecraft.server.level.ServerPlayer
@@ -13,6 +14,7 @@ import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.event.RegisterCommandsEvent
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent
 import net.neoforged.neoforge.event.entity.player.PlayerEvent
 
 @EventBusSubscriber(
@@ -89,4 +91,10 @@ object OtherEvents {
             )
         )
     }
+
+    @SubscribeEvent
+    fun onIncomingDamage(event: LivingIncomingDamageEvent) {
+        PogoStickVehicle.checkCancelDamage(event)
+    }
+
 }

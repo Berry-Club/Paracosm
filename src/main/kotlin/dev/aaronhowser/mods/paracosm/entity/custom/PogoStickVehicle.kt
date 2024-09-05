@@ -19,6 +19,7 @@ import net.minecraft.world.entity.vehicle.VehicleEntity
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.Vec3
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent
 import software.bernie.geckolib.animatable.GeoEntity
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache
@@ -52,6 +53,24 @@ class PogoStickVehicle(
             SynchedEntityData.defineId(PogoStickVehicle::class.java, EntityDataSerializers.FLOAT)
 
         const val JUMP_ANIM_DISTANCE = 0.4
+
+        fun checkCancelDamage(event: LivingIncomingDamageEvent) {
+            if (event.isCanceled) return
+
+            val source = event.source
+            val entity = event.entity
+            val level = entity.level()
+
+            if (
+                source != level.damageSources().fall()
+                && source != level.damageSources().inWall()
+            ) return
+
+            if (event.entity.vehicle is PogoStickVehicle) {
+                event.isCanceled = true
+            }
+        }
+
     }
 
     override fun defineSynchedData(builder: SynchedEntityData.Builder) {
