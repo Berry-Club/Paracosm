@@ -23,6 +23,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.entity.vehicle.Boat
 import net.minecraft.world.entity.vehicle.VehicleEntity
 import net.minecraft.world.item.Item
+import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.GameRules
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.AABB
@@ -116,12 +117,7 @@ class PogoStickVehicle(
     override fun destroy(dropItem: Item) {
         this.kill()
         if (this.level().gameRules.getBoolean(GameRules.RULE_DOENTITYDROPS)) {
-            val stack = dropItem.defaultInstance
-            stack.set(DataComponents.CUSTOM_NAME, this.customName)
-
-            for (upgrade in Upgradeable.getUpgrades(this)) {
-                Upgradeable.addUpgrade(stack, upgrade)
-            }
+            val stack = getStack()
 
             this.spawnAtLocation(stack)
         }
@@ -139,6 +135,23 @@ class PogoStickVehicle(
 
     override fun isPickable(): Boolean {
         return !isRemoved
+    }
+
+    override fun getPickResult(): ItemStack? {
+        if (!isPickable) return null
+
+        return getStack()
+    }
+
+    private fun getStack(): ItemStack {
+        val stack = ItemStack(this.dropItem)
+        stack.set(DataComponents.CUSTOM_NAME, this.customName)
+
+        for (upgrade in Upgradeable.getUpgrades(this)) {
+            Upgradeable.addUpgrade(stack, upgrade)
+        }
+
+        return stack
     }
 
     // GeckoLib stuff
