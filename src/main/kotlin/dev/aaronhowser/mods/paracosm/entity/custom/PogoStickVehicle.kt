@@ -1,12 +1,11 @@
 package dev.aaronhowser.mods.paracosm.entity.custom
 
-import dev.aaronhowser.mods.paracosm.attachment.EntityUpgrades.Companion.addUpgrade
-import dev.aaronhowser.mods.paracosm.attachment.EntityUpgrades.Companion.upgrades
 import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
 import dev.aaronhowser.mods.paracosm.packet.client_to_server.UpdatePogoControls
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import dev.aaronhowser.mods.paracosm.util.OtherUtil.isClientSide
+import dev.aaronhowser.mods.paracosm.util.Upgradeable
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.StringTag
 import net.minecraft.nbt.Tag
@@ -89,13 +88,13 @@ class PogoStickVehicle(
         val upgradesList = compound.getList(UPGRADES, Tag.TAG_STRING.toInt())
         for (tag in upgradesList) {
             tag as? StringTag ?: continue
-            this.addUpgrade(tag.getAsString())
+            Upgradeable.addUpgrade(this, tag.getAsString())
         }
     }
 
     override fun addAdditionalSaveData(compound: CompoundTag) {
         val upgradesList = compound.getList(UPGRADES, Tag.TAG_STRING.toInt())
-        for (upgrade in this.upgrades) {
+        for (upgrade in Upgradeable.getUpgrades(this)) {
             upgradesList.add(StringTag.valueOf(upgrade))
         }
     }

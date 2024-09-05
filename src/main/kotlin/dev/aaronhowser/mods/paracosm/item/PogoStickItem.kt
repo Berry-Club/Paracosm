@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.paracosm.item
 
-import dev.aaronhowser.mods.paracosm.attachment.EntityUpgrades.Companion.addUpgrade
 import dev.aaronhowser.mods.paracosm.entity.custom.PogoStickVehicle
 import dev.aaronhowser.mods.paracosm.item.component.StringListComponent
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
@@ -70,7 +69,7 @@ class PogoStickItem(
             )
 
             for (upgrade in Upgradeable.getUpgrades(usedStack)) {
-                pogoStickVehicle.addUpgrade(upgrade)
+                Upgradeable.addUpgrade(pogoStickVehicle, upgrade)
             }
 
             level.addFreshEntity(pogoStickVehicle)
