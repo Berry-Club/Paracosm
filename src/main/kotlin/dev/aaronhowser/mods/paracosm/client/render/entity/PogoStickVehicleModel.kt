@@ -1,12 +1,10 @@
 package dev.aaronhowser.mods.paracosm.client.render.entity
 
-import dev.aaronhowser.mods.paracosm.compatibility.geckolib.ModMolangQueries
 import dev.aaronhowser.mods.paracosm.entity.custom.PogoStickVehicle
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
 import software.bernie.geckolib.animation.AnimationState
-import software.bernie.geckolib.loading.math.MathParser
 import software.bernie.geckolib.model.GeoModel
 
 class PogoStickVehicleModel : GeoModel<PogoStickVehicle>() {
@@ -29,21 +27,15 @@ class PogoStickVehicleModel : GeoModel<PogoStickVehicle>() {
         animationState: AnimationState<PogoStickVehicle>
     ) {
         val verticalRotation = animationProcessor.getBone("vertical_rotation")
-        val body = animationProcessor.getBone("body")
-
         verticalRotation.rotY = animatable.yRot * Mth.DEG_TO_RAD
+
+        val whole = animationProcessor.getBone("whole")
+        whole.rotX = animatable.entityData.get(PogoStickVehicle.DATA_TILT_FORWARD) * Mth.DEG_TO_RAD * 45
+        whole.rotZ = animatable.entityData.get(PogoStickVehicle.DATA_TILT_LEFT) * Mth.DEG_TO_RAD * 45
+
+        val body = animationProcessor.getBone("body")
         body.posY =
             -10 * PogoStickVehicle.JUMP_ANIM_DISTANCE.toFloat() * animatable.entityData.get(PogoStickVehicle.DATA_JUMP_PERCENT)
-    }
-
-    override fun applyMolangQueries(animationState: AnimationState<PogoStickVehicle>, animTime: Double) {
-        val pogo = animationState.animatable
-
-        val forward = pogo.entityData.get(PogoStickVehicle.DATA_TILT_FORWARD).toDouble()
-        val left = pogo.entityData.get(PogoStickVehicle.DATA_TILT_LEFT).toDouble()
-
-        MathParser.setVariable(ModMolangQueries.TILT_FORWARD) { forward }
-        MathParser.setVariable(ModMolangQueries.TILT_LEFT) { left }
     }
 
 }

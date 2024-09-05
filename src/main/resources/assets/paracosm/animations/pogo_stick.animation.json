@@ -1,16 +1,5 @@
 {
 	"format_version": "1.8.0",
-	"animations": {
-		"animation.pogo_stick.bouncing": {
-			"loop": true,
-			"bones": {
-				"whole": {
-					"rotation": {
-						"vector": ["query.paracosm_tilt_forward * 45", 0, "query.paracosm_tilt_left * 45"]
-					}
-				}
-			}
-		}
-	},
+	"animations": {},
 	"geckolib_format_version": 2
 }
