@@ -1,11 +1,15 @@
 package dev.aaronhowser.mods.paracosm.entity.custom
 
+import dev.aaronhowser.mods.paracosm.attachment.EntityUpgrades.Companion.addUpgrade
+import dev.aaronhowser.mods.paracosm.attachment.EntityUpgrades.Companion.upgrades
 import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
 import dev.aaronhowser.mods.paracosm.packet.client_to_server.UpdatePogoControls
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import dev.aaronhowser.mods.paracosm.util.OtherUtil.isClientSide
 import net.minecraft.nbt.CompoundTag
+import net.minecraft.nbt.StringTag
+import net.minecraft.nbt.Tag
 import net.minecraft.network.syncher.EntityDataAccessor
 import net.minecraft.network.syncher.EntityDataSerializers
 import net.minecraft.network.syncher.SynchedEntityData
@@ -71,6 +75,7 @@ class PogoStickVehicle(
             }
         }
 
+        private const val UPGRADES = "upgrades"
     }
 
     override fun defineSynchedData(builder: SynchedEntityData.Builder) {
@@ -80,10 +85,19 @@ class PogoStickVehicle(
         builder.define(DATA_JUMP_PERCENT, 0f)
     }
 
-    override fun readAdditionalSaveData(p0: CompoundTag) {
+    override fun readAdditionalSaveData(compound: CompoundTag) {
+        val upgradesList = compound.getList(UPGRADES, Tag.TAG_STRING.toInt())
+        for (tag in upgradesList) {
+            tag as? StringTag ?: continue
+            this.addUpgrade(tag.getAsString())
+        }
     }
 
-    override fun addAdditionalSaveData(p0: CompoundTag) {
+    override fun addAdditionalSaveData(compound: CompoundTag) {
+        val upgradesList = compound.getList(UPGRADES, Tag.TAG_STRING.toInt())
+        for (upgrade in this.upgrades) {
+            upgradesList.add(StringTag.valueOf(upgrade))
+        }
     }
 
     override fun getDropItem(): Item {
