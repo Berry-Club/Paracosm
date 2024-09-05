@@ -43,11 +43,11 @@ class PogoStickVehicle(
     }
 
     companion object {
-        val tiltEast: EntityDataAccessor<Float> =
+        val DATA_TILT_LEFT: EntityDataAccessor<Float> =
             SynchedEntityData.defineId(PogoStickVehicle::class.java, EntityDataSerializers.FLOAT)
-        val tiltNorth: EntityDataAccessor<Float> =
+        val DATA_TILT_FORWARD: EntityDataAccessor<Float> =
             SynchedEntityData.defineId(PogoStickVehicle::class.java, EntityDataSerializers.FLOAT)
-        val jumpAmount: EntityDataAccessor<Float> =
+        val DATA_JUMP_PERCENT: EntityDataAccessor<Float> =
             SynchedEntityData.defineId(PogoStickVehicle::class.java, EntityDataSerializers.FLOAT)
 
         const val JUMP_ANIM_DISTANCE = 0.4
@@ -55,9 +55,9 @@ class PogoStickVehicle(
 
     override fun defineSynchedData(builder: SynchedEntityData.Builder) {
         super.defineSynchedData(builder)
-        builder.define(tiltEast, 0f)
-        builder.define(tiltNorth, 0f)
-        builder.define(jumpAmount, 0f)
+        builder.define(DATA_TILT_LEFT, 0f)
+        builder.define(DATA_TILT_FORWARD, 0f)
+        builder.define(DATA_JUMP_PERCENT, 0f)
     }
 
     override fun readAdditionalSaveData(p0: CompoundTag) {
@@ -189,11 +189,11 @@ class PogoStickVehicle(
     private fun tryJump() {
         if (this.controls.spaceHeld) return
 
-        val currentJumpAmount = this.entityData.get(jumpAmount)
+        val currentJumpAmount = this.entityData.get(DATA_JUMP_PERCENT)
         if (currentJumpAmount <= 0.1) return
 
-        val currentTiltNorth = this.entityData.get(tiltNorth)
-        val currentTiltEast = this.entityData.get(tiltEast)
+        val currentTiltNorth = this.entityData.get(DATA_TILT_FORWARD)
+        val currentTiltEast = this.entityData.get(DATA_TILT_LEFT)
 
         val jumpVector = Vec3(0.0, 1.0, 0.0)
             .xRot(currentTiltNorth)
@@ -204,7 +204,7 @@ class PogoStickVehicle(
         this.hasImpulse = true
         this.setOnGround(false)
 
-        this.entityData.set(jumpAmount, 0.0f)
+        this.entityData.set(DATA_JUMP_PERCENT, 0.0f)
     }
 
     private fun updateTilt() {
@@ -221,9 +221,9 @@ class PogoStickVehicle(
             this.yHeadRot = this.yRot
         }
 
-        var currentTiltNorth = this.entityData.get(tiltNorth)
-        var currentTiltEast = this.entityData.get(tiltEast)
-        var currentJumpAmount = this.entityData.get(jumpAmount)
+        var currentTiltNorth = this.entityData.get(DATA_TILT_FORWARD)
+        var currentTiltEast = this.entityData.get(DATA_TILT_LEFT)
+        var currentJumpAmount = this.entityData.get(DATA_JUMP_PERCENT)
 
         if (this.controls.forwardImpulse > 0) {
             currentTiltNorth += 0.1f
@@ -255,19 +255,19 @@ class PogoStickVehicle(
         currentTiltEast = currentTiltEast.coerceIn(-1.0f, 1.0f)
         currentJumpAmount = currentJumpAmount.coerceIn(0.0f, 1.0f)
 
-        this.entityData.set(tiltNorth, currentTiltNorth)
-        this.entityData.set(tiltEast, currentTiltEast)
-        this.entityData.set(jumpAmount, currentJumpAmount)
+        this.entityData.set(DATA_TILT_FORWARD, currentTiltNorth)
+        this.entityData.set(DATA_TILT_LEFT, currentTiltEast)
+        this.entityData.set(DATA_JUMP_PERCENT, currentJumpAmount)
 
         tryResetControls()
     }
 
     override fun getPassengerAttachmentPoint(entity: Entity, dimensions: EntityDimensions, partialTick: Float): Vec3 {
-        val height = 1 - JUMP_ANIM_DISTANCE * this.entityData.get(jumpAmount).toDouble()
+        val height = 1 - JUMP_ANIM_DISTANCE * this.entityData.get(DATA_JUMP_PERCENT).toDouble()
 
         return Vec3(0.0, 1.0, 0.0)
-            .xRot(this.entityData.get(tiltNorth))
-            .zRot(this.entityData.get(tiltEast))
+            .xRot(this.entityData.get(DATA_TILT_FORWARD))
+            .zRot(this.entityData.get(DATA_TILT_LEFT))
             .scale(height)
     }
 
