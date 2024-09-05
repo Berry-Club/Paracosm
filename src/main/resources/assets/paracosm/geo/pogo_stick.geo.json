@@ -12,7 +12,12 @@
 			},
 			"bones": [
 				{
+					"name": "vertical_rotation",
+					"pivot": [0, 0, 0]
+				},
+				{
 					"name": "whole",
+					"parent": "vertical_rotation",
 					"pivot": [0, 0, 0],
 					"cubes": [
 						{"origin": [-1, 0, -1], "size": [2, 2, 2], "uv": [8, 12]},

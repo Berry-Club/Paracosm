@@ -28,10 +28,10 @@ class PogoStickVehicleModel : GeoModel<PogoStickVehicle>() {
         instanceId: Long,
         animationState: AnimationState<PogoStickVehicle>
     ) {
-        val whole = animationProcessor.getBone("whole")
+        val verticalRotation = animationProcessor.getBone("vertical_rotation")
         val body = animationProcessor.getBone("body")
 
-        whole.rotY = animatable.yRot * Mth.DEG_TO_RAD
+        verticalRotation.rotY = animatable.yRot * Mth.DEG_TO_RAD
         body.posY =
             -10 * PogoStickVehicle.JUMP_ANIM_DISTANCE.toFloat() * animatable.entityData.get(PogoStickVehicle.DATA_JUMP_PERCENT)
     }
