@@ -6,7 +6,7 @@
 			"bones": {
 				"whole": {
 					"rotation": {
-						"vector": ["query.paracosm_tilt_forwar * 45", 0, "query.paracosm_tilt_left * 45"]
+						"vector": ["query.paracosm_tilt_forward * 45", 0, "query.paracosm_tilt_left * 45"]
 					}
 				}
 			}
