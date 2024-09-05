@@ -79,7 +79,7 @@ class PogoStickVehicle(
     }
 
     override fun isPushable(): Boolean {
-        return true
+        return !this.hasControllingPassenger()
     }
 
     override fun isPickable(): Boolean {
