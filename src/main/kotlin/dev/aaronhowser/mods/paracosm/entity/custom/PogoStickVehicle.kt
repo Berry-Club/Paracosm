@@ -333,22 +333,32 @@ class PogoStickVehicle(
             && this.hasControllingPassenger()
             && Upgradeable.hasUpgrade(this, PogoStickItem.Upgrades.GOOMBA_STOMP)
         ) {
-            val entityBelow = this.level().getEntities(
+
+            fun shouldStomp(entity: Entity): Boolean {
+                if (entity == this) return false
+                if (entity == this.controllingPassenger) return false
+                if (entity.y > this.y) return false
+                if (entity is OwnableEntity && entity.owner == this.controllingPassenger) return false
+
+                return true
+            }
+
+            val stompedEntities = this.level().getEntities(
                 this,
                 AABB(
-                    this.x - 0.5,
+                    this.x - 1.5,
                     this.y - 0.5,
-                    this.z - 0.5,
-                    this.x + 0.5,
+                    this.z - 1.5,
+                    this.x + 1.5,
                     this.y + 0.5,
-                    this.z + 0.5
+                    this.z + 1.5
                 )
-            ).filter { it != this && it is LivingEntity && it != this.controllingPassenger }
+            ).filter { shouldStomp(it) }
 
             //TODO: Improve this
             val damage = abs(movement.y.toFloat())
 
-            for (entity in entityBelow) {
+            for (entity in stompedEntities) {
                 //TODO: Add a new damage source
                 entity.hurt(this.level().damageSources().fall(), damage)
             }
