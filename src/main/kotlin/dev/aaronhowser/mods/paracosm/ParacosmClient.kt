@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm
 
+import dev.aaronhowser.mods.paracosm.compatibility.geckolib.ModMolangQueries
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.fml.ModContainer
 import net.neoforged.fml.common.Mod
@@ -11,7 +12,7 @@ import net.neoforged.fml.common.Mod
 class ParacosmClient(modContainer: ModContainer) {
 
     init {
-        Paracosm.LOGGER.info("Hello, Paracosm client!")
+        ModMolangQueries.registerQueries()
     }
 
 }
