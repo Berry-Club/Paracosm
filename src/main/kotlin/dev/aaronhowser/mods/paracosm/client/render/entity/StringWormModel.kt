@@ -24,18 +24,16 @@ class StringWormModel : GeoModel<StringWormEntity>() {
     }
 
     override fun setCustomAnimations(
-        animatable: StringWormEntity?,
+        animatable: StringWormEntity,
         instanceId: Long,
         animationState: AnimationState<StringWormEntity>
     ) {
-        val head: GeoBone? = animationProcessor.getBone("head")
+        val head: GeoBone = animationProcessor.getBone("head")
 
-        if (head != null) {
-            val entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA)
+        val entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA)
 
-            head.rotX = entityData.headPitch * Mth.DEG_TO_RAD
-            head.rotY = entityData.netHeadYaw * Mth.DEG_TO_RAD
-        }
+        head.rotX = entityData.headPitch * Mth.DEG_TO_RAD
+        head.rotY = entityData.netHeadYaw * Mth.DEG_TO_RAD
     }
 
 }

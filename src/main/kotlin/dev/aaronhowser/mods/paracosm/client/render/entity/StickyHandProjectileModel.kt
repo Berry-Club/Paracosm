@@ -22,17 +22,13 @@ class StickyHandProjectileModel : GeoModel<StickyHandProjectile>() {
     }
 
     override fun setCustomAnimations(
-        animatable: StickyHandProjectile?,
+        animatable: StickyHandProjectile,
         instanceId: Long,
         animationState: AnimationState<StickyHandProjectile>?
     ) {
-        if (animatable == null) return
-        val hand: GeoBone? = animationProcessor.getBone("hand")
+        val hand: GeoBone = animationProcessor.getBone("hand")
 
-        if (hand != null) {
-            hand.rotY = animatable.yRot * Mth.DEG_TO_RAD
-            hand.rotX = animatable.xRot * Mth.DEG_TO_RAD
-        }
-
+        hand.rotY = animatable.yRot * Mth.DEG_TO_RAD
+        hand.rotX = animatable.xRot * Mth.DEG_TO_RAD
     }
 }

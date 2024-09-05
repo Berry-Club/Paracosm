@@ -24,18 +24,16 @@ class TeddyBearModel : GeoModel<TeddyBearEntity>() {
     }
 
     override fun setCustomAnimations(
-        animatable: TeddyBearEntity?,
+        animatable: TeddyBearEntity,
         instanceId: Long,
         animationState: AnimationState<TeddyBearEntity>
     ) {
-        val head: GeoBone? = animationProcessor.getBone("head")
+        val head: GeoBone = animationProcessor.getBone("head")
 
-        if (head != null) {
-            val entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA)
+        val entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA)
 
-            head.rotX = entityData.headPitch * Mth.DEG_TO_RAD
-            head.rotY = entityData.netHeadYaw * Mth.DEG_TO_RAD
-        }
+        head.rotX = entityData.headPitch * Mth.DEG_TO_RAD
+        head.rotY = entityData.netHeadYaw * Mth.DEG_TO_RAD
     }
 
 }
