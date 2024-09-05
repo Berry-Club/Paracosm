@@ -1,19 +1,18 @@
 package dev.aaronhowser.mods.paracosm.compatibility.geckolib
 
 import dev.aaronhowser.mods.paracosm.Paracosm
-import dev.aaronhowser.mods.paracosm.entity.custom.PogoStickVehicle
-import software.bernie.geckolib.loading.math.MolangQueries
+import software.bernie.geckolib.loading.math.MathParser
+import software.bernie.geckolib.loading.math.value.Variable
 
 object ModMolangQueries {
 
-    fun registerQueries() {
-        MolangQueries.setActorVariable<PogoStickVehicle>("query.paracosm_tilt_forward") { actor ->
-            actor.animatable.entityData.get(PogoStickVehicle.DATA_TILT_FORWARD).toDouble()
-        }
+    const val TILT_FORWARD = "query.paracosm_tilt_forward"
+    const val TILT_LEFT = "query.paracosm_tilt_left"
 
-        MolangQueries.setActorVariable<PogoStickVehicle>("query.paracosm_tilt_left") { actor ->
-            actor.animatable.entityData.get(PogoStickVehicle.DATA_TILT_LEFT).toDouble()
-        }
+    fun registerQueries() {
+
+        MathParser.registerVariable(Variable(TILT_FORWARD, 0.0))
+        MathParser.registerVariable(Variable(TILT_LEFT, 0.0))
 
         Paracosm.LOGGER.info("Registered Molang queries")
     }
