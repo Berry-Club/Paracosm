@@ -14,6 +14,7 @@ class ServerConfig(
         val CONFIG_SPEC: ModConfigSpec = configPair.right
 
         lateinit var TOY_FLOP_RANGE: ModConfigSpec.DoubleValue
+        lateinit var POGO_GOOMBA_RADIUS: ModConfigSpec.DoubleValue
     }
 
     init {
@@ -25,6 +26,10 @@ class ServerConfig(
         TOY_FLOP_RANGE = builder
             .comment("The range that a toy checks for players to hide from.")
             .defineInRange("Toy Flop Range", 80.0, 0.0, Double.MAX_VALUE)
+
+        POGO_GOOMBA_RADIUS = builder
+            .comment("The radius that a pogo stick checks for entities to stomp.")
+            .defineInRange("Pogo Goomba Radius", 1.5, 0.0, Double.MAX_VALUE)
     }
 
 }

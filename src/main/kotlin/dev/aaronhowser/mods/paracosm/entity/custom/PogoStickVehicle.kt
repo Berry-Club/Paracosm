@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.entity.custom
 
+import dev.aaronhowser.mods.paracosm.config.ServerConfig
 import dev.aaronhowser.mods.paracosm.item.PogoStickItem
 import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
 import dev.aaronhowser.mods.paracosm.packet.client_to_server.UpdatePogoControls
@@ -343,15 +344,17 @@ class PogoStickVehicle(
                 return true
             }
 
+            val radius = ServerConfig.POGO_GOOMBA_RADIUS.get()
+
             val stompedEntities = this.level().getEntities(
                 this,
                 AABB(
-                    this.x - 1.5,
+                    this.x - radius,
                     this.y - 0.5,
-                    this.z - 1.5,
-                    this.x + 1.5,
+                    this.z - radius,
+                    this.x + radius,
                     this.y + 0.5,
-                    this.z + 1.5
+                    this.z + radius
                 )
             ).filter { shouldStomp(it) }
 
