@@ -154,6 +154,10 @@ class PogoStickVehicle(
         }
     }
 
+    override fun getDefaultGravity(): Double {
+        return 0.4
+    }
+
     private fun doMove() {
         this.applyGravity()
         this.move(MoverType.SELF, this.deltaMovement)
