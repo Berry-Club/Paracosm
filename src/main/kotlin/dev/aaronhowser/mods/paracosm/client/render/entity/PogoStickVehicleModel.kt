@@ -44,15 +44,6 @@ class PogoStickVehicleModel : GeoModel<PogoStickVehicle>() {
 
         MathParser.setVariable(ModMolangQueries.TILT_FORWARD) { forward }
         MathParser.setVariable(ModMolangQueries.TILT_LEFT) { left }
-
-        if (forward != 0.0) {
-            println("forward $forward")
-            println(MathParser.getVariableFor(ModMolangQueries.TILT_FORWARD))
-        }
-        if (left != 0.0) {
-            println("left $left")
-            println(MathParser.getVariableFor(ModMolangQueries.TILT_LEFT))
-        }
     }
 
 }
