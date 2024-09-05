@@ -152,7 +152,7 @@ class PogoStickVehicle(
     }
 
     override fun getDefaultGravity(): Double {
-        return 0.01
+        return 0.04
     }
 
     private fun doMove() {
@@ -184,7 +184,7 @@ class PogoStickVehicle(
         val jumpVector = Vec3(0.0, 1.0, 0.0)
             .xRot(currentTiltNorth)
             .zRot(currentTiltEast)
-            .scale(currentJumpAmount * 5.0)
+            .scale(currentJumpAmount.toDouble())
 
         this.deltaMovement = jumpVector
         this.hasImpulse = true
