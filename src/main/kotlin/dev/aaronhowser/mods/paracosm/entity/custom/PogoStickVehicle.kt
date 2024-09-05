@@ -61,11 +61,9 @@ class PogoStickVehicle(
     }
 
     override fun readAdditionalSaveData(p0: CompoundTag) {
-
     }
 
     override fun addAdditionalSaveData(p0: CompoundTag) {
-
     }
 
     override fun getDropItem(): Item {
@@ -208,8 +206,6 @@ class PogoStickVehicle(
     }
 
     private fun updateTilt() {
-        if (this.isClientSide) return
-
         val rider = this.controllingPassenger
         if (rider != null) {
             this.setRot(

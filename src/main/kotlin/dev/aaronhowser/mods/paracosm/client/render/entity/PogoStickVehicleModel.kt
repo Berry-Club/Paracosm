@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.paracosm.client.render.entity
 import dev.aaronhowser.mods.paracosm.entity.custom.PogoStickVehicle
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.util.Mth
 import software.bernie.geckolib.animation.AnimationState
 import software.bernie.geckolib.model.GeoModel
 
@@ -29,6 +30,8 @@ class PogoStickVehicleModel : GeoModel<PogoStickVehicle>() {
         val mainBone = animationProcessor.getBone("main")
 
         if (animatable != null) {
+            bounceRod.rotY = animatable.yRot * Mth.DEG_TO_RAD
+
             bounceRod.rotX = animatable.entityData.get(PogoStickVehicle.DATA_TILT_FORWARD)
             bounceRod.rotZ = animatable.entityData.get(PogoStickVehicle.DATA_TILT_LEFT)
 
