@@ -22,6 +22,12 @@ class PogoStickItem(
      * - Wall jumping
      */
 
+    object Upgrades {
+        const val DOUBLE_JUMP = "double_jump"
+        const val LOWER_GRAVITY = "lower_gravity"
+        const val GOOMBA_STOMP = "goomba_stomp"
+    }
+
     companion object {
         private fun getPlacementPos(context: UseOnContext): Vec3 {
             val level = context.level
