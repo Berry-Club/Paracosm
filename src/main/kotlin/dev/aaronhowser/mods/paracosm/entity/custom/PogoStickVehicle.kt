@@ -44,9 +44,9 @@ class PogoStickVehicle(
     }
 
     companion object {
-        val DATA_TILT_LEFT: EntityDataAccessor<Float> =
+        val DATA_TILT_RIGHT: EntityDataAccessor<Float> =
             SynchedEntityData.defineId(PogoStickVehicle::class.java, EntityDataSerializers.FLOAT)
-        val DATA_TILT_FORWARD: EntityDataAccessor<Float> =
+        val DATA_TILT_BACKWARD: EntityDataAccessor<Float> =
             SynchedEntityData.defineId(PogoStickVehicle::class.java, EntityDataSerializers.FLOAT)
         val DATA_JUMP_PERCENT: EntityDataAccessor<Float> =
             SynchedEntityData.defineId(PogoStickVehicle::class.java, EntityDataSerializers.FLOAT)
@@ -56,8 +56,8 @@ class PogoStickVehicle(
 
     override fun defineSynchedData(builder: SynchedEntityData.Builder) {
         super.defineSynchedData(builder)
-        builder.define(DATA_TILT_LEFT, 0f)
-        builder.define(DATA_TILT_FORWARD, 0f)
+        builder.define(DATA_TILT_RIGHT, 0f)
+        builder.define(DATA_TILT_BACKWARD, 0f)
         builder.define(DATA_JUMP_PERCENT, 0f)
     }
 
@@ -192,12 +192,12 @@ class PogoStickVehicle(
             val currentJumpAmount = this.entityData.get(DATA_JUMP_PERCENT)
             if (currentJumpAmount <= 0.1) return
 
-            val currentTiltNorth = this.entityData.get(DATA_TILT_FORWARD)
-            val currentTiltEast = this.entityData.get(DATA_TILT_LEFT)
+            val currentTiltBack = this.entityData.get(DATA_TILT_BACKWARD)
+            val currentTiltRight = this.entityData.get(DATA_TILT_RIGHT)
 
             val jumpVector = Vec3(0.0, 1.0, 0.0)
-                .xRot(currentTiltNorth)
-                .zRot(currentTiltEast)
+                .xRot(currentTiltBack)
+                .zRot(currentTiltRight)
                 .yRot(this.yRot * Mth.DEG_TO_RAD)
                 .scale(currentJumpAmount.toDouble())
 
@@ -218,29 +218,29 @@ class PogoStickVehicle(
             )
         }
 
-        var currentTiltForward = this.entityData.get(DATA_TILT_FORWARD)
-        var currentTiltLeft = this.entityData.get(DATA_TILT_LEFT)
+        var currentTiltBackward = this.entityData.get(DATA_TILT_BACKWARD)
+        var currentTiltRight = this.entityData.get(DATA_TILT_RIGHT)
         var currentJumpAmount = this.entityData.get(DATA_JUMP_PERCENT)
 
         if (this.controls.forwardImpulse > 0) {
-            currentTiltForward += 0.1f
+            currentTiltBackward -= 0.1f
         } else if (this.controls.forwardImpulse < 0) {
-            currentTiltForward -= 0.1f
+            currentTiltBackward += 0.1f
         } else {
-            currentTiltForward += if (currentTiltForward > 0) -0.01f else 0.01f
-            if (currentTiltForward in -0.09..0.09) {
-                currentTiltForward = 0.0f
+            currentTiltBackward += if (currentTiltBackward > 0) -0.01f else 0.01f
+            if (currentTiltBackward in -0.09..0.09) {
+                currentTiltBackward = 0.0f
             }
         }
 
         if (this.controls.leftImpulse > 0) {
-            currentTiltLeft -= 0.1f
+            currentTiltRight += 0.1f
         } else if (this.controls.leftImpulse < 0) {
-            currentTiltLeft += 0.1f
+            currentTiltRight -= 0.1f
         } else {
-            currentTiltLeft += if (currentTiltLeft > 0) -0.05f else 0.05f
-            if (currentTiltLeft in -0.09..0.09) {
-                currentTiltLeft = 0.0f
+            currentTiltRight += if (currentTiltRight > 0) -0.05f else 0.05f
+            if (currentTiltRight in -0.09..0.09) {
+                currentTiltRight = 0.0f
             }
         }
 
@@ -248,12 +248,12 @@ class PogoStickVehicle(
             currentJumpAmount += 0.1f
         }
 
-        currentTiltForward = currentTiltForward.coerceIn(-1.0f, 1.0f)
-        currentTiltLeft = currentTiltLeft.coerceIn(-1.0f, 1.0f)
+        currentTiltBackward = currentTiltBackward.coerceIn(-1.0f, 1.0f)
+        currentTiltRight = currentTiltRight.coerceIn(-1.0f, 1.0f)
         currentJumpAmount = currentJumpAmount.coerceIn(0.0f, 1.0f)
 
-        this.entityData.set(DATA_TILT_FORWARD, currentTiltForward)
-        this.entityData.set(DATA_TILT_LEFT, currentTiltLeft)
+        this.entityData.set(DATA_TILT_BACKWARD, currentTiltBackward)
+        this.entityData.set(DATA_TILT_RIGHT, currentTiltRight)
         this.entityData.set(DATA_JUMP_PERCENT, currentJumpAmount)
 
         tryResetControls()
@@ -263,8 +263,8 @@ class PogoStickVehicle(
         val height = 1 - JUMP_ANIM_DISTANCE * this.entityData.get(DATA_JUMP_PERCENT).toDouble()
 
         return Vec3(0.0, 1.0, 0.0)
-            .xRot(this.entityData.get(DATA_TILT_FORWARD))
-            .zRot(this.entityData.get(DATA_TILT_LEFT))
+            .xRot(this.entityData.get(DATA_TILT_BACKWARD))
+            .zRot(this.entityData.get(DATA_TILT_RIGHT))
             .yRot(this.yRot * Mth.DEG_TO_RAD)
             .scale(height)
     }
