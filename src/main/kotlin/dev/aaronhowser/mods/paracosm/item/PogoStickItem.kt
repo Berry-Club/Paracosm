@@ -14,6 +14,14 @@ class PogoStickItem(
         .durability(256)
 ) : Item(properties) {
 
+    /**
+     * Upgrade ideas:
+     * - Mid air bounces
+     * - Lower gravity / higher jump strength
+     * - More powerful goomba stomping
+     * - Wall jumping
+     */
+
     companion object {
         private fun getPlacementPos(context: UseOnContext): Vec3 {
             val level = context.level
