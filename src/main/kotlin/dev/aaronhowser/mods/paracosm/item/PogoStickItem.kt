@@ -19,7 +19,7 @@ class PogoStickItem(
 ) : Item(properties) {
 
     object Upgrades {
-        const val DOUBLE_JUMP = "double_jump"
+        const val GEPPO = "geppo"
         const val LOWER_GRAVITY = "lower_gravity"
         const val GOOMBA_STOMP = "goomba_stomp"
     }

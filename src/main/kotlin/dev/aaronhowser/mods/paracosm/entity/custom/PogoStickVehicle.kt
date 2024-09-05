@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.entity.custom
 
+import dev.aaronhowser.mods.paracosm.item.PogoStickItem
 import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
 import dev.aaronhowser.mods.paracosm.packet.client_to_server.UpdatePogoControls
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
@@ -236,7 +237,7 @@ class PogoStickVehicle(
     private fun tryJump() {
         if (this.controls.spaceHeld) return
 
-        if (this.onGround()) {
+        if (this.onGround() || Upgradeable.hasUpgrade(this, PogoStickItem.Upgrades.GEPPO)) {
             val currentJumpAmount = this.entityData.get(DATA_JUMP_PERCENT)
             if (currentJumpAmount <= 0.1) return
 
