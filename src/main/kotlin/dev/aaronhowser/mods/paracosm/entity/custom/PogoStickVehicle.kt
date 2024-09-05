@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import dev.aaronhowser.mods.paracosm.util.OtherUtil.isClientSide
 import dev.aaronhowser.mods.paracosm.util.Upgradeable
+import net.minecraft.core.component.DataComponents
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.StringTag
 import net.minecraft.nbt.Tag
@@ -20,6 +21,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.entity.vehicle.Boat
 import net.minecraft.world.entity.vehicle.VehicleEntity
 import net.minecraft.world.item.Item
+import net.minecraft.world.level.GameRules
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.Vec3
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent
@@ -101,6 +103,20 @@ class PogoStickVehicle(
 
     override fun getDropItem(): Item {
         return ModItems.POGO_STICK.get()
+    }
+
+    override fun destroy(dropItem: Item) {
+        this.kill()
+        if (this.level().gameRules.getBoolean(GameRules.RULE_DOENTITYDROPS)) {
+            val stack = dropItem.defaultInstance
+            stack.set(DataComponents.CUSTOM_NAME, this.customName)
+
+            for (upgrade in Upgradeable.getUpgrades(this)) {
+                Upgradeable.addUpgrade(stack, upgrade)
+            }
+
+            this.spawnAtLocation(stack)
+        }
     }
 
     override fun canCollideWith(entity: Entity): Boolean {
