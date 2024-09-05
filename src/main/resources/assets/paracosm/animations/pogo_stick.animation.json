@@ -4,9 +4,9 @@
 		"animation.pogo_stick.bouncing": {
 			"loop": true,
 			"bones": {
-				"main": {
-					"position": {
-						"vector": [0, "0-query.pogo_compressed", 0]
+				"whole": {
+					"rotation": {
+						"vector": ["query.paracosm_tilt_forwar * 45", 0, "query.paracosm_tilt_left * 45"]
 					}
 				}
 			}

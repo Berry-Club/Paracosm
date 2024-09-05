@@ -12,7 +12,7 @@
 			},
 			"bones": [
 				{
-					"name": "bounce_rod",
+					"name": "whole",
 					"pivot": [0, 0, 0],
 					"cubes": [
 						{"origin": [-1, 0, -1], "size": [2, 2, 2], "uv": [8, 12]},
@@ -20,8 +20,8 @@
 					]
 				},
 				{
-					"name": "main",
-					"parent": "bounce_rod",
+					"name": "body",
+					"parent": "whole",
 					"pivot": [0, 7, 0],
 					"cubes": [
 						{"origin": [-1.2, 7, -1.2], "size": [2.4, 14, 2.4], "uv": [0, 8]},

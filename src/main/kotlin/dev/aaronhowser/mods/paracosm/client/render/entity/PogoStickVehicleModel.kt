@@ -26,16 +26,13 @@ class PogoStickVehicleModel : GeoModel<PogoStickVehicle>() {
         instanceId: Long,
         animationState: AnimationState<PogoStickVehicle>
     ) {
-        val bounceRod = animationProcessor.getBone("bounce_rod")
-        val mainBone = animationProcessor.getBone("main")
+        val whole = animationProcessor.getBone("whole")
+        val body = animationProcessor.getBone("body")
 
         if (animatable != null) {
-            bounceRod.rotY = animatable.yRot * Mth.DEG_TO_RAD
+            whole.rotY = animatable.yRot * Mth.DEG_TO_RAD
 
-            bounceRod.rotX = animatable.entityData.get(PogoStickVehicle.DATA_TILT_FORWARD)
-            bounceRod.rotZ = animatable.entityData.get(PogoStickVehicle.DATA_TILT_LEFT)
-
-            mainBone.posY =
+            body.posY =
                 -10 * PogoStickVehicle.JUMP_ANIM_DISTANCE.toFloat() * animatable.entityData.get(PogoStickVehicle.DATA_JUMP_PERCENT)
         }
     }
