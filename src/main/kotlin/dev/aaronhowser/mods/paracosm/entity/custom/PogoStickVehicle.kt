@@ -9,6 +9,7 @@ import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.syncher.EntityDataAccessor
 import net.minecraft.network.syncher.EntityDataSerializers
 import net.minecraft.network.syncher.SynchedEntityData
+import net.minecraft.util.Mth
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.*
@@ -197,6 +198,7 @@ class PogoStickVehicle(
             val jumpVector = Vec3(0.0, 1.0, 0.0)
                 .xRot(currentTiltNorth)
                 .zRot(currentTiltEast)
+                .yRot(this.yRot * Mth.DEG_TO_RAD)
                 .scale(currentJumpAmount.toDouble())
 
             this.deltaMovement = jumpVector
@@ -212,7 +214,7 @@ class PogoStickVehicle(
         if (rider != null) {
             this.setRot(
                 rider.yRot,
-                rider.xRot
+                0f
             )
             this.yRotO = this.yRot
             this.setYBodyRot(this.yRot)
@@ -266,6 +268,7 @@ class PogoStickVehicle(
         return Vec3(0.0, 1.0, 0.0)
             .xRot(this.entityData.get(DATA_TILT_FORWARD))
             .zRot(this.entityData.get(DATA_TILT_LEFT))
+            .yRot(this.yRot * Mth.DEG_TO_RAD)
             .scale(height)
     }
 
