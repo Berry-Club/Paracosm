@@ -1,6 +1,8 @@
 package dev.aaronhowser.mods.paracosm.item
 
 import dev.aaronhowser.mods.paracosm.entity.custom.PogoStickVehicle
+import dev.aaronhowser.mods.paracosm.item.component.StringListComponent
+import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import net.minecraft.core.Direction
 import net.minecraft.world.InteractionResult
@@ -12,15 +14,8 @@ import net.minecraft.world.phys.Vec3
 class PogoStickItem(
     properties: Properties = Properties()
         .durability(256)
+        .component(ModDataComponents.UPGRADES, StringListComponent())
 ) : Item(properties) {
-
-    /**
-     * Upgrade ideas:
-     * - Mid air bounces
-     * - Lower gravity / higher jump strength
-     * - More powerful goomba stomping
-     * - Wall jumping
-     */
 
     object Upgrades {
         const val DOUBLE_JUMP = "double_jump"

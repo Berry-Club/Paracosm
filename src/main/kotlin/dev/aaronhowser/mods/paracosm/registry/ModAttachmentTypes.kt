@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.attachment.Delusion
 import dev.aaronhowser.mods.paracosm.attachment.ShrinkRayEffect
 import dev.aaronhowser.mods.paracosm.attachment.Whimsy
+import dev.aaronhowser.mods.paracosm.item.component.StringListComponent
 import net.neoforged.neoforge.attachment.AttachmentType
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
@@ -38,6 +39,15 @@ object ModAttachmentTypes {
             AttachmentType
                 .builder(Supplier { ShrinkRayEffect(0.0) })
                 .serialize(ShrinkRayEffect.CODEC)
+                .copyOnDeath()
+                .build()
+        })
+
+    val UPGRADES: DeferredHolder<AttachmentType<*>, AttachmentType<StringListComponent>> =
+        ATTACHMENT_TYPES_REGISTRY.register("upgrades", Supplier {
+            AttachmentType
+                .builder(Supplier { StringListComponent() })
+                .serialize(StringListComponent.CODEC)
                 .copyOnDeath()
                 .build()
         })
