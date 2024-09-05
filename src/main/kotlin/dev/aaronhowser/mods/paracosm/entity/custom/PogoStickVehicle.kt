@@ -213,37 +213,34 @@ class PogoStickVehicle(
         val rider = this.controllingPassenger
         if (rider != null) {
             this.setRot(
-                rider.yRot,
+                -rider.yRot,
                 0f
             )
-            this.yRotO = this.yRot
-            this.setYBodyRot(this.yRot)
-            this.yHeadRot = this.yRot
         }
 
-        var currentTiltNorth = this.entityData.get(DATA_TILT_FORWARD)
-        var currentTiltEast = this.entityData.get(DATA_TILT_LEFT)
+        var currentTiltForward = this.entityData.get(DATA_TILT_FORWARD)
+        var currentTiltLeft = this.entityData.get(DATA_TILT_LEFT)
         var currentJumpAmount = this.entityData.get(DATA_JUMP_PERCENT)
 
         if (this.controls.forwardImpulse > 0) {
-            currentTiltNorth += 0.1f
+            currentTiltForward += 0.1f
         } else if (this.controls.forwardImpulse < 0) {
-            currentTiltNorth -= 0.1f
+            currentTiltForward -= 0.1f
         } else {
-            currentTiltNorth += if (currentTiltNorth > 0) -0.01f else 0.01f
-            if (currentTiltNorth in -0.09..0.09) {
-                currentTiltNorth = 0.0f
+            currentTiltForward += if (currentTiltForward > 0) -0.01f else 0.01f
+            if (currentTiltForward in -0.09..0.09) {
+                currentTiltForward = 0.0f
             }
         }
 
         if (this.controls.leftImpulse > 0) {
-            currentTiltEast -= 0.1f
+            currentTiltLeft -= 0.1f
         } else if (this.controls.leftImpulse < 0) {
-            currentTiltEast += 0.1f
+            currentTiltLeft += 0.1f
         } else {
-            currentTiltEast += if (currentTiltEast > 0) -0.05f else 0.05f
-            if (currentTiltEast in -0.09..0.09) {
-                currentTiltEast = 0.0f
+            currentTiltLeft += if (currentTiltLeft > 0) -0.05f else 0.05f
+            if (currentTiltLeft in -0.09..0.09) {
+                currentTiltLeft = 0.0f
             }
         }
 
@@ -251,12 +248,12 @@ class PogoStickVehicle(
             currentJumpAmount += 0.1f
         }
 
-        currentTiltNorth = currentTiltNorth.coerceIn(-1.0f, 1.0f)
-        currentTiltEast = currentTiltEast.coerceIn(-1.0f, 1.0f)
+        currentTiltForward = currentTiltForward.coerceIn(-1.0f, 1.0f)
+        currentTiltLeft = currentTiltLeft.coerceIn(-1.0f, 1.0f)
         currentJumpAmount = currentJumpAmount.coerceIn(0.0f, 1.0f)
 
-        this.entityData.set(DATA_TILT_FORWARD, currentTiltNorth)
-        this.entityData.set(DATA_TILT_LEFT, currentTiltEast)
+        this.entityData.set(DATA_TILT_FORWARD, currentTiltForward)
+        this.entityData.set(DATA_TILT_LEFT, currentTiltLeft)
         this.entityData.set(DATA_JUMP_PERCENT, currentJumpAmount)
 
         tryResetControls()
