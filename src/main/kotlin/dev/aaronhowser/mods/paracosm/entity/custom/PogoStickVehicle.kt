@@ -73,7 +73,9 @@ class PogoStickVehicle(
     }
 
     override fun canCollideWith(entity: Entity): Boolean {
-        return Boat.canVehicleCollide(this, entity)
+        return this.hasControllingPassenger()
+                && entity.y + (entity.bbHeight * 0.75) < this.y
+                && Boat.canVehicleCollide(this, entity)
     }
 
     override fun isPushable(): Boolean {
