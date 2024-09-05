@@ -155,12 +155,16 @@ class PogoStickVehicle(
     }
 
     override fun getDefaultGravity(): Double {
-        return 0.4
+        return 0.01
     }
 
     private fun doMove() {
         this.applyGravity()
         this.move(MoverType.SELF, this.deltaMovement)
+
+        if (this.onGround()) {
+            this.deltaMovement = Vec3.ZERO
+        }
     }
 
     private fun tryResetControls() {
