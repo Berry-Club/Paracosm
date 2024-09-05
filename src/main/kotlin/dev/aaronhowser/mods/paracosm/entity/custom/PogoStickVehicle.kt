@@ -1,5 +1,7 @@
 package dev.aaronhowser.mods.paracosm.entity.custom
 
+import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
+import dev.aaronhowser.mods.paracosm.packet.client_to_server.UpdatePogoControls
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import dev.aaronhowser.mods.paracosm.util.OtherUtil.isClientSide
@@ -141,14 +143,24 @@ class PogoStickVehicle(
         this.controls.leftImpulse = leftImpulse
         this.controls.forwardImpulse = forwardImpulse
         this.controls.spaceHeld = jumping
+
+        if (this.isClientSide) {
+            ModPacketHandler.messageServer(
+                UpdatePogoControls(
+                    leftImpulse,
+                    forwardImpulse,
+                    jumping
+                )
+            )
+        }
     }
 
     override fun tick() {
         super.tick()
 
-        updateTilt()
         tryJump()
         doMove()
+        updateTilt()
     }
 
     override fun getDefaultGravity(): Double {
@@ -195,7 +207,6 @@ class PogoStickVehicle(
 
     private fun updateTilt() {
         if (this.isClientSide) return
-        tryResetControls()
 
         val rider = this.controllingPassenger
         if (rider != null) {
@@ -245,6 +256,8 @@ class PogoStickVehicle(
         this.entityData.set(tiltNorth, currentTiltNorth)
         this.entityData.set(tiltEast, currentTiltEast)
         this.entityData.set(jumpAmount, currentJumpAmount)
+
+        tryResetControls()
     }
 
     override fun getPassengerAttachmentPoint(entity: Entity, dimensions: EntityDimensions, partialTick: Float): Vec3 {
