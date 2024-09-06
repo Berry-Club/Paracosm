@@ -14,7 +14,7 @@ import net.minecraft.world.phys.Vec3
 
 class PogoStickItem(
     properties: Properties = Properties()
-        .durability(256)
+        .stacksTo(1)
         .component(ModDataComponents.ITEM_UPGRADES, StringListComponent())
 ) : Item(properties) {
 
