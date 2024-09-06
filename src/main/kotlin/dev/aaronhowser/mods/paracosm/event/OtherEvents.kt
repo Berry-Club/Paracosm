@@ -46,28 +46,30 @@ object OtherEvents {
     @SubscribeEvent
     fun onStartTracking(event: PlayerEvent.StartTracking) {
         val player = event.entity as? ServerPlayer ?: return
-        val entity = event.target as? LivingEntity ?: return
+        val entity = event.target
 
-        if (entity.whimsy != 0f) {
-            ModPacketHandler.messagePlayer(
-                player,
-                UpdateWhimsyValue(
-                    entity.id,
-                    entity.whimsy,
-                    true
+        if (entity is LivingEntity) {
+            if (entity.whimsy != 0f) {
+                ModPacketHandler.messagePlayer(
+                    player,
+                    UpdateWhimsyValue(
+                        entity.id,
+                        entity.whimsy,
+                        true
+                    )
                 )
-            )
-        }
+            }
 
-        if (entity.delusion != 0f) {
-            ModPacketHandler.messagePlayer(
-                player,
-                UpdateWhimsyValue(
-                    entity.id,
-                    entity.delusion,
-                    false
+            if (entity.delusion != 0f) {
+                ModPacketHandler.messagePlayer(
+                    player,
+                    UpdateWhimsyValue(
+                        entity.id,
+                        entity.delusion,
+                        false
+                    )
                 )
-            )
+            }
         }
 
         if (Upgradeable.getUpgrades(entity).isNotEmpty()) {
