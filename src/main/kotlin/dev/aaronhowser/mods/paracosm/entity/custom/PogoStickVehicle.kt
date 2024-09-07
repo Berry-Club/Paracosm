@@ -95,6 +95,7 @@ class PogoStickVehicle(
 
             val poseStack = event.poseStack
 
+            poseStack.mulPose(Axis.YP.rotationDegrees(-pogo.yRot))
             poseStack.mulPose(Axis.XP.rotationDegrees(tiltBackward * MAX_TILT_DEGREE))
             poseStack.mulPose(Axis.ZP.rotationDegrees(tiltRight * MAX_TILT_DEGREE))
         }
