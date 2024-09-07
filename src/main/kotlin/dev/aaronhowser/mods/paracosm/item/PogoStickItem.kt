@@ -22,6 +22,7 @@ class PogoStickItem(
         const val GEPPO = "geppo"
         const val LOWER_GRAVITY = "lower_gravity"
         const val GOOMBA_STOMP = "goomba_stomp"
+        const val METEOR_STRIKE = "meteor_strike"
     }
 
     companion object {
