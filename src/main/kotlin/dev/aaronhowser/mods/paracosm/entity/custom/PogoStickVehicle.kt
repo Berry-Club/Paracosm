@@ -328,6 +328,10 @@ class PogoStickVehicle(
         tryResetControls()
     }
 
+    override fun shouldRiderSit(): Boolean {
+        return false
+    }
+
     override fun getPassengerAttachmentPoint(entity: Entity, dimensions: EntityDimensions, partialTick: Float): Vec3 {
         val height = 1 - JUMP_ANIM_DISTANCE * this.entityData.get(DATA_JUMP_PERCENT).toDouble()
 
