@@ -5,7 +5,6 @@ import net.minecraft.client.player.LocalPlayer
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
-import net.neoforged.neoforge.client.event.RenderPlayerEvent
 import net.neoforged.neoforge.event.tick.PlayerTickEvent
 
 @EventBusSubscriber(
@@ -26,11 +25,6 @@ object ClientEvents {
                 player.input.jumping
             )
         }
-    }
-
-    @SubscribeEvent
-    fun onRenderPlayer(event: RenderPlayerEvent.Pre) {
-        PogoStickVehicle.rotatePlayer(event)
     }
 
 }

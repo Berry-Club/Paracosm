@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.paracosm.entity.custom
 
-import com.mojang.math.Axis
 import dev.aaronhowser.mods.paracosm.config.ServerConfig
 import dev.aaronhowser.mods.paracosm.item.PogoStickItem
 import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
@@ -29,7 +28,6 @@ import net.minecraft.world.level.GameRules
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
-import net.neoforged.neoforge.client.event.RenderPlayerEvent
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent
 import software.bernie.geckolib.animatable.GeoEntity
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache
@@ -85,19 +83,6 @@ class PogoStickVehicle(
             if (event.entity.vehicle is PogoStickVehicle) {
                 event.isCanceled = true
             }
-        }
-
-        fun rotatePlayer(event: RenderPlayerEvent.Pre) {
-            val pogo = event.entity.vehicle as? PogoStickVehicle ?: return
-
-            val tiltBackward = pogo.entityData.get(DATA_TILT_BACKWARD)
-            val tiltRight = pogo.entityData.get(DATA_TILT_RIGHT)
-
-            val poseStack = event.poseStack
-
-            poseStack.mulPose(Axis.YP.rotationDegrees(-pogo.yRot))
-            poseStack.mulPose(Axis.XP.rotationDegrees(tiltBackward * MAX_TILT_DEGREE))
-            poseStack.mulPose(Axis.ZP.rotationDegrees(tiltRight * MAX_TILT_DEGREE))
         }
 
         private const val UPGRADES = "upgrades"
