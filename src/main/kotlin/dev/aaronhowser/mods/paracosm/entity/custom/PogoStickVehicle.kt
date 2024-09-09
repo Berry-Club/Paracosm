@@ -44,6 +44,9 @@ class PogoStickVehicle(
     level: Level
 ) : VehicleEntity(entityType, level), GeoEntity {
 
+    //TODO: If you fall from high, bounce to high
+    //TODO: Should it bounce even if you didn't tell it to, if it was already bouncing?
+
     constructor(
         level: Level,
         spawnLocation: Vec3
