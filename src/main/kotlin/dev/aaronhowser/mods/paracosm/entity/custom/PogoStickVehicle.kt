@@ -12,7 +12,6 @@ import net.minecraft.core.component.DataComponents
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.StringTag
 import net.minecraft.nbt.Tag
-import net.minecraft.network.chat.CommonComponents
 import net.minecraft.network.chat.Component
 import net.minecraft.network.syncher.EntityDataAccessor
 import net.minecraft.network.syncher.EntityDataSerializers
@@ -39,7 +38,6 @@ import software.bernie.geckolib.animation.AnimationController
 import software.bernie.geckolib.animation.PlayState
 import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.plus
 import kotlin.math.abs
-import kotlin.math.min
 
 class PogoStickVehicle(
     entityType: EntityType<*>,
@@ -283,35 +281,11 @@ class PogoStickVehicle(
 
         val rider = this.controllingPassenger
         if (rider is Player && rider.isClientSide) {
+            val momentumString = String.format("%.2f", this.verticalMomentum)
+
             rider.displayClientMessage(
-                CommonComponents.joinLines(
-                    CommonComponents.EMPTY,
-                    CommonComponents.EMPTY,
-                    CommonComponents.EMPTY,
-                    CommonComponents.EMPTY,
-                    CommonComponents.EMPTY,
-                    CommonComponents.EMPTY,
-                    CommonComponents.EMPTY,
-                    CommonComponents.EMPTY,
-                    CommonComponents.EMPTY,
-                    CommonComponents.EMPTY,
-                    CommonComponents.EMPTY,
-                    CommonComponents.EMPTY,
-                    CommonComponents.EMPTY,
-                    CommonComponents.EMPTY,
-                    CommonComponents.EMPTY,
-                    CommonComponents.EMPTY,
-                    CommonComponents.EMPTY,
-                    CommonComponents.EMPTY,
-                    CommonComponents.EMPTY,
-                    CommonComponents.EMPTY,
-                    CommonComponents.EMPTY,
-                    CommonComponents.EMPTY,
-                    CommonComponents.EMPTY,
-                    Component.literal("Ticks on ground: $ticksOnGround"),
-                    Component.literal("Stored vertical momentum: $verticalMomentum")
-                ),
-                false
+                Component.literal("Stored vertical momentum: $momentumString"),
+                true
             )
         }
     }
@@ -326,7 +300,7 @@ class PogoStickVehicle(
             val currentTiltBack = this.entityData.get(DATA_TILT_BACKWARD)
             val currentTiltRight = this.entityData.get(DATA_TILT_RIGHT)
 
-            val jumpVector =
+            var jumpVector =
                 // Unit Vector
                 Vec3(0.0, 1.0, 0.0)
                     // Tilting
@@ -335,7 +309,15 @@ class PogoStickVehicle(
                     .yRot(this.yRot * Mth.DEG_TO_RAD)
                     // Scaling
                     .scale(currentJumpAmount.toDouble())
-                    .scale(1 + min(5.0, this.verticalMomentum.toDouble()))
+
+            if (this.verticalMomentum > 0) {
+                val scaleAmount = this.verticalMomentum / 10.0
+                jumpVector = jumpVector.scale(scaleAmount)
+            }
+
+            if (this.isClientSide) {
+                println("Jumping with vector: $jumpVector")
+            }
 
             this.deltaMovement += jumpVector
             this.hasImpulse = true
@@ -401,7 +383,11 @@ class PogoStickVehicle(
         return false
     }
 
-    override fun getPassengerAttachmentPoint(entity: Entity, dimensions: EntityDimensions, partialTick: Float): Vec3 {
+    override fun getPassengerAttachmentPoint(
+        entity: Entity,
+        dimensions: EntityDimensions,
+        partialTick: Float
+    ): Vec3 {
         val height = 1 - JUMP_ANIM_DISTANCE * this.entityData.get(DATA_JUMP_PERCENT).toDouble()
 
         return Vec3(0.0, 1.0, 0.0)
