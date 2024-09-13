@@ -315,12 +315,16 @@ class PogoStickVehicle(
             val currentTiltBack = this.entityData.get(DATA_TILT_BACKWARD)
             val currentTiltRight = this.entityData.get(DATA_TILT_RIGHT)
 
-            val jumpVector = Vec3(0.0, 1.0, 0.0)
-                .xRot(currentTiltBack * MAX_TILT_RADIAN)
-                .zRot(currentTiltRight * MAX_TILT_RADIAN)
-                .yRot(this.yRot * Mth.DEG_TO_RAD)
-                .scale(currentJumpAmount.toDouble())
-                .scale(1 + min(5.0, this.verticalMomentum.toDouble()))
+            val jumpVector =
+                // Unit Vector
+                Vec3(0.0, 1.0, 0.0)
+                    // Tilting
+                    .xRot(currentTiltBack * MAX_TILT_RADIAN)
+                    .zRot(currentTiltRight * MAX_TILT_RADIAN)
+                    .yRot(this.yRot * Mth.DEG_TO_RAD)
+                    // Scaling
+                    .scale(currentJumpAmount.toDouble())
+                    .scale(1 + min(5.0, this.verticalMomentum.toDouble()))
 
             this.deltaMovement += jumpVector
             this.hasImpulse = true
