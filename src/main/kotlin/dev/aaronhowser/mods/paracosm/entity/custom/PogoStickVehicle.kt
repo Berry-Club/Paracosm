@@ -40,6 +40,7 @@ import software.bernie.geckolib.animation.AnimationState
 import software.bernie.geckolib.animation.PlayState
 import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.plus
 import kotlin.math.abs
+import kotlin.math.min
 
 class PogoStickVehicle(
     entityType: EntityType<*>,
@@ -233,18 +234,7 @@ class PogoStickVehicle(
     override fun tick() {
         super.tick()
 
-        val rider = this.controllingPassenger
-        if (rider is Player) {
-            rider.displayClientMessage(
-                CommonComponents.joinLines(
-                    Component.literal("Ticks on ground: $ticksOnGround"),
-                    Component.literal("Jump percent: ${this.entityData.get(DATA_JUMP_PERCENT)}"),
-                    Component.literal("Current fall distance: $fallDistance")
-                ),
-                true
-            )
-        }
-
+        checkMomentum()
         tryJump()
         doMove()
         updateTilt()
@@ -272,17 +262,46 @@ class PogoStickVehicle(
     }
 
     private var ticksOnGround = 0
-    private val maxTicksOnGround = 40
+    private var verticalMomentum = 0f
+    private val maxTicksOnGround = 20 * 4
 
-    override fun resetFallDistance() {
+    private fun checkMomentum() {
         if (this.onGround()) {
-            ticksOnGround++
+            this.ticksOnGround++
+
+            if (ticksOnGround > maxTicksOnGround) {
+                this.verticalMomentum = 0f
+            }
         } else {
-            ticksOnGround = 0
+            this.ticksOnGround = 0
         }
 
-        if (ticksOnGround > maxTicksOnGround) {
-            super.resetFallDistance()
+        if (this.fallDistance != 0f) {
+            this.verticalMomentum = this.fallDistance
+        }
+
+        val rider = this.controllingPassenger
+        if (rider is Player) {
+            rider.displayClientMessage(
+                CommonComponents.joinLines(
+                    CommonComponents.EMPTY,
+                    CommonComponents.EMPTY,
+                    CommonComponents.EMPTY,
+                    CommonComponents.EMPTY,
+                    CommonComponents.EMPTY,
+                    CommonComponents.EMPTY,
+                    CommonComponents.EMPTY,
+                    CommonComponents.EMPTY,
+                    CommonComponents.EMPTY,
+                    CommonComponents.EMPTY,
+                    CommonComponents.EMPTY,
+                    CommonComponents.EMPTY,
+                    CommonComponents.EMPTY,
+                    Component.literal("Ticks on ground: $ticksOnGround"),
+                    Component.literal("Stored vertical momentum: $verticalMomentum")
+                ),
+                false
+            )
         }
     }
 
@@ -301,12 +320,13 @@ class PogoStickVehicle(
                 .zRot(currentTiltRight * MAX_TILT_RADIAN)
                 .yRot(this.yRot * Mth.DEG_TO_RAD)
                 .scale(currentJumpAmount.toDouble())
+                .scale(1 + min(5.0, this.verticalMomentum.toDouble()))
 
             this.deltaMovement += jumpVector
             this.hasImpulse = true
             this.setOnGround(false)
 
-            this.ticksOnGround = 0
+            this.verticalMomentum = 0f
         }
 
         this.entityData.set(DATA_JUMP_PERCENT, 0.0f)
