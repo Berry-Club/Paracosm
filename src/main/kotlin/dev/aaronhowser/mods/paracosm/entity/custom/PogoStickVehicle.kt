@@ -36,7 +36,6 @@ import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache
 import software.bernie.geckolib.animation.AnimatableManager
 import software.bernie.geckolib.animation.AnimationController
-import software.bernie.geckolib.animation.AnimationState
 import software.bernie.geckolib.animation.PlayState
 import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.plus
 import kotlin.math.abs
@@ -163,11 +162,13 @@ class PogoStickVehicle(
     // GeckoLib stuff
 
     override fun registerControllers(controllers: AnimatableManager.ControllerRegistrar) {
-        controllers.add(AnimationController(this, "controller", 0, this::predicate))
-    }
-
-    private fun predicate(animationState: AnimationState<PogoStickVehicle>): PlayState {
-        return PlayState.STOP
+        controllers.add(
+            AnimationController(
+                this, "controller", 0
+            ) {
+                PlayState.STOP
+            }
+        )
     }
 
     private val cache = SingletonAnimatableInstanceCache(this)
