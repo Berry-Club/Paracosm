@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.paracosm.entity.goal.ToyRandomLookAroundGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyStrollGoal
 import dev.aaronhowser.mods.paracosm.registry.ModSounds
 import dev.aaronhowser.mods.paracosm.util.OtherUtil.isClientSide
+import net.minecraft.network.chat.CommonComponents
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
 import net.minecraft.world.InteractionHand
@@ -74,10 +75,15 @@ class TeddyBearEntity(
 
             val component = Component.literal("I can't move because ")
                 .append(Component.literal("[these players]").withStyle { style ->
+
+                    val playerComponents = hidingFromPlayers().map { player ->
+                        Component.literal(player.gameProfile.name)
+                    }
+
                     style.withHoverEvent(
                         HoverEvent(
                             HoverEvent.Action.SHOW_TEXT,
-                            Component.literal(hidingFromPlayers().joinToString("\n") { it.gameProfile.name })
+                            CommonComponents.joinLines(playerComponents)
                         )
                     )
                 })

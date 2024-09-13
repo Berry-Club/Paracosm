@@ -12,6 +12,8 @@ import net.minecraft.core.component.DataComponents
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.StringTag
 import net.minecraft.nbt.Tag
+import net.minecraft.network.chat.CommonComponents
+import net.minecraft.network.chat.Component
 import net.minecraft.network.syncher.EntityDataAccessor
 import net.minecraft.network.syncher.EntityDataSerializers
 import net.minecraft.network.syncher.SynchedEntityData
@@ -231,6 +233,18 @@ class PogoStickVehicle(
     override fun tick() {
         super.tick()
 
+        val rider = this.controllingPassenger
+        if (rider is Player) {
+            rider.displayClientMessage(
+                CommonComponents.joinLines(
+                    Component.literal("Ticks on ground: $ticksOnGround"),
+                    Component.literal("Jump percent: ${this.entityData.get(DATA_JUMP_PERCENT)}"),
+                    Component.literal("Current fall distance: $fallDistance")
+                ),
+                true
+            )
+        }
+
         tryJump()
         doMove()
         updateTilt()
@@ -257,6 +271,21 @@ class PogoStickVehicle(
         this.controls.spaceHeld = false
     }
 
+    private var ticksOnGround = 0
+    private val maxTicksOnGround = 40
+
+    override fun resetFallDistance() {
+        if (this.onGround()) {
+            ticksOnGround++
+        } else {
+            ticksOnGround = 0
+        }
+
+        if (ticksOnGround > maxTicksOnGround) {
+            super.resetFallDistance()
+        }
+    }
+
     private fun tryJump() {
         if (this.controls.spaceHeld) return
 
@@ -276,6 +305,8 @@ class PogoStickVehicle(
             this.deltaMovement += jumpVector
             this.hasImpulse = true
             this.setOnGround(false)
+
+            this.ticksOnGround = 0
         }
 
         this.entityData.set(DATA_JUMP_PERCENT, 0.0f)
