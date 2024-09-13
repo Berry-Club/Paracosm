@@ -71,7 +71,7 @@ class PogoStickVehicle(
 
         const val JUMP_ANIM_DISTANCE = 0.4
 
-        const val MAX_TILT_DEGREE = 45f
+        const val MAX_TILT_DEGREE = 45f / 2
         const val MAX_TILT_RADIAN = MAX_TILT_DEGREE * Mth.DEG_TO_RAD
 
         fun checkCancelDamage(event: LivingIncomingDamageEvent) {
@@ -394,8 +394,8 @@ class PogoStickVehicle(
         val height = 1 - JUMP_ANIM_DISTANCE * this.entityData.get(DATA_JUMP_PERCENT).toDouble()
 
         return Vec3(0.0, 1.0, 0.0)
-            .xRot(this.entityData.get(DATA_TILT_BACKWARD))
-            .zRot(this.entityData.get(DATA_TILT_RIGHT))
+            .xRot(this.entityData.get(DATA_TILT_BACKWARD) * MAX_TILT_RADIAN)
+            .zRot(this.entityData.get(DATA_TILT_RIGHT) * MAX_TILT_RADIAN)
             .yRot(this.yRot * Mth.DEG_TO_RAD)
             .scale(height)
     }
