@@ -234,7 +234,7 @@ class PogoStickVehicle(
     override fun tick() {
         super.tick()
 
-        checkMomentum()
+        updateMomentum()
         tryJump()
         doMove()
         updateTilt()
@@ -265,7 +265,7 @@ class PogoStickVehicle(
     private var verticalMomentum = 0f
     private val maxTicksOnGround = 20 * 4
 
-    private fun checkMomentum() {
+    private fun updateMomentum() {
         if (this.onGround()) {
             this.ticksOnGround++
 
