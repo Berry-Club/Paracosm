@@ -269,7 +269,7 @@ class PogoStickVehicle(
         if (this.onGround()) {
             this.ticksOnGround++
 
-            if (ticksOnGround > maxTicksOnGround) {
+            if (this.ticksOnGround > this.maxTicksOnGround) {
                 this.verticalMomentum = 0f
             }
         } else {
