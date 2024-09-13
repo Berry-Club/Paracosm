@@ -235,10 +235,10 @@ class PogoStickVehicle(
     override fun tick() {
         super.tick()
 
-        updateMomentum()
         tryJump()
         doMove()
         updateTilt()
+        updateMomentum()
     }
 
     override fun getDefaultGravity(): Double {
@@ -278,7 +278,7 @@ class PogoStickVehicle(
         }
 
         if (this.fallDistance != 0f) {
-            this.verticalMomentum = this.fallDistance
+            this.verticalMomentum = this.fallDistance + 0.69f // Nice (For some reason fallDistance skips the first 0.69)
         }
 
         val rider = this.controllingPassenger
