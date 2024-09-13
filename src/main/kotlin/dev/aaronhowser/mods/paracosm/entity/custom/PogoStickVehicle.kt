@@ -282,9 +282,19 @@ class PogoStickVehicle(
         }
 
         val rider = this.controllingPassenger
-        if (rider is Player) {
+        if (rider is Player && rider.isClientSide) {
             rider.displayClientMessage(
                 CommonComponents.joinLines(
+                    CommonComponents.EMPTY,
+                    CommonComponents.EMPTY,
+                    CommonComponents.EMPTY,
+                    CommonComponents.EMPTY,
+                    CommonComponents.EMPTY,
+                    CommonComponents.EMPTY,
+                    CommonComponents.EMPTY,
+                    CommonComponents.EMPTY,
+                    CommonComponents.EMPTY,
+                    CommonComponents.EMPTY,
                     CommonComponents.EMPTY,
                     CommonComponents.EMPTY,
                     CommonComponents.EMPTY,
