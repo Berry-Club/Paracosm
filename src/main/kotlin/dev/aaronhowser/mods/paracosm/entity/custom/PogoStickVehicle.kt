@@ -38,6 +38,8 @@ import software.bernie.geckolib.animation.AnimationController
 import software.bernie.geckolib.animation.PlayState
 import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.plus
 import kotlin.math.abs
+import kotlin.math.max
+import kotlin.math.sqrt
 
 class PogoStickVehicle(
     entityType: EntityType<*>,
@@ -290,6 +292,10 @@ class PogoStickVehicle(
         }
     }
 
+    private fun getJumpStrengthForDistance(distance: Number): Double {
+        return sqrt(2 * this.gravity * distance.toDouble())
+    }
+
     private fun tryJump() {
         if (this.controls.spaceHeld) return
 
@@ -300,7 +306,10 @@ class PogoStickVehicle(
             val currentTiltBack = this.entityData.get(DATA_TILT_BACKWARD)
             val currentTiltRight = this.entityData.get(DATA_TILT_RIGHT)
 
-            var jumpVector =
+            val distance = max(5f, this.verticalMomentum)
+            val jumpStrength = getJumpStrengthForDistance(distance)
+
+            val jumpVector =
                 // Unit Vector
                 Vec3(0.0, 1.0, 0.0)
                     // Tilting
@@ -309,15 +318,9 @@ class PogoStickVehicle(
                     .yRot(this.yRot * Mth.DEG_TO_RAD)
                     // Scaling
                     .scale(currentJumpAmount.toDouble())
+                    .scale(jumpStrength)
 
-            if (this.verticalMomentum > 0) {
-                val scaleAmount = this.verticalMomentum / 10.0
-                jumpVector = jumpVector.scale(scaleAmount)
-            }
-
-            if (this.isClientSide) {
-                println("Jumping with vector: $jumpVector")
-            }
+            println("Jump vector: $jumpVector")
 
             this.deltaMovement += jumpVector
             this.hasImpulse = true
