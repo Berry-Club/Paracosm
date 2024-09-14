@@ -244,6 +244,16 @@ class PogoStickVehicle(
         return 0.04
     }
 
+    override fun getGravity(): Double {
+        return if (this.isNoGravity) {
+            0.0
+        } else if (Upgradeable.hasUpgrade(this, PogoStickItem.Upgrades.LOWER_GRAVITY)) {
+            this.defaultGravity / 2
+        } else {
+            this.defaultGravity
+        }
+    }
+
     private fun doMove() {
         this.applyGravity()
         this.move(MoverType.SELF, this.deltaMovement)
@@ -319,8 +329,6 @@ class PogoStickVehicle(
                     // Scaling
                     .scale(currentJumpAmount.toDouble())
                     .scale(jumpStrength)
-
-            println("Jump vector: $jumpVector")
 
             this.deltaMovement += jumpVector
             this.hasImpulse = true
