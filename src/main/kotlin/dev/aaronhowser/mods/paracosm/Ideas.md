@@ -96,6 +96,7 @@
 - [ ] Roller skates
 - [ ] Skateboard
 - [ ] Scooter
+- [ ] Frisbee (acts like captain america shield, maybe can choose your own texture (steven universe shield?))
 
 # Spiderwick Chronicles style stuff
 
