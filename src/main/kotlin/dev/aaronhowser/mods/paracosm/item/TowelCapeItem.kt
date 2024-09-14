@@ -13,7 +13,7 @@ import net.minecraft.world.item.Rarity
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.gameevent.GameEvent
 
-class TowelCapeItem : RequiresWhimsy, ElytraItem(
+class TowelCapeItem : IUpgradeable, RequiresWhimsy, ElytraItem(
     Properties()
         .durability(432)
         .rarity(Rarity.UNCOMMON)
@@ -22,6 +22,10 @@ class TowelCapeItem : RequiresWhimsy, ElytraItem(
             true
         )
 ) {
+
+    override val possibleUpgrades: List<String> = listOf(
+        "boost"
+    )
 
     companion object {
         private const val DURATION = 20 * 5

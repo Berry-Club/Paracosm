@@ -16,7 +16,14 @@ class PogoStickItem(
     properties: Properties = Properties()
         .stacksTo(1)
         .component(ModDataComponents.ITEM_UPGRADES, StringListComponent())
-) : Item(properties) {
+) : Item(properties), IUpgradeable {
+
+    override val possibleUpgrades: List<String> = listOf(
+        Upgrades.GEPPO,
+        Upgrades.LOWER_GRAVITY,
+        Upgrades.GOOMBA_STOMP,
+        Upgrades.METEOR_STRIKE
+    )
 
     object Upgrades {
         const val GEPPO = "geppo"
