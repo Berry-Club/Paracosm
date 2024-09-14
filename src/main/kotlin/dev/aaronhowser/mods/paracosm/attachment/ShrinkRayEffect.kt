@@ -23,8 +23,8 @@ data class ShrinkRayEffect(
 
         var LivingEntity.shrinkRayEffect: Double
             get() = this.getData(ModAttachmentTypes.SHRINK_RAY_EFFECT).amount
-            set(valueBad) {
-                val value = valueBad.coerceIn(-0.9, 2.0)
+            set(valueUnCoerced) {
+                val value = valueUnCoerced.coerceIn(-0.9, 2.0)
 
                 if (!this.isClientSide) {
                     ModPacketHandler.messageAllPlayers(

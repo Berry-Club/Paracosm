@@ -38,7 +38,6 @@ import software.bernie.geckolib.animation.AnimationController
 import software.bernie.geckolib.animation.PlayState
 import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.plus
 import kotlin.math.abs
-import kotlin.math.max
 import kotlin.math.sqrt
 
 class PogoStickVehicle(
@@ -278,7 +277,8 @@ class PogoStickVehicle(
         }
 
         if (this.fallDistance != 0f) {
-            this.verticalMomentum = this.fallDistance + 0.69f // Nice (For some reason fallDistance skips the first 0.69)
+            this.verticalMomentum =
+                this.fallDistance + 0.69f // Nice (For some reason fallDistance skips the first 0.69)
         }
 
         val rider = this.controllingPassenger
@@ -306,7 +306,7 @@ class PogoStickVehicle(
             val currentTiltBack = this.entityData.get(DATA_TILT_BACKWARD)
             val currentTiltRight = this.entityData.get(DATA_TILT_RIGHT)
 
-            val distance = max(7.5f, this.verticalMomentum)
+            val distance = (this.verticalMomentum * 1.5).coerceIn(7.5, 20.0)
             val jumpStrength = getJumpStrengthForDistance(distance)
 
             val jumpVector =
