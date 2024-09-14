@@ -84,12 +84,12 @@ object UpgradeCommand {
 
     private fun getSuggestions(): SuggestionProvider<CommandSourceStack> {
         return SuggestionProvider { context, suggestionsBuilder ->
-            val player = context.source.entity as? Player ?: return@SuggestionProvider suggestionsBuilder.buildFuture()
+            val player = context.source.entity as? Player
+            val heldItem = player?.mainHandItem?.item as? IUpgradeable
 
-            val heldItem = player.mainHandItem.item
-            if (heldItem !is IUpgradeable) return@SuggestionProvider suggestionsBuilder.buildFuture()
+            val upgrades = heldItem?.possibleUpgrades ?: emptyList()
 
-            SharedSuggestionProvider.suggest(heldItem.possibleUpgrades, suggestionsBuilder)
+            SharedSuggestionProvider.suggest(upgrades, suggestionsBuilder)
         }
     }
 
