@@ -3,9 +3,13 @@ package dev.aaronhowser.mods.paracosm.command
 import com.mojang.brigadier.arguments.StringArgumentType
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
+import com.mojang.brigadier.suggestion.SuggestionProvider
+import dev.aaronhowser.mods.paracosm.item.IUpgradeable
+import dev.aaronhowser.mods.paracosm.registry.ModItems
 import dev.aaronhowser.mods.paracosm.util.Upgradeable
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
+import net.minecraft.commands.SharedSuggestionProvider
 import net.minecraft.world.entity.player.Player
 
 object UpgradeCommand {
@@ -22,6 +26,7 @@ object UpgradeCommand {
                     .then(
                         Commands
                             .argument(UPGRADE_ARGUMENT, StringArgumentType.string())
+                            .suggests(getSuggestions())
                             .executes(::addUpgrade)
                     )
             )
@@ -54,6 +59,21 @@ object UpgradeCommand {
         Upgradeable.removeUpgrade(heldItem, upgrade)
 
         return 1
+    }
+
+    private fun getSuggestions(): SuggestionProvider<CommandSourceStack> {
+        val upgrades = mutableSetOf<String>()
+
+        for (item in ModItems.ITEM_REGISTRY.registry.get()) {
+            if (item is IUpgradeable) {
+                upgrades.addAll(item.possibleUpgrades)
+            }
+        }
+
+        return SuggestionProvider { _, suggestionsBuilder ->
+            SharedSuggestionProvider.suggest(upgrades, suggestionsBuilder)
+        }
+
     }
 
 }

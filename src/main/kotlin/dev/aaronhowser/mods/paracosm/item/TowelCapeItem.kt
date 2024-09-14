@@ -24,7 +24,7 @@ class TowelCapeItem : IUpgradeable, RequiresWhimsy, ElytraItem(
 ) {
 
     override val possibleUpgrades: List<String> = listOf(
-        "boost"
+        "cape_boost"
     )
 
     companion object {
