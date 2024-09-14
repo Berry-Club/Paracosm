@@ -72,7 +72,7 @@ object UpgradeCommand {
             return 0
         }
 
-        if (Upgradeable.hasUpgrade(heldItem, upgrade)) {
+        if (!Upgradeable.hasUpgrade(heldItem, upgrade)) {
             player.sendSystemMessage(Component.literal("This item does not have the upgrade $upgrade"))
             return 0
         }
