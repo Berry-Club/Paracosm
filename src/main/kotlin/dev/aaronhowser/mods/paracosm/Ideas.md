@@ -92,7 +92,7 @@
 - [ ] Yo-yo
 - [ ] Jump rope
 - [ ] Hula hoop
-- [ ] Pogo stick
+- [x] Pogo stick
 - [ ] Roller skates
 - [ ] Skateboard
 - [ ] Scooter
