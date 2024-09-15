@@ -52,7 +52,9 @@ object UpgradeCommand {
         if (heldItem !is IUpgradeable) {
             player.sendSystemMessage(Component.literal("This item cannot be upgraded"))
             return 0
-        } else if (upgrade !in heldItem.possibleUpgrades) {
+        }
+
+        if (upgrade !in heldItem.possibleUpgrades) {
             player.sendSystemMessage(Component.literal("This item cannot be upgraded with $upgrade"))
             return 0
         }
