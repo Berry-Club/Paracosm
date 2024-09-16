@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.paracosm.item
+package dev.aaronhowser.mods.paracosm.item.base
 
 import net.minecraft.world.food.FoodProperties
 import net.minecraft.world.item.Item

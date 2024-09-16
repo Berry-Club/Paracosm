@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.paracosm.item
 
 import dev.aaronhowser.mods.paracosm.attachment.RequiresWhimsy
 import dev.aaronhowser.mods.paracosm.attachment.Whimsy.Companion.whimsy
+import dev.aaronhowser.mods.paracosm.item.base.IUpgradeableItem
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
 import dev.aaronhowser.mods.paracosm.util.OtherUtil.isClientSide
 import net.minecraft.world.entity.Entity
@@ -13,7 +14,7 @@ import net.minecraft.world.item.Rarity
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.gameevent.GameEvent
 
-class TowelCapeItem : IUpgradeable, RequiresWhimsy, ElytraItem(
+class TowelCapeItem : IUpgradeableItem, RequiresWhimsy, ElytraItem(
     Properties()
         .durability(432)
         .rarity(Rarity.UNCOMMON)

@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.paracosm.item
 
 import dev.aaronhowser.mods.paracosm.entity.custom.DodgeballEntity
+import dev.aaronhowser.mods.paracosm.item.base.IUpgradeableItem
 import net.minecraft.core.Direction
 import net.minecraft.core.Position
 import net.minecraft.world.InteractionHand
@@ -12,7 +13,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.ProjectileItem
 import net.minecraft.world.level.Level
 
-class DodgeballItem : IUpgradeable, ProjectileItem, Item(
+class DodgeballItem : IUpgradeableItem, ProjectileItem, Item(
     Properties()
         .stacksTo(1)
 ) {

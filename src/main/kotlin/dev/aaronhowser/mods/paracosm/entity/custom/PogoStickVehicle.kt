@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.paracosm.entity.custom
 
 import dev.aaronhowser.mods.paracosm.config.ServerConfig
+import dev.aaronhowser.mods.paracosm.entity.base.IUpgradeableEntity
 import dev.aaronhowser.mods.paracosm.item.PogoStickItem
 import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
 import dev.aaronhowser.mods.paracosm.packet.client_to_server.UpdatePogoControls
@@ -10,8 +11,6 @@ import dev.aaronhowser.mods.paracosm.util.OtherUtil.isClientSide
 import dev.aaronhowser.mods.paracosm.util.Upgradeable
 import net.minecraft.core.component.DataComponents
 import net.minecraft.nbt.CompoundTag
-import net.minecraft.nbt.StringTag
-import net.minecraft.nbt.Tag
 import net.minecraft.network.chat.Component
 import net.minecraft.network.syncher.EntityDataAccessor
 import net.minecraft.network.syncher.EntityDataSerializers
@@ -43,7 +42,7 @@ import kotlin.math.sqrt
 class PogoStickVehicle(
     entityType: EntityType<*>,
     level: Level
-) : VehicleEntity(entityType, level), GeoEntity {
+) : VehicleEntity(entityType, level), GeoEntity, IUpgradeableEntity {
 
     //TODO: If you fall from high, bounce to high
     //TODO: Should it bounce even if you didn't tell it to, if it was already bouncing?
@@ -88,8 +87,6 @@ class PogoStickVehicle(
                 event.isCanceled = true
             }
         }
-
-        private const val UPGRADES = "upgrades"
     }
 
     override fun defineSynchedData(builder: SynchedEntityData.Builder) {
@@ -100,18 +97,11 @@ class PogoStickVehicle(
     }
 
     override fun readAdditionalSaveData(compound: CompoundTag) {
-        val upgradesList = compound.getList(UPGRADES, Tag.TAG_STRING.toInt())
-        for (tag in upgradesList) {
-            tag as? StringTag ?: continue
-            Upgradeable.addUpgrade(this, tag.getAsString())
-        }
+        loadUpgrades(this, compound)
     }
 
     override fun addAdditionalSaveData(compound: CompoundTag) {
-        val upgradesList = compound.getList(UPGRADES, Tag.TAG_STRING.toInt())
-        for (upgrade in Upgradeable.getUpgrades(this)) {
-            upgradesList.add(StringTag.valueOf(upgrade))
-        }
+        saveUpgrades(this, compound)
     }
 
     override fun getDropItem(): Item {

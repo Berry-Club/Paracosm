@@ -2,7 +2,8 @@ package dev.aaronhowser.mods.paracosm.registry
 
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.item.*
-import dev.aaronhowser.mods.paracosm.item.FancyFoodItem.Companion.fast
+import dev.aaronhowser.mods.paracosm.item.base.FancyFoodItem
+import dev.aaronhowser.mods.paracosm.item.base.FancyFoodItem.Companion.fast
 import net.minecraft.world.food.FoodProperties
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemNameBlockItem

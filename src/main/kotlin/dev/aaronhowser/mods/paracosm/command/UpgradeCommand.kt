@@ -4,7 +4,7 @@ import com.mojang.brigadier.arguments.StringArgumentType
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import com.mojang.brigadier.suggestion.SuggestionProvider
-import dev.aaronhowser.mods.paracosm.item.IUpgradeable
+import dev.aaronhowser.mods.paracosm.item.base.IUpgradeableItem
 import dev.aaronhowser.mods.paracosm.util.Upgradeable
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
@@ -49,7 +49,7 @@ object UpgradeCommand {
         val heldStack = player.mainHandItem
 
         val heldItem = heldStack.item
-        if (heldItem !is IUpgradeable) {
+        if (heldItem !is IUpgradeableItem) {
             player.sendSystemMessage(Component.literal("This item cannot be upgraded"))
             return 0
         }
@@ -69,7 +69,7 @@ object UpgradeCommand {
         val upgrade = StringArgumentType.getString(commandContext, UPGRADE_ARGUMENT)
 
         val heldItem = player.mainHandItem
-        if (heldItem.item !is IUpgradeable) {
+        if (heldItem.item !is IUpgradeableItem) {
             player.sendSystemMessage(Component.literal("This item cannot be upgraded"))
             return 0
         }
@@ -87,7 +87,7 @@ object UpgradeCommand {
     private fun getSuggestions(): SuggestionProvider<CommandSourceStack> {
         return SuggestionProvider { context, suggestionsBuilder ->
             val player = context.source.entity as? Player
-            val heldItem = player?.mainHandItem?.item as? IUpgradeable
+            val heldItem = player?.mainHandItem?.item as? IUpgradeableItem
 
             val upgrades = heldItem?.possibleUpgrades ?: emptyList()
 
