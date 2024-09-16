@@ -21,14 +21,22 @@ object Upgradeable {
     }
 
     fun addUpgrade(itemStack: ItemStack, upgrade: String) {
-        val upgrades = getUpgrades(itemStack).toMutableSet()
-        upgrades.add(upgrade)
-        itemStack.set(ModDataComponents.ITEM_UPGRADES.get(), StringListComponent(upgrades))
+        val upgrades = getUpgrades(itemStack)
+        itemStack.set(
+            ModDataComponents.ITEM_UPGRADES.get(),
+            StringListComponent(upgrades + upgrade)
+        )
     }
 
     fun removeUpgrade(itemStack: ItemStack, upgrade: String) {
         val upgrades = getUpgrades(itemStack).toMutableSet()
-        upgrades.remove(upgrade)
+        itemStack.set(
+            ModDataComponents.ITEM_UPGRADES.get(),
+            StringListComponent(upgrades - upgrade)
+        )
+    }
+
+    fun setUpgrades(itemStack: ItemStack, upgrades: Set<String>) {
         itemStack.set(ModDataComponents.ITEM_UPGRADES.get(), StringListComponent(upgrades))
     }
 
