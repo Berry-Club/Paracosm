@@ -20,6 +20,10 @@ object Upgradeable {
         return itemStack.get(ModDataComponents.ITEM_UPGRADES.get())?.value ?: emptySet()
     }
 
+    fun setUpgrades(itemStack: ItemStack, upgrades: Set<String>) {
+        itemStack.set(ModDataComponents.ITEM_UPGRADES.get(), StringListComponent(upgrades))
+    }
+
     fun addUpgrade(itemStack: ItemStack, upgrade: String) {
         setUpgrades(
             itemStack,
@@ -32,10 +36,6 @@ object Upgradeable {
             itemStack,
             getUpgrades(itemStack) - upgrade
         )
-    }
-
-    fun setUpgrades(itemStack: ItemStack, upgrades: Set<String>) {
-        itemStack.set(ModDataComponents.ITEM_UPGRADES.get(), StringListComponent(upgrades))
     }
 
     fun hasUpgrade(itemStack: ItemStack, upgrade: String): Boolean {
