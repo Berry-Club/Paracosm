@@ -16,7 +16,7 @@ object ModBiomes {
     val TEST_BIOME_ID: ResourceLocation = OtherUtil.modResource("test_biome")
     val TEST_BIOME_KEY: ResourceKey<Biome> = ResourceKey.create(Registries.BIOME, TEST_BIOME_ID)
 
-    fun boostrap(context: BootstrapContext<Biome>) {
+    fun bootstrap(context: BootstrapContext<Biome>) {
         context.register(TEST_BIOME_KEY, testBiome(context))
     }
 
