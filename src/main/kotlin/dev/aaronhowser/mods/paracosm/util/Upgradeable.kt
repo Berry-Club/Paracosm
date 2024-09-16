@@ -21,16 +21,16 @@ object Upgradeable {
     }
 
     fun addUpgrade(itemStack: ItemStack, upgrade: String) {
-        itemStack.set(
-            ModDataComponents.ITEM_UPGRADES.get(),
-            StringListComponent(getUpgrades(itemStack) + upgrade)
+        setUpgrades(
+            itemStack,
+            getUpgrades(itemStack) + upgrade
         )
     }
 
     fun removeUpgrade(itemStack: ItemStack, upgrade: String) {
-        itemStack.set(
-            ModDataComponents.ITEM_UPGRADES.get(),
-            StringListComponent(getUpgrades(itemStack) - upgrade)
+        setUpgrades(
+            itemStack,
+            getUpgrades(itemStack) - upgrade
         )
     }
 
