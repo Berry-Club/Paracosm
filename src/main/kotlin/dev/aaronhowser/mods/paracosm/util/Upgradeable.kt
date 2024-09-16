@@ -21,18 +21,16 @@ object Upgradeable {
     }
 
     fun addUpgrade(itemStack: ItemStack, upgrade: String) {
-        val upgrades = getUpgrades(itemStack)
         itemStack.set(
             ModDataComponents.ITEM_UPGRADES.get(),
-            StringListComponent(upgrades + upgrade)
+            StringListComponent(getUpgrades(itemStack) + upgrade)
         )
     }
 
     fun removeUpgrade(itemStack: ItemStack, upgrade: String) {
-        val upgrades = getUpgrades(itemStack).toMutableSet()
         itemStack.set(
             ModDataComponents.ITEM_UPGRADES.get(),
-            StringListComponent(upgrades - upgrade)
+            StringListComponent(getUpgrades(itemStack) - upgrade)
         )
     }
 
@@ -41,7 +39,7 @@ object Upgradeable {
     }
 
     fun hasUpgrade(itemStack: ItemStack, upgrade: String): Boolean {
-        return getUpgrades(itemStack).contains(upgrade)
+        return upgrade in getUpgrades(itemStack)
     }
 
     // Entity
@@ -78,7 +76,7 @@ object Upgradeable {
     }
 
     fun hasUpgrade(entity: Entity, upgrade: String): Boolean {
-        return getUpgrades(entity).contains(upgrade)
+        return upgrade in getUpgrades(entity)
     }
 
 }
