@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
 import dev.aaronhowser.mods.paracosm.packet.client_to_server.UpdatePogoControls
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.registry.ModItems
+import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import dev.aaronhowser.mods.paracosm.util.OtherUtil.isClientSide
 import dev.aaronhowser.mods.paracosm.util.Upgradeable
 import net.minecraft.core.component.DataComponents
@@ -391,9 +392,17 @@ class PogoStickVehicle(
     ): Vec3 {
         val height = 1 - JUMP_ANIM_DISTANCE * this.entityData.get(DATA_JUMP_PERCENT).toDouble()
 
+        val tiltPair = OtherUtil.getRotationForCircle(
+            this.entityData.get(DATA_TILT_BACKWARD),
+            this.entityData.get(DATA_TILT_RIGHT)
+        )
+
+        val tiltBackward = tiltPair.first
+        val tiltRight = tiltPair.second
+
         return Vec3(0.0, 1.0, 0.0)
-            .xRot(this.entityData.get(DATA_TILT_BACKWARD) * MAX_TILT_RADIAN)
-            .zRot(this.entityData.get(DATA_TILT_RIGHT) * MAX_TILT_RADIAN)
+            .xRot(tiltBackward * MAX_TILT_RADIAN)
+            .zRot(tiltRight * MAX_TILT_RADIAN)
             .yRot(this.yRot * Mth.DEG_TO_RAD)
             .scale(height)
     }
