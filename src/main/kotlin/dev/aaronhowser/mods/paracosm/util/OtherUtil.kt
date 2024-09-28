@@ -10,8 +10,7 @@ import net.minecraft.world.level.Level
 import net.minecraft.world.phys.HitResult
 import net.minecraft.world.phys.Vec3
 import net.minecraft.world.phys.shapes.CollisionContext
-import kotlin.math.acos
-import kotlin.math.pow
+import kotlin.math.*
 
 object OtherUtil {
 
@@ -60,5 +59,21 @@ object OtherUtil {
 
     val Entity.isClientSide: Boolean
         get() = this.level().isClientSide
+
+    fun getRotationForCircle(
+        tiltBackward: Float,
+        tiltRight: Float
+    ): Pair<Float, Float> {
+        val angle = atan2(tiltBackward, tiltRight)
+        val newBackwardTilt = sin(angle)
+        val newRightTilt = cos(angle)
+
+        val tiltAmount = max(abs(tiltBackward), abs(tiltRight))
+
+        return Pair(
+            newBackwardTilt * tiltAmount,
+            newRightTilt * tiltAmount
+        )
+    }
 
 }

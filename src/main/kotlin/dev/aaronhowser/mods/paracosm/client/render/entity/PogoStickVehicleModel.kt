@@ -29,9 +29,17 @@ class PogoStickVehicleModel : GeoModel<PogoStickVehicle>() {
         val verticalRotation = animationProcessor.getBone("vertical_rotation")
         verticalRotation.rotY = animatable.yRot * Mth.DEG_TO_RAD
 
+        val tiltBackward = animatable.entityData.get(PogoStickVehicle.DATA_TILT_BACKWARD)
+        val tiltRight = animatable.entityData.get(PogoStickVehicle.DATA_TILT_RIGHT)
+
+        val tiltPair = OtherUtil.getRotationForCircle(tiltBackward, tiltRight)
+
+        val newBackwardTilt = tiltPair.first
+        val newRightTilt = tiltPair.second
+
         val whole = animationProcessor.getBone("whole")
-        whole.rotX = animatable.entityData.get(PogoStickVehicle.DATA_TILT_BACKWARD) * PogoStickVehicle.MAX_TILT_RADIAN
-        whole.rotZ = animatable.entityData.get(PogoStickVehicle.DATA_TILT_RIGHT) * PogoStickVehicle.MAX_TILT_RADIAN
+        whole.rotX = newBackwardTilt * PogoStickVehicle.MAX_TILT_RADIAN
+        whole.rotZ = newRightTilt * PogoStickVehicle.MAX_TILT_RADIAN
 
         val body = animationProcessor.getBone("body")
         body.posY = -10 *
