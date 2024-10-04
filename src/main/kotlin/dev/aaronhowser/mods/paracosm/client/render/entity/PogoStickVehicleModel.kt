@@ -34,8 +34,8 @@ class PogoStickVehicleModel : GeoModel<PogoStickVehicle>() {
 
         val tiltPair = OtherUtil.getRotationForCircle(tiltBackward, tiltRight)
 
-        val newBackwardTilt = tiltPair.first
-        val newRightTilt = tiltPair.second
+        val newBackwardTilt = tiltPair.backwards
+        val newRightTilt = tiltPair.right
 
         val whole = animationProcessor.getBone("whole")
         whole.rotX = newBackwardTilt * PogoStickVehicle.MAX_TILT_RADIAN

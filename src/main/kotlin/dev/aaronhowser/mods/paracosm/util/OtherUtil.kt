@@ -60,17 +60,19 @@ object OtherUtil {
     val Entity.isClientSide: Boolean
         get() = this.level().isClientSide
 
+    data class RotationPair(val backwards: Float, val right: Float)
+
     fun getRotationForCircle(
         tiltBackward: Float,
         tiltRight: Float
-    ): Pair<Float, Float> {
+    ): RotationPair {
         val angle = atan2(tiltBackward, tiltRight)
         val newBackwardTilt = sin(angle)
         val newRightTilt = cos(angle)
 
         val tiltAmount = max(abs(tiltBackward), abs(tiltRight))
 
-        return Pair(
+        return RotationPair(
             newBackwardTilt * tiltAmount,
             newRightTilt * tiltAmount
         )
