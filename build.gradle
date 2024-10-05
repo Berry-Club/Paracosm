@@ -145,7 +145,7 @@ repositories {
 
 dependencies {
     // Must use the '-neoforge' version on NeoForge. If on regular forge, omit the '-neoforge'
-    implementation 'thedarkcolour:kotlinforforge-neoforge:5.4.0'
+    implementation "thedarkcolour:kotlinforforge-neoforge:${kff_version}"
     implementation "software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}"
     implementation "top.theillusivec4.curios:curios-neoforge:${curios_version}"
 
