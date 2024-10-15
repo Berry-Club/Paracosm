@@ -153,6 +153,7 @@
 - [ ] A way to opt out of the visuals of having high imagination, so everything still looks like stupid kid toys rather
   than hallucinating
 - [ ] Fairy lights
+- [ ] Hypnagogia, the state of being half asleep
 
 # Dimension
 - [ ] Dream dimension
