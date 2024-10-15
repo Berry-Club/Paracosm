@@ -47,7 +47,6 @@ class CityRugBlock(
         builder.add(FACING, SEGMENT)
     }
 
-    @Suppress("OVERRIDE_DEPRECATION")
     override fun getRenderShape(state: BlockState): RenderShape {
         return RenderShape.MODEL
     }
