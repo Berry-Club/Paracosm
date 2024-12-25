@@ -38,6 +38,4 @@ class UpdateShrinkRayScale(
                 ::UpdateShrinkRayScale
             )
     }
-
-
 }
