@@ -2,8 +2,8 @@ package dev.aaronhowser.mods.paracosm.client
 
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import dev.aaronhowser.mods.paracosm.util.ClientUtil
-import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.client.Minecraft
+import net.minecraft.resources.ResourceLocation
 import net.neoforged.neoforge.client.event.ClientTickEvent
 
 object DuckHuntGunShaderHandler {
@@ -25,10 +25,8 @@ object DuckHuntGunShaderHandler {
     }
 
     private fun enableShader() {
-        val shader = OtherUtil.modResource("shaders/post/ntsc.json")
-
+        val shader = ResourceLocation.withDefaultNamespace("shaders/post/ntsc.json")
         val renderer = Minecraft.getInstance().gameRenderer
-
         renderer.loadEffect(shader)
     }
 
