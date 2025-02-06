@@ -2,7 +2,6 @@ package dev.aaronhowser.mods.paracosm.item
 
 import dev.aaronhowser.mods.paracosm.entity.custom.PogoStickVehicle
 import dev.aaronhowser.mods.paracosm.item.base.IUpgradeableItem
-import dev.aaronhowser.mods.paracosm.item.component.StringListComponent
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.util.Upgradeable
@@ -16,7 +15,7 @@ import net.minecraft.world.phys.Vec3
 class PogoStickItem(
     properties: Properties = Properties()
         .stacksTo(1)
-        .component(ModDataComponents.ITEM_UPGRADES, StringListComponent())
+        .component(ModDataComponents.ITEM_UPGRADES, listOf())
 ) : Item(properties), IUpgradeableItem {
 
     override val possibleUpgrades: List<String> = listOf(

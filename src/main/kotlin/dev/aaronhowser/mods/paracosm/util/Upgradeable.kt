@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.paracosm.util
 
 import dev.aaronhowser.mods.paracosm.attachment.EntityUpgrades
-import dev.aaronhowser.mods.paracosm.item.component.StringListComponent
 import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateEntityUpgrades
 import dev.aaronhowser.mods.paracosm.registry.ModAttachmentTypes
@@ -16,12 +15,12 @@ object Upgradeable {
 
     // Item
 
-    fun getUpgrades(itemStack: ItemStack): Set<String> {
-        return itemStack.get(ModDataComponents.ITEM_UPGRADES.get())?.value ?: emptySet()
+    fun getUpgrades(itemStack: ItemStack): List<String> {
+        return itemStack.get(ModDataComponents.ITEM_UPGRADES.get()) ?: emptyList()
     }
 
-    fun setUpgrades(itemStack: ItemStack, upgrades: Set<String>) {
-        itemStack.set(ModDataComponents.ITEM_UPGRADES.get(), StringListComponent(upgrades))
+    fun setUpgrades(itemStack: ItemStack, upgrades: List<String>) {
+        itemStack.set(ModDataComponents.ITEM_UPGRADES.get(), upgrades)
     }
 
     fun addUpgrade(itemStack: ItemStack, upgrade: String) {
