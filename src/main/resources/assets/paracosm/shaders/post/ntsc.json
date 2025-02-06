@@ -6,12 +6,12 @@
     ],
     "passes": [
         {
-            "name": "ntsc_encode",
+            "name": "paracosm:ntsc_encode",
             "intarget": "minecraft:main",
             "outtarget": "swap"
         },
         {
-            "name": "ntsc_decode",
+            "name": "paracosm:ntsc_decode",
             "intarget": "swap",
             "outtarget": "swap2",
             "auxtargets": [
