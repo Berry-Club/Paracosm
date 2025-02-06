@@ -36,6 +36,8 @@ object ClientModBusEvents {
     @SubscribeEvent
     fun registerEntityRenderer(event: EntityRenderersEvent.RegisterRenderers) {
 
+        return //TODO
+
         event.registerEntityRenderer(ModEntityTypes.TEDDY_BEAR.get(), ::TeddyBearRenderer)
         event.registerEntityRenderer(ModEntityTypes.STRING_WORM.get(), ::StringWormRenderer)
         event.registerEntityRenderer(ModEntityTypes.AARONBERRY.get(), ::AaronberryRenderer)

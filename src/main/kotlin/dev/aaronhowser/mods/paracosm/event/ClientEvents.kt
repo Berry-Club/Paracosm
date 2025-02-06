@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.event
 
+import dev.aaronhowser.mods.paracosm.client.DuckHuntGunShaderHandler
 import dev.aaronhowser.mods.paracosm.entity.custom.PogoStickVehicle
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.bus.api.SubscribeEvent
@@ -15,6 +16,7 @@ object ClientEvents {
     @SubscribeEvent
     fun beforePlayerTick(event: PlayerTickEvent.Pre) {
         PogoStickVehicle.handleInput(event)
+        DuckHuntGunShaderHandler.updateShader(event)
     }
 
 }
