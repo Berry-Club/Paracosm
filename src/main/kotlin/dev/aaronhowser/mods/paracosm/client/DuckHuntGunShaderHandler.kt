@@ -25,7 +25,7 @@ object DuckHuntGunShaderHandler {
     }
 
     private fun enableShader() {
-        val shader = ResourceLocation.withDefaultNamespace("shaders/post/paracosm/ntsc.json")
+        val shader = ResourceLocation.withDefaultNamespace("shaders/post/ntsc.json")
         val renderer = Minecraft.getInstance().gameRenderer
         renderer.loadEffect(shader)
     }
