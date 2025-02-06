@@ -6,12 +6,12 @@
     ],
     "passes": [
         {
-            "name": "ntsc_encode",
+            "name": "paracosm/ntsc_encode",
             "intarget": "minecraft:main",
             "outtarget": "swap"
         },
         {
-            "name": "ntsc_decode",
+            "name": "paracosm/ntsc_decode",
             "intarget": "swap",
             "outtarget": "swap2",
             "auxtargets": [
@@ -22,17 +22,17 @@
             ]
         },
         {
-            "name": "color_convolve",
+            "name": "paracosm/color_convolve",
             "intarget": "swap2",
             "outtarget": "swap"
         },
         {
-            "name": "deconverge",
+            "name": "paracosm/deconverge",
             "intarget": "swap",
             "outtarget": "minecraft:main"
         },
         {
-            "name": "blur",
+            "name": "paracosm/blur",
             "intarget": "minecraft:main",
             "outtarget": "swap",
             "uniforms": [
@@ -47,7 +47,7 @@
             ]
         },
         {
-            "name": "blur",
+            "name": "paracosm/blur",
             "intarget": "swap",
             "outtarget": "minecraft:main",
             "uniforms": [
@@ -62,12 +62,12 @@
             ]
         },
         {
-            "name": "scan_pincushion",
+            "name": "paracosm/scan_pincushion",
             "intarget": "minecraft:main",
             "outtarget": "swap"
         },
         {
-            "name": "phosphor",
+            "name": "paracosm/phosphor",
             "intarget": "swap",
             "outtarget": "minecraft:main",
             "auxtargets": [
@@ -84,7 +84,7 @@
             ]
         },
         {
-            "name": "blit",
+            "name": "paracosm/blit",
             "intarget": "minecraft:main",
             "outtarget": "previous"
         }
