@@ -7,10 +7,10 @@ import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
 import dev.aaronhowser.mods.paracosm.packet.client_to_server.UpdatePogoControls
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.registry.ModItems
+import dev.aaronhowser.mods.paracosm.util.ClientUtil
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import dev.aaronhowser.mods.paracosm.util.OtherUtil.isClientSide
 import dev.aaronhowser.mods.paracosm.util.Upgradeable
-import net.minecraft.client.player.LocalPlayer
 import net.minecraft.core.component.DataComponents
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.Component
@@ -30,8 +30,8 @@ import net.minecraft.world.level.GameRules
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
+import net.neoforged.neoforge.client.event.ClientTickEvent
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent
-import net.neoforged.neoforge.event.tick.PlayerTickEvent
 import software.bernie.geckolib.animatable.GeoEntity
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache
@@ -74,8 +74,8 @@ class PogoStickVehicle(
         const val MAX_TILT_DEGREE = 45f
         const val MAX_TILT_RADIAN = MAX_TILT_DEGREE * Mth.DEG_TO_RAD
 
-        fun handleInput(event: PlayerTickEvent.Pre) {
-            val player = event.entity as? LocalPlayer ?: return
+        fun handleInput(event: ClientTickEvent.Pre) {
+            val player = ClientUtil.localPlayer ?: return
             val vehicle = player.vehicle as? PogoStickVehicle ?: return
 
             vehicle.setInput(

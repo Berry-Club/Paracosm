@@ -5,7 +5,7 @@ import dev.aaronhowser.mods.paracosm.entity.custom.PogoStickVehicle
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
-import net.neoforged.neoforge.event.tick.PlayerTickEvent
+import net.neoforged.neoforge.client.event.ClientTickEvent
 
 @EventBusSubscriber(
     modid = "paracosm",
@@ -14,7 +14,7 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent
 object ClientEvents {
 
     @SubscribeEvent
-    fun beforePlayerTick(event: PlayerTickEvent.Pre) {
+    fun beforeClientTick(event: ClientTickEvent.Pre) {
         PogoStickVehicle.handleInput(event)
         DuckHuntGunShaderHandler.updateShader(event)
     }

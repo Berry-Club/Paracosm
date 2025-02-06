@@ -1,16 +1,17 @@
 package dev.aaronhowser.mods.paracosm.client
 
 import dev.aaronhowser.mods.paracosm.registry.ModItems
+import dev.aaronhowser.mods.paracosm.util.ClientUtil
 import net.minecraft.client.Minecraft
 import net.minecraft.resources.ResourceLocation
-import net.neoforged.neoforge.event.tick.PlayerTickEvent
+import net.neoforged.neoforge.client.event.ClientTickEvent
 
 object DuckHuntGunShaderHandler {
 
     private var heldGunLastTick = false
 
-    fun updateShader(event: PlayerTickEvent.Pre) {
-        val player = event.entity
+    fun updateShader(event: ClientTickEvent.Pre) {
+        val player = ClientUtil.localPlayer ?: return
 
         val holdingGun = player.isHolding(ModItems.DUCK_HUNT_GUN.get())
         if (holdingGun == heldGunLastTick) return
