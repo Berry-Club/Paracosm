@@ -1,182 +1,102 @@
 {
-  "format_version": "1.8.0",
-  "animations": {
-    "animation.aaronberry.walk": {
-      "loop": true,
-      "bones": {
-        "leg_left": {
-          "rotation": {
-            "vector": [
-              "math.sin(query.anim_time*360)*45",
-              0,
-              0
-            ]
-          }
-        },
-        "leg_right": {
-          "rotation": {
-            "vector": [
-              "-math.sin(query.anim_time*360)*45",
-              0,
-              0
-            ]
-          }
-        },
-        "arm_right": {
-          "rotation": {
-            "vector": [
-              "-math.sin(query.anim_time*360)*45",
-              0,
-              0
-            ]
-          }
-        },
-        "arm_left": {
-          "rotation": {
-            "vector": [
-              "math.sin(query.anim_time*360)*45",
-              0,
-              0
-            ]
-          }
-        },
-        "face": {
-          "position": {
-            "vector": [
-              0,
-              "0.125*math.sin(query.anim_time*360)",
-              0
-            ]
-          }
-        }
-      }
-    },
-    "animation.aaronberry.sit": {
-      "loop": true,
-      "bones": {
-        "leg_left": {
-          "rotation": {
-            "vector": [
-              -92.5,
-              0,
-              0
-            ]
-          },
-          "position": {
-            "vector": [
-              0,
-              -2.25,
-              -2.5
-            ]
-          }
-        },
-        "bottom_left": {
-          "rotation": {
-            "vector": [
-              90,
-              0,
-              0
-            ]
-          },
-          "position": {
-            "vector": [
-              0,
-              0.5,
-              0
-            ]
-          }
-        },
-        "leg_right": {
-          "rotation": {
-            "vector": [
-              -92.5,
-              0,
-              0
-            ]
-          },
-          "position": {
-            "vector": [
-              0,
-              -2.25,
-              -2.5
-            ]
-          }
-        },
-        "bottom_right": {
-          "rotation": {
-            "vector": [
-              90,
-              0,
-              0
-            ]
-          },
-          "position": {
-            "vector": [
-              0,
-              2.5,
-              2
-            ]
-          }
-        },
-        "arm_left": {
-          "rotation": {
-            "vector": [
-              -95.7686,
-              29.8742,
-              -2.88066
-            ]
-          },
-          "position": {
-            "vector": [
-              0,
-              -5,
-              0
-            ]
-          }
-        },
-        "arm_right": {
-          "rotation": {
-            "vector": [
-              -95.7686,
-              -29.8742,
-              -2.8807
-            ]
-          },
-          "position": {
-            "vector": [
-              0,
-              -5,
-              0
-            ]
-          }
-        },
-        "face": {
-          "position": {
-            "vector": [
-              0,
-              0,
-              0
-            ]
-          }
-        },
-        "body": {
-          "rotation": {
-            "vector": [
-              -22.5,
-              0,
-              0
-            ]
-          },
-          "position": {
-            "vector": [
-              0,
-              -4,
-              0
-            ]
-          }
-        }
-      }
-    }
-  },
-  "geckolib_format_version": 2
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.aaronberry.walk": {
+			"loop": true,
+			"bones": {
+				"leg_left": {
+					"rotation": {
+						"vector": ["math.sin(query.anim_time*360)*45", 0, 0]
+					}
+				},
+				"leg_right": {
+					"rotation": {
+						"vector": ["-math.sin(query.anim_time*360)*45", 0, 0]
+					}
+				},
+				"arm_right": {
+					"rotation": {
+						"vector": ["-math.sin(query.anim_time*360)*45", 0, 0]
+					}
+				},
+				"arm_left": {
+					"rotation": {
+						"vector": ["math.sin(query.anim_time*360)*45", 0, 0]
+					}
+				},
+				"face": {
+					"position": {
+						"vector": [0, "0.125*math.sin(query.anim_time*360)", 0]
+					}
+				}
+			}
+		},
+		"animation.aaronberry.sit": {
+			"loop": true,
+			"bones": {
+				"leg_left": {
+					"rotation": {
+						"vector": [-92.5, 0, 0]
+					},
+					"position": {
+						"vector": [0, -2.25, -2.5]
+					}
+				},
+				"bottom_left": {
+					"rotation": {
+						"vector": [90, 0, 0]
+					},
+					"position": {
+						"vector": [0, 0.5, 0]
+					}
+				},
+				"leg_right": {
+					"rotation": {
+						"vector": [-92.5, 0, 0]
+					},
+					"position": {
+						"vector": [0, -2.25, -2.5]
+					}
+				},
+				"bottom_right": {
+					"rotation": {
+						"vector": [90, 0, 0]
+					},
+					"position": {
+						"vector": [0, 2.5, 2]
+					}
+				},
+				"arm_left": {
+					"rotation": {
+						"vector": [-95.7686, 29.8742, -2.88066]
+					},
+					"position": {
+						"vector": [0, -5, 0]
+					}
+				},
+				"arm_right": {
+					"rotation": {
+						"vector": [-95.7686, -29.8742, -2.8807]
+					},
+					"position": {
+						"vector": [0, -5, 0]
+					}
+				},
+				"face": {
+					"position": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"body": {
+					"rotation": {
+						"vector": [-22.5, 0, 0]
+					},
+					"position": {
+						"vector": [0, -4, 0]
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
 }

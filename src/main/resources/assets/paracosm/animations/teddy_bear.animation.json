@@ -7,38 +7,22 @@
       "bones": {
         "leg_left": {
           "rotation": {
-            "vector": [
-              "math.sin(query.anim_time*360)*45",
-              0,
-              0
-            ]
+            "vector": ["math.sin(query.anim_time*360)*45", 0, 0]
           }
         },
         "leg_right": {
           "rotation": {
-            "vector": [
-              "-math.sin(query.anim_time*360)*45",
-              0,
-              0
-            ]
+            "vector": ["-math.sin(query.anim_time*360)*45", 0, 0]
           }
         },
         "arm_left": {
           "rotation": {
-            "vector": [
-              "-math.sin(query.anim_time*360)*45",
-              0,
-              0
-            ]
+            "vector": ["-math.sin(query.anim_time*360)*45", 0, 0]
           }
         },
         "arm_right": {
           "rotation": {
-            "vector": [
-              "math.sin(query.anim_time*360)*45",
-              0,
-              0
-            ]
+            "vector": ["math.sin(query.anim_time*360)*45", 0, 0]
           }
         }
       }
@@ -48,63 +32,35 @@
       "bones": {
         "body": {
           "rotation": {
-            "vector": [
-              -22.44548,
-              1.29256,
-              4.83045
-            ]
+            "vector": [-22.44548, 1.29256, 4.83045]
           },
           "position": {
-            "vector": [
-              0,
-              -6,
-              0
-            ]
+            "vector": [0, -6, 0]
           }
         },
         "head": {
           "rotation": {
-            "vector": [
-              -12.39638,
-              1.61888,
-              7.32417
-            ]
+            "vector": [-12.39638, 1.61888, 7.32417]
           }
         },
         "leg_left": {
           "rotation": {
-            "vector": [
-              -74.08473,
-              -19.291,
-              -5.38152
-            ]
+            "vector": [-74.08473, -19.291, -5.38152]
           }
         },
         "leg_right": {
           "rotation": {
-            "vector": [
-              -72.43726,
-              4.76804,
-              1.50701
-            ]
+            "vector": [-72.43726, 4.76804, 1.50701]
           }
         },
         "arm_left": {
           "rotation": {
-            "vector": [
-              12.39638,
-              1.61888,
-              -7.32417
-            ]
+            "vector": [12.39638, 1.61888, -7.32417]
           }
         },
         "arm_right": {
           "rotation": {
-            "vector": [
-              14.75202,
-              2.78174,
-              -9.60164
-            ]
+            "vector": [14.75202, 2.78174, -9.60164]
           }
         }
       }
