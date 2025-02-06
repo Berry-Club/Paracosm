@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.client
 
+import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import dev.aaronhowser.mods.paracosm.util.ClientUtil
 import net.minecraft.client.Minecraft
@@ -30,6 +31,8 @@ object DuckHuntGunShaderHandler {
     }
 
     private fun enableShader() {
+        Paracosm.LOGGER.warn("Ignore the warnings below!")
+
         val shader = ResourceLocation.withDefaultNamespace("shaders/post/ntsc.json")
         val renderer = Minecraft.getInstance().gameRenderer
         renderer.loadEffect(shader)
