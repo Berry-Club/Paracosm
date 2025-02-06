@@ -42,20 +42,13 @@ object ClientModBusEvents {
     @SubscribeEvent
     fun onClientSetup(event: FMLClientSetupEvent) {
 
-        fun <T : Entity> registerEntityRenderer(
-            entityHolder: DeferredHolder<EntityType<*>, EntityType<T>>,
-            provider: EntityRendererProvider<T>
-        ) {
-            EntityRenderers.register(entityHolder.get(), provider)
-        }
-
-        registerEntityRenderer(ModEntityTypes.TEDDY_BEAR, ::TeddyBearRenderer)
-        registerEntityRenderer(ModEntityTypes.STRING_WORM, ::StringWormRenderer)
-        registerEntityRenderer(ModEntityTypes.AARONBERRY, ::AaronberryRenderer)
-        registerEntityRenderer(ModEntityTypes.DODGEBALL, ::ThrownItemRenderer)
-        registerEntityRenderer(ModEntityTypes.SHRINK_RAY_PROJECTILE, ::ShrinkRayProjectileRenderer)
-        registerEntityRenderer(ModEntityTypes.STICKY_HAND_PROJECTILE, ::StickyHandProjectileRenderer)
-        registerEntityRenderer(ModEntityTypes.POGO_STICK_VEHICLE, ::PogoStickVehicleRenderer)
+        EntityRenderers.register(ModEntityTypes.TEDDY_BEAR.get(), ::TeddyBearRenderer)
+        EntityRenderers.register(ModEntityTypes.STRING_WORM.get(), ::StringWormRenderer)
+        EntityRenderers.register(ModEntityTypes.AARONBERRY.get(), ::AaronberryRenderer)
+        EntityRenderers.register(ModEntityTypes.DODGEBALL.get(), ::ThrownItemRenderer)
+        EntityRenderers.register(ModEntityTypes.SHRINK_RAY_PROJECTILE.get(), ::ShrinkRayProjectileRenderer)
+        EntityRenderers.register(ModEntityTypes.STICKY_HAND_PROJECTILE.get(), ::StickyHandProjectileRenderer)
+        EntityRenderers.register(ModEntityTypes.POGO_STICK_VEHICLE.get(), ::PogoStickVehicleRenderer)
 
         CuriosRendererRegistry.register(
             ModItems.SEEING_STONE.get(),
