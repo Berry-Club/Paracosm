@@ -410,8 +410,8 @@ class PogoStickVehicle(
             this.entityData.get(DATA_TILT_RIGHT)
         )
 
-        val tiltBackward = tiltPair.first
-        val tiltRight = tiltPair.second
+        val tiltBackward = tiltPair.backwards
+        val tiltRight = tiltPair.right
 
         return Vec3(0.0, 1.0, 0.0)
             .xRot(tiltBackward * MAX_TILT_RADIAN)
