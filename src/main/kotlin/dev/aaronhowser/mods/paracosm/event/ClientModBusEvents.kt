@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.paracosm.event
 
 import dev.aaronhowser.mods.paracosm.Paracosm
-import dev.aaronhowser.mods.paracosm.client.render.curio.SeeingStoneCurioRenderer
 import dev.aaronhowser.mods.paracosm.client.render.entity.*
 import dev.aaronhowser.mods.paracosm.client.render.layer.TowelCapeLayer
 import dev.aaronhowser.mods.paracosm.datagen.model.ModItemModelProvider
@@ -11,7 +10,6 @@ import dev.aaronhowser.mods.paracosm.registry.ModItems
 import dev.aaronhowser.mods.paracosm.util.ClientUtil
 import net.minecraft.client.model.EntityModel
 import net.minecraft.client.renderer.entity.EntityRendererProvider
-import net.minecraft.client.renderer.entity.EntityRenderers
 import net.minecraft.client.renderer.entity.LivingEntityRenderer
 import net.minecraft.client.renderer.entity.ThrownItemRenderer
 import net.minecraft.client.renderer.entity.layers.ElytraLayer
@@ -20,17 +18,13 @@ import net.minecraft.client.renderer.entity.player.PlayerRenderer
 import net.minecraft.client.renderer.item.ItemProperties
 import net.minecraft.client.renderer.item.ItemPropertyFunction
 import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent
 import net.neoforged.neoforge.client.event.EntityRenderersEvent
 import net.neoforged.neoforge.client.event.ModelEvent
-import net.neoforged.neoforge.registries.DeferredHolder
-import top.theillusivec4.curios.api.client.CuriosRendererRegistry
 
 @EventBusSubscriber(
     modid = Paracosm.ID,
@@ -40,20 +34,21 @@ import top.theillusivec4.curios.api.client.CuriosRendererRegistry
 object ClientModBusEvents {
 
     @SubscribeEvent
-    fun onClientSetup(event: FMLClientSetupEvent) {
+    fun registerEntityRenderer(event: EntityRenderersEvent.RegisterRenderers) {
 
-        EntityRenderers.register(ModEntityTypes.TEDDY_BEAR.get(), ::TeddyBearRenderer)
-        EntityRenderers.register(ModEntityTypes.STRING_WORM.get(), ::StringWormRenderer)
-        EntityRenderers.register(ModEntityTypes.AARONBERRY.get(), ::AaronberryRenderer)
-        EntityRenderers.register(ModEntityTypes.DODGEBALL.get(), ::ThrownItemRenderer)
-        EntityRenderers.register(ModEntityTypes.SHRINK_RAY_PROJECTILE.get(), ::ShrinkRayProjectileRenderer)
-        EntityRenderers.register(ModEntityTypes.STICKY_HAND_PROJECTILE.get(), ::StickyHandProjectileRenderer)
-        EntityRenderers.register(ModEntityTypes.POGO_STICK_VEHICLE.get(), ::PogoStickVehicleRenderer)
+        event.registerEntityRenderer(ModEntityTypes.TEDDY_BEAR.get(), ::TeddyBearRenderer)
+        event.registerEntityRenderer(ModEntityTypes.STRING_WORM.get(), ::StringWormRenderer)
+        event.registerEntityRenderer(ModEntityTypes.AARONBERRY.get(), ::AaronberryRenderer)
+        event.registerEntityRenderer(ModEntityTypes.DODGEBALL.get(), ::ThrownItemRenderer)
+        event.registerEntityRenderer(ModEntityTypes.SHRINK_RAY_PROJECTILE.get(), ::ShrinkRayProjectileRenderer)
+        event.registerEntityRenderer(ModEntityTypes.STICKY_HAND_PROJECTILE.get(), ::StickyHandProjectileRenderer)
+        event.registerEntityRenderer(ModEntityTypes.POGO_STICK_VEHICLE.get(), ::PogoStickVehicleRenderer)
 
-        CuriosRendererRegistry.register(
-            ModItems.SEEING_STONE.get(),
-            ::SeeingStoneCurioRenderer
-        )
+        //TODO
+//        CuriosRendererRegistry.register(
+//            ModItems.SEEING_STONE.get(),
+//            ::SeeingStoneCurioRenderer
+//        )
 
     }
 
