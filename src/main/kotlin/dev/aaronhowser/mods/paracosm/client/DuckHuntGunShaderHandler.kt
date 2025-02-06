@@ -31,9 +31,7 @@ object DuckHuntGunShaderHandler {
     }
 
     private fun enableShader() {
-        Paracosm.LOGGER.warn("Ignore the warnings below!")
-
-        val shader = ResourceLocation.withDefaultNamespace("shaders/post/ntsc.json")
+        val shader = ResourceLocation.withDefaultNamespace("shaders/post/scan_pincushion.json")
         val renderer = Minecraft.getInstance().gameRenderer
         renderer.loadEffect(shader)
     }
