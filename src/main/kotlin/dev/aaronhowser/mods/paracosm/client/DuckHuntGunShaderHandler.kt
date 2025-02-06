@@ -10,6 +10,11 @@ object DuckHuntGunShaderHandler {
 
     private var heldGunLastTick = false
 
+    //FIXME:
+    // Shader ntsc_decode could not find sampler named BaseSampler in the specified shader program.
+    // Shader color_convolve could not find uniform named InSize in the specified shader program.
+    // Shader phosphor could not find uniform named InSize in the specified shader program.
+
     fun updateShader(event: ClientTickEvent.Pre) {
         val player = ClientUtil.localPlayer ?: return
 
