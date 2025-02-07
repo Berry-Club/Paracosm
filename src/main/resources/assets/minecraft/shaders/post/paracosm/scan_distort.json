@@ -4,7 +4,7 @@
   ],
   "passes": [
     {
-      "name": "paracosm/scan_pincushion",
+      "name": "paracosm/scan_distort",
       "intarget": "minecraft:main",
       "outtarget": "swap"
     },

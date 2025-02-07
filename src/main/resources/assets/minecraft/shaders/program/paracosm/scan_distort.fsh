@@ -16,13 +16,15 @@ const float ScanlineOffset = 0.0;
 const vec3 Floor = vec3(0.05, 0.05, 0.05);
 const vec3 Power = vec3(0.8, 0.8, 0.8);
 
+const float distortionStrength = 1.0;
+
 out vec4 fragColor;
 
 void main() {
     // Apply distortion to texture coordinates
     vec2 centeredCoord = texCoord - vec2(0.5);
     float distance = length(centeredCoord);
-    float distortionFactor = 1.0 + 0.3 * pow(distance, 2.0); // Adjust the 0.3 to control distortion strength
+    float distortionFactor = 1.0 + distortionStrength * pow(distance, 2.0);
     vec2 distortedCoord = centeredCoord * distortionFactor + vec2(0.5);
 
     // Add border by discarding fragments outside the central region

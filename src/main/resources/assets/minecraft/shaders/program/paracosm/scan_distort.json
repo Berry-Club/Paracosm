@@ -5,7 +5,7 @@
         "dstrgb": "zero"
     },
     "vertex": "sobel",
-    "fragment": "paracosm/scan_pincushion",
+    "fragment": "paracosm/scan_distort",
     "attributes": [ "Position" ],
     "samplers": [
         { "name": "DiffuseSampler" }
