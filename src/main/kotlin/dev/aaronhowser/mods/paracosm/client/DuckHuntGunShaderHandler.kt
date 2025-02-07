@@ -31,7 +31,7 @@ object DuckHuntGunShaderHandler {
     }
 
     private fun enableShader() {
-        val shader = ResourceLocation.withDefaultNamespace("shaders/post/scan_pincushion.json")
+        val shader = ResourceLocation.withDefaultNamespace("shaders/post/paracosm/scan_pincushion.json")
         val renderer = Minecraft.getInstance().gameRenderer
         renderer.loadEffect(shader)
     }
