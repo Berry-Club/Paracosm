@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.paracosm.block.city_rug
+package dev.aaronhowser.mods.paracosm.block.block_entity
 
 import dev.aaronhowser.mods.paracosm.registry.ModBlockEntities
 import net.minecraft.core.BlockPos

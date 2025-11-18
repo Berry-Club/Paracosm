@@ -1,6 +1,6 @@
-package dev.aaronhowser.mods.paracosm.block.city_rug
+package dev.aaronhowser.mods.paracosm.block
 
-import com.mojang.serialization.MapCodec
+import dev.aaronhowser.mods.paracosm.block.block_entity.CityRugBlockEntity
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.world.entity.LivingEntity
@@ -10,23 +10,29 @@ import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.LevelAccessor
 import net.minecraft.world.level.LevelReader
-import net.minecraft.world.level.block.*
+import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.Blocks
+import net.minecraft.world.level.block.EntityBlock
+import net.minecraft.world.level.block.RenderShape
+import net.minecraft.world.level.block.SoundType
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
+import net.minecraft.world.level.block.state.properties.BlockStateProperties
+import net.minecraft.world.level.block.state.properties.DirectionProperty
 import net.minecraft.world.level.block.state.properties.IntegerProperty
 import net.minecraft.world.level.material.MapColor
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.VoxelShape
 
-class CityRugBlock(
-	properties: Properties = Properties.of()
+class CityRugBlock : Block(
+	Properties.of()
 		.strength(0.1f)
 		.sound(SoundType.WOOL)
 		.ignitedByLava()
 		.mapColor(MapColor.COLOR_LIGHT_GRAY)
-) : HorizontalDirectionalBlock(properties), EntityBlock {
+), EntityBlock {
 
 	init {
 		registerDefaultState(
@@ -105,7 +111,14 @@ class CityRugBlock(
 		}
 	}
 
+	override fun newBlockEntity(pPos: BlockPos, pState: BlockState): BlockEntity {
+		return CityRugBlockEntity(pPos, pState)
+	}
+
 	companion object {
+		val FACING: DirectionProperty = BlockStateProperties.HORIZONTAL_FACING
+		val SEGMENT: IntegerProperty = IntegerProperty.create("segment", 0, 7)
+		val SHAPE: VoxelShape = box(0.0, 0.0, 0.0, 16.0, 1.0, 16.0)
 
 		fun breakAll(pos: BlockPos, level: Level) {
 			val blockEntity = level.getBlockEntity(pos) as? CityRugBlockEntity ?: return
@@ -215,16 +228,5 @@ class CityRugBlock(
 			return true
 		}
 
-		val SEGMENT: IntegerProperty = IntegerProperty.create("segment", 0, 7)
-		val SHAPE: VoxelShape = box(0.0, 0.0, 0.0, 16.0, 1.0, 16.0)
-		val CODEC: MapCodec<CityRugBlock> = simpleCodec(::CityRugBlock)
-	}
-
-	override fun codec(): MapCodec<CityRugBlock> {
-		return CODEC
-	}
-
-	override fun newBlockEntity(pPos: BlockPos, pState: BlockState): BlockEntity {
-		return CityRugBlockEntity(pPos, pState)
 	}
 }

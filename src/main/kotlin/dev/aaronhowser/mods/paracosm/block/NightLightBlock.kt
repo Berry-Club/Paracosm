@@ -20,7 +20,7 @@ import net.minecraft.world.level.material.PushReaction
 import net.minecraft.world.phys.BlockHitResult
 
 class NightLightBlock(
-	private val properties: Properties = Properties.of()
+	properties: Properties = Properties.of()
 		.strength(0.5f)
 		.mapColor(MapColor.COLOR_PINK)
 		.sound(SoundType.GLASS)

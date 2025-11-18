@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.paracosm.block.imaginator
+package dev.aaronhowser.mods.paracosm.block
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.toVec3
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
