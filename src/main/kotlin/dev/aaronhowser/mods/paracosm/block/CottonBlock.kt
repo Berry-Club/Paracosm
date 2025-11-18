@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.paracosm.block
 
-import com.mojang.serialization.MapCodec
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import net.minecraft.core.BlockPos
 import net.minecraft.world.level.BlockGetter
@@ -17,50 +16,40 @@ import net.minecraft.world.level.material.PushReaction
 import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.VoxelShape
 
-class CottonBlock(
-	properties: Properties = Properties.of()
+class CottonBlock : CropBlock(
+	Properties.of()
 		.mapColor(MapColor.PLANT)
 		.noCollission()
 		.randomTicks()
 		.instabreak()
 		.sound(SoundType.CROP)
 		.pushReaction(PushReaction.DESTROY)
-) : CropBlock(properties) {
-
-	companion object {
-		val CODEC: MapCodec<CottonBlock> = simpleCodec(::CottonBlock)
-
-		val AGE: IntegerProperty = BlockStateProperties.AGE_3
-		val SHAPE_BY_AGE = arrayOf(
-			box(0.0, 0.0, 0.0, 16.0, 2.0, 16.0),
-			box(0.0, 0.0, 0.0, 16.0, 4.0, 16.0),
-			box(0.0, 0.0, 0.0, 16.0, 6.0, 16.0),
-			box(0.0, 0.0, 0.0, 16.0, 8.0, 16.0)
-		)
-	}
+) {
 
 	override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
-		builder.add(AGE)
+		builder.add(AGE_3)
 	}
 
-	override fun getAgeProperty(): IntegerProperty {
-		return AGE
-	}
-
-	override fun getMaxAge(): Int {
-		return 3
-	}
+	override fun getAgeProperty(): IntegerProperty = AGE_3
+	override fun getMaxAge(): Int = 3
+	override fun getBaseSeedId(): ItemLike = ModItems.COTTON
 
 	override fun getShape(state: BlockState, level: BlockGetter, pos: BlockPos, context: CollisionContext): VoxelShape {
-		return SHAPE_BY_AGE[getAge(state)]
+		val age = getAge(state)
+		return SHAPE_BY_AGE[age]
 	}
 
-	override fun codec(): MapCodec<out CropBlock> {
-		return CODEC
+	companion object {
+		val AGE_3: IntegerProperty = BlockStateProperties.AGE_3
+
+		val SHAPE_BY_AGE: List<VoxelShape> =
+			listOf(
+				box(0.0, 0.0, 0.0, 16.0, 2.0, 16.0),
+				box(0.0, 0.0, 0.0, 16.0, 4.0, 16.0),
+				box(0.0, 0.0, 0.0, 16.0, 6.0, 16.0),
+				box(0.0, 0.0, 0.0, 16.0, 8.0, 16.0)
+			)
 	}
 
-	override fun getBaseSeedId(): ItemLike {
-		return ModItems.COTTON
-	}
 
 }

@@ -32,7 +32,7 @@ class ModBlockLootTablesSubProvider(
 				StatePropertiesPredicate
 					.Builder
 					.properties()
-					.hasProperty(CottonBlock.AGE, 3)
+					.hasProperty(CottonBlock.AGE_3, 3)
 			)
 
 		add(

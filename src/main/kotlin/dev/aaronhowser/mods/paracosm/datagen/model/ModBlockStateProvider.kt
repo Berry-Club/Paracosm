@@ -236,7 +236,7 @@ class ModBlockStateProvider(
 
 		getVariantBuilder(block)
 			.forAllStates {
-				val age = it.getValue(CottonBlock.AGE)
+				val age = it.getValue(CottonBlock.AGE_3)
 
 				ConfiguredModel
 					.builder()
