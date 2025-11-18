@@ -54,17 +54,15 @@ object ClientModBusEvents {
 
     @SubscribeEvent
     fun onModelRegistry(event: ModelEvent.RegisterAdditional) {
-
         ItemProperties.register(
             ModItems.TOY_GUN.get(),
-            ModItemModelProvider.whimsyPredicateName,
+            ModItemModelProvider.WHIMSY_PREDICATE_NAME,
             ItemPropertyFunction { stack, _, _, _ ->
                 val item = stack.item as? ToyGunItem ?: return@ItemPropertyFunction 0f
 
                 if (ClientUtil.hasWhimsy(item.requiredWhimsy)) 1f else 0f
             }
         )
-
     }
 
     @SubscribeEvent

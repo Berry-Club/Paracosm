@@ -42,7 +42,7 @@ class ModItemModelProvider(
     }
 
     companion object {
-        val whimsyPredicateName = OtherUtil.modResource("whimsy")
+        val WHIMSY_PREDICATE_NAME = OtherUtil.modResource("whimsy")
     }
 
     fun whimsy(
