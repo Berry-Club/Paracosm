@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.paracosm.item
 import dev.aaronhowser.mods.paracosm.attachment.RequiresWhimsy
 import dev.aaronhowser.mods.paracosm.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.paracosm.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.paracosm.datagen.language.ModItemLang
 import dev.aaronhowser.mods.paracosm.util.ClientUtil
 import dev.aaronhowser.mods.paracosm.util.TrueFalseComponent
 import net.minecraft.network.chat.Component
@@ -17,8 +18,8 @@ class ToyGunItem : RequiresWhimsy, Item(
 	override val requiredWhimsy: Float = 5f
 
 	private val nameComponent = TrueFalseComponent(
-		componentTrue = ModLanguageProvider.Item.COOL_GUN.toComponent(),
-		componentFalse = ModLanguageProvider.Item.TOY_GUN.toComponent()
+		componentTrue = ModItemLang.COOL_GUN.toComponent(),
+		componentFalse = ModItemLang.TOY_GUN.toComponent()
 	) { ClientUtil.hasWhimsy(requiredWhimsy) }
 
 	override fun getName(stack: ItemStack): Component {

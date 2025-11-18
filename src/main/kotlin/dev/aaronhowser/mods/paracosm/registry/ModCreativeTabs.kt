@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.paracosm.registry
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.paracosm.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.paracosm.datagen.language.ModItemLang
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.item.CreativeModeTab
 import net.neoforged.neoforge.registries.DeferredHolder
@@ -18,7 +19,7 @@ object ModCreativeTabs {
 	val MOD_TAB: DeferredHolder<CreativeModeTab, CreativeModeTab> =
 		CREATIVE_TAB_REGISTRY.register("pitch_perfect", Supplier {
 			CreativeModeTab.builder()
-				.title(ModLanguageProvider.Misc.CREATIVE_TAB.toComponent())
+				.title(ModItemLang.CREATIVE_TAB.toComponent())
 				.icon { ModItems.COTTON.toStack() }
 				.displayItems { a, b ->
 					b.acceptAll(ModItems.ITEM_REGISTRY.entries.map { (it as DeferredItem).toStack() })

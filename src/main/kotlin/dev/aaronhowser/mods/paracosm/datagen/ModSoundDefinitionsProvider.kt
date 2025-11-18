@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.paracosm.datagen
 
 import dev.aaronhowser.mods.paracosm.Paracosm
+import dev.aaronhowser.mods.paracosm.datagen.language.ModSubtitleLang
 import dev.aaronhowser.mods.paracosm.registry.ModSounds
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.data.PackOutput
@@ -22,7 +23,7 @@ class ModSoundDefinitionsProvider(
 					sound(OtherUtil.modResource("fart2"), SoundDefinition.SoundType.SOUND),
 					sound(OtherUtil.modResource("fart3"), SoundDefinition.SoundType.SOUND),
 				)
-				.subtitle(ModLanguageProvider.Subtitle.FART)
+				.subtitle(ModSubtitleLang.FART)
 		)
 
 		add(
@@ -33,7 +34,7 @@ class ModSoundDefinitionsProvider(
 					sound(OtherUtil.modResource("unfart2"), SoundDefinition.SoundType.SOUND),
 					sound(OtherUtil.modResource("unfart3"), SoundDefinition.SoundType.SOUND),
 				)
-				.subtitle(ModLanguageProvider.Subtitle.UNFART)
+				.subtitle(ModSubtitleLang.UNFART)
 		)
 
 		add(
@@ -42,7 +43,7 @@ class ModSoundDefinitionsProvider(
 				.with(
 					sound(OtherUtil.modResource("squee"), SoundDefinition.SoundType.SOUND)
 				)
-				.subtitle(ModLanguageProvider.Subtitle.SQUEE)
+				.subtitle(ModSubtitleLang.SQUEE)
 		)
 
 		add(
@@ -51,7 +52,7 @@ class ModSoundDefinitionsProvider(
 				.with(
 					sound(OtherUtil.modResource("dodgeball"), SoundDefinition.SoundType.SOUND)
 				)
-				.subtitle(ModLanguageProvider.Subtitle.DODGEBALL)
+				.subtitle(ModSubtitleLang.DODGEBALL)
 		)
 
 		//FIXME: You can't use vanilla sounds here
@@ -61,7 +62,7 @@ class ModSoundDefinitionsProvider(
 //                .with(
 //                    sound(SoundEvents.SLIME_BLOCK_PLACE.location)
 //                )
-//                .subtitle(ModLanguageProvider.Subtitle.STICKY_HAND_THROW)
+//                .subtitle(ModSubtitleLang.STICKY_HAND_THROW)
 //        )
 //
 //        add(
@@ -70,7 +71,7 @@ class ModSoundDefinitionsProvider(
 //                .with(
 //                    sound(SoundEvents.SLIME_BLOCK_BREAK.location)
 //                )
-//                .subtitle(ModLanguageProvider.Subtitle.STICKY_HAND_RETRIEVE)
+//                .subtitle(ModSubtitleLang.STICKY_HAND_RETRIEVE)
 //        )
 
 	}
