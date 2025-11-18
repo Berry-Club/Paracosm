@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.paracosm.block
 
-import com.mojang.serialization.MapCodec
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.world.InteractionResult
@@ -8,19 +7,18 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
-import net.minecraft.world.level.block.HorizontalDirectionalBlock
-import net.minecraft.world.level.block.RenderShape
 import net.minecraft.world.level.block.SoundType
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.minecraft.world.level.block.state.properties.BooleanProperty
+import net.minecraft.world.level.block.state.properties.DirectionProperty
 import net.minecraft.world.level.material.MapColor
 import net.minecraft.world.level.material.PushReaction
 import net.minecraft.world.phys.BlockHitResult
 
-class NightLightBlock(
-	properties: Properties = Properties.of()
+class NightLightBlock : Block(
+	Properties.of()
 		.strength(0.5f)
 		.mapColor(MapColor.COLOR_PINK)
 		.sound(SoundType.GLASS)
@@ -28,7 +26,7 @@ class NightLightBlock(
 		.noOcclusion()
 		.pushReaction(PushReaction.DESTROY)
 		.noCollission()
-) : HorizontalDirectionalBlock(properties) {
+) {
 
 	init {
 		registerDefaultState(
@@ -45,23 +43,7 @@ class NightLightBlock(
 	}
 
 	override fun createBlockStateDefinition(pBuilder: StateDefinition.Builder<Block, BlockState>) {
-		super.createBlockStateDefinition(pBuilder)
 		pBuilder.add(FACING, ENABLED)
-	}
-
-	@Suppress("OVERRIDE_DEPRECATION")
-	override fun getRenderShape(pState: BlockState): RenderShape {
-		return RenderShape.MODEL
-	}
-
-	companion object {
-		val ENABLED: BooleanProperty = BlockStateProperties.ENABLED
-
-		val CODEC: MapCodec<NightLightBlock> = simpleCodec(::NightLightBlock)
-	}
-
-	override fun codec(): MapCodec<NightLightBlock> {
-		return CODEC
 	}
 
 	override fun useWithoutItem(
@@ -78,6 +60,11 @@ class NightLightBlock(
 		)
 
 		return InteractionResult.SUCCESS
+	}
+
+	companion object {
+		val FACING: DirectionProperty = BlockStateProperties.HORIZONTAL_FACING
+		val ENABLED: BooleanProperty = BlockStateProperties.ENABLED
 	}
 
 }
