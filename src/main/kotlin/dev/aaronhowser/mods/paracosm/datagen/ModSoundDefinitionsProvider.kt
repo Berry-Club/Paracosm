@@ -14,7 +14,6 @@ class ModSoundDefinitionsProvider(
 ) : SoundDefinitionsProvider(output, Paracosm.ID, helper) {
 
 	override fun registerSounds() {
-
 		add(
 			ModSounds.FART,
 			SoundDefinition.definition()

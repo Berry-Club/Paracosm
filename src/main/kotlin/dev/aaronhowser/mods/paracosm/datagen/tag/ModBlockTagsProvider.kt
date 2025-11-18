@@ -22,14 +22,6 @@ class ModBlockTagsProvider(
 	existingFileHelper: ExistingFileHelper?
 ) : BlockTagsProvider(output, lookupProvider, Paracosm.ID, existingFileHelper) {
 
-	companion object {
-		fun create(name: String): TagKey<Block> = create(OtherUtil.modResource(name))
-		fun create(rl: ResourceLocation): TagKey<Block> = TagKey.create(Registries.BLOCK, rl)
-
-		val REFLECTIVE = create("reflective")
-		val POGO_BOOST = create("pogo_boost")
-	}
-
 	override fun addTags(pProvider: HolderLookup.Provider) {
 
 		this.tag(REFLECTIVE)
@@ -48,6 +40,13 @@ class ModBlockTagsProvider(
 
 		this.tag(BlockTags.CROPS).add(ModBlocks.COTTON.get())
 		this.tag(BlockTags.PRESSURE_PLATES).add(ModBlocks.WHOOPEE_CUSHION.get())
+	}
 
+	companion object {
+		fun create(name: String): TagKey<Block> = create(OtherUtil.modResource(name))
+		fun create(rl: ResourceLocation): TagKey<Block> = TagKey.create(Registries.BLOCK, rl)
+
+		val REFLECTIVE = create("reflective")
+		val POGO_BOOST = create("pogo_boost")
 	}
 }

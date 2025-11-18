@@ -20,15 +20,7 @@ class ModEntityTypeTagsProvider(
 	existingFileHelper: ExistingFileHelper?
 ) : EntityTypeTagsProvider(pOutput, pProvider, Paracosm.ID, existingFileHelper) {
 
-	companion object {
-		private fun create(name: String): TagKey<EntityType<*>> = create(OtherUtil.modResource(name))
-		private fun create(rl: ResourceLocation): TagKey<EntityType<*>> = TagKey.create(Registries.ENTITY_TYPE, rl)
-
-		val TOYS = create("toys")
-	}
-
 	override fun addTags(pProvider: HolderLookup.Provider) {
-
 		this.tag(EntityTypeTags.REDIRECTABLE_PROJECTILE)
 			.add(ModEntityTypes.DODGEBALL.get())
 
@@ -39,7 +31,15 @@ class ModEntityTypeTagsProvider(
 				ModEntityTypes.STRING_WORM.get(),
 				ModEntityTypes.DODGEBALL.get()
 			)
+	}
 
+	companion object {
+		private fun create(name: String): TagKey<EntityType<*>> {
+			val rl = OtherUtil.modResource(name)
+			return TagKey.create(Registries.ENTITY_TYPE, rl)
+		}
+
+		val TOYS = create("toys")
 	}
 
 }

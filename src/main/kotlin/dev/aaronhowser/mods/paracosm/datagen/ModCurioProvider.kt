@@ -14,11 +14,6 @@ class ModCurioProvider(
 	registries: CompletableFuture<HolderLookup.Provider>?
 ) : CuriosDataProvider(Paracosm.ID, output, fileHelper, registries) {
 
-	companion object {
-		const val SEEING_STONE_SLOT = "seeing_stone"
-		const val PLAYER_RULE = "player"
-	}
-
 	override fun generate(registries: HolderLookup.Provider?, fileHelper: ExistingFileHelper?) {
 		this.createSlot(SEEING_STONE_SLOT)
 			.size(1)
@@ -28,6 +23,11 @@ class ModCurioProvider(
 		this.createEntities(PLAYER_RULE)
 			.addPlayer()
 			.addSlots(SEEING_STONE_SLOT)
+	}
+
+	companion object {
+		const val SEEING_STONE_SLOT = "seeing_stone"
+		const val PLAYER_RULE = "player"
 	}
 
 }

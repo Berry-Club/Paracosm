@@ -23,14 +23,6 @@ class ModItemTagsProvider(
 	existingFileHelper: ExistingFileHelper?
 ) : ItemTagsProvider(pOutput, pLookupProvider, pBlockTags, Paracosm.ID, existingFileHelper) {
 
-	companion object {
-		private fun create(name: String): TagKey<Item> = create(OtherUtil.modResource(name))
-		private fun create(rl: ResourceLocation): TagKey<Item> = TagKey.create(Registries.ITEM, rl)
-
-		val SWEETS = create("sweets")
-		val SEEING_STONE = create(ResourceLocation.fromNamespaceAndPath(CuriosApi.MODID, "seeing_stone"))
-	}
-
 	override fun addTags(pProvider: HolderLookup.Provider) {
 
 		this.tag(SWEETS)
@@ -45,5 +37,20 @@ class ModItemTagsProvider(
 				ModItems.SEEING_STONE.get()
 			)
 
+	}
+
+	companion object {
+		private fun create(name: String): TagKey<Item> {
+			val rl = OtherUtil.modResource(name)
+			return TagKey.create(Registries.ITEM, rl)
+		}
+
+		private fun curio(name: String): TagKey<Item> {
+			val rl = ResourceLocation.fromNamespaceAndPath(CuriosApi.MODID, name)
+			return TagKey.create(Registries.ITEM, rl)
+		}
+
+		val SWEETS = create("sweets")
+		val SEEING_STONE = curio("seeing_stone")
 	}
 }
