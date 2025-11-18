@@ -32,7 +32,7 @@ class AaronberryModel : GeoModel<AaronberryEntity>() {
 
 		val face: GeoBone = animationProcessor.getBone("face")
 
-		val entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA)
+		val entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA) ?: return
 
 		face.posY = entityData.headPitch.map(-90f, 90f, -3f, 3f)
 		face.posX = entityData.netHeadYaw.map(-90f, 90f, -2f, 2f)

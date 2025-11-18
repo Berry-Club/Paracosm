@@ -30,7 +30,7 @@ class StringWormModel : GeoModel<StringWormEntity>() {
 	) {
 		val head: GeoBone = animationProcessor.getBone("head")
 
-		val entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA)
+		val entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA) ?: return
 
 		head.rotX = entityData.headPitch * Mth.DEG_TO_RAD
 		head.rotY = entityData.netHeadYaw * Mth.DEG_TO_RAD

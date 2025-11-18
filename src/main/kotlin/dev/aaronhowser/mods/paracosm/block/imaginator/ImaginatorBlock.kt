@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.block.imaginator
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.toVec3
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.core.BlockPos
 import net.minecraft.world.InteractionResult
@@ -19,7 +20,6 @@ import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
-import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.toVec3
 import kotlin.math.pow
 
 class ImaginatorBlock(

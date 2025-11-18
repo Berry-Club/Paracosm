@@ -38,7 +38,6 @@ import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceC
 import software.bernie.geckolib.animation.AnimatableManager
 import software.bernie.geckolib.animation.AnimationController
 import software.bernie.geckolib.animation.PlayState
-import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.plus
 import kotlin.math.abs
 import kotlin.math.sqrt
 
@@ -334,7 +333,7 @@ class PogoStickVehicle(
 					.scale(currentJumpAmount.toDouble())
 					.scale(jumpStrength)
 
-			this.deltaMovement += jumpVector
+			addDeltaMovement(jumpVector)
 			this.hasImpulse = true
 			this.setOnGround(false)
 
