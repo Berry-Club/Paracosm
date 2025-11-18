@@ -1,27 +1,14 @@
-package dev.aaronhowser.mods.paracosm.client.render.entity
+package dev.aaronhowser.mods.paracosm.client.render.entity.model
 
 import dev.aaronhowser.mods.paracosm.entity.custom.TeddyBearEntity
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
 import software.bernie.geckolib.animation.AnimationState
 import software.bernie.geckolib.cache.`object`.GeoBone
 import software.bernie.geckolib.constant.DataTickets
-import software.bernie.geckolib.model.GeoModel
+import software.bernie.geckolib.model.DefaultedEntityGeoModel
 
-class TeddyBearModel : GeoModel<TeddyBearEntity>() {
-
-	override fun getModelResource(animatable: TeddyBearEntity?): ResourceLocation {
-		return OtherUtil.modResource("geo/teddy_bear.geo.json")
-	}
-
-	override fun getTextureResource(animatable: TeddyBearEntity?): ResourceLocation {
-		return OtherUtil.modResource("textures/entity/teddy_bear.png")
-	}
-
-	override fun getAnimationResource(animatable: TeddyBearEntity?): ResourceLocation {
-		return OtherUtil.modResource("animations/teddy_bear.animation.json")
-	}
+class TeddyBearModel : DefaultedEntityGeoModel<TeddyBearEntity>(OtherUtil.modResource("teddy_bear")) {
 
 	override fun setCustomAnimations(
 		animatable: TeddyBearEntity,

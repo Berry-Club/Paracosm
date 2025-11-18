@@ -1,5 +1,6 @@
-package dev.aaronhowser.mods.paracosm.client.render.entity
+package dev.aaronhowser.mods.paracosm.client.render.entity.renderer
 
+import dev.aaronhowser.mods.paracosm.client.render.entity.model.PogoStickVehicleModel
 import dev.aaronhowser.mods.paracosm.entity.custom.PogoStickVehicle
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.client.renderer.entity.EntityRendererProvider

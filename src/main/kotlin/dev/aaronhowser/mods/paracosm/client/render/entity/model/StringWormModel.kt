@@ -1,27 +1,14 @@
-package dev.aaronhowser.mods.paracosm.client.render.entity
+package dev.aaronhowser.mods.paracosm.client.render.entity.model
 
 import dev.aaronhowser.mods.paracosm.entity.custom.StringWormEntity
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
 import software.bernie.geckolib.animation.AnimationState
 import software.bernie.geckolib.cache.`object`.GeoBone
 import software.bernie.geckolib.constant.DataTickets
-import software.bernie.geckolib.model.GeoModel
+import software.bernie.geckolib.model.DefaultedEntityGeoModel
 
-class StringWormModel : GeoModel<StringWormEntity>() {
-
-	override fun getModelResource(animatable: StringWormEntity?): ResourceLocation {
-		return OtherUtil.modResource("geo/string_worm.geo.json")
-	}
-
-	override fun getTextureResource(animatable: StringWormEntity?): ResourceLocation {
-		return OtherUtil.modResource("textures/entity/string_worm.png")
-	}
-
-	override fun getAnimationResource(animatable: StringWormEntity?): ResourceLocation {
-		return OtherUtil.modResource("animations/string_worm.animation.json")
-	}
+class StringWormModel : DefaultedEntityGeoModel<StringWormEntity>(OtherUtil.modResource("string_worm")) {
 
 	override fun setCustomAnimations(
 		animatable: StringWormEntity,

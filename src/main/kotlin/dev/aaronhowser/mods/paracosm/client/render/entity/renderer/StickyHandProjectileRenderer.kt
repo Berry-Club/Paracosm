@@ -1,11 +1,11 @@
-package dev.aaronhowser.mods.paracosm.client.render.entity
+package dev.aaronhowser.mods.paracosm.client.render.entity.renderer
 
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.blaze3d.vertex.VertexConsumer
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
+import dev.aaronhowser.mods.paracosm.client.render.entity.model.StickyHandProjectileModel
 import dev.aaronhowser.mods.paracosm.entity.custom.StickyHandProjectile
 import dev.aaronhowser.mods.paracosm.registry.ModItems
-import dev.aaronhowser.mods.paracosm.util.ClientUtil
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.RenderType

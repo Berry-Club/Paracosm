@@ -1,7 +1,12 @@
 package dev.aaronhowser.mods.paracosm.event
 
 import dev.aaronhowser.mods.paracosm.Paracosm
-import dev.aaronhowser.mods.paracosm.client.render.entity.*
+import dev.aaronhowser.mods.paracosm.client.render.entity.renderer.AaronberryRenderer
+import dev.aaronhowser.mods.paracosm.client.render.entity.renderer.PogoStickVehicleRenderer
+import dev.aaronhowser.mods.paracosm.client.render.entity.renderer.ShrinkRayProjectileRenderer
+import dev.aaronhowser.mods.paracosm.client.render.entity.renderer.StickyHandProjectileRenderer
+import dev.aaronhowser.mods.paracosm.client.render.entity.renderer.StringWormRenderer
+import dev.aaronhowser.mods.paracosm.client.render.entity.renderer.TeddyBearRenderer
 import dev.aaronhowser.mods.paracosm.client.render.layer.TowelCapeLayer
 import dev.aaronhowser.mods.paracosm.datagen.model.ModItemModelProvider
 import dev.aaronhowser.mods.paracosm.item.ToyGunItem

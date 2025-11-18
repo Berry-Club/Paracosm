@@ -1,27 +1,14 @@
-package dev.aaronhowser.mods.paracosm.client.render.entity
+package dev.aaronhowser.mods.paracosm.client.render.entity.model
 
 import dev.aaronhowser.mods.paracosm.entity.custom.AaronberryEntity
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import dev.aaronhowser.mods.paracosm.util.OtherUtil.map
-import net.minecraft.resources.ResourceLocation
 import software.bernie.geckolib.animation.AnimationState
 import software.bernie.geckolib.cache.`object`.GeoBone
 import software.bernie.geckolib.constant.DataTickets
-import software.bernie.geckolib.model.GeoModel
+import software.bernie.geckolib.model.DefaultedEntityGeoModel
 
-class AaronberryModel : GeoModel<AaronberryEntity>() {
-
-	override fun getModelResource(animatable: AaronberryEntity?): ResourceLocation {
-		return OtherUtil.modResource("geo/aaronberry.geo.json")
-	}
-
-	override fun getTextureResource(animatable: AaronberryEntity?): ResourceLocation {
-		return OtherUtil.modResource("textures/entity/aaronberry.png")
-	}
-
-	override fun getAnimationResource(animatable: AaronberryEntity?): ResourceLocation {
-		return OtherUtil.modResource("animations/aaronberry.animation.json")
-	}
+class AaronberryModel : DefaultedEntityGeoModel<AaronberryEntity>(OtherUtil.modResource("aaronberry")) {
 
 	override fun setCustomAnimations(
 		animatable: AaronberryEntity,

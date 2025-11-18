@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.paracosm.client.render.entity
+package dev.aaronhowser.mods.paracosm.client.render.entity.renderer
 
 import dev.aaronhowser.mods.paracosm.entity.custom.ShrinkRayProjectile
 import dev.aaronhowser.mods.paracosm.util.OtherUtil

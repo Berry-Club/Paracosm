@@ -1,25 +1,12 @@
-package dev.aaronhowser.mods.paracosm.client.render.entity
+package dev.aaronhowser.mods.paracosm.client.render.entity.model
 
 import dev.aaronhowser.mods.paracosm.entity.custom.PogoStickVehicle
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
 import software.bernie.geckolib.animation.AnimationState
-import software.bernie.geckolib.model.GeoModel
+import software.bernie.geckolib.model.DefaultedEntityGeoModel
 
-class PogoStickVehicleModel : GeoModel<PogoStickVehicle>() {
-
-	override fun getModelResource(animatable: PogoStickVehicle?): ResourceLocation {
-		return OtherUtil.modResource("geo/pogo_stick.geo.json")
-	}
-
-	override fun getTextureResource(animatable: PogoStickVehicle?): ResourceLocation {
-		return OtherUtil.modResource("textures/entity/pogo_stick.png")
-	}
-
-	override fun getAnimationResource(animatable: PogoStickVehicle?): ResourceLocation {
-		return OtherUtil.modResource("animations/pogo_stick.animation.json")
-	}
+class PogoStickVehicleModel : DefaultedEntityGeoModel<PogoStickVehicle>(OtherUtil.modResource("pogo_stick")) {
 
 	override fun setCustomAnimations(
 		animatable: PogoStickVehicle,
