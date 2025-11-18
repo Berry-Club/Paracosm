@@ -62,48 +62,6 @@ class PogoStickVehicle(
 		this.blocksBuilding = true
 	}
 
-	companion object {
-		val DATA_TILT_RIGHT: EntityDataAccessor<Float> =
-			SynchedEntityData.defineId(PogoStickVehicle::class.java, EntityDataSerializers.FLOAT)
-		val DATA_TILT_BACKWARD: EntityDataAccessor<Float> =
-			SynchedEntityData.defineId(PogoStickVehicle::class.java, EntityDataSerializers.FLOAT)
-		val DATA_JUMP_PERCENT: EntityDataAccessor<Float> =
-			SynchedEntityData.defineId(PogoStickVehicle::class.java, EntityDataSerializers.FLOAT)
-
-		const val JUMP_ANIM_DISTANCE = 0.4
-
-		const val MAX_TILT_DEGREE = 45f
-		const val MAX_TILT_RADIAN = MAX_TILT_DEGREE * Mth.DEG_TO_RAD
-
-		fun handleInput(event: ClientTickEvent.Pre) {
-			val player = AaronClientUtil.localPlayer as? LocalPlayer ?: return
-			val vehicle = player.vehicle as? PogoStickVehicle ?: return
-
-			vehicle.setInput(
-				player.input.leftImpulse,
-				player.input.forwardImpulse,
-				player.input.jumping
-			)
-		}
-
-		fun checkCancelDamage(event: LivingIncomingDamageEvent) {
-			if (event.isCanceled) return
-
-			val source = event.source
-			val entity = event.entity
-			val level = entity.level()
-
-			if (
-				source != level.damageSources().fall()
-				&& source != level.damageSources().inWall()
-			) return
-
-			if (event.entity.vehicle is PogoStickVehicle) {
-				event.isCanceled = true
-			}
-		}
-	}
-
 	override fun defineSynchedData(builder: SynchedEntityData.Builder) {
 		super.defineSynchedData(builder)
 		builder.define(DATA_TILT_RIGHT, 0f)
@@ -467,5 +425,48 @@ class PogoStickVehicle(
 			}
 		}
 	}
+
+	companion object {
+		val DATA_TILT_RIGHT: EntityDataAccessor<Float> =
+			SynchedEntityData.defineId(PogoStickVehicle::class.java, EntityDataSerializers.FLOAT)
+		val DATA_TILT_BACKWARD: EntityDataAccessor<Float> =
+			SynchedEntityData.defineId(PogoStickVehicle::class.java, EntityDataSerializers.FLOAT)
+		val DATA_JUMP_PERCENT: EntityDataAccessor<Float> =
+			SynchedEntityData.defineId(PogoStickVehicle::class.java, EntityDataSerializers.FLOAT)
+
+		const val JUMP_ANIM_DISTANCE = 0.4
+
+		const val MAX_TILT_DEGREE = 45f
+		const val MAX_TILT_RADIAN = MAX_TILT_DEGREE * Mth.DEG_TO_RAD
+
+		fun handleInput(event: ClientTickEvent.Pre) {
+			val player = AaronClientUtil.localPlayer as? LocalPlayer ?: return
+			val vehicle = player.vehicle as? PogoStickVehicle ?: return
+
+			vehicle.setInput(
+				player.input.leftImpulse,
+				player.input.forwardImpulse,
+				player.input.jumping
+			)
+		}
+
+		fun checkCancelDamage(event: LivingIncomingDamageEvent) {
+			if (event.isCanceled) return
+
+			val source = event.source
+			val entity = event.entity
+			val level = entity.level()
+
+			if (
+				source != level.damageSources().fall()
+				&& source != level.damageSources().inWall()
+			) return
+
+			if (event.entity.vehicle is PogoStickVehicle) {
+				event.isCanceled = true
+			}
+		}
+	}
+
 
 }

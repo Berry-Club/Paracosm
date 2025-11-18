@@ -5,7 +5,6 @@ import dev.aaronhowser.mods.paracosm.entity.goal.ToyLookAtPlayerGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyRandomLookAroundGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyStrollGoal
 import net.minecraft.world.entity.EntityType
-import net.minecraft.world.entity.Mob
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier
 import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.ai.goal.FloatGoal
@@ -21,19 +20,6 @@ class AaronberryEntity(
 ) : ToyEntity(entityType, level) {
 
 	override val requiredWhimsy: Float = 1f
-
-	companion object {
-
-		fun setAttributes(): AttributeSupplier {
-			return createMobAttributes()
-				.add(Attributes.MAX_HEALTH, 20.0)
-				.add(Attributes.ATTACK_DAMAGE, 2.0)
-				.add(Attributes.ATTACK_SPEED, 1.0)
-				.add(Attributes.MOVEMENT_SPEED, 0.2)
-				.build()
-		}
-
-	}
 
 	override fun registerGoals() {
 		this.goalSelector.let {
@@ -67,8 +53,17 @@ class AaronberryEntity(
 	}
 
 	private val cache = SingletonAnimatableInstanceCache(this)
+	override fun getAnimatableInstanceCache(): AnimatableInstanceCache = cache
 
-	override fun getAnimatableInstanceCache(): AnimatableInstanceCache {
-		return cache
+	companion object {
+		fun setAttributes(): AttributeSupplier {
+			return createMobAttributes()
+				.add(Attributes.MAX_HEALTH, 20.0)
+				.add(Attributes.ATTACK_DAMAGE, 2.0)
+				.add(Attributes.ATTACK_SPEED, 1.0)
+				.add(Attributes.MOVEMENT_SPEED, 0.2)
+				.build()
+		}
 	}
+
 }

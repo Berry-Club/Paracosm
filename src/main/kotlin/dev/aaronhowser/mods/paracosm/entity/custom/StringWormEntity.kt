@@ -10,7 +10,6 @@ import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.entity.Mob
 import net.minecraft.world.entity.PlayerRideableJumping
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier
 import net.minecraft.world.entity.ai.attributes.Attributes
@@ -32,20 +31,6 @@ class StringWormEntity(
 	// Entity setup
 
 	override val requiredWhimsy: Float = 5f
-
-	companion object {
-
-		fun setAttributes(): AttributeSupplier {
-			return createMobAttributes()
-				.add(Attributes.MAX_HEALTH, 20.0)
-				.add(Attributes.ATTACK_DAMAGE, 2.0)
-				.add(Attributes.ATTACK_SPEED, 1.0)
-				.add(Attributes.MOVEMENT_SPEED, 0.2)
-				.add(Attributes.SCALE, 0.1)
-				.build()
-		}
-
-	}
 
 	override fun registerGoals() {
 		this.goalSelector.let {
@@ -83,10 +68,7 @@ class StringWormEntity(
 	}
 
 	private val cache = SingletonAnimatableInstanceCache(this)
-
-	override fun getAnimatableInstanceCache(): AnimatableInstanceCache {
-		return cache
-	}
+	override fun getAnimatableInstanceCache(): AnimatableInstanceCache = cache
 
 	// Behavior
 
@@ -199,4 +181,17 @@ class StringWormEntity(
 
 	override fun handleStopJump() {
 	}
+
+	companion object {
+		fun setAttributes(): AttributeSupplier {
+			return createMobAttributes()
+				.add(Attributes.MAX_HEALTH, 20.0)
+				.add(Attributes.ATTACK_DAMAGE, 2.0)
+				.add(Attributes.ATTACK_SPEED, 1.0)
+				.add(Attributes.MOVEMENT_SPEED, 0.2)
+				.add(Attributes.SCALE, 0.1)
+				.build()
+		}
+	}
+
 }

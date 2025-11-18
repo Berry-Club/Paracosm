@@ -53,11 +53,6 @@ class StickyHandProjectile(
 		this.deltaMovement = velocity
 	}
 
-	companion object {
-		val HOOKED_ENTITY: EntityDataAccessor<Int> =
-			SynchedEntityData.defineId(StickyHandProjectile::class.java, EntityDataSerializers.INT)
-	}
-
 	var grabbedEntity: Entity? = null
 
 	override fun defineSynchedData(p0: SynchedEntityData.Builder) {
@@ -244,9 +239,11 @@ class StickyHandProjectile(
 	}
 
 	private val cache = SingletonAnimatableInstanceCache(this)
+	override fun getAnimatableInstanceCache(): AnimatableInstanceCache = cache
 
-	override fun getAnimatableInstanceCache(): AnimatableInstanceCache {
-		return cache
+	companion object {
+		val HOOKED_ENTITY: EntityDataAccessor<Int> =
+			SynchedEntityData.defineId(StickyHandProjectile::class.java, EntityDataSerializers.INT)
 	}
 
 }
