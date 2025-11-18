@@ -5,7 +5,7 @@ import net.minecraft.network.chat.ComponentContents
 import net.minecraft.network.chat.Style
 import net.minecraft.util.FormattedCharSequence
 
-class VariableComponent(
+class TrueFalseComponent(
 	val componentTrue: Component,
 	val componentFalse: Component,
 	val condition: () -> Boolean
