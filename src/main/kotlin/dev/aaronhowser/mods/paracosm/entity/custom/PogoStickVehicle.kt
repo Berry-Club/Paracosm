@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.entity.custom
 
+import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.paracosm.config.ServerConfig
 import dev.aaronhowser.mods.paracosm.entity.base.IUpgradeableEntity
 import dev.aaronhowser.mods.paracosm.item.PogoStickItem
@@ -7,10 +8,10 @@ import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
 import dev.aaronhowser.mods.paracosm.packet.client_to_server.UpdatePogoControls
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.registry.ModItems
-import dev.aaronhowser.mods.paracosm.util.ClientUtil
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import dev.aaronhowser.mods.paracosm.util.OtherUtil.isClientSide
 import dev.aaronhowser.mods.paracosm.util.Upgradeable
+import net.minecraft.client.player.LocalPlayer
 import net.minecraft.core.component.DataComponents
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.Component
@@ -74,7 +75,7 @@ class PogoStickVehicle(
 		const val MAX_TILT_RADIAN = MAX_TILT_DEGREE * Mth.DEG_TO_RAD
 
 		fun handleInput(event: ClientTickEvent.Pre) {
-			val player = ClientUtil.localPlayer ?: return
+			val player = AaronClientUtil.localPlayer as? LocalPlayer ?: return
 			val vehicle = player.vehicle as? PogoStickVehicle ?: return
 
 			vehicle.setInput(

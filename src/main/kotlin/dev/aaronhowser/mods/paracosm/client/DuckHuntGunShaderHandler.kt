@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.client
 
+import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import dev.aaronhowser.mods.paracosm.util.ClientUtil
 import net.minecraft.client.Minecraft
@@ -16,7 +17,7 @@ object DuckHuntGunShaderHandler {
 	// Shader phosphor could not find uniform named InSize in the specified shader program.
 
 	fun updateShader(event: ClientTickEvent.Pre) {
-		val player = ClientUtil.localPlayer ?: return
+		val player = AaronClientUtil.localPlayer ?: return
 
 		val holdingGun = player.isHolding(ModItems.DUCK_HUNT_GUN.get())
 		if (holdingGun == heldGunLastTick) return

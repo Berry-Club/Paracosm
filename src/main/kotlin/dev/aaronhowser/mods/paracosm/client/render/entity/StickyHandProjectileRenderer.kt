@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.paracosm.client.render.entity
 
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.blaze3d.vertex.VertexConsumer
+import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.paracosm.entity.custom.StickyHandProjectile
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import dev.aaronhowser.mods.paracosm.util.ClientUtil
@@ -82,7 +83,7 @@ class StickyHandProjectileRenderer(
 		val stickyStack = player.mainHandItem
 		if (stickyStack.item != ModItems.STICKY_HAND.get()) i = -1
 
-		if (player == ClientUtil.localPlayer && this.entityRenderDispatcher.options.cameraType.isFirstPerson) {
+		if (player == AaronClientUtil.localPlayer && this.entityRenderDispatcher.options.cameraType.isFirstPerson) {
 			val d4 = 960.0 / (entityRenderDispatcher.options.fov().get() as Int).toDouble()
 			val vec3 = entityRenderDispatcher.camera.nearPlane
 				.getPointOnPlane(i.toFloat() * 0.525f, -0.1f)
