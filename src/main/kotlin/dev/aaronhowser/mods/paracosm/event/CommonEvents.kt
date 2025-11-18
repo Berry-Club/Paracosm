@@ -5,24 +5,42 @@ import dev.aaronhowser.mods.paracosm.attachment.Delusion.Companion.delusion
 import dev.aaronhowser.mods.paracosm.attachment.Whimsy.Companion.whimsy
 import dev.aaronhowser.mods.paracosm.command.ModCommands
 import dev.aaronhowser.mods.paracosm.datagen.tag.ModItemTagsProvider
+import dev.aaronhowser.mods.paracosm.entity.custom.AaronberryEntity
 import dev.aaronhowser.mods.paracosm.entity.custom.PogoStickVehicle
+import dev.aaronhowser.mods.paracosm.entity.custom.StringWormEntity
+import dev.aaronhowser.mods.paracosm.entity.custom.TeddyBearEntity
 import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateEntityUpgrades
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateWhimsyValue
+import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.util.Upgradeable
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.LivingEntity
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.event.RegisterCommandsEvent
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent
 import net.neoforged.neoforge.event.entity.player.PlayerEvent
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent
 
 @EventBusSubscriber(
 	modid = Paracosm.ID
 )
-object OtherEvents {
+object CommonEvents {
+
+	@SubscribeEvent
+	fun registerPayloads(event: RegisterPayloadHandlersEvent) {
+		ModPacketHandler.registerPayloads(event)
+	}
+
+	@SubscribeEvent
+	fun entityAttributeEvent(event: EntityAttributeCreationEvent) {
+		event.put(ModEntityTypes.TEDDY_BEAR.get(), TeddyBearEntity.setAttributes())
+		event.put(ModEntityTypes.STRING_WORM.get(), StringWormEntity.setAttributes())
+		event.put(ModEntityTypes.AARONBERRY.get(), AaronberryEntity.setAttributes())
+	}
 
 	@SubscribeEvent
 	fun onRegisterCommandsEvent(event: RegisterCommandsEvent) {
