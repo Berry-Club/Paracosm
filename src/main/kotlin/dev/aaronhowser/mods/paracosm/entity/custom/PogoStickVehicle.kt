@@ -1,5 +1,7 @@
 package dev.aaronhowser.mods.paracosm.entity.custom
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
+import dev.aaronhowser.mods.aaron.AaronExtensions.isServerSide
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.paracosm.config.ServerConfig
 import dev.aaronhowser.mods.paracosm.entity.base.IUpgradeableEntity
@@ -9,7 +11,6 @@ import dev.aaronhowser.mods.paracosm.packet.client_to_server.UpdatePogoControls
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
-import dev.aaronhowser.mods.paracosm.util.OtherUtil.isClientSide
 import dev.aaronhowser.mods.paracosm.util.Upgradeable
 import net.minecraft.client.player.LocalPlayer
 import net.minecraft.core.component.DataComponents
@@ -196,7 +197,7 @@ class PogoStickVehicle(
 			return InteractionResult.PASS
 		}
 
-		if (!this.isClientSide) {
+		if (this.isServerSide) {
 			return if (player.startRiding(this)) {
 				InteractionResult.CONSUME
 			} else {

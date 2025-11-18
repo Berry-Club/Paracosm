@@ -57,9 +57,6 @@ object OtherUtil {
 		return min2 + (max2 - min2) * ((this.toFloat() - min1) / (max1 - min1))
 	}
 
-	val Entity.isClientSide: Boolean
-		get() = this.level().isClientSide
-
 	data class RotationPair(val backwards: Float, val right: Float)
 
 	fun getRotationForCircle(
