@@ -1,9 +1,9 @@
 package dev.aaronhowser.mods.paracosm.entity.custom
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
 import dev.aaronhowser.mods.paracosm.item.StickyHandItem
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.registry.ModItems
-import dev.aaronhowser.mods.paracosm.util.OtherUtil.isClientSide
 import net.minecraft.commands.arguments.EntityAnchorArgument
 import net.minecraft.network.syncher.EntityDataAccessor
 import net.minecraft.network.syncher.EntityDataSerializers

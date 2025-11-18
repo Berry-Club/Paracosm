@@ -1,11 +1,11 @@
 package dev.aaronhowser.mods.paracosm.attachment
 
 import com.mojang.serialization.Codec
+import dev.aaronhowser.mods.aaron.AaronExtensions.isServerSide
 import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateShrinkRayScale
 import dev.aaronhowser.mods.paracosm.registry.ModAttachmentTypes
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
-import dev.aaronhowser.mods.paracosm.util.OtherUtil.isClientSide
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.attributes.AttributeModifier
 import net.minecraft.world.entity.ai.attributes.Attributes
@@ -26,7 +26,7 @@ data class ShrinkRayEffect(
 			set(valueUnCoerced) {
 				val value = valueUnCoerced.coerceIn(-0.9, 2.0)
 
-				if (!this.isClientSide) {
+				if (this.isServerSide) {
 					ModPacketHandler.messageAllPlayers(
 						UpdateShrinkRayScale(
 							this.id,

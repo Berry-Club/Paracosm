@@ -1,11 +1,12 @@
 package dev.aaronhowser.mods.paracosm.entity.custom
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
+import dev.aaronhowser.mods.aaron.AaronExtensions.isServerSide
 import dev.aaronhowser.mods.paracosm.entity.base.ToyEntity
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyLookAtPlayerGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyRandomLookAroundGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyStrollGoal
 import dev.aaronhowser.mods.paracosm.registry.ModSounds
-import dev.aaronhowser.mods.paracosm.util.OtherUtil.isClientSide
 import net.minecraft.network.chat.CommonComponents
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
@@ -55,7 +56,7 @@ class TeddyBearEntity(
 
 	override fun mobInteract(player: Player, hand: InteractionHand): InteractionResult {
 
-		if (!this.isClientSide && hand == InteractionHand.MAIN_HAND) {
+		if (this.isServerSide && hand == InteractionHand.MAIN_HAND) {
 			this.level().playSound(
 				this,
 				this.blockPosition(),
