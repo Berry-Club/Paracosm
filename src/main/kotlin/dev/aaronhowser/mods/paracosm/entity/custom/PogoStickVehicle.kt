@@ -444,7 +444,7 @@ class PogoStickVehicle(
 				return true
 			}
 
-			val radius = ServerConfig.POGO_GOOMBA_RADIUS.get()
+			val radius = ServerConfig.CONFIG.pogoGoombaRadius.get()
 
 			val stompedEntities = this.level().getEntities(
 				this,

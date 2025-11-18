@@ -7,15 +7,8 @@ class ServerConfig(
 	private val builder: ModConfigSpec.Builder
 ) {
 
-	companion object {
-		private val configPair: Pair<ServerConfig, ModConfigSpec> = ModConfigSpec.Builder().configure(::ServerConfig)
-
-		val CONFIG: ServerConfig = configPair.left
-		val CONFIG_SPEC: ModConfigSpec = configPair.right
-
-		lateinit var TOY_FLOP_RANGE: ModConfigSpec.DoubleValue
-		lateinit var POGO_GOOMBA_RADIUS: ModConfigSpec.DoubleValue
-	}
+	lateinit var toyFlopRange: ModConfigSpec.DoubleValue
+	lateinit var pogoGoombaRadius: ModConfigSpec.DoubleValue
 
 	init {
 		serverConfigs()
@@ -23,13 +16,20 @@ class ServerConfig(
 	}
 
 	private fun serverConfigs() {
-		TOY_FLOP_RANGE = builder
+		toyFlopRange = builder
 			.comment("The range that a toy checks for players to hide from.")
 			.defineInRange("Toy Flop Range", 80.0, 0.0, Double.MAX_VALUE)
 
-		POGO_GOOMBA_RADIUS = builder
+		pogoGoombaRadius = builder
 			.comment("The radius that a pogo stick checks for entities to stomp.")
 			.defineInRange("Pogo Goomba Radius", 1.5, 0.0, Double.MAX_VALUE)
+	}
+
+	companion object {
+		private val configPair: Pair<ServerConfig, ModConfigSpec> = ModConfigSpec.Builder().configure(::ServerConfig)
+
+		val CONFIG: ServerConfig = configPair.left
+		val CONFIG_SPEC: ModConfigSpec = configPair.right
 	}
 
 }

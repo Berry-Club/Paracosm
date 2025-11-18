@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.paracosm.util
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.config.ServerConfig
 import net.minecraft.resources.ResourceLocation
-import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.level.ClipContext
 import net.minecraft.world.level.Level
@@ -38,19 +37,18 @@ object OtherUtil {
 
 		val entityVec = Vec3(this.x, this.eyeY, this.z)
 
-		return if (vec3.distanceToSqr(entityVec) > ServerConfig.TOY_FLOP_RANGE.get().pow(2)) {
-			false
-		} else {
-			level.clip(
-				ClipContext(
-					entityVec,
-					vec3,
-					ClipContext.Block.COLLIDER,
-					ClipContext.Fluid.NONE,
-					CollisionContext.empty()
-				)
-			).type == HitResult.Type.MISS
-		}
+		val isInRange = vec3.closerThan(entityVec, ServerConfig.CONFIG.toyFlopRange.get())
+		if (!isInRange) return false
+
+		return level.clip(
+			ClipContext(
+				entityVec,
+				vec3,
+				ClipContext.Block.COLLIDER,
+				ClipContext.Fluid.NONE,
+				CollisionContext.empty()
+			)
+		).type == HitResult.Type.MISS
 	}
 
 	fun Number.map(min1: Float, max1: Float, min2: Float, max2: Float): Float {

@@ -21,7 +21,7 @@ interface RequiresWhimsy {
 	fun hidingFromPlayers(level: Level, vec3: Vec3): List<Player> {
 		return level.players().filter {
 			!hasEnoughWhimsy(it)
-					&& it.distanceToSqr(vec3) < ServerConfig.TOY_FLOP_RANGE.get().pow(2)
+					&& it.distanceToSqr(vec3) < ServerConfig.CONFIG.toyFlopRange.get().pow(2)
 					&& OtherUtil.isLookingAtPos(it, vec3, 75f)
 					&& it.hasLineOfSight(level, vec3)
 		}
