@@ -1,0 +1,33 @@
+package dev.aaronhowser.mods.paracosm.datagen.language
+
+import dev.aaronhowser.mods.paracosm.datagen.ModLanguageProvider
+import dev.aaronhowser.mods.paracosm.registry.ModItems
+
+object ModItemLang {
+
+	const val CREATIVE_TAB = "itemGroup.paracosm"
+
+	const val TOY_GUN = "item.paracosm.toy_gun"
+	const val COOL_GUN = "item.paracosm.cool_gun"
+
+	fun add(provider: ModLanguageProvider) {
+		provider.apply {
+			add(CREATIVE_TAB, "Paracosm")
+
+			addItem(ModItems.COTTON, "Cotton")
+			addItem(ModItems.TOWEL_CAPE, "Towel Cape")
+			addItem(ModItems.SEEING_STONE, "Seeing Stone")
+			addItem(ModItems.DODGEBALL, "Dodgeball")
+			addItem(ModItems.CANDY, "Candy")
+			addItem(ModItems.SODA, "Soda")
+			addItem(ModItems.WARM_MILK, "Warm Milk")
+			addItem(ModItems.SHRINK_RAY, "Shrink Ray")
+			addItem(ModItems.STICKY_HAND, "Sticky Hand")
+			addItem(ModItems.POGO_STICK, "Pogo Stick")
+
+			add(TOY_GUN, "Toy Gun")
+			add(COOL_GUN, "Cool Gun")
+		}
+	}
+
+}
