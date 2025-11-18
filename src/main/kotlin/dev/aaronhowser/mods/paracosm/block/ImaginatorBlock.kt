@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.paracosm.block
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.toVec3
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.core.BlockPos
 import net.minecraft.world.InteractionResult
@@ -20,16 +19,13 @@ import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
-import kotlin.math.pow
 
-class ImaginatorBlock(
-	properties: Properties = Properties.of()
+class ImaginatorBlock : Block(
+	Properties.of()
 		.sound(SoundType.WOOD)
 		.strength(0.3f)
 		.pushReaction(PushReaction.DESTROY)
-) : Block(properties) {
-
-	// State
+) {
 
 	init {
 		registerDefaultState(
@@ -44,21 +40,13 @@ class ImaginatorBlock(
 	}
 
 	override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
-		super.createBlockStateDefinition(builder)
 		builder.add(IS_CLOSED)
 	}
 
-	override fun getInteractionShape(state: BlockState, level: BlockGetter, pos: BlockPos): VoxelShape {
-		return Shapes.block()
-	}
-
-	// Shape
-
 	override fun getShape(state: BlockState, level: BlockGetter, pos: BlockPos, context: CollisionContext): VoxelShape {
-		return if (state.getValue(IS_CLOSED)) SHAPE_CLOSED else SHAPE_OPEN
+		val isClosed = state.getValue(IS_CLOSED)
+		return if (isClosed) SHAPE_CLOSED else SHAPE_OPEN
 	}
-
-	// Behavior
 
 	override fun useWithoutItem(
 		state: BlockState,
@@ -100,12 +88,7 @@ class ImaginatorBlock(
 	}
 
 	companion object {
-
-		// State
-
 		val IS_CLOSED: BooleanProperty = BooleanProperty.create("is_closed")
-
-		// Shape
 
 		private val BOTTOM = box(0.0, 0.0, 0.0, 16.0, 0.5, 16.0)
 		private val NORTH = box(0.0, 0.0, 0.0, 16.0, 16.0, 0.5)
@@ -117,13 +100,11 @@ class ImaginatorBlock(
 		private val SHAPE_OPEN = Shapes.or(BOTTOM, NORTH, EAST, SOUTH, WEST)
 		private val SHAPE_CLOSED = Shapes.or(SHAPE_OPEN, TOP)
 
-		// Behavior
-
-		private val scaleAttributeModifierId = OtherUtil.modResource("imaginator_scale")
+		private val SCALE_ATTRIBUTE_ID = OtherUtil.modResource("imaginator_scale")
 
 		private fun shrinkPlayer(player: Player) {
 			val scaleAttribute = player.getAttribute(Attributes.SCALE) ?: return
-			if (scaleAttribute.hasModifier(scaleAttributeModifierId)) return
+			if (scaleAttribute.hasModifier(SCALE_ATTRIBUTE_ID)) return
 
 			val currentScale = scaleAttribute.value
 
@@ -132,7 +113,7 @@ class ImaginatorBlock(
 
 			scaleAttribute.addOrUpdateTransientModifier(
 				AttributeModifier(
-					scaleAttributeModifierId,
+					SCALE_ATTRIBUTE_ID,
 					scaleModifier,
 					AttributeModifier.Operation.ADD_VALUE
 				)
@@ -141,11 +122,13 @@ class ImaginatorBlock(
 
 		private fun unShrinkPlayer(player: Player) {
 			val scaleAttribute = player.getAttribute(Attributes.SCALE) ?: return
-			scaleAttribute.removeModifier(scaleAttributeModifierId)
+			scaleAttribute.removeModifier(SCALE_ATTRIBUTE_ID)
 		}
 
 		private fun unShrinkNearbyPlayers(level: Level, pos: BlockPos) {
-			val playersNearby = level.players().filter { it.distanceToSqr(pos.toVec3()) < 4.0.pow(2) }
+			val playersNearby = level.players()
+				.filter { it.position().closerThan(pos.center, 4.0) }
+
 			for (playerNearby in playersNearby) {
 				unShrinkPlayer(playerNearby)
 			}
