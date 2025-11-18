@@ -8,18 +8,18 @@ import java.util.concurrent.CompletableFuture
 
 object ModLootTableProvider {
 
-    fun create(output: PackOutput, lookupProvider: CompletableFuture<HolderLookup.Provider>): LootTableProvider {
-        return LootTableProvider(
-            output,
-            setOf(),
-            listOf(
-                LootTableProvider.SubProviderEntry(
-                    ::ModBlockLootTablesSubProvider,
-                    LootContextParamSets.BLOCK
-                )
-            ),
-            lookupProvider
-        )
-    }
+	fun create(output: PackOutput, lookupProvider: CompletableFuture<HolderLookup.Provider>): LootTableProvider {
+		return LootTableProvider(
+			output,
+			setOf(),
+			listOf(
+				LootTableProvider.SubProviderEntry(
+					::ModBlockLootTablesSubProvider,
+					LootContextParamSets.BLOCK
+				)
+			),
+			lookupProvider
+		)
+	}
 
 }

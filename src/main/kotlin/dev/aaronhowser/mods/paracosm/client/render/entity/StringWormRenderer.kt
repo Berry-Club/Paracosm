@@ -7,15 +7,15 @@ import net.minecraft.resources.ResourceLocation
 import software.bernie.geckolib.renderer.GeoEntityRenderer
 
 class StringWormRenderer(
-    renderManager: EntityRendererProvider.Context,
+	renderManager: EntityRendererProvider.Context,
 ) : GeoEntityRenderer<StringWormEntity>(renderManager, StringWormModel()) {
 
-    init {
-        withScale(0.7f)
-    }
+	init {
+		withScale(0.7f)
+	}
 
-    override fun getTextureLocation(animatable: StringWormEntity): ResourceLocation {
-        return OtherUtil.modResource("textures/entity/string_worm.png")
-    }
+	override fun getTextureLocation(animatable: StringWormEntity): ResourceLocation {
+		return OtherUtil.modResource("textures/entity/string_worm.png")
+	}
 
 }

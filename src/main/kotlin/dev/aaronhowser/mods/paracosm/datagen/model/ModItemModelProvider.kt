@@ -13,65 +13,65 @@ import net.neoforged.neoforge.client.model.generators.ModelFile
 import net.neoforged.neoforge.common.data.ExistingFileHelper
 
 class ModItemModelProvider(
-    output: PackOutput,
-    existingFileHelper: ExistingFileHelper
+	output: PackOutput,
+	existingFileHelper: ExistingFileHelper
 ) : ItemModelProvider(output, Paracosm.ID, existingFileHelper) {
 
-    override fun registerModels() {
-        val basicModels = listOf(
-            ModItems.COTTON,
-            ModItems.TOWEL_CAPE,
-            ModItems.CANDY,
-            ModItems.SODA,
-            ModItems.WARM_MILK,
-            ModItems.SHRINK_RAY, //TODO: Make whimsy
-            ModItems.STICKY_HAND,
-            ModItems.POGO_STICK
-        )
+	override fun registerModels() {
+		val basicModels = listOf(
+			ModItems.COTTON,
+			ModItems.TOWEL_CAPE,
+			ModItems.CANDY,
+			ModItems.SODA,
+			ModItems.WARM_MILK,
+			ModItems.SHRINK_RAY, //TODO: Make whimsy
+			ModItems.STICKY_HAND,
+			ModItems.POGO_STICK
+		)
 
-        for (item in basicModels) {
-            basicItem(item.get())
-        }
+		for (item in basicModels) {
+			basicItem(item.get())
+		}
 
-        whimsy(
-            ModItems.TOY_GUN,
-            mcLoc("item/stick"),
-            mcLoc("item/diamond")
-        )
+		whimsy(
+			ModItems.TOY_GUN,
+			mcLoc("item/stick"),
+			mcLoc("item/diamond")
+		)
 
-    }
+	}
 
-    companion object {
-        val WHIMSY_PREDICATE_NAME = OtherUtil.modResource("whimsy")
-    }
+	companion object {
+		val WHIMSY_PREDICATE_NAME = OtherUtil.modResource("whimsy")
+	}
 
-    fun whimsy(
-        item: ItemLike,
-        textureOne: ResourceLocation,
-        textureTwo: ResourceLocation
-    ) = whimsy(item.asItem(), textureOne, textureTwo)
+	fun whimsy(
+		item: ItemLike,
+		textureOne: ResourceLocation,
+		textureTwo: ResourceLocation
+	) = whimsy(item.asItem(), textureOne, textureTwo)
 
-    fun whimsy(
-        item: Item,
-        textureDefault: ResourceLocation,
-        textureWhimsy: ResourceLocation
-    ) {
-        val name = BuiltInRegistries.ITEM.getKey(item)
+	fun whimsy(
+		item: Item,
+		textureDefault: ResourceLocation,
+		textureWhimsy: ResourceLocation
+	) {
+		val name = BuiltInRegistries.ITEM.getKey(item)
 
-        val whimsyModel = getBuilder(name.toString() + "_whimsy")
-            .parent(ModelFile.UncheckedModelFile("item/generated"))
-            .texture("layer0", textureWhimsy)
+		val whimsyModel = getBuilder(name.toString() + "_whimsy")
+			.parent(ModelFile.UncheckedModelFile("item/generated"))
+			.texture("layer0", textureWhimsy)
 
-        getBuilder(name.toString())
-            .parent(ModelFile.UncheckedModelFile("item/generated"))
-            .texture("layer0", textureDefault)
-            .override()
-            .predicate(
-                modLoc("whimsy"),
-                1.0f
-            )
-            .model(whimsyModel)
-            .end()
-    }
+		getBuilder(name.toString())
+			.parent(ModelFile.UncheckedModelFile("item/generated"))
+			.texture("layer0", textureDefault)
+			.override()
+			.predicate(
+				modLoc("whimsy"),
+				1.0f
+			)
+			.model(whimsyModel)
+			.end()
+	}
 
 }

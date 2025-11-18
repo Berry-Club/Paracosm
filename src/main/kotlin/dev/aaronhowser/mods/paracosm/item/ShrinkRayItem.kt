@@ -11,37 +11,37 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 
 class ShrinkRayItem : RequiresWhimsy, Item(
-    Properties()
-        .stacksTo(1)
+	Properties()
+		.stacksTo(1)
 ) {
 
-    override fun use(level: Level, player: Player, usedHand: InteractionHand): InteractionResultHolder<ItemStack> {
-        val usedStack = player.getItemInHand(usedHand)
+	override fun use(level: Level, player: Player, usedHand: InteractionHand): InteractionResultHolder<ItemStack> {
+		val usedStack = player.getItemInHand(usedHand)
 
-        //TODO: If no whimsy, make "pew" sound. If high whimsy, make laser sound
+		//TODO: If no whimsy, make "pew" sound. If high whimsy, make laser sound
 
-        if (!hasEnoughWhimsy(player)) {
-            return InteractionResultHolder.fail(usedStack)
-        }
+		if (!hasEnoughWhimsy(player)) {
+			return InteractionResultHolder.fail(usedStack)
+		}
 
-        if (player is ServerPlayer) {
-            val shrinkRayProjectile = ShrinkRayProjectile(player)
+		if (player is ServerPlayer) {
+			val shrinkRayProjectile = ShrinkRayProjectile(player)
 
-            shrinkRayProjectile.shootFromRotation(
-                player,
-                player.xRot,
-                player.yRot,
-                0.0F,
-                1.5F,
-                1.0F
-            )
+			shrinkRayProjectile.shootFromRotation(
+				player,
+				player.xRot,
+				player.yRot,
+				0.0F,
+				1.5F,
+				1.0F
+			)
 
-            level.addFreshEntity(shrinkRayProjectile)
-        }
+			level.addFreshEntity(shrinkRayProjectile)
+		}
 
-        return InteractionResultHolder.sidedSuccess(usedStack, level.isClientSide)
-    }
+		return InteractionResultHolder.sidedSuccess(usedStack, level.isClientSide)
+	}
 
-    override val requiredWhimsy: Float = 10f
+	override val requiredWhimsy: Float = 10f
 
 }

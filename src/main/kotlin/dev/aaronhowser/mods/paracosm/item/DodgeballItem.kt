@@ -14,37 +14,37 @@ import net.minecraft.world.item.ProjectileItem
 import net.minecraft.world.level.Level
 
 class DodgeballItem : IUpgradeableItem, ProjectileItem, Item(
-    Properties()
-        .stacksTo(1)
+	Properties()
+		.stacksTo(1)
 ) {
 
-    override val possibleUpgrades: List<String> = emptyList()
+	override val possibleUpgrades: List<String> = emptyList()
 
-    override fun asProjectile(
-        level: Level,
-        position: Position,
-        stack: ItemStack,
-        direction: Direction
-    ): Projectile {
-        val dodgeBallEntity = DodgeballEntity(level, position.x(), position.y(), position.z())
-        dodgeBallEntity.item = stack
+	override fun asProjectile(
+		level: Level,
+		position: Position,
+		stack: ItemStack,
+		direction: Direction
+	): Projectile {
+		val dodgeBallEntity = DodgeballEntity(level, position.x(), position.y(), position.z())
+		dodgeBallEntity.item = stack
 
-        return dodgeBallEntity
-    }
+		return dodgeBallEntity
+	}
 
-    override fun use(level: Level, player: Player, usedHand: InteractionHand): InteractionResultHolder<ItemStack> {
-        val heldStack = player.getItemInHand(usedHand)
+	override fun use(level: Level, player: Player, usedHand: InteractionHand): InteractionResultHolder<ItemStack> {
+		val heldStack = player.getItemInHand(usedHand)
 
-        if (level.isClientSide) return InteractionResultHolder.pass(heldStack)
+		if (level.isClientSide) return InteractionResultHolder.pass(heldStack)
 
-        val dodgeBallEntity = DodgeballEntity(level, player)
-        dodgeBallEntity.item = heldStack
-        dodgeBallEntity.shootFromRotation(player, player.xRot, player.yRot, 0.0f, 1.5f, 1.0f)
+		val dodgeBallEntity = DodgeballEntity(level, player)
+		dodgeBallEntity.item = heldStack
+		dodgeBallEntity.shootFromRotation(player, player.xRot, player.yRot, 0.0f, 1.5f, 1.0f)
 
-        level.addFreshEntity(dodgeBallEntity)
+		level.addFreshEntity(dodgeBallEntity)
 
-        return InteractionResultHolder.success(heldStack)
-    }
+		return InteractionResultHolder.success(heldStack)
+	}
 
 
 }

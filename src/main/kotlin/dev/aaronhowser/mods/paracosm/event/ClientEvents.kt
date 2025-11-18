@@ -8,15 +8,15 @@ import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.client.event.ClientTickEvent
 
 @EventBusSubscriber(
-    modid = "paracosm",
-    value = [Dist.CLIENT]
+	modid = "paracosm",
+	value = [Dist.CLIENT]
 )
 object ClientEvents {
 
-    @SubscribeEvent
-    fun beforeClientTick(event: ClientTickEvent.Pre) {
-        PogoStickVehicle.handleInput(event)
-        DuckHuntGunShaderHandler.updateShader(event)
-    }
+	@SubscribeEvent
+	fun beforeClientTick(event: ClientTickEvent.Pre) {
+		PogoStickVehicle.handleInput(event)
+		DuckHuntGunShaderHandler.updateShader(event)
+	}
 
 }

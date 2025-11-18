@@ -10,26 +10,26 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
 
 data class Upgrade(
-    val id: ResourceLocation,
-    val validItemTypes: List<Item>
+	val id: ResourceLocation,
+	val validItemTypes: List<Item>
 ) {
 
-    val translationKey = "${id.namespace}.paracosm_upgrade.${id.path}"
+	val translationKey = "${id.namespace}.paracosm_upgrade.${id.path}"
 
-    companion object {
+	companion object {
 
-        val CODEC: Codec<Upgrade> =
-            RecordCodecBuilder.create { instance ->
-                instance.group(
-                    ResourceLocation.CODEC.fieldOf("id").forGetter(Upgrade::id),
-                    BuiltInRegistries.ITEM.byNameCodec().listOf().fieldOf("validItemTypes")
-                        .forGetter(Upgrade::validItemTypes)
-                ).apply(instance, ::Upgrade)
-            }
+		val CODEC: Codec<Upgrade> =
+			RecordCodecBuilder.create { instance ->
+				instance.group(
+					ResourceLocation.CODEC.fieldOf("id").forGetter(Upgrade::id),
+					BuiltInRegistries.ITEM.byNameCodec().listOf().fieldOf("validItemTypes")
+						.forGetter(Upgrade::validItemTypes)
+				).apply(instance, ::Upgrade)
+			}
 
-        val STREAM_CODEC: StreamCodec<ByteBuf, Upgrade> =
-            ByteBufCodecs.fromCodec(CODEC)
+		val STREAM_CODEC: StreamCodec<ByteBuf, Upgrade> =
+			ByteBufCodecs.fromCodec(CODEC)
 
-    }
+	}
 
 }

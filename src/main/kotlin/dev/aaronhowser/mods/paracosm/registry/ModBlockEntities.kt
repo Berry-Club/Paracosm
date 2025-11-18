@@ -10,15 +10,15 @@ import java.util.function.Supplier
 
 object ModBlockEntities {
 
-    val BLOCK_ENTITY_REGISTRY: DeferredRegister<BlockEntityType<*>> =
-        DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, Paracosm.ID)
+	val BLOCK_ENTITY_REGISTRY: DeferredRegister<BlockEntityType<*>> =
+		DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, Paracosm.ID)
 
-    val CITY_RUG: DeferredHolder<BlockEntityType<*>, BlockEntityType<CityRugBlockEntity>> =
-        BLOCK_ENTITY_REGISTRY.register("city_rug", Supplier {
-            BlockEntityType.Builder.of(
-                { pos, state -> CityRugBlockEntity(pos, state) },
-                ModBlocks.CITY_RUG.get()
-            ).build(null)
-        })
+	val CITY_RUG: DeferredHolder<BlockEntityType<*>, BlockEntityType<CityRugBlockEntity>> =
+		BLOCK_ENTITY_REGISTRY.register("city_rug", Supplier {
+			BlockEntityType.Builder.of(
+				{ pos, state -> CityRugBlockEntity(pos, state) },
+				ModBlocks.CITY_RUG.get()
+			).build(null)
+		})
 
 }

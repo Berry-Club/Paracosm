@@ -14,68 +14,68 @@ import kotlin.math.*
 
 object OtherUtil {
 
-    fun modResource(path: String): ResourceLocation =
-        ResourceLocation.fromNamespaceAndPath(Paracosm.ID, path)
+	fun modResource(path: String): ResourceLocation =
+		ResourceLocation.fromNamespaceAndPath(Paracosm.ID, path)
 
-    fun isLookingAtPos(
-        livingEntity: LivingEntity,
-        pos: Vec3,
-        angleDegrees: Float
-    ): Boolean {
-        val lookVec = livingEntity.lookAngle
+	fun isLookingAtPos(
+		livingEntity: LivingEntity,
+		pos: Vec3,
+		angleDegrees: Float
+	): Boolean {
+		val lookVec = livingEntity.lookAngle
 
-        val entityVec = livingEntity.eyePosition
-        val toPosVec = pos.subtract(entityVec).normalize()
+		val entityVec = livingEntity.eyePosition
+		val toPosVec = pos.subtract(entityVec).normalize()
 
-        val angleRad = acos(lookVec.dot(toPosVec))
-        val angle = Math.toDegrees(angleRad)
+		val angleRad = acos(lookVec.dot(toPosVec))
+		val angle = Math.toDegrees(angleRad)
 
-        return angle < angleDegrees
-    }
+		return angle < angleDegrees
+	}
 
-    fun LivingEntity.hasLineOfSight(level: Level, vec3: Vec3): Boolean {
-        if (this.level() != level) return false
+	fun LivingEntity.hasLineOfSight(level: Level, vec3: Vec3): Boolean {
+		if (this.level() != level) return false
 
-        val entityVec = Vec3(this.x, this.eyeY, this.z)
+		val entityVec = Vec3(this.x, this.eyeY, this.z)
 
-        return if (vec3.distanceToSqr(entityVec) > ServerConfig.TOY_FLOP_RANGE.get().pow(2)) {
-            false
-        } else {
-            level.clip(
-                ClipContext(
-                    entityVec,
-                    vec3,
-                    ClipContext.Block.COLLIDER,
-                    ClipContext.Fluid.NONE,
-                    CollisionContext.empty()
-                )
-            ).type == HitResult.Type.MISS
-        }
-    }
+		return if (vec3.distanceToSqr(entityVec) > ServerConfig.TOY_FLOP_RANGE.get().pow(2)) {
+			false
+		} else {
+			level.clip(
+				ClipContext(
+					entityVec,
+					vec3,
+					ClipContext.Block.COLLIDER,
+					ClipContext.Fluid.NONE,
+					CollisionContext.empty()
+				)
+			).type == HitResult.Type.MISS
+		}
+	}
 
-    fun Number.map(min1: Float, max1: Float, min2: Float, max2: Float): Float {
-        return min2 + (max2 - min2) * ((this.toFloat() - min1) / (max1 - min1))
-    }
+	fun Number.map(min1: Float, max1: Float, min2: Float, max2: Float): Float {
+		return min2 + (max2 - min2) * ((this.toFloat() - min1) / (max1 - min1))
+	}
 
-    val Entity.isClientSide: Boolean
-        get() = this.level().isClientSide
+	val Entity.isClientSide: Boolean
+		get() = this.level().isClientSide
 
-    data class RotationPair(val backwards: Float, val right: Float)
+	data class RotationPair(val backwards: Float, val right: Float)
 
-    fun getRotationForCircle(
-        tiltBackward: Float,
-        tiltRight: Float
-    ): RotationPair {
-        val angle = atan2(tiltBackward, tiltRight)
-        val newBackwardTilt = sin(angle)
-        val newRightTilt = cos(angle)
+	fun getRotationForCircle(
+		tiltBackward: Float,
+		tiltRight: Float
+	): RotationPair {
+		val angle = atan2(tiltBackward, tiltRight)
+		val newBackwardTilt = sin(angle)
+		val newRightTilt = cos(angle)
 
-        val tiltAmount = max(abs(tiltBackward), abs(tiltRight))
+		val tiltAmount = max(abs(tiltBackward), abs(tiltRight))
 
-        return RotationPair(
-            newBackwardTilt * tiltAmount,
-            newRightTilt * tiltAmount
-        )
-    }
+		return RotationPair(
+			newBackwardTilt * tiltAmount,
+			newRightTilt * tiltAmount
+		)
+	}
 
 }

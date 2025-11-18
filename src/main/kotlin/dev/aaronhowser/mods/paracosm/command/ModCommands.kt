@@ -7,19 +7,19 @@ import net.minecraft.commands.Commands
 
 object ModCommands {
 
-    fun register(dispatcher: CommandDispatcher<CommandSourceStack>) {
+	fun register(dispatcher: CommandDispatcher<CommandSourceStack>) {
 
-        dispatcher.register(
-            Commands
-                .literal(Paracosm.ID)
-                .then(SetWhimsyCommand.register())
-                .then(GetWhimsyCommand.register())
-                .then(SetDelusionCommand.register())
-                .then(GetDelusionCommand.register())
-                .then(ResetScaleCommand.register())
-                .then(UpgradeCommand.register())
-        )
+		dispatcher.register(
+			Commands
+				.literal(Paracosm.ID)
+				.then(SetWhimsyCommand.register())
+				.then(GetWhimsyCommand.register())
+				.then(SetDelusionCommand.register())
+				.then(GetDelusionCommand.register())
+				.then(ResetScaleCommand.register())
+				.then(UpgradeCommand.register())
+		)
 
-    }
+	}
 
 }

@@ -9,41 +9,41 @@ import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.LivingEntity
 
 data class Delusion(
-    val amount: Float
+	val amount: Float
 ) {
 
-    constructor() : this(0f)
+	constructor() : this(0f)
 
-    companion object {
+	companion object {
 
-        val CODEC: Codec<Delusion> =
-            Codec.FLOAT.xmap(::Delusion, Delusion::amount)
+		val CODEC: Codec<Delusion> =
+			Codec.FLOAT.xmap(::Delusion, Delusion::amount)
 
-        var LivingEntity.delusion: Float
-            get() = this.getData(ModAttachmentTypes.DELUSION).amount
-            set(value) {
-                this.setData(ModAttachmentTypes.DELUSION, Delusion(value))
+		var LivingEntity.delusion: Float
+			get() = this.getData(ModAttachmentTypes.DELUSION).amount
+			set(value) {
+				this.setData(ModAttachmentTypes.DELUSION, Delusion(value))
 
-                val level = this.level()
-                if (level is ServerLevel) {
-                    ModPacketHandler.messageAllPlayers(
-                        UpdateWhimsyValue(
-                            this.id,
-                            value,
-                            false
-                        )
-                    )
-                }
+				val level = this.level()
+				if (level is ServerLevel) {
+					ModPacketHandler.messageAllPlayers(
+						UpdateWhimsyValue(
+							this.id,
+							value,
+							false
+						)
+					)
+				}
 
-                val nameString = this.name.string
-                if (level is ServerLevel) {
-                    Paracosm.LOGGER.debug("Delusion for $nameString set to $value")
-                } else {
-                    Paracosm.LOGGER.debug("Delusion for $nameString set to $value on client")
-                }
+				val nameString = this.name.string
+				if (level is ServerLevel) {
+					Paracosm.LOGGER.debug("Delusion for $nameString set to $value")
+				} else {
+					Paracosm.LOGGER.debug("Delusion for $nameString set to $value on client")
+				}
 
-            }
+			}
 
-    }
+	}
 
 }

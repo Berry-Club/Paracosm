@@ -12,41 +12,41 @@ import net.minecraft.world.entity.LivingEntity
 import net.neoforged.neoforge.network.handling.IPayloadContext
 
 class UpdateWhimsyValue(
-    val entityId: Int,
-    val newAmount: Float,
-    val isWhimsy: Boolean
+	val entityId: Int,
+	val newAmount: Float,
+	val isWhimsy: Boolean
 ) : ModPacket {
 
-    val isDelusion = !isWhimsy
+	val isDelusion = !isWhimsy
 
-    override fun type(): CustomPacketPayload.Type<out CustomPacketPayload> {
-        return TYPE
-    }
+	override fun type(): CustomPacketPayload.Type<out CustomPacketPayload> {
+		return TYPE
+	}
 
-    override fun receiveMessage(context: IPayloadContext) {
-        context.enqueueWork {
-            // Return if not near player
-            val entity = context.player().level().getEntity(entityId) as? LivingEntity ?: return@enqueueWork
+	override fun receiveMessage(context: IPayloadContext) {
+		context.enqueueWork {
+			// Return if not near player
+			val entity = context.player().level().getEntity(entityId) as? LivingEntity ?: return@enqueueWork
 
-            if (isWhimsy) {
-                entity.whimsy = newAmount
-            } else {
-                entity.delusion = newAmount
-            }
-        }
-    }
+			if (isWhimsy) {
+				entity.whimsy = newAmount
+			} else {
+				entity.delusion = newAmount
+			}
+		}
+	}
 
-    companion object {
-        val TYPE: CustomPacketPayload.Type<UpdateWhimsyValue> =
-            CustomPacketPayload.Type(OtherUtil.modResource("update_whimsy_value"))
+	companion object {
+		val TYPE: CustomPacketPayload.Type<UpdateWhimsyValue> =
+			CustomPacketPayload.Type(OtherUtil.modResource("update_whimsy_value"))
 
-        val STREAM_CODEC: StreamCodec<ByteBuf, UpdateWhimsyValue> =
-            StreamCodec.composite(
-                ByteBufCodecs.INT, UpdateWhimsyValue::entityId,
-                ByteBufCodecs.FLOAT, UpdateWhimsyValue::newAmount,
-                ByteBufCodecs.BOOL, UpdateWhimsyValue::isWhimsy,
-                ::UpdateWhimsyValue
-            )
-    }
+		val STREAM_CODEC: StreamCodec<ByteBuf, UpdateWhimsyValue> =
+			StreamCodec.composite(
+				ByteBufCodecs.INT, UpdateWhimsyValue::entityId,
+				ByteBufCodecs.FLOAT, UpdateWhimsyValue::newAmount,
+				ByteBufCodecs.BOOL, UpdateWhimsyValue::isWhimsy,
+				::UpdateWhimsyValue
+			)
+	}
 
 }

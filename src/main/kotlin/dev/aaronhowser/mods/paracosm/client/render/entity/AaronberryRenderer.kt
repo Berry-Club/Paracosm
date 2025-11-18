@@ -7,15 +7,15 @@ import net.minecraft.resources.ResourceLocation
 import software.bernie.geckolib.renderer.GeoEntityRenderer
 
 class AaronberryRenderer(
-    renderManager: EntityRendererProvider.Context,
+	renderManager: EntityRendererProvider.Context,
 ) : GeoEntityRenderer<AaronberryEntity>(renderManager, AaronberryModel()) {
 
-    init {
-        withScale(0.7f)
-    }
+	init {
+		withScale(0.7f)
+	}
 
-    override fun getTextureLocation(animatable: AaronberryEntity): ResourceLocation {
-        return OtherUtil.modResource("textures/entity/aaronberry.png")
-    }
+	override fun getTextureLocation(animatable: AaronberryEntity): ResourceLocation {
+		return OtherUtil.modResource("textures/entity/aaronberry.png")
+	}
 
 }

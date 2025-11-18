@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "paracosm:item/sticky_hand"
-  }
+	"parent": "minecraft:item/generated",
+	"textures": {
+		"layer0": "paracosm:item/sticky_hand"
+	}
 }

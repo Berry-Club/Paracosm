@@ -7,15 +7,15 @@ import net.minecraft.resources.ResourceLocation
 import software.bernie.geckolib.renderer.GeoEntityRenderer
 
 class TeddyBearRenderer(
-    renderManager: EntityRendererProvider.Context,
+	renderManager: EntityRendererProvider.Context,
 ) : GeoEntityRenderer<TeddyBearEntity>(renderManager, TeddyBearModel()) {
 
-    init {
-        withScale(0.7f)
-    }
+	init {
+		withScale(0.7f)
+	}
 
-    override fun getTextureLocation(animatable: TeddyBearEntity): ResourceLocation {
-        return OtherUtil.modResource("textures/entity/teddy_bear.png")
-    }
+	override fun getTextureLocation(animatable: TeddyBearEntity): ResourceLocation {
+		return OtherUtil.modResource("textures/entity/teddy_bear.png")
+	}
 
 }

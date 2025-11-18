@@ -14,85 +14,85 @@ import net.minecraft.world.entity.player.Player
 
 object UpgradeCommand {
 
-    private const val UPGRADE_ARGUMENT = "upgrade"
+	private const val UPGRADE_ARGUMENT = "upgrade"
 
-    fun register(): ArgumentBuilder<CommandSourceStack, *> {
-        return Commands
-            .literal("upgrade")
-            .requires { it.hasPermission(2) }
-            .then(
-                Commands
-                    .literal("add")
-                    .then(
-                        Commands
-                            .argument(UPGRADE_ARGUMENT, StringArgumentType.string())
-                            .suggests(getSuggestions())
-                            .executes(::addUpgrade)
-                    )
-            )
-            .then(
-                Commands
-                    .literal("remove")
-                    .then(
-                        Commands
-                            .argument(UPGRADE_ARGUMENT, StringArgumentType.string())
-                            .suggests(getSuggestions())
-                            .executes(::removeUpgrade)
-                    )
-            )
-    }
+	fun register(): ArgumentBuilder<CommandSourceStack, *> {
+		return Commands
+			.literal("upgrade")
+			.requires { it.hasPermission(2) }
+			.then(
+				Commands
+					.literal("add")
+					.then(
+						Commands
+							.argument(UPGRADE_ARGUMENT, StringArgumentType.string())
+							.suggests(getSuggestions())
+							.executes(::addUpgrade)
+					)
+			)
+			.then(
+				Commands
+					.literal("remove")
+					.then(
+						Commands
+							.argument(UPGRADE_ARGUMENT, StringArgumentType.string())
+							.suggests(getSuggestions())
+							.executes(::removeUpgrade)
+					)
+			)
+	}
 
-    private fun addUpgrade(commandContext: CommandContext<CommandSourceStack>): Int {
-        val player = commandContext.source.entity as? Player ?: return 0
-        val upgrade = StringArgumentType.getString(commandContext, UPGRADE_ARGUMENT)
+	private fun addUpgrade(commandContext: CommandContext<CommandSourceStack>): Int {
+		val player = commandContext.source.entity as? Player ?: return 0
+		val upgrade = StringArgumentType.getString(commandContext, UPGRADE_ARGUMENT)
 
-        val heldStack = player.mainHandItem
+		val heldStack = player.mainHandItem
 
-        val heldItem = heldStack.item
-        if (heldItem !is IUpgradeableItem) {
-            player.sendSystemMessage(Component.literal("This item cannot be upgraded"))
-            return 0
-        }
+		val heldItem = heldStack.item
+		if (heldItem !is IUpgradeableItem) {
+			player.sendSystemMessage(Component.literal("This item cannot be upgraded"))
+			return 0
+		}
 
-        if (upgrade !in heldItem.possibleUpgrades) {
-            player.sendSystemMessage(Component.literal("This item cannot be upgraded with $upgrade"))
-            return 0
-        }
+		if (upgrade !in heldItem.possibleUpgrades) {
+			player.sendSystemMessage(Component.literal("This item cannot be upgraded with $upgrade"))
+			return 0
+		}
 
-        Upgradeable.addUpgrade(heldStack, upgrade)
+		Upgradeable.addUpgrade(heldStack, upgrade)
 
-        return 1
-    }
+		return 1
+	}
 
-    private fun removeUpgrade(commandContext: CommandContext<CommandSourceStack>): Int {
-        val player = commandContext.source.entity as? Player ?: return 0
-        val upgrade = StringArgumentType.getString(commandContext, UPGRADE_ARGUMENT)
+	private fun removeUpgrade(commandContext: CommandContext<CommandSourceStack>): Int {
+		val player = commandContext.source.entity as? Player ?: return 0
+		val upgrade = StringArgumentType.getString(commandContext, UPGRADE_ARGUMENT)
 
-        val heldItem = player.mainHandItem
-        if (heldItem.item !is IUpgradeableItem) {
-            player.sendSystemMessage(Component.literal("This item cannot be upgraded"))
-            return 0
-        }
+		val heldItem = player.mainHandItem
+		if (heldItem.item !is IUpgradeableItem) {
+			player.sendSystemMessage(Component.literal("This item cannot be upgraded"))
+			return 0
+		}
 
-        if (!Upgradeable.hasUpgrade(heldItem, upgrade)) {
-            player.sendSystemMessage(Component.literal("This item does not have the upgrade $upgrade"))
-            return 0
-        }
+		if (!Upgradeable.hasUpgrade(heldItem, upgrade)) {
+			player.sendSystemMessage(Component.literal("This item does not have the upgrade $upgrade"))
+			return 0
+		}
 
-        Upgradeable.removeUpgrade(heldItem, upgrade)
+		Upgradeable.removeUpgrade(heldItem, upgrade)
 
-        return 1
-    }
+		return 1
+	}
 
-    private fun getSuggestions(): SuggestionProvider<CommandSourceStack> {
-        return SuggestionProvider { context, suggestionsBuilder ->
-            val player = context.source.entity as? Player
-            val heldItem = player?.mainHandItem?.item as? IUpgradeableItem
+	private fun getSuggestions(): SuggestionProvider<CommandSourceStack> {
+		return SuggestionProvider { context, suggestionsBuilder ->
+			val player = context.source.entity as? Player
+			val heldItem = player?.mainHandItem?.item as? IUpgradeableItem
 
-            val upgrades = heldItem?.possibleUpgrades ?: emptyList()
+			val upgrades = heldItem?.possibleUpgrades ?: emptyList()
 
-            SharedSuggestionProvider.suggest(upgrades, suggestionsBuilder)
-        }
-    }
+			SharedSuggestionProvider.suggest(upgrades, suggestionsBuilder)
+		}
+	}
 
 }

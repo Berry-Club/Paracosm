@@ -1,7 +1,7 @@
 {
-  "values": [
-    "minecraft:cookie",
-    "paracosm:candy",
-    "paracosm:soda"
-  ]
+	"values": [
+		"minecraft:cookie",
+		"paracosm:candy",
+		"paracosm:soda"
+	]
 }

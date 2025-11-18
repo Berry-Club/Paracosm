@@ -5,6 +5,6 @@ import net.neoforged.neoforge.network.handling.IPayloadContext
 
 interface ModPacket : CustomPacketPayload {
 
-    fun receiveMessage(context: IPayloadContext)
+	fun receiveMessage(context: IPayloadContext)
 
 }

@@ -20,95 +20,95 @@ import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent
 import net.neoforged.neoforge.event.entity.player.PlayerEvent
 
 @EventBusSubscriber(
-    modid = Paracosm.ID
+	modid = Paracosm.ID
 )
 object OtherEvents {
 
-    @SubscribeEvent
-    fun onRegisterCommandsEvent(event: RegisterCommandsEvent) {
-        ModCommands.register(event.dispatcher)
-    }
+	@SubscribeEvent
+	fun onRegisterCommandsEvent(event: RegisterCommandsEvent) {
+		ModCommands.register(event.dispatcher)
+	}
 
-    @SubscribeEvent
-    fun afterUseItem(event: LivingEntityUseItemEvent.Finish) {
-        val entity = event.entity
+	@SubscribeEvent
+	fun afterUseItem(event: LivingEntityUseItemEvent.Finish) {
+		val entity = event.entity
 
-        val food = event.item.getFoodProperties(entity)
-        if (food != null) {
+		val food = event.item.getFoodProperties(entity)
+		if (food != null) {
 
-            if (event.item.`is`(ModItemTagsProvider.SWEETS)) {
-                entity.whimsy += 0.5f
-            }
+			if (event.item.`is`(ModItemTagsProvider.SWEETS)) {
+				entity.whimsy += 0.5f
+			}
 
-        }
-    }
+		}
+	}
 
-    @SubscribeEvent
-    fun onStartTracking(event: PlayerEvent.StartTracking) {
-        val player = event.entity as? ServerPlayer ?: return
-        val entity = event.target
+	@SubscribeEvent
+	fun onStartTracking(event: PlayerEvent.StartTracking) {
+		val player = event.entity as? ServerPlayer ?: return
+		val entity = event.target
 
-        if (entity is LivingEntity) {
-            if (entity.whimsy != 0f) {
-                ModPacketHandler.messagePlayer(
-                    player,
-                    UpdateWhimsyValue(
-                        entity.id,
-                        entity.whimsy,
-                        true
-                    )
-                )
-            }
+		if (entity is LivingEntity) {
+			if (entity.whimsy != 0f) {
+				ModPacketHandler.messagePlayer(
+					player,
+					UpdateWhimsyValue(
+						entity.id,
+						entity.whimsy,
+						true
+					)
+				)
+			}
 
-            if (entity.delusion != 0f) {
-                ModPacketHandler.messagePlayer(
-                    player,
-                    UpdateWhimsyValue(
-                        entity.id,
-                        entity.delusion,
-                        false
-                    )
-                )
-            }
-        }
+			if (entity.delusion != 0f) {
+				ModPacketHandler.messagePlayer(
+					player,
+					UpdateWhimsyValue(
+						entity.id,
+						entity.delusion,
+						false
+					)
+				)
+			}
+		}
 
-        if (Upgradeable.getUpgrades(entity).isNotEmpty()) {
-            ModPacketHandler.messagePlayer(
-                player,
-                UpdateEntityUpgrades(
-                    entity.id,
-                    Upgradeable.getUpgrades(entity).toList()
-                )
-            )
-        }
-    }
+		if (Upgradeable.getUpgrades(entity).isNotEmpty()) {
+			ModPacketHandler.messagePlayer(
+				player,
+				UpdateEntityUpgrades(
+					entity.id,
+					Upgradeable.getUpgrades(entity).toList()
+				)
+			)
+		}
+	}
 
-    @SubscribeEvent
-    fun onPlayerJoin(event: PlayerEvent.PlayerLoggedInEvent) {
-        val player = event.entity as? ServerPlayer ?: return
+	@SubscribeEvent
+	fun onPlayerJoin(event: PlayerEvent.PlayerLoggedInEvent) {
+		val player = event.entity as? ServerPlayer ?: return
 
-        ModPacketHandler.messagePlayer(
-            player,
-            UpdateWhimsyValue(
-                player.id,
-                player.whimsy,
-                true
-            )
-        )
+		ModPacketHandler.messagePlayer(
+			player,
+			UpdateWhimsyValue(
+				player.id,
+				player.whimsy,
+				true
+			)
+		)
 
-        ModPacketHandler.messagePlayer(
-            player,
-            UpdateWhimsyValue(
-                player.id,
-                player.delusion,
-                false
-            )
-        )
-    }
+		ModPacketHandler.messagePlayer(
+			player,
+			UpdateWhimsyValue(
+				player.id,
+				player.delusion,
+				false
+			)
+		)
+	}
 
-    @SubscribeEvent
-    fun onIncomingDamage(event: LivingIncomingDamageEvent) {
-        PogoStickVehicle.checkCancelDamage(event)
-    }
+	@SubscribeEvent
+	fun onIncomingDamage(event: LivingIncomingDamageEvent) {
+		PogoStickVehicle.checkCancelDamage(event)
+	}
 
 }

@@ -11,20 +11,20 @@ import thedarkcolour.kotlinforforge.neoforge.forge.MOD_BUS
 
 @Mod(Paracosm.ID)
 class Paracosm(
-    modContainer: ModContainer
+	modContainer: ModContainer
 ) {
 
-    companion object {
-        const val ID = "paracosm"
-        val LOGGER: Logger = LogManager.getLogger(ID)
-    }
+	companion object {
+		const val ID = "paracosm"
+		val LOGGER: Logger = LogManager.getLogger(ID)
+	}
 
-    init {
-        LOGGER.info("Hello, Paracosm!")
+	init {
+		LOGGER.info("Hello, Paracosm!")
 
-        ModRegistries.register(MOD_BUS)
+		ModRegistries.register(MOD_BUS)
 
-        modContainer.registerConfig(ModConfig.Type.SERVER, ServerConfig.CONFIG_SPEC)
-    }
+		modContainer.registerConfig(ModConfig.Type.SERVER, ServerConfig.CONFIG_SPEC)
+	}
 
 }

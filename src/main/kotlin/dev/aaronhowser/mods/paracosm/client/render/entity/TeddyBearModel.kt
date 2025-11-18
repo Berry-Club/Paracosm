@@ -11,29 +11,29 @@ import software.bernie.geckolib.model.GeoModel
 
 class TeddyBearModel : GeoModel<TeddyBearEntity>() {
 
-    override fun getModelResource(animatable: TeddyBearEntity?): ResourceLocation {
-        return OtherUtil.modResource("geo/teddy_bear.geo.json")
-    }
+	override fun getModelResource(animatable: TeddyBearEntity?): ResourceLocation {
+		return OtherUtil.modResource("geo/teddy_bear.geo.json")
+	}
 
-    override fun getTextureResource(animatable: TeddyBearEntity?): ResourceLocation {
-        return OtherUtil.modResource("textures/entity/teddy_bear.png")
-    }
+	override fun getTextureResource(animatable: TeddyBearEntity?): ResourceLocation {
+		return OtherUtil.modResource("textures/entity/teddy_bear.png")
+	}
 
-    override fun getAnimationResource(animatable: TeddyBearEntity?): ResourceLocation {
-        return OtherUtil.modResource("animations/teddy_bear.animation.json")
-    }
+	override fun getAnimationResource(animatable: TeddyBearEntity?): ResourceLocation {
+		return OtherUtil.modResource("animations/teddy_bear.animation.json")
+	}
 
-    override fun setCustomAnimations(
-        animatable: TeddyBearEntity,
-        instanceId: Long,
-        animationState: AnimationState<TeddyBearEntity>
-    ) {
-        val head: GeoBone = animationProcessor.getBone("head")
+	override fun setCustomAnimations(
+		animatable: TeddyBearEntity,
+		instanceId: Long,
+		animationState: AnimationState<TeddyBearEntity>
+	) {
+		val head: GeoBone = animationProcessor.getBone("head")
 
-        val entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA)
+		val entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA)
 
-        head.rotX = entityData.headPitch * Mth.DEG_TO_RAD
-        head.rotY = entityData.netHeadYaw * Mth.DEG_TO_RAD
-    }
+		head.rotX = entityData.headPitch * Mth.DEG_TO_RAD
+		head.rotY = entityData.netHeadYaw * Mth.DEG_TO_RAD
+	}
 
 }

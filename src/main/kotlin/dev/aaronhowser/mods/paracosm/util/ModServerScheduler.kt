@@ -8,41 +8,41 @@ import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.event.tick.ServerTickEvent
 
 @EventBusSubscriber(
-    modid = Paracosm.ID
+	modid = Paracosm.ID
 )
 object ModServerScheduler {
 
-    @SubscribeEvent
-    fun onServerTick(event: ServerTickEvent.Post) {
-        handleScheduledTasks()
-        currentTick++
-    }
+	@SubscribeEvent
+	fun onServerTick(event: ServerTickEvent.Post) {
+		handleScheduledTasks()
+		currentTick++
+	}
 
-    var currentTick = 0
-        private set
+	var currentTick = 0
+		private set
 
-    private val upcomingTasks: HashMultimap<Int, Runnable> = HashMultimap.create()
+	private val upcomingTasks: HashMultimap<Int, Runnable> = HashMultimap.create()
 
-    fun scheduleTaskInTicks(ticksInFuture: Int, task: Runnable) {
-        if (ticksInFuture == 0) {
-            task.run()
-        } else {
-            upcomingTasks.put(currentTick + ticksInFuture, task)
-        }
-    }
+	fun scheduleTaskInTicks(ticksInFuture: Int, task: Runnable) {
+		if (ticksInFuture == 0) {
+			task.run()
+		} else {
+			upcomingTasks.put(currentTick + ticksInFuture, task)
+		}
+	}
 
-    private fun handleScheduledTasks() {
-        val taskIterator = upcomingTasks[currentTick].iterator()
+	private fun handleScheduledTasks() {
+		val taskIterator = upcomingTasks[currentTick].iterator()
 
-        while (taskIterator.hasNext()) {
-            try {
-                taskIterator.next().run()
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+		while (taskIterator.hasNext()) {
+			try {
+				taskIterator.next().run()
+			} catch (e: Exception) {
+				e.printStackTrace()
+			}
 
-            taskIterator.remove()
-        }
-    }
+			taskIterator.remove()
+		}
+	}
 
 }

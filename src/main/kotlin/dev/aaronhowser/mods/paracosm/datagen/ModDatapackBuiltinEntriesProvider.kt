@@ -11,20 +11,20 @@ import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider
 import java.util.concurrent.CompletableFuture
 
 class ModDatapackBuiltinEntriesProvider(
-    output: PackOutput,
-    registries: CompletableFuture<HolderLookup.Provider>
+	output: PackOutput,
+	registries: CompletableFuture<HolderLookup.Provider>
 ) : DatapackBuiltinEntriesProvider(
-    output,
-    registries,
-    BUILDER,
-    setOf(Paracosm.ID)
+	output,
+	registries,
+	BUILDER,
+	setOf(Paracosm.ID)
 ) {
 
-    companion object {
-        val BUILDER: RegistrySetBuilder = RegistrySetBuilder()
-            .add(Registries.BIOME, ModBiomes::bootstrap)
-            .add(Registries.DIMENSION_TYPE, ModDimensions::bootstrapDimensionType)
-            .add(Registries.LEVEL_STEM, ModDimensions::bootstrapLevelStem)
-    }
+	companion object {
+		val BUILDER: RegistrySetBuilder = RegistrySetBuilder()
+			.add(Registries.BIOME, ModBiomes::bootstrap)
+			.add(Registries.DIMENSION_TYPE, ModDimensions::bootstrapDimensionType)
+			.add(Registries.LEVEL_STEM, ModDimensions::bootstrapLevelStem)
+	}
 
 }

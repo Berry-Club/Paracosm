@@ -6,18 +6,18 @@ import net.minecraft.client.player.LocalPlayer
 
 object ClientUtil {
 
-    val localPlayer: LocalPlayer?
-        get() = Minecraft.getInstance().player
+	val localPlayer: LocalPlayer?
+		get() = Minecraft.getInstance().player
 
-    val whimsy: Float
-        get() = localPlayer?.whimsy ?: 0f
+	val whimsy: Float
+		get() = localPlayer?.whimsy ?: 0f
 
-    fun hasWhimsy(requiredWhimsy: Float): Boolean = whimsy >= requiredWhimsy
+	fun hasWhimsy(requiredWhimsy: Float): Boolean = whimsy >= requiredWhimsy
 
-    fun isJumpKeyHeld(): Boolean {
-        val player = localPlayer ?: return false
+	fun isJumpKeyHeld(): Boolean {
+		val player = localPlayer ?: return false
 
-        return player.input.jumping
-    }
+		return player.input.jumping
+	}
 
 }

@@ -17,80 +17,80 @@ import kotlin.random.Random
 
 class DodgeballEntity : ThrowableItemProjectile {
 
-    constructor(
-        entityType: EntityType<out ThrowableItemProjectile>,
-        level: Level
-    ) : super(entityType, level)
+	constructor(
+		entityType: EntityType<out ThrowableItemProjectile>,
+		level: Level
+	) : super(entityType, level)
 
-    constructor(
-        level: Level,
-        x: Double,
-        y: Double,
-        z: Double
-    ) : super(ModEntityTypes.DODGEBALL.get(), x, y, z, level)
+	constructor(
+		level: Level,
+		x: Double,
+		y: Double,
+		z: Double
+	) : super(ModEntityTypes.DODGEBALL.get(), x, y, z, level)
 
-    constructor(
-        level: Level,
-        shooter: LivingEntity
-    ) : super(ModEntityTypes.DODGEBALL.get(), shooter, level)
+	constructor(
+		level: Level,
+		shooter: LivingEntity
+	) : super(ModEntityTypes.DODGEBALL.get(), shooter, level)
 
-    override fun getDefaultItem(): Item {
-        return ModItems.DODGEBALL.get()
-    }
+	override fun getDefaultItem(): Item {
+		return ModItems.DODGEBALL.get()
+	}
 
-    override fun onHitEntity(result: EntityHitResult) {
-        super.onHitEntity(result)
+	override fun onHitEntity(result: EntityHitResult) {
+		super.onHitEntity(result)
 
-        val entity = result.entity
-        if (entity is LivingEntity) {
-            val vec = entity.position().subtract(this.position())
+		val entity = result.entity
+		if (entity is LivingEntity) {
+			val vec = entity.position().subtract(this.position())
 
-            entity.knockback(0.5, vec.x, vec.z)
+			entity.knockback(0.5, vec.x, vec.z)
 
-            this.deltaMovement = vec.normalize().scale(-1.0)
-        }
-    }
+			this.deltaMovement = vec.normalize().scale(-1.0)
+		}
+	}
 
-    override fun onHitBlock(result: BlockHitResult) {
-        super.onHitBlock(result)
+	override fun onHitBlock(result: BlockHitResult) {
+		super.onHitBlock(result)
 
-        if (result.isInside) {
-            this.deltaMovement = this.deltaMovement.scale(-1.0)
-            return
-        }
+		if (result.isInside) {
+			this.deltaMovement = this.deltaMovement.scale(-1.0)
+			return
+		}
 
-        val sideHit = result.direction
+		val sideHit = result.direction
 
-        this.addDeltaMovement(
-            Vec3(
-                sideHit.stepX.toDouble(),
-                sideHit.stepY.toDouble(),
-                sideHit.stepZ.toDouble()
-            )
-        )
-    }
+		this.addDeltaMovement(
+			Vec3(
+				sideHit.stepX.toDouble(),
+				sideHit.stepY.toDouble(),
+				sideHit.stepZ.toDouble()
+			)
+		)
+	}
 
-    override fun getSoundSource(): SoundSource {
-        return SoundSource.PLAYERS
-    }
+	override fun getSoundSource(): SoundSource {
+		return SoundSource.PLAYERS
+	}
 
-    override fun onHit(result: HitResult) {
-        super.onHit(result)
+	override fun onHit(result: HitResult) {
+		super.onHit(result)
 
-        this.level().playSound(
-            this,
-            this.blockPosition(),
-            ModSounds.DODGEBALL.get(),
-            this.soundSource,
-            1f,
-            0.8f + Random.nextFloat() * 0.2f
-        )
-    }
+		this.level().playSound(
+			this,
+			this.blockPosition(),
+			ModSounds.DODGEBALL.get(),
+			this.soundSource,
+			1f,
+			0.8f + Random.nextFloat() * 0.2f
+		)
+	}
 
-    override fun tick() {
-        super.tick()
+	override fun tick() {
+		super.tick()
 
-        if (this.tickCount > 20 * 10) discard()
-    }
+		if (this.tickCount > 20 * 10) discard()
+	}
 
 }

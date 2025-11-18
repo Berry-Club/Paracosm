@@ -13,59 +13,59 @@ import net.minecraft.world.level.Level
 
 //TODO: Alternate upgrade that makes it PUNCH
 class StickyHandItem : Item(
-    Properties()
-        .stacksTo(1)
+	Properties()
+		.stacksTo(1)
 ) {
 
-    companion object {
-        val playerStickyHands = mutableMapOf<Player, StickyHandProjectile>()
-    }
+	companion object {
+		val playerStickyHands = mutableMapOf<Player, StickyHandProjectile>()
+	}
 
-    override fun use(level: Level, player: Player, usedHand: InteractionHand): InteractionResultHolder<ItemStack> {
-        val heldItem = player.getItemInHand(usedHand)
+	override fun use(level: Level, player: Player, usedHand: InteractionHand): InteractionResultHolder<ItemStack> {
+		val heldItem = player.getItemInHand(usedHand)
 
-        val playerHand = playerStickyHands[player]
+		val playerHand = playerStickyHands[player]
 
-        if (playerHand == null) {
-            level.playSound(    //TODO: new sound (and another sound for landing? wet thwap)
-                null,
-                player.x,
-                player.y,
-                player.z,
-                ModSounds.STICKY_HAND_THROW.get(),
-                SoundSource.NEUTRAL,
-                0.5f,
-                0.4f / (level.getRandom().nextFloat() * 0.4f + 0.8f)
-            )
+		if (playerHand == null) {
+			level.playSound(    //TODO: new sound (and another sound for landing? wet thwap)
+				null,
+				player.x,
+				player.y,
+				player.z,
+				ModSounds.STICKY_HAND_THROW.get(),
+				SoundSource.NEUTRAL,
+				0.5f,
+				0.4f / (level.getRandom().nextFloat() * 0.4f + 0.8f)
+			)
 
-            if (level is ServerLevel) {
-                val stickyHand = StickyHandProjectile(player)
+			if (level is ServerLevel) {
+				val stickyHand = StickyHandProjectile(player)
 
-                playerStickyHands[player] = stickyHand
-                level.addFreshEntity(stickyHand)
-            }
-        } else {
+				playerStickyHands[player] = stickyHand
+				level.addFreshEntity(stickyHand)
+			}
+		} else {
 
-            level.playSound(
-                null,
-                player.x,
-                player.y,
-                player.z,
-                ModSounds.STICKY_HAND_RETRIEVE.get(),
-                SoundSource.NEUTRAL,
-                0.5f,
-                0.4f / (level.getRandom().nextFloat() * 0.4f + 0.8f)
-            )
+			level.playSound(
+				null,
+				player.x,
+				player.y,
+				player.z,
+				ModSounds.STICKY_HAND_RETRIEVE.get(),
+				SoundSource.NEUTRAL,
+				0.5f,
+				0.4f / (level.getRandom().nextFloat() * 0.4f + 0.8f)
+			)
 
-            if (level is ServerLevel) {
-                playerStickyHands.remove(player)
-                playerHand.retrieve()
-            }
+			if (level is ServerLevel) {
+				playerStickyHands.remove(player)
+				playerHand.retrieve()
+			}
 
-        }
+		}
 
 
-        return InteractionResultHolder.sidedSuccess(heldItem, level.isClientSide)
-    }
+		return InteractionResultHolder.sidedSuccess(heldItem, level.isClientSide)
+	}
 
 }

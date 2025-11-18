@@ -23,142 +23,142 @@ import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.toVec3
 import kotlin.math.pow
 
 class ImaginatorBlock(
-    properties: Properties = Properties.of()
-        .sound(SoundType.WOOD)
-        .strength(0.3f)
-        .pushReaction(PushReaction.DESTROY)
+	properties: Properties = Properties.of()
+		.sound(SoundType.WOOD)
+		.strength(0.3f)
+		.pushReaction(PushReaction.DESTROY)
 ) : Block(properties) {
 
-    // State
+	// State
 
-    init {
-        registerDefaultState(
-            stateDefinition.any()
-                .setValue(IS_CLOSED, true)
-        )
-    }
+	init {
+		registerDefaultState(
+			stateDefinition.any()
+				.setValue(IS_CLOSED, true)
+		)
+	}
 
-    override fun getStateForPlacement(context: BlockPlaceContext): BlockState? {
-        return defaultBlockState()
-            .setValue(IS_CLOSED, false)
-    }
+	override fun getStateForPlacement(context: BlockPlaceContext): BlockState? {
+		return defaultBlockState()
+			.setValue(IS_CLOSED, false)
+	}
 
-    override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
-        super.createBlockStateDefinition(builder)
-        builder.add(IS_CLOSED)
-    }
+	override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
+		super.createBlockStateDefinition(builder)
+		builder.add(IS_CLOSED)
+	}
 
-    override fun getInteractionShape(state: BlockState, level: BlockGetter, pos: BlockPos): VoxelShape {
-        return Shapes.block()
-    }
+	override fun getInteractionShape(state: BlockState, level: BlockGetter, pos: BlockPos): VoxelShape {
+		return Shapes.block()
+	}
 
-    // Shape
+	// Shape
 
-    override fun getShape(state: BlockState, level: BlockGetter, pos: BlockPos, context: CollisionContext): VoxelShape {
-        return if (state.getValue(IS_CLOSED)) SHAPE_CLOSED else SHAPE_OPEN
-    }
+	override fun getShape(state: BlockState, level: BlockGetter, pos: BlockPos, context: CollisionContext): VoxelShape {
+		return if (state.getValue(IS_CLOSED)) SHAPE_CLOSED else SHAPE_OPEN
+	}
 
-    // Behavior
+	// Behavior
 
-    override fun useWithoutItem(
-        state: BlockState,
-        level: Level,
-        pos: BlockPos,
-        player: Player,
-        hitResult: BlockHitResult
-    ): InteractionResult {
-        val playerIsInBlock = player.blockPosition() == pos
-        if (!playerIsInBlock) {
-            clickFromOutside(state, level, pos, player)
-            return InteractionResult.PASS
-        }
+	override fun useWithoutItem(
+		state: BlockState,
+		level: Level,
+		pos: BlockPos,
+		player: Player,
+		hitResult: BlockHitResult
+	): InteractionResult {
+		val playerIsInBlock = player.blockPosition() == pos
+		if (!playerIsInBlock) {
+			clickFromOutside(state, level, pos, player)
+			return InteractionResult.PASS
+		}
 
-        val isClosed = state.getValue(IS_CLOSED)
-        level.setBlock(pos, state.setValue(IS_CLOSED, !isClosed), 1 or 2)
+		val isClosed = state.getValue(IS_CLOSED)
+		level.setBlock(pos, state.setValue(IS_CLOSED, !isClosed), 1 or 2)
 
-        if (isClosed) {
-            unShrinkPlayer(player)
-        } else {
-            shrinkPlayer(player)
-        }
+		if (isClosed) {
+			unShrinkPlayer(player)
+		} else {
+			shrinkPlayer(player)
+		}
 
-        return InteractionResult.SUCCESS
-    }
+		return InteractionResult.SUCCESS
+	}
 
-    override fun onRemove(
-        state: BlockState,
-        level: Level,
-        pos: BlockPos,
-        newState: BlockState,
-        movedByPiston: Boolean
-    ) {
-        super.onRemove(state, level, pos, newState, movedByPiston)
+	override fun onRemove(
+		state: BlockState,
+		level: Level,
+		pos: BlockPos,
+		newState: BlockState,
+		movedByPiston: Boolean
+	) {
+		super.onRemove(state, level, pos, newState, movedByPiston)
 
-        if (state.getValue(IS_CLOSED)) {
-            unShrinkNearbyPlayers(level, pos)
-        }
-    }
+		if (state.getValue(IS_CLOSED)) {
+			unShrinkNearbyPlayers(level, pos)
+		}
+	}
 
-    companion object {
+	companion object {
 
-        // State
+		// State
 
-        val IS_CLOSED: BooleanProperty = BooleanProperty.create("is_closed")
+		val IS_CLOSED: BooleanProperty = BooleanProperty.create("is_closed")
 
-        // Shape
+		// Shape
 
-        private val BOTTOM = box(0.0, 0.0, 0.0, 16.0, 0.5, 16.0)
-        private val NORTH = box(0.0, 0.0, 0.0, 16.0, 16.0, 0.5)
-        private val EAST = box(15.5, 0.0, 0.0, 16.0, 16.0, 16.0)
-        private val SOUTH = box(0.0, 0.0, 15.5, 16.0, 16.0, 16.0)
-        private val WEST = box(0.0, 0.0, 0.0, 0.5, 16.0, 16.0)
-        private val TOP = box(0.0, 15.5, 0.0, 16.0, 16.0, 16.0)
+		private val BOTTOM = box(0.0, 0.0, 0.0, 16.0, 0.5, 16.0)
+		private val NORTH = box(0.0, 0.0, 0.0, 16.0, 16.0, 0.5)
+		private val EAST = box(15.5, 0.0, 0.0, 16.0, 16.0, 16.0)
+		private val SOUTH = box(0.0, 0.0, 15.5, 16.0, 16.0, 16.0)
+		private val WEST = box(0.0, 0.0, 0.0, 0.5, 16.0, 16.0)
+		private val TOP = box(0.0, 15.5, 0.0, 16.0, 16.0, 16.0)
 
-        private val SHAPE_OPEN = Shapes.or(BOTTOM, NORTH, EAST, SOUTH, WEST)
-        private val SHAPE_CLOSED = Shapes.or(SHAPE_OPEN, TOP)
+		private val SHAPE_OPEN = Shapes.or(BOTTOM, NORTH, EAST, SOUTH, WEST)
+		private val SHAPE_CLOSED = Shapes.or(SHAPE_OPEN, TOP)
 
-        // Behavior
+		// Behavior
 
-        private val scaleAttributeModifierId = OtherUtil.modResource("imaginator_scale")
+		private val scaleAttributeModifierId = OtherUtil.modResource("imaginator_scale")
 
-        private fun shrinkPlayer(player: Player) {
-            val scaleAttribute = player.getAttribute(Attributes.SCALE) ?: return
-            if (scaleAttribute.hasModifier(scaleAttributeModifierId)) return
+		private fun shrinkPlayer(player: Player) {
+			val scaleAttribute = player.getAttribute(Attributes.SCALE) ?: return
+			if (scaleAttribute.hasModifier(scaleAttributeModifierId)) return
 
-            val currentScale = scaleAttribute.value
+			val currentScale = scaleAttribute.value
 
-            // Subtracts their scale to 0.25
-            val scaleModifier = 0.25 - currentScale
+			// Subtracts their scale to 0.25
+			val scaleModifier = 0.25 - currentScale
 
-            scaleAttribute.addOrUpdateTransientModifier(
-                AttributeModifier(
-                    scaleAttributeModifierId,
-                    scaleModifier,
-                    AttributeModifier.Operation.ADD_VALUE
-                )
-            )
-        }
+			scaleAttribute.addOrUpdateTransientModifier(
+				AttributeModifier(
+					scaleAttributeModifierId,
+					scaleModifier,
+					AttributeModifier.Operation.ADD_VALUE
+				)
+			)
+		}
 
-        private fun unShrinkPlayer(player: Player) {
-            val scaleAttribute = player.getAttribute(Attributes.SCALE) ?: return
-            scaleAttribute.removeModifier(scaleAttributeModifierId)
-        }
+		private fun unShrinkPlayer(player: Player) {
+			val scaleAttribute = player.getAttribute(Attributes.SCALE) ?: return
+			scaleAttribute.removeModifier(scaleAttributeModifierId)
+		}
 
-        private fun unShrinkNearbyPlayers(level: Level, pos: BlockPos) {
-            val playersNearby = level.players().filter { it.distanceToSqr(pos.toVec3()) < 4.0.pow(2) }
-            for (playerNearby in playersNearby) {
-                unShrinkPlayer(playerNearby)
-            }
-        }
+		private fun unShrinkNearbyPlayers(level: Level, pos: BlockPos) {
+			val playersNearby = level.players().filter { it.distanceToSqr(pos.toVec3()) < 4.0.pow(2) }
+			for (playerNearby in playersNearby) {
+				unShrinkPlayer(playerNearby)
+			}
+		}
 
-        private fun clickFromOutside(state: BlockState, level: Level, pos: BlockPos, player: Player) {
-            if (!state.getValue(IS_CLOSED)) return
+		private fun clickFromOutside(state: BlockState, level: Level, pos: BlockPos, player: Player) {
+			if (!state.getValue(IS_CLOSED)) return
 
-            level.setBlock(pos, state.setValue(IS_CLOSED, false), 1 or 2)
+			level.setBlock(pos, state.setValue(IS_CLOSED, false), 1 or 2)
 
-            unShrinkNearbyPlayers(level, pos)
-            unShrinkPlayer(player)
-        }
-    }
+			unShrinkNearbyPlayers(level, pos)
+			unShrinkPlayer(player)
+		}
+	}
 
 }

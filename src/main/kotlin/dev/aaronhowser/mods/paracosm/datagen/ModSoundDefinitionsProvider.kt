@@ -9,53 +9,53 @@ import net.neoforged.neoforge.common.data.SoundDefinition
 import net.neoforged.neoforge.common.data.SoundDefinitionsProvider
 
 class ModSoundDefinitionsProvider(
-    output: PackOutput,
-    helper: ExistingFileHelper
+	output: PackOutput,
+	helper: ExistingFileHelper
 ) : SoundDefinitionsProvider(output, Paracosm.ID, helper) {
 
-    override fun registerSounds() {
+	override fun registerSounds() {
 
-        add(
-            ModSounds.FART,
-            SoundDefinition.definition()
-                .with(
-                    sound(OtherUtil.modResource("fart1"), SoundDefinition.SoundType.SOUND),
-                    sound(OtherUtil.modResource("fart2"), SoundDefinition.SoundType.SOUND),
-                    sound(OtherUtil.modResource("fart3"), SoundDefinition.SoundType.SOUND),
-                )
-                .subtitle(ModLanguageProvider.Subtitle.FART)
-        )
+		add(
+			ModSounds.FART,
+			SoundDefinition.definition()
+				.with(
+					sound(OtherUtil.modResource("fart1"), SoundDefinition.SoundType.SOUND),
+					sound(OtherUtil.modResource("fart2"), SoundDefinition.SoundType.SOUND),
+					sound(OtherUtil.modResource("fart3"), SoundDefinition.SoundType.SOUND),
+				)
+				.subtitle(ModLanguageProvider.Subtitle.FART)
+		)
 
-        add(
-            ModSounds.UNFART,
-            SoundDefinition.definition()
-                .with(
-                    sound(OtherUtil.modResource("unfart1"), SoundDefinition.SoundType.SOUND),
-                    sound(OtherUtil.modResource("unfart2"), SoundDefinition.SoundType.SOUND),
-                    sound(OtherUtil.modResource("unfart3"), SoundDefinition.SoundType.SOUND),
-                )
-                .subtitle(ModLanguageProvider.Subtitle.UNFART)
-        )
+		add(
+			ModSounds.UNFART,
+			SoundDefinition.definition()
+				.with(
+					sound(OtherUtil.modResource("unfart1"), SoundDefinition.SoundType.SOUND),
+					sound(OtherUtil.modResource("unfart2"), SoundDefinition.SoundType.SOUND),
+					sound(OtherUtil.modResource("unfart3"), SoundDefinition.SoundType.SOUND),
+				)
+				.subtitle(ModLanguageProvider.Subtitle.UNFART)
+		)
 
-        add(
-            ModSounds.SQUEE,
-            SoundDefinition.definition()
-                .with(
-                    sound(OtherUtil.modResource("squee"), SoundDefinition.SoundType.SOUND)
-                )
-                .subtitle(ModLanguageProvider.Subtitle.SQUEE)
-        )
+		add(
+			ModSounds.SQUEE,
+			SoundDefinition.definition()
+				.with(
+					sound(OtherUtil.modResource("squee"), SoundDefinition.SoundType.SOUND)
+				)
+				.subtitle(ModLanguageProvider.Subtitle.SQUEE)
+		)
 
-        add(
-            ModSounds.DODGEBALL,
-            SoundDefinition.definition()
-                .with(
-                    sound(OtherUtil.modResource("dodgeball"), SoundDefinition.SoundType.SOUND)
-                )
-                .subtitle(ModLanguageProvider.Subtitle.DODGEBALL)
-        )
+		add(
+			ModSounds.DODGEBALL,
+			SoundDefinition.definition()
+				.with(
+					sound(OtherUtil.modResource("dodgeball"), SoundDefinition.SoundType.SOUND)
+				)
+				.subtitle(ModLanguageProvider.Subtitle.DODGEBALL)
+		)
 
-        //FIXME: You can't use vanilla sounds here
+		//FIXME: You can't use vanilla sounds here
 //        add(
 //            ModSounds.STICKY_HAND_THROW,
 //            SoundDefinition.definition()
@@ -74,6 +74,6 @@ class ModSoundDefinitionsProvider(
 //                .subtitle(ModLanguageProvider.Subtitle.STICKY_HAND_RETRIEVE)
 //        )
 
-    }
+	}
 
 }

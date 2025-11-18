@@ -12,23 +12,23 @@ import kotlin.math.pow
 
 interface RequiresWhimsy {
 
-    val requiredWhimsy: Float
+	val requiredWhimsy: Float
 
-    fun hasEnoughWhimsy(otherEntity: LivingEntity): Boolean {
-        return (otherEntity.whimsy) >= requiredWhimsy
-    }
+	fun hasEnoughWhimsy(otherEntity: LivingEntity): Boolean {
+		return (otherEntity.whimsy) >= requiredWhimsy
+	}
 
-    fun hidingFromPlayers(level: Level, vec3: Vec3): List<Player> {
-        return level.players().filter {
-            !hasEnoughWhimsy(it)
-                    && it.distanceToSqr(vec3) < ServerConfig.TOY_FLOP_RANGE.get().pow(2)
-                    && OtherUtil.isLookingAtPos(it, vec3, 75f)
-                    && it.hasLineOfSight(level, vec3)
-        }
-    }
+	fun hidingFromPlayers(level: Level, vec3: Vec3): List<Player> {
+		return level.players().filter {
+			!hasEnoughWhimsy(it)
+					&& it.distanceToSqr(vec3) < ServerConfig.TOY_FLOP_RANGE.get().pow(2)
+					&& OtherUtil.isLookingAtPos(it, vec3, 75f)
+					&& it.hasLineOfSight(level, vec3)
+		}
+	}
 
-    fun isHiding(level: Level, vec3: Vec3): Boolean {
-        return hidingFromPlayers(level, vec3).isNotEmpty()
-    }
+	fun isHiding(level: Level, vec3: Vec3): Boolean {
+		return hidingFromPlayers(level, vec3).isNotEmpty()
+	}
 
 }

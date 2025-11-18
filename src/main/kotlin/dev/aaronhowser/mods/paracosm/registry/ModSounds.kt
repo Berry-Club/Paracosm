@@ -10,37 +10,37 @@ import java.util.function.Supplier
 
 object ModSounds {
 
-    val SOUND_EVENT_REGISTRY: DeferredRegister<SoundEvent> =
-        DeferredRegister.create(BuiltInRegistries.SOUND_EVENT, Paracosm.ID)
+	val SOUND_EVENT_REGISTRY: DeferredRegister<SoundEvent> =
+		DeferredRegister.create(BuiltInRegistries.SOUND_EVENT, Paracosm.ID)
 
-    val DODGEBALL: DeferredHolder<SoundEvent, SoundEvent> =
-        SOUND_EVENT_REGISTRY.register("dodgeball", Supplier {
-            SoundEvent.createVariableRangeEvent(OtherUtil.modResource("dodgeball"))
-        })
+	val DODGEBALL: DeferredHolder<SoundEvent, SoundEvent> =
+		SOUND_EVENT_REGISTRY.register("dodgeball", Supplier {
+			SoundEvent.createVariableRangeEvent(OtherUtil.modResource("dodgeball"))
+		})
 
-    val FART: DeferredHolder<SoundEvent, SoundEvent> =
-        SOUND_EVENT_REGISTRY.register("fart", Supplier {
-            SoundEvent.createVariableRangeEvent(OtherUtil.modResource("fart"))
-        })
+	val FART: DeferredHolder<SoundEvent, SoundEvent> =
+		SOUND_EVENT_REGISTRY.register("fart", Supplier {
+			SoundEvent.createVariableRangeEvent(OtherUtil.modResource("fart"))
+		})
 
-    val UNFART: DeferredHolder<SoundEvent, SoundEvent> =
-        SOUND_EVENT_REGISTRY.register("unfart", Supplier {
-            SoundEvent.createVariableRangeEvent(OtherUtil.modResource("unfart"))
-        })
+	val UNFART: DeferredHolder<SoundEvent, SoundEvent> =
+		SOUND_EVENT_REGISTRY.register("unfart", Supplier {
+			SoundEvent.createVariableRangeEvent(OtherUtil.modResource("unfart"))
+		})
 
-    val SQUEE: DeferredHolder<SoundEvent, SoundEvent> =
-        SOUND_EVENT_REGISTRY.register("squee", Supplier {
-            SoundEvent.createVariableRangeEvent(OtherUtil.modResource("squee"))
-        })
+	val SQUEE: DeferredHolder<SoundEvent, SoundEvent> =
+		SOUND_EVENT_REGISTRY.register("squee", Supplier {
+			SoundEvent.createVariableRangeEvent(OtherUtil.modResource("squee"))
+		})
 
-    val STICKY_HAND_THROW: DeferredHolder<SoundEvent, SoundEvent> =
-        SOUND_EVENT_REGISTRY.register("sticky_hand_throw", Supplier {
-            SoundEvent.createVariableRangeEvent(OtherUtil.modResource("sticky_hand_throw"))
-        })
+	val STICKY_HAND_THROW: DeferredHolder<SoundEvent, SoundEvent> =
+		SOUND_EVENT_REGISTRY.register("sticky_hand_throw", Supplier {
+			SoundEvent.createVariableRangeEvent(OtherUtil.modResource("sticky_hand_throw"))
+		})
 
-    val STICKY_HAND_RETRIEVE: DeferredHolder<SoundEvent, SoundEvent> =
-        SOUND_EVENT_REGISTRY.register("sticky_hand_retrieve", Supplier {
-            SoundEvent.createVariableRangeEvent(OtherUtil.modResource("sticky_hand_retrieve"))
-        })
+	val STICKY_HAND_RETRIEVE: DeferredHolder<SoundEvent, SoundEvent> =
+		SOUND_EVENT_REGISTRY.register("sticky_hand_retrieve", Supplier {
+			SoundEvent.createVariableRangeEvent(OtherUtil.modResource("sticky_hand_retrieve"))
+		})
 
 }

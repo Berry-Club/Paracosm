@@ -17,42 +17,42 @@ import net.neoforged.neoforge.data.event.GatherDataEvent
 import java.util.concurrent.CompletableFuture
 
 @EventBusSubscriber(
-    modid = Paracosm.ID,
-    bus = EventBusSubscriber.Bus.MOD
+	modid = Paracosm.ID,
+	bus = EventBusSubscriber.Bus.MOD
 )
 object ModDataGen {
 
-    @SubscribeEvent
-    fun onGatherData(event: GatherDataEvent) {
-        val generator: DataGenerator = event.generator
-        val output: PackOutput = generator.packOutput
-        val existingFileHelper: ExistingFileHelper = event.existingFileHelper
-        val lookupProvider: CompletableFuture<HolderLookup.Provider> = event.lookupProvider
+	@SubscribeEvent
+	fun onGatherData(event: GatherDataEvent) {
+		val generator: DataGenerator = event.generator
+		val output: PackOutput = generator.packOutput
+		val existingFileHelper: ExistingFileHelper = event.existingFileHelper
+		val lookupProvider: CompletableFuture<HolderLookup.Provider> = event.lookupProvider
 
-        val languageProvider = generator.addProvider(event.includeClient(), ModLanguageProvider(output))
-        val itemModelProvider = generator.addProvider(
-            event.includeClient(),
-            ModItemModelProvider(output, existingFileHelper)
-        )
-        val blockModelProvider = generator.addProvider(
-            event.includeClient(),
-            ModBlockStateProvider(output, existingFileHelper)
-        )
+		generator.addProvider(event.includeClient(), ModLanguageProvider(output))
+		generator.addProvider(
+			event.includeClient(),
+			ModItemModelProvider(output, existingFileHelper)
+		)
+		generator.addProvider(
+			event.includeClient(),
+			ModBlockStateProvider(output, existingFileHelper)
+		)
 
 //        val recipeProvider = generator.addProvider(event.includeServer(), ModRecipeProvider(output, lookupProvider))
 
-        val blockTagProvider = generator.addProvider(
-            event.includeServer(),
-            ModBlockTagsProvider(output, lookupProvider, existingFileHelper)
-        )
-        val itemTagProvider = generator.addProvider(
-            event.includeServer(),
-            ModItemTagsProvider(output, lookupProvider, blockTagProvider.contentsGetter(), existingFileHelper)
-        )
-        val entityTypeTagProvider = generator.addProvider(
-            event.includeServer(),
-            ModEntityTypeTagsProvider(output, lookupProvider, existingFileHelper)
-        )
+		val blockTagProvider = generator.addProvider(
+			event.includeServer(),
+			ModBlockTagsProvider(output, lookupProvider, existingFileHelper)
+		)
+		generator.addProvider(
+			event.includeServer(),
+			ModItemTagsProvider(output, lookupProvider, blockTagProvider.contentsGetter(), existingFileHelper)
+		)
+		generator.addProvider(
+			event.includeServer(),
+			ModEntityTypeTagsProvider(output, lookupProvider, existingFileHelper)
+		)
 //
 //        val advancementProvider = generator.addProvider(
 //            event.includeServer(),
@@ -64,26 +64,26 @@ object ModDataGen {
 //            )
 //        )
 
-        val lootTableProvider = generator.addProvider(
-            event.includeServer(),
-            ModLootTableProvider.create(output, lookupProvider)
-        )
+		generator.addProvider(
+			event.includeServer(),
+			ModLootTableProvider.create(output, lookupProvider)
+		)
 
-        val soundDefinitionsProvider = generator.addProvider(
-            event.includeClient(),
-            ModSoundDefinitionsProvider(output, existingFileHelper)
-        )
+		generator.addProvider(
+			event.includeClient(),
+			ModSoundDefinitionsProvider(output, existingFileHelper)
+		)
 
-        val datapackRegistrySets = generator.addProvider(
-            event.includeServer(),
-            ModDatapackBuiltinEntriesProvider(output, lookupProvider)
-        )
+		generator.addProvider(
+			event.includeServer(),
+			ModDatapackBuiltinEntriesProvider(output, lookupProvider)
+		)
 
-        val curiosProvider = generator.addProvider(
-            event.includeServer(),
-            ModCurioProvider(output, existingFileHelper, lookupProvider)
-        )
+		generator.addProvider(
+			event.includeServer(),
+			ModCurioProvider(output, existingFileHelper, lookupProvider)
+		)
 
-    }
+	}
 
 }

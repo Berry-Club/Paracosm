@@ -12,32 +12,32 @@ import net.minecraft.world.entity.player.Player
 
 object GetWhimsyCommand {
 
-    private const val TARGET_ARGUMENT = "target"
+	private const val TARGET_ARGUMENT = "target"
 
-    fun register(): ArgumentBuilder<CommandSourceStack, *> {
-        return Commands
-            .literal("getWhimsy")
-            .requires { it.hasPermission(2) }
-            .executes { getWhimsy(it, null) }
-            .then(
-                Commands
-                    .argument(TARGET_ARGUMENT, EntityArgument.player())
-                    .executes { getWhimsy(it, EntityArgument.getEntity(it, TARGET_ARGUMENT)) }
-            )
-    }
+	fun register(): ArgumentBuilder<CommandSourceStack, *> {
+		return Commands
+			.literal("getWhimsy")
+			.requires { it.hasPermission(2) }
+			.executes { getWhimsy(it, null) }
+			.then(
+				Commands
+					.argument(TARGET_ARGUMENT, EntityArgument.player())
+					.executes { getWhimsy(it, EntityArgument.getEntity(it, TARGET_ARGUMENT)) }
+			)
+	}
 
-    private fun getWhimsy(
-        context: CommandContext<CommandSourceStack>,
-        entity: Entity?
-    ): Int {
-        val commandSender = context.source
-        val target = (entity ?: context.source.entity) as? Player ?: return 0
+	private fun getWhimsy(
+		context: CommandContext<CommandSourceStack>,
+		entity: Entity?
+	): Int {
+		val commandSender = context.source
+		val target = (entity ?: context.source.entity) as? Player ?: return 0
 
-        val targetWhimsy = target.whimsy
+		val targetWhimsy = target.whimsy
 
-        commandSender.sendSystemMessage(Component.literal("${target.gameProfile.name} has $targetWhimsy Whimsy"))
+		commandSender.sendSystemMessage(Component.literal("${target.gameProfile.name} has $targetWhimsy Whimsy"))
 
-        return 1
-    }
+		return 1
+	}
 
 }

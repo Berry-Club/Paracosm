@@ -25,153 +25,153 @@ import net.minecraft.world.phys.HitResult
 import kotlin.math.abs
 
 class ShrinkRayProjectile(
-    entityType: EntityType<ShrinkRayProjectile>,
-    level: Level
+	entityType: EntityType<ShrinkRayProjectile>,
+	level: Level
 ) : RequiresWhimsy, Arrow(entityType, level) {
 
-    constructor(shooter: ServerPlayer) : this(
-        ModEntityTypes.SHRINK_RAY_PROJECTILE.get(),
-        shooter.level()
-    ) {
-        this.isGrow = shooter.isSecondaryUseActive
+	constructor(shooter: ServerPlayer) : this(
+		ModEntityTypes.SHRINK_RAY_PROJECTILE.get(),
+		shooter.level()
+	) {
+		this.isGrow = shooter.isSecondaryUseActive
 
-        this.moveTo(shooter.x, shooter.eyeY, shooter.z)
+		this.moveTo(shooter.x, shooter.eyeY, shooter.z)
 
-        this.owner = shooter
-    }
+		this.owner = shooter
+	}
 
-    override val requiredWhimsy: Float = Companion.requiredWhimsy
+	override val requiredWhimsy: Float = Companion.requiredWhimsy
 
-    companion object : RequiresWhimsy {
+	companion object : RequiresWhimsy {
 
-        override val requiredWhimsy: Float = ModItems.SHRINK_RAY.get().requiredWhimsy
+		override val requiredWhimsy: Float = ModItems.SHRINK_RAY.get().requiredWhimsy
 
-        val IS_GROW: EntityDataAccessor<Boolean> =
-            SynchedEntityData.defineId(
-                ShrinkRayProjectile::class.java,
-                EntityDataSerializers.BOOLEAN
-            )
+		val IS_GROW: EntityDataAccessor<Boolean> =
+			SynchedEntityData.defineId(
+				ShrinkRayProjectile::class.java,
+				EntityDataSerializers.BOOLEAN
+			)
 
-        const val IS_GROW_NBT = "IsGrow"
+		const val IS_GROW_NBT = "IsGrow"
 
-        private fun changeEntityScale(
-            target: LivingEntity,
-            scaleChange: Double,
-            changer: Player? = null
-        ): Boolean {
+		private fun changeEntityScale(
+			target: LivingEntity,
+			scaleChange: Double,
+			changer: Player? = null
+		): Boolean {
 
-            if (target is Player) {
-                if (target.isSpectator) return false
+			if (target is Player) {
+				if (target.isSpectator) return false
 
-                if (!hasEnoughWhimsy(target)) return false
-            }
+				if (!hasEnoughWhimsy(target)) return false
+			}
 
-            val scaleBefore = target.getAttributeValue(Attributes.SCALE)
+			val scaleBefore = target.getAttributeValue(Attributes.SCALE)
 
-            target.shrinkRayEffect += scaleChange
+			target.shrinkRayEffect += scaleChange
 
-            if (abs(target.shrinkRayEffect) < 0.01) {
-                target.shrinkRayEffect = 0.0
-            }
+			if (abs(target.shrinkRayEffect) < 0.01) {
+				target.shrinkRayEffect = 0.0
+			}
 
-            val scaleAfter = target.getAttributeValue(Attributes.SCALE)
+			val scaleAfter = target.getAttributeValue(Attributes.SCALE)
 
-            val scaleChanged = scaleBefore != scaleAfter
+			val scaleChanged = scaleBefore != scaleAfter
 
-            if (scaleChanged) {
-                target.refreshDimensions()
+			if (scaleChanged) {
+				target.refreshDimensions()
 
-                val entityName = target.name.string
-                val afterString = "%.2f".format(scaleAfter)
-                val changeMessage = Component.literal("$entityName scale effect changed to $afterString")
+				val entityName = target.name.string
+				val afterString = "%.2f".format(scaleAfter)
+				val changeMessage = Component.literal("$entityName scale effect changed to $afterString")
 
-                changer?.displayClientMessage(changeMessage, true)
+				changer?.displayClientMessage(changeMessage, true)
 
-                if (changer != target && target is Player) {
-                    target.displayClientMessage(changeMessage, true)
-                }
+				if (changer != target && target is Player) {
+					target.displayClientMessage(changeMessage, true)
+				}
 
-            }
+			}
 
-            return scaleChanged
-        }
-    }
+			return scaleChanged
+		}
+	}
 
-    var isGrow: Boolean
-        get() = entityData.get(IS_GROW)
-        set(value) = entityData.set(IS_GROW, value)
+	var isGrow: Boolean
+		get() = entityData.get(IS_GROW)
+		set(value) = entityData.set(IS_GROW, value)
 
-    override fun defineSynchedData(builder: SynchedEntityData.Builder) {
-        super.defineSynchedData(builder)
-        builder.define(IS_GROW, false)
-    }
+	override fun defineSynchedData(builder: SynchedEntityData.Builder) {
+		super.defineSynchedData(builder)
+		builder.define(IS_GROW, false)
+	}
 
-    override fun addAdditionalSaveData(compound: CompoundTag) {
-        super.addAdditionalSaveData(compound)
-        compound.putBoolean(IS_GROW_NBT, isGrow)
-    }
+	override fun addAdditionalSaveData(compound: CompoundTag) {
+		super.addAdditionalSaveData(compound)
+		compound.putBoolean(IS_GROW_NBT, isGrow)
+	}
 
-    override fun readAdditionalSaveData(compound: CompoundTag) {
-        super.readAdditionalSaveData(compound)
-        isGrow = compound.getBoolean(IS_GROW_NBT)
-    }
+	override fun readAdditionalSaveData(compound: CompoundTag) {
+		super.readAdditionalSaveData(compound)
+		isGrow = compound.getBoolean(IS_GROW_NBT)
+	}
 
-    override fun getDefaultPickupItem(): ItemStack {
-        return ItemStack.EMPTY
-    }
+	override fun getDefaultPickupItem(): ItemStack {
+		return ItemStack.EMPTY
+	}
 
-    override fun onHitBlock(result: BlockHitResult) {
-        if (result.type == HitResult.Type.MISS) return
+	override fun onHitBlock(result: BlockHitResult) {
+		if (result.type == HitResult.Type.MISS) return
 
-        val blockHit = level().getBlockState(result.blockPos)
-        if (!blockHit.`is`(ModBlockTagsProvider.REFLECTIVE)) {
-            this.discard()
-            return
-        }
+		val blockHit = level().getBlockState(result.blockPos)
+		if (!blockHit.`is`(ModBlockTagsProvider.REFLECTIVE)) {
+			this.discard()
+			return
+		}
 
-        val directionNormal = result.direction.normal
+		val directionNormal = result.direction.normal
 
-        val newX = if (directionNormal.x != 0) -deltaMovement.x else deltaMovement.x
-        val newY = if (directionNormal.y != 0) -deltaMovement.y else deltaMovement.y
-        val newZ = if (directionNormal.z != 0) -deltaMovement.z else deltaMovement.z
+		val newX = if (directionNormal.x != 0) -deltaMovement.x else deltaMovement.x
+		val newY = if (directionNormal.y != 0) -deltaMovement.y else deltaMovement.y
+		val newZ = if (directionNormal.z != 0) -deltaMovement.z else deltaMovement.z
 
-        this.setDeltaMovement(newX, newY, newZ)
+		this.setDeltaMovement(newX, newY, newZ)
 
-        this.lookAt(
-            EntityAnchorArgument.Anchor.EYES,
-            this.position().add(newX, newY, newZ)
-        )
+		this.lookAt(
+			EntityAnchorArgument.Anchor.EYES,
+			this.position().add(newX, newY, newZ)
+		)
 
-        this.age = 0
-    }
+		this.age = 0
+	}
 
-    override fun onHitEntity(result: EntityHitResult) {
-        val target = result.entity as? LivingEntity ?: return
-        val amount = if (isGrow) 0.1 else -0.1
-        val shooter = owner as? Player
+	override fun onHitEntity(result: EntityHitResult) {
+		val target = result.entity as? LivingEntity ?: return
+		val amount = if (isGrow) 0.1 else -0.1
+		val shooter = owner as? Player
 
-        changeEntityScale(target, amount, shooter)
+		changeEntityScale(target, amount, shooter)
 
-        this.discard()
-    }
+		this.discard()
+	}
 
-    private var age = 0
-    override fun tick() {
-        super.tick()
+	private var age = 0
+	override fun tick() {
+		super.tick()
 
-        if (isHiding(level(), position())) {
-            this.discard()
-            return
-        }
+		if (isHiding(level(), position())) {
+			this.discard()
+			return
+		}
 
-        age++
-        if (age > 20 * 1) {
-            this.discard()
-        }
-    }
+		age++
+		if (age > 20 * 1) {
+			this.discard()
+		}
+	}
 
-    override fun getDefaultGravity(): Double {
-        return 0.0
-    }
+	override fun getDefaultGravity(): Double {
+		return 0.0
+	}
 
 }

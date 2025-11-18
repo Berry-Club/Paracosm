@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "paracosm:item/shrink_ray"
-  }
+	"parent": "minecraft:item/generated",
+	"textures": {
+		"layer0": "paracosm:item/shrink_ray"
+	}
 }

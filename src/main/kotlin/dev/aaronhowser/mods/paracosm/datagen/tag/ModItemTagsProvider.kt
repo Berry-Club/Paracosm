@@ -17,33 +17,33 @@ import top.theillusivec4.curios.api.CuriosApi
 import java.util.concurrent.CompletableFuture
 
 class ModItemTagsProvider(
-    pOutput: PackOutput,
-    pLookupProvider: CompletableFuture<HolderLookup.Provider>,
-    pBlockTags: CompletableFuture<TagLookup<Block>>,
-    existingFileHelper: ExistingFileHelper?
+	pOutput: PackOutput,
+	pLookupProvider: CompletableFuture<HolderLookup.Provider>,
+	pBlockTags: CompletableFuture<TagLookup<Block>>,
+	existingFileHelper: ExistingFileHelper?
 ) : ItemTagsProvider(pOutput, pLookupProvider, pBlockTags, Paracosm.ID, existingFileHelper) {
 
-    companion object {
-        private fun create(name: String): TagKey<Item> = create(OtherUtil.modResource(name))
-        private fun create(rl: ResourceLocation): TagKey<Item> = TagKey.create(Registries.ITEM, rl)
+	companion object {
+		private fun create(name: String): TagKey<Item> = create(OtherUtil.modResource(name))
+		private fun create(rl: ResourceLocation): TagKey<Item> = TagKey.create(Registries.ITEM, rl)
 
-        val SWEETS = create("sweets")
-        val SEEING_STONE = create(ResourceLocation.fromNamespaceAndPath(CuriosApi.MODID, "seeing_stone"))
-    }
+		val SWEETS = create("sweets")
+		val SEEING_STONE = create(ResourceLocation.fromNamespaceAndPath(CuriosApi.MODID, "seeing_stone"))
+	}
 
-    override fun addTags(pProvider: HolderLookup.Provider) {
+	override fun addTags(pProvider: HolderLookup.Provider) {
 
-        this.tag(SWEETS)
-            .add(
-                Items.COOKIE,
-                ModItems.CANDY.get(),
-                ModItems.SODA.get()
-            )
+		this.tag(SWEETS)
+			.add(
+				Items.COOKIE,
+				ModItems.CANDY.get(),
+				ModItems.SODA.get()
+			)
 
-        this.tag(SEEING_STONE)
-            .add(
-                ModItems.SEEING_STONE.get()
-            )
+		this.tag(SEEING_STONE)
+			.add(
+				ModItems.SEEING_STONE.get()
+			)
 
-    }
+	}
 }

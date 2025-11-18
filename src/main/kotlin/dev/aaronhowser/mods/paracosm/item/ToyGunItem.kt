@@ -10,20 +10,20 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 
 class ToyGunItem : RequiresWhimsy, Item(
-    Properties()
-        .stacksTo(1)
+	Properties()
+		.stacksTo(1)
 ) {
 
-    override val requiredWhimsy: Float = 5f
+	override val requiredWhimsy: Float = 5f
 
-    private val nameComponent = VariableComponent(
-        componentTrue = ModLanguageProvider.Item.COOL_GUN.toComponent(),
-        componentFalse = ModLanguageProvider.Item.TOY_GUN.toComponent()
-    ) { ClientUtil.hasWhimsy(requiredWhimsy) }
+	private val nameComponent = VariableComponent(
+		componentTrue = ModLanguageProvider.Item.COOL_GUN.toComponent(),
+		componentFalse = ModLanguageProvider.Item.TOY_GUN.toComponent()
+	) { ClientUtil.hasWhimsy(requiredWhimsy) }
 
-    override fun getName(stack: ItemStack): Component {
-        return nameComponent
-    }
+	override fun getName(stack: ItemStack): Component {
+		return nameComponent
+	}
 
 
 }

@@ -11,23 +11,23 @@ import top.theillusivec4.curios.api.client.ICurioRenderer
 
 class SeeingStoneCurioRenderer : ICurioRenderer {
 
-    //TODO
-    override fun <T : LivingEntity, M : EntityModel<T>> render(
-        stack: ItemStack,
-        slotContext: SlotContext,
-        matrixStack: PoseStack,
-        renderLayerParent: RenderLayerParent<T, M>,
-        renderTypeBuffer: MultiBufferSource,
-        light: Int,
-        limbSwing: Float,
-        limbSwingAmount: Float,
-        partialTicks: Float,
-        ageInTicks: Float,
-        netHeadYaw: Float,
-        headPitch: Float
-    ) {
-        val entity = slotContext.entity
+	//TODO
+	override fun <T : LivingEntity, M : EntityModel<T>> render(
+		stack: ItemStack,
+		slotContext: SlotContext,
+		matrixStack: PoseStack,
+		renderLayerParent: RenderLayerParent<T, M>,
+		renderTypeBuffer: MultiBufferSource,
+		light: Int,
+		limbSwing: Float,
+		limbSwingAmount: Float,
+		partialTicks: Float,
+		ageInTicks: Float,
+		netHeadYaw: Float,
+		headPitch: Float
+	) {
+		val entity = slotContext.entity
 
-        ICurioRenderer.followHeadRotations(entity)
-    }
+		ICurioRenderer.followHeadRotations(entity)
+	}
 }

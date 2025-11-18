@@ -1,7 +1,7 @@
 {
-  "parent": "minecraft:block/crop",
-  "render_type": "minecraft:cutout",
-  "textures": {
-    "crop": "paracosm:block/cotton_stage0"
-  }
+	"parent": "minecraft:block/crop",
+	"render_type": "minecraft:cutout",
+	"textures": {
+		"crop": "paracosm:block/cotton_stage0"
+	}
 }

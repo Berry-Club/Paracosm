@@ -7,15 +7,15 @@ import net.minecraft.world.item.MilkBucketItem
 import net.minecraft.world.level.Level
 
 class WarmMilkItem : MilkBucketItem(
-    Properties()
-        .stacksTo(1)
-        .craftRemainder(Items.BUCKET)
+	Properties()
+		.stacksTo(1)
+		.craftRemainder(Items.BUCKET)
 ) {
 
-    override fun finishUsingItem(stack: ItemStack, level: Level, entityLiving: LivingEntity): ItemStack {
-        println("Warm milk was finished using!")
+	override fun finishUsingItem(stack: ItemStack, level: Level, entityLiving: LivingEntity): ItemStack {
+		println("Warm milk was finished using!")
 
-        return super.finishUsingItem(stack, level, entityLiving)
-    }
+		return super.finishUsingItem(stack, level, entityLiving)
+	}
 
 }

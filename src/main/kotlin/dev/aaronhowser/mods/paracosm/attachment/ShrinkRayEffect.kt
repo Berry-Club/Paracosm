@@ -11,45 +11,45 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier
 import net.minecraft.world.entity.ai.attributes.Attributes
 
 data class ShrinkRayEffect(
-    val amount: Double
+	val amount: Double
 ) {
 
-    companion object {
+	companion object {
 
-        val CODEC: Codec<ShrinkRayEffect> =
-            Codec.DOUBLE.xmap(::ShrinkRayEffect, ShrinkRayEffect::amount)
+		val CODEC: Codec<ShrinkRayEffect> =
+			Codec.DOUBLE.xmap(::ShrinkRayEffect, ShrinkRayEffect::amount)
 
-        val attributeModifierId = OtherUtil.modResource("shrink_ray_effect")
+		val attributeModifierId = OtherUtil.modResource("shrink_ray_effect")
 
-        var LivingEntity.shrinkRayEffect: Double
-            get() = this.getData(ModAttachmentTypes.SHRINK_RAY_EFFECT).amount
-            set(valueUnCoerced) {
-                val value = valueUnCoerced.coerceIn(-0.9, 2.0)
+		var LivingEntity.shrinkRayEffect: Double
+			get() = this.getData(ModAttachmentTypes.SHRINK_RAY_EFFECT).amount
+			set(valueUnCoerced) {
+				val value = valueUnCoerced.coerceIn(-0.9, 2.0)
 
-                if (!this.isClientSide) {
-                    ModPacketHandler.messageAllPlayers(
-                        UpdateShrinkRayScale(
-                            this.id,
-                            value
-                        )
-                    )
-                }
+				if (!this.isClientSide) {
+					ModPacketHandler.messageAllPlayers(
+						UpdateShrinkRayScale(
+							this.id,
+							value
+						)
+					)
+				}
 
-                this.setData(ModAttachmentTypes.SHRINK_RAY_EFFECT, ShrinkRayEffect(value))
+				this.setData(ModAttachmentTypes.SHRINK_RAY_EFFECT, ShrinkRayEffect(value))
 
-                val scaleAttribute = this.getAttribute(Attributes.SCALE) ?: return
-                val modifier = AttributeModifier(
-                    attributeModifierId,
-                    shrinkRayEffect,
-                    AttributeModifier.Operation.ADD_VALUE
-                )
+				val scaleAttribute = this.getAttribute(Attributes.SCALE) ?: return
+				val modifier = AttributeModifier(
+					attributeModifierId,
+					shrinkRayEffect,
+					AttributeModifier.Operation.ADD_VALUE
+				)
 
-                scaleAttribute.addOrReplacePermanentModifier(modifier)
+				scaleAttribute.addOrReplacePermanentModifier(modifier)
 
-                if (value == 0.0) {
-                    scaleAttribute.removeModifier(modifier)
-                }
-            }
+				if (value == 0.0) {
+					scaleAttribute.removeModifier(modifier)
+				}
+			}
 
-    }
+	}
 }

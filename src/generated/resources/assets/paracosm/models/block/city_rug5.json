@@ -1,137 +1,137 @@
 {
-  "parent": "minecraft:block/thin_block",
-  "elements": [
-    {
-      "faces": {
-        "down": {
-          "texture": "#texture"
-        },
-        "east": {
-          "texture": "#texture"
-        },
-        "north": {
-          "texture": "#texture"
-        },
-        "south": {
-          "texture": "#texture"
-        },
-        "up": {
-          "texture": "#texture"
-        },
-        "west": {
-          "texture": "#texture"
-        }
-      },
-      "from": [
-        0,
-        0,
-        0
-      ],
-      "to": [
-        16,
-        1,
-        16
-      ]
-    },
-    {
-      "faces": {
-        "down": {
-          "texture": "#texture"
-        },
-        "east": {
-          "texture": "#texture"
-        },
-        "north": {
-          "texture": "#texture"
-        },
-        "south": {
-          "texture": "#texture"
-        },
-        "up": {
-          "texture": "#texture"
-        },
-        "west": {
-          "texture": "#texture"
-        }
-      },
-      "from": [
-        0,
-        0,
-        0
-      ],
-      "to": [
-        16,
-        1,
-        16
-      ]
-    },
-    {
-      "faces": {
-        "down": {
-          "texture": "#texture"
-        },
-        "east": {
-          "texture": "#texture"
-        },
-        "north": {
-          "texture": "#texture"
-        },
-        "south": {
-          "texture": "#texture"
-        },
-        "up": {
-          "texture": "#texture"
-        },
-        "west": {
-          "texture": "#texture"
-        }
-      },
-      "from": [
-        0,
-        0,
-        0
-      ],
-      "to": [
-        16,
-        1,
-        16
-      ]
-    },
-    {
-      "faces": {
-        "down": {
-          "texture": "#texture"
-        },
-        "east": {
-          "texture": "#texture"
-        },
-        "north": {
-          "texture": "#texture"
-        },
-        "south": {
-          "texture": "#texture"
-        },
-        "up": {
-          "texture": "#texture"
-        },
-        "west": {
-          "texture": "#texture"
-        }
-      },
-      "from": [
-        0,
-        0,
-        0
-      ],
-      "to": [
-        16,
-        1,
-        16
-      ]
-    }
-  ],
-  "textures": {
-    "particle": "paracosm:block/city_rug5",
-    "texture": "paracosm:block/city_rug5"
-  }
+	"parent": "minecraft:block/thin_block",
+	"elements": [
+		{
+			"faces": {
+				"down": {
+					"texture": "#texture"
+				},
+				"east": {
+					"texture": "#texture"
+				},
+				"north": {
+					"texture": "#texture"
+				},
+				"south": {
+					"texture": "#texture"
+				},
+				"up": {
+					"texture": "#texture"
+				},
+				"west": {
+					"texture": "#texture"
+				}
+			},
+			"from": [
+				0,
+				0,
+				0
+			],
+			"to": [
+				16,
+				1,
+				16
+			]
+		},
+		{
+			"faces": {
+				"down": {
+					"texture": "#texture"
+				},
+				"east": {
+					"texture": "#texture"
+				},
+				"north": {
+					"texture": "#texture"
+				},
+				"south": {
+					"texture": "#texture"
+				},
+				"up": {
+					"texture": "#texture"
+				},
+				"west": {
+					"texture": "#texture"
+				}
+			},
+			"from": [
+				0,
+				0,
+				0
+			],
+			"to": [
+				16,
+				1,
+				16
+			]
+		},
+		{
+			"faces": {
+				"down": {
+					"texture": "#texture"
+				},
+				"east": {
+					"texture": "#texture"
+				},
+				"north": {
+					"texture": "#texture"
+				},
+				"south": {
+					"texture": "#texture"
+				},
+				"up": {
+					"texture": "#texture"
+				},
+				"west": {
+					"texture": "#texture"
+				}
+			},
+			"from": [
+				0,
+				0,
+				0
+			],
+			"to": [
+				16,
+				1,
+				16
+			]
+		},
+		{
+			"faces": {
+				"down": {
+					"texture": "#texture"
+				},
+				"east": {
+					"texture": "#texture"
+				},
+				"north": {
+					"texture": "#texture"
+				},
+				"south": {
+					"texture": "#texture"
+				},
+				"up": {
+					"texture": "#texture"
+				},
+				"west": {
+					"texture": "#texture"
+				}
+			},
+			"from": [
+				0,
+				0,
+				0
+			],
+			"to": [
+				16,
+				1,
+				16
+			]
+		}
+	],
+	"textures": {
+		"particle": "paracosm:block/city_rug5",
+		"texture": "paracosm:block/city_rug5"
+	}
 }

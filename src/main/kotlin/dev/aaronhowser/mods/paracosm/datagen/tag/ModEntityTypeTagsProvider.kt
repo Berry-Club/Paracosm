@@ -15,31 +15,31 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper
 import java.util.concurrent.CompletableFuture
 
 class ModEntityTypeTagsProvider(
-    pOutput: PackOutput,
-    pProvider: CompletableFuture<HolderLookup.Provider>,
-    existingFileHelper: ExistingFileHelper?
+	pOutput: PackOutput,
+	pProvider: CompletableFuture<HolderLookup.Provider>,
+	existingFileHelper: ExistingFileHelper?
 ) : EntityTypeTagsProvider(pOutput, pProvider, Paracosm.ID, existingFileHelper) {
 
-    companion object {
-        private fun create(name: String): TagKey<EntityType<*>> = create(OtherUtil.modResource(name))
-        private fun create(rl: ResourceLocation): TagKey<EntityType<*>> = TagKey.create(Registries.ENTITY_TYPE, rl)
+	companion object {
+		private fun create(name: String): TagKey<EntityType<*>> = create(OtherUtil.modResource(name))
+		private fun create(rl: ResourceLocation): TagKey<EntityType<*>> = TagKey.create(Registries.ENTITY_TYPE, rl)
 
-        val TOYS = create("toys")
-    }
+		val TOYS = create("toys")
+	}
 
-    override fun addTags(pProvider: HolderLookup.Provider) {
+	override fun addTags(pProvider: HolderLookup.Provider) {
 
-        this.tag(EntityTypeTags.REDIRECTABLE_PROJECTILE)
-            .add(ModEntityTypes.DODGEBALL.get())
+		this.tag(EntityTypeTags.REDIRECTABLE_PROJECTILE)
+			.add(ModEntityTypes.DODGEBALL.get())
 
-        this.tag(TOYS)
-            .add(
-                ModEntityTypes.AARONBERRY.get(),
-                ModEntityTypes.TEDDY_BEAR.get(),
-                ModEntityTypes.STRING_WORM.get(),
-                ModEntityTypes.DODGEBALL.get()
-            )
+		this.tag(TOYS)
+			.add(
+				ModEntityTypes.AARONBERRY.get(),
+				ModEntityTypes.TEDDY_BEAR.get(),
+				ModEntityTypes.STRING_WORM.get(),
+				ModEntityTypes.DODGEBALL.get()
+			)
 
-    }
+	}
 
 }

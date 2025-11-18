@@ -13,67 +13,67 @@ import net.neoforged.neoforge.network.handling.DirectionalPayloadHandler
 
 object ModPacketHandler {
 
-    fun registerPayloads(event: RegisterPayloadHandlersEvent) {
-        val registrar = event.registrar("1")
+	fun registerPayloads(event: RegisterPayloadHandlersEvent) {
+		val registrar = event.registrar("1")
 
-        registrar.playToClient(
-            UpdateWhimsyValue.TYPE,
-            UpdateWhimsyValue.STREAM_CODEC,
-            DirectionalPayloadHandler(
-                { packet, context -> packet.receiveMessage(context) },
-                { packet, context -> packet.receiveMessage(context) }
-            )
-        )
+		registrar.playToClient(
+			UpdateWhimsyValue.TYPE,
+			UpdateWhimsyValue.STREAM_CODEC,
+			DirectionalPayloadHandler(
+				{ packet, context -> packet.receiveMessage(context) },
+				{ packet, context -> packet.receiveMessage(context) }
+			)
+		)
 
-        registrar.playToClient(
-            UpdateShrinkRayScale.TYPE,
-            UpdateShrinkRayScale.STREAM_CODEC,
-            DirectionalPayloadHandler(
-                { packet, context -> packet.receiveMessage(context) },
-                { packet, context -> packet.receiveMessage(context) }
-            )
-        )
+		registrar.playToClient(
+			UpdateShrinkRayScale.TYPE,
+			UpdateShrinkRayScale.STREAM_CODEC,
+			DirectionalPayloadHandler(
+				{ packet, context -> packet.receiveMessage(context) },
+				{ packet, context -> packet.receiveMessage(context) }
+			)
+		)
 
-        registrar.playToServer(
-            UpdatePogoControls.TYPE,
-            UpdatePogoControls.STREAM_CODEC,
-            DirectionalPayloadHandler(
-                { packet, context -> packet.receiveMessage(context) },
-                { packet, context -> packet.receiveMessage(context) }
-            )
-        )
+		registrar.playToServer(
+			UpdatePogoControls.TYPE,
+			UpdatePogoControls.STREAM_CODEC,
+			DirectionalPayloadHandler(
+				{ packet, context -> packet.receiveMessage(context) },
+				{ packet, context -> packet.receiveMessage(context) }
+			)
+		)
 
-        registrar.playToClient(
-            UpdateEntityUpgrades.TYPE,
-            UpdateEntityUpgrades.STREAM_CODEC,
-            DirectionalPayloadHandler(
-                { packet, context -> packet.receiveMessage(context) },
-                { packet, context -> packet.receiveMessage(context) }
-            )
-        )
+		registrar.playToClient(
+			UpdateEntityUpgrades.TYPE,
+			UpdateEntityUpgrades.STREAM_CODEC,
+			DirectionalPayloadHandler(
+				{ packet, context -> packet.receiveMessage(context) },
+				{ packet, context -> packet.receiveMessage(context) }
+			)
+		)
 
-    }
+	}
 
 
-    fun messageNearbyPlayers(packet: ModPacket, serverLevel: ServerLevel, origin: Vec3, radius: Double) {
-        for (player in serverLevel.players()) {
-            val distSqr = player.distanceToSqr(origin.x(), origin.y(), origin.z())
-            if (distSqr < radius * radius) {
-                messagePlayer(player, packet)
-            }
-        }
-    }
+	fun messageNearbyPlayers(packet: ModPacket, serverLevel: ServerLevel, origin: Vec3, radius: Double) {
+		for (player in serverLevel.players()) {
+			val distSqr = player.distanceToSqr(origin.x(), origin.y(), origin.z())
+			if (distSqr < radius * radius) {
+				messagePlayer(player, packet)
+			}
+		}
+	}
 
-    fun messagePlayer(player: ServerPlayer, packet: ModPacket) {
-        PacketDistributor.sendToPlayer(player, packet)
-    }
+	fun messagePlayer(player: ServerPlayer, packet: ModPacket) {
+		PacketDistributor.sendToPlayer(player, packet)
+	}
 
-    fun messageAllPlayers(packet: ModPacket) {
-        PacketDistributor.sendToAllPlayers(packet)
-    }
+	fun messageAllPlayers(packet: ModPacket) {
+		PacketDistributor.sendToAllPlayers(packet)
+	}
 
-    fun messageServer(packet: ModPacket) {
-        PacketDistributor.sendToServer(packet)
-    }
+	fun messageServer(packet: ModPacket) {
+		PacketDistributor.sendToServer(packet)
+	}
 
 }

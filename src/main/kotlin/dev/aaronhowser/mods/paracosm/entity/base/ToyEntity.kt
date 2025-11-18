@@ -11,28 +11,28 @@ import net.minecraft.world.level.Level
 import software.bernie.geckolib.animatable.GeoEntity
 
 abstract class ToyEntity(
-    entityType: EntityType<out TamableAnimal>,
-    level: Level
+	entityType: EntityType<out TamableAnimal>,
+	level: Level
 ) : TamableAnimal(entityType, level), RequiresWhimsy, GeoEntity {
 
-    fun hidingFromPlayers(): List<Player> {
-        return super.hidingFromPlayers(level(), eyePosition)
-    }
+	fun hidingFromPlayers(): List<Player> {
+		return super.hidingFromPlayers(level(), eyePosition)
+	}
 
-    override fun getBreedOffspring(p0: ServerLevel, p1: AgeableMob): AgeableMob? {
-        return null
-    }
+	override fun getBreedOffspring(p0: ServerLevel, p1: AgeableMob): AgeableMob? {
+		return null
+	}
 
-    override fun isFood(p0: ItemStack): Boolean {
-        return false
-    }
+	override fun isFood(p0: ItemStack): Boolean {
+		return false
+	}
 
-    override fun tick() {
-        super.tick()
-        isHiding = super.isHiding(level(), eyePosition)
-    }
+	override fun tick() {
+		super.tick()
+		isHiding = super.isHiding(level(), eyePosition)
+	}
 
-    var isHiding: Boolean = false
-        private set
+	var isHiding: Boolean = false
+		private set
 
 }

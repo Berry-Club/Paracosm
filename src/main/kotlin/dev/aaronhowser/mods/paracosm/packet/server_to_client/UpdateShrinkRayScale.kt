@@ -11,31 +11,31 @@ import net.minecraft.world.entity.LivingEntity
 import net.neoforged.neoforge.network.handling.IPayloadContext
 
 class UpdateShrinkRayScale(
-    val entityId: Int,
-    val newScale: Double
+	val entityId: Int,
+	val newScale: Double
 ) : ModPacket {
 
-    override fun receiveMessage(context: IPayloadContext) {
-        context.enqueueWork {
-            val entity = context.player().level().getEntity(entityId) as? LivingEntity ?: return@enqueueWork
+	override fun receiveMessage(context: IPayloadContext) {
+		context.enqueueWork {
+			val entity = context.player().level().getEntity(entityId) as? LivingEntity ?: return@enqueueWork
 
-            entity.shrinkRayEffect = newScale
-        }
-    }
+			entity.shrinkRayEffect = newScale
+		}
+	}
 
-    override fun type(): CustomPacketPayload.Type<out CustomPacketPayload> {
-        return TYPE
-    }
+	override fun type(): CustomPacketPayload.Type<out CustomPacketPayload> {
+		return TYPE
+	}
 
-    companion object {
-        val TYPE: CustomPacketPayload.Type<UpdateShrinkRayScale> =
-            CustomPacketPayload.Type(OtherUtil.modResource("update_shrink_ray_scale"))
+	companion object {
+		val TYPE: CustomPacketPayload.Type<UpdateShrinkRayScale> =
+			CustomPacketPayload.Type(OtherUtil.modResource("update_shrink_ray_scale"))
 
-        val STREAM_CODEC: StreamCodec<ByteBuf, UpdateShrinkRayScale> =
-            StreamCodec.composite(
-                ByteBufCodecs.INT, UpdateShrinkRayScale::entityId,
-                ByteBufCodecs.DOUBLE, UpdateShrinkRayScale::newScale,
-                ::UpdateShrinkRayScale
-            )
-    }
+		val STREAM_CODEC: StreamCodec<ByteBuf, UpdateShrinkRayScale> =
+			StreamCodec.composite(
+				ByteBufCodecs.INT, UpdateShrinkRayScale::entityId,
+				ByteBufCodecs.DOUBLE, UpdateShrinkRayScale::newScale,
+				::UpdateShrinkRayScale
+			)
+	}
 }

@@ -10,17 +10,17 @@ import net.neoforged.neoforge.registries.DeferredRegister
 
 object ModDataComponents {
 
-    val DATA_COMPONENT_REGISTRY: DeferredRegister.DataComponents =
-        DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, Paracosm.ID)
+	val DATA_COMPONENT_REGISTRY: DeferredRegister.DataComponents =
+		DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, Paracosm.ID)
 
-    val TOWEL_CAPE_WORKS: DeferredHolder<DataComponentType<*>, DataComponentType<Boolean>> =
-        DATA_COMPONENT_REGISTRY.registerComponentType("towel_cape_works") {
-            it.persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL)
-        }
+	val TOWEL_CAPE_WORKS: DeferredHolder<DataComponentType<*>, DataComponentType<Boolean>> =
+		DATA_COMPONENT_REGISTRY.registerComponentType("towel_cape_works") {
+			it.persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL)
+		}
 
-    val ITEM_UPGRADES: DeferredHolder<DataComponentType<*>, DataComponentType<List<String>>> =
-        DATA_COMPONENT_REGISTRY.registerComponentType("upgrades") {
-            it.persistent(Codec.STRING.listOf()).networkSynchronized(ByteBufCodecs.STRING_UTF8.apply(ByteBufCodecs.list()))
-        }
+	val ITEM_UPGRADES: DeferredHolder<DataComponentType<*>, DataComponentType<List<String>>> =
+		DATA_COMPONENT_REGISTRY.registerComponentType("upgrades") {
+			it.persistent(Codec.STRING.listOf()).networkSynchronized(ByteBufCodecs.STRING_UTF8.apply(ByteBufCodecs.list()))
+		}
 
 }

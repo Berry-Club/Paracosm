@@ -7,15 +7,15 @@ import net.minecraft.resources.ResourceLocation
 import software.bernie.geckolib.renderer.GeoEntityRenderer
 
 class PogoStickVehicleRenderer(
-    context: EntityRendererProvider.Context
+	context: EntityRendererProvider.Context
 ) : GeoEntityRenderer<PogoStickVehicle>(context, PogoStickVehicleModel()) {
 
-    companion object {
-        val TEXTURE = OtherUtil.modResource("textures/entity/pogo_stick.png")
-    }
+	companion object {
+		val TEXTURE = OtherUtil.modResource("textures/entity/pogo_stick.png")
+	}
 
-    override fun getTextureLocation(projectile: PogoStickVehicle): ResourceLocation {
-        return TEXTURE
-    }
+	override fun getTextureLocation(projectile: PogoStickVehicle): ResourceLocation {
+		return TEXTURE
+	}
 
 }

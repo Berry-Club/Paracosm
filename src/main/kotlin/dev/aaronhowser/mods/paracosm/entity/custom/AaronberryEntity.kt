@@ -16,59 +16,59 @@ import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceC
 import software.bernie.geckolib.animation.*
 
 class AaronberryEntity(
-    entityType: EntityType<AaronberryEntity>,
-    level: Level
+	entityType: EntityType<AaronberryEntity>,
+	level: Level
 ) : ToyEntity(entityType, level) {
 
-    override val requiredWhimsy: Float = 1f
+	override val requiredWhimsy: Float = 1f
 
-    companion object {
+	companion object {
 
-        fun setAttributes(): AttributeSupplier {
-            return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 20.0)
-                .add(Attributes.ATTACK_DAMAGE, 2.0)
-                .add(Attributes.ATTACK_SPEED, 1.0)
-                .add(Attributes.MOVEMENT_SPEED, 0.2)
-                .build()
-        }
+		fun setAttributes(): AttributeSupplier {
+			return createMobAttributes()
+				.add(Attributes.MAX_HEALTH, 20.0)
+				.add(Attributes.ATTACK_DAMAGE, 2.0)
+				.add(Attributes.ATTACK_SPEED, 1.0)
+				.add(Attributes.MOVEMENT_SPEED, 0.2)
+				.build()
+		}
 
-    }
+	}
 
-    override fun registerGoals() {
-        this.goalSelector.let {
-            it.addGoal(0, FloatGoal(this))
-            it.addGoal(2, SitWhenOrderedToGoal(this))
-            it.addGoal(3, ToyStrollGoal(this, 1.0))
-            it.addGoal(4, ToyLookAtPlayerGoal(this))
-            it.addGoal(5, ToyRandomLookAroundGoal(this))
-        }
-    }
+	override fun registerGoals() {
+		this.goalSelector.let {
+			it.addGoal(0, FloatGoal(this))
+			it.addGoal(2, SitWhenOrderedToGoal(this))
+			it.addGoal(3, ToyStrollGoal(this, 1.0))
+			it.addGoal(4, ToyLookAtPlayerGoal(this))
+			it.addGoal(5, ToyRandomLookAroundGoal(this))
+		}
+	}
 
-    override fun registerControllers(controllers: AnimatableManager.ControllerRegistrar) {
-        controllers.add(AnimationController(this, "controller", 0, this::predicate))
-    }
+	override fun registerControllers(controllers: AnimatableManager.ControllerRegistrar) {
+		controllers.add(AnimationController(this, "controller", 0, this::predicate))
+	}
 
-    private fun predicate(animationState: AnimationState<AaronberryEntity>): PlayState {
-        val animationName = if (isHiding || isInSittingPose) {
-            "animation.aaronberry.sit"
-        } else if (animationState.isMoving) {
-            "animation.aaronberry.walk"
-        } else return PlayState.STOP
+	private fun predicate(animationState: AnimationState<AaronberryEntity>): PlayState {
+		val animationName = if (isHiding || isInSittingPose) {
+			"animation.aaronberry.sit"
+		} else if (animationState.isMoving) {
+			"animation.aaronberry.walk"
+		} else return PlayState.STOP
 
-        animationState.controller.setAnimation(
-            RawAnimation.begin().then(
-                animationName,
-                Animation.LoopType.LOOP
-            )
-        )
+		animationState.controller.setAnimation(
+			RawAnimation.begin().then(
+				animationName,
+				Animation.LoopType.LOOP
+			)
+		)
 
-        return PlayState.CONTINUE
-    }
+		return PlayState.CONTINUE
+	}
 
-    private val cache = SingletonAnimatableInstanceCache(this)
+	private val cache = SingletonAnimatableInstanceCache(this)
 
-    override fun getAnimatableInstanceCache(): AnimatableInstanceCache {
-        return cache
-    }
+	override fun getAnimatableInstanceCache(): AnimatableInstanceCache {
+		return cache
+	}
 }

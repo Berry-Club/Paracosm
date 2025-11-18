@@ -1,34 +1,34 @@
 {
-  "variants": {
-    "enabled=false,facing=east": {
-      "model": "paracosm:block/night_light",
-      "y": 90
-    },
-    "enabled=false,facing=north": {
-      "model": "paracosm:block/night_light"
-    },
-    "enabled=false,facing=south": {
-      "model": "paracosm:block/night_light",
-      "y": 180
-    },
-    "enabled=false,facing=west": {
-      "model": "paracosm:block/night_light",
-      "y": 270
-    },
-    "enabled=true,facing=east": {
-      "model": "paracosm:block/night_light_on",
-      "y": 90
-    },
-    "enabled=true,facing=north": {
-      "model": "paracosm:block/night_light_on"
-    },
-    "enabled=true,facing=south": {
-      "model": "paracosm:block/night_light_on",
-      "y": 180
-    },
-    "enabled=true,facing=west": {
-      "model": "paracosm:block/night_light_on",
-      "y": 270
-    }
-  }
+	"variants": {
+		"enabled=false,facing=east": {
+			"model": "paracosm:block/night_light",
+			"y": 90
+		},
+		"enabled=false,facing=north": {
+			"model": "paracosm:block/night_light"
+		},
+		"enabled=false,facing=south": {
+			"model": "paracosm:block/night_light",
+			"y": 180
+		},
+		"enabled=false,facing=west": {
+			"model": "paracosm:block/night_light",
+			"y": 270
+		},
+		"enabled=true,facing=east": {
+			"model": "paracosm:block/night_light_on",
+			"y": 90
+		},
+		"enabled=true,facing=north": {
+			"model": "paracosm:block/night_light_on"
+		},
+		"enabled=true,facing=south": {
+			"model": "paracosm:block/night_light_on",
+			"y": 180
+		},
+		"enabled=true,facing=west": {
+			"model": "paracosm:block/night_light_on",
+			"y": 270
+		}
+	}
 }

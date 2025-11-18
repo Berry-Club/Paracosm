@@ -9,23 +9,23 @@ import net.minecraft.world.entity.Entity
 
 interface IUpgradeableEntity {
 
-    companion object {
-        private const val UPGRADES_TAG = "${Paracosm.ID}.upgrades"
-    }
+	companion object {
+		private const val UPGRADES_TAG = "${Paracosm.ID}.upgrades"
+	}
 
-    fun saveUpgrades(entity: Entity, compoundTag: CompoundTag) {
-        val upgradesList = compoundTag.getList(UPGRADES_TAG, Tag.TAG_STRING.toInt())
-        for (upgrade in Upgradeable.getUpgrades(entity)) {
-            upgradesList.add(StringTag.valueOf(upgrade))
-        }
-    }
+	fun saveUpgrades(entity: Entity, compoundTag: CompoundTag) {
+		val upgradesList = compoundTag.getList(UPGRADES_TAG, Tag.TAG_STRING.toInt())
+		for (upgrade in Upgradeable.getUpgrades(entity)) {
+			upgradesList.add(StringTag.valueOf(upgrade))
+		}
+	}
 
-    fun loadUpgrades(entity: Entity, compoundTag: CompoundTag) {
-        val upgradesList = compoundTag.getList(UPGRADES_TAG, Tag.TAG_STRING.toInt())
-        for (tag in upgradesList) {
-            tag as? StringTag ?: continue
-            Upgradeable.addUpgrade(entity, tag.getAsString())
-        }
-    }
+	fun loadUpgrades(entity: Entity, compoundTag: CompoundTag) {
+		val upgradesList = compoundTag.getList(UPGRADES_TAG, Tag.TAG_STRING.toInt())
+		for (tag in upgradesList) {
+			tag as? StringTag ?: continue
+			Upgradeable.addUpgrade(entity, tag.asString)
+		}
+	}
 
 }

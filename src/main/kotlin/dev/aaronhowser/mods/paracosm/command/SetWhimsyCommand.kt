@@ -13,42 +13,42 @@ import net.minecraft.world.entity.player.Player
 
 object SetWhimsyCommand {
 
-    private const val AMOUNT_ARGUMENT = "amount"
-    private const val TARGET_ARGUMENT = "target"
+	private const val AMOUNT_ARGUMENT = "amount"
+	private const val TARGET_ARGUMENT = "target"
 
-    fun register(): ArgumentBuilder<CommandSourceStack, *> {
-        return Commands
-            .literal("setWhimsy")
-            .requires { it.hasPermission(2) }
-            .then(
-                Commands
-                    .argument(AMOUNT_ARGUMENT, FloatArgumentType.floatArg(0f))
-                    .executes { setWhimsy(it, null) }
-                    .then(
-                        Commands
-                            .argument(TARGET_ARGUMENT, EntityArgument.player())
-                            .executes { setWhimsy(it, EntityArgument.getEntity(it, TARGET_ARGUMENT)) }
-                    )
-            )
-    }
+	fun register(): ArgumentBuilder<CommandSourceStack, *> {
+		return Commands
+			.literal("setWhimsy")
+			.requires { it.hasPermission(2) }
+			.then(
+				Commands
+					.argument(AMOUNT_ARGUMENT, FloatArgumentType.floatArg(0f))
+					.executes { setWhimsy(it, null) }
+					.then(
+						Commands
+							.argument(TARGET_ARGUMENT, EntityArgument.player())
+							.executes { setWhimsy(it, EntityArgument.getEntity(it, TARGET_ARGUMENT)) }
+					)
+			)
+	}
 
-    private fun setWhimsy(
-        context: CommandContext<CommandSourceStack>,
-        entity: Entity?
-    ): Int {
-        val commandSender = context.source
-        val target = (entity ?: context.source.entity) as? Player ?: return 0
+	private fun setWhimsy(
+		context: CommandContext<CommandSourceStack>,
+		entity: Entity?
+	): Int {
+		val commandSender = context.source
+		val target = (entity ?: context.source.entity) as? Player ?: return 0
 
-        val amount = FloatArgumentType.getFloat(context, AMOUNT_ARGUMENT)
+		val amount = FloatArgumentType.getFloat(context, AMOUNT_ARGUMENT)
 
-        target.whimsy = amount
+		target.whimsy = amount
 
-        target.sendSystemMessage(Component.literal("Your Whimsy has been set to $amount"))
-        if (commandSender.entity != target) {
-            commandSender.sendSystemMessage(Component.literal("${target.gameProfile.name}'s Whimsy has been set to $amount"))
-        }
+		target.sendSystemMessage(Component.literal("Your Whimsy has been set to $amount"))
+		if (commandSender.entity != target) {
+			commandSender.sendSystemMessage(Component.literal("${target.gameProfile.name}'s Whimsy has been set to $amount"))
+		}
 
-        return 1
-    }
+		return 1
+	}
 
 }

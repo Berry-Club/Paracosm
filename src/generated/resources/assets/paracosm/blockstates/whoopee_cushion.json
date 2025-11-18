@@ -1,10 +1,10 @@
 {
-  "variants": {
-    "powered=false": {
-      "model": "paracosm:block/whoopee_cushion"
-    },
-    "powered=true": {
-      "model": "paracosm:block/whoopee_cushion_down"
-    }
-  }
+	"variants": {
+		"powered=false": {
+			"model": "paracosm:block/whoopee_cushion"
+		},
+		"powered=true": {
+			"model": "paracosm:block/whoopee_cushion_down"
+		}
+	}
 }

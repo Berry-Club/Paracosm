@@ -10,34 +10,34 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload
 import net.neoforged.neoforge.network.handling.IPayloadContext
 
 class UpdatePogoControls(
-    val leftImpulse: Float,
-    val forwardImpulse: Float,
-    val jumping: Boolean
+	val leftImpulse: Float,
+	val forwardImpulse: Float,
+	val jumping: Boolean
 ) : ModPacket {
 
-    override fun receiveMessage(context: IPayloadContext) {
-        context.enqueueWork {
-            val player = context.player()
-            val pogoEntity = player.controlledVehicle as? PogoStickVehicle ?: return@enqueueWork
+	override fun receiveMessage(context: IPayloadContext) {
+		context.enqueueWork {
+			val player = context.player()
+			val pogoEntity = player.controlledVehicle as? PogoStickVehicle ?: return@enqueueWork
 
-            pogoEntity.setInput(leftImpulse, forwardImpulse, jumping)
-        }
-    }
+			pogoEntity.setInput(leftImpulse, forwardImpulse, jumping)
+		}
+	}
 
-    override fun type(): CustomPacketPayload.Type<out CustomPacketPayload> {
-        return TYPE
-    }
+	override fun type(): CustomPacketPayload.Type<out CustomPacketPayload> {
+		return TYPE
+	}
 
-    companion object {
-        val TYPE: CustomPacketPayload.Type<UpdatePogoControls> =
-            CustomPacketPayload.Type(OtherUtil.modResource("update_pogo_controls"))
+	companion object {
+		val TYPE: CustomPacketPayload.Type<UpdatePogoControls> =
+			CustomPacketPayload.Type(OtherUtil.modResource("update_pogo_controls"))
 
-        val STREAM_CODEC: StreamCodec<ByteBuf, UpdatePogoControls> = StreamCodec.composite(
-            ByteBufCodecs.FLOAT, UpdatePogoControls::leftImpulse,
-            ByteBufCodecs.FLOAT, UpdatePogoControls::forwardImpulse,
-            ByteBufCodecs.BOOL, UpdatePogoControls::jumping,
-            ::UpdatePogoControls
-        )
-    }
+		val STREAM_CODEC: StreamCodec<ByteBuf, UpdatePogoControls> = StreamCodec.composite(
+			ByteBufCodecs.FLOAT, UpdatePogoControls::leftImpulse,
+			ByteBufCodecs.FLOAT, UpdatePogoControls::forwardImpulse,
+			ByteBufCodecs.BOOL, UpdatePogoControls::jumping,
+			::UpdatePogoControls
+		)
+	}
 
 }

@@ -13,69 +13,69 @@ import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.toVec3
 
 object Upgradeable {
 
-    // Item
+	// Item
 
-    fun getUpgrades(itemStack: ItemStack): List<String> {
-        return itemStack.get(ModDataComponents.ITEM_UPGRADES.get()) ?: emptyList()
-    }
+	fun getUpgrades(itemStack: ItemStack): List<String> {
+		return itemStack.get(ModDataComponents.ITEM_UPGRADES.get()) ?: emptyList()
+	}
 
-    fun setUpgrades(itemStack: ItemStack, upgrades: List<String>) {
-        itemStack.set(ModDataComponents.ITEM_UPGRADES.get(), upgrades)
-    }
+	fun setUpgrades(itemStack: ItemStack, upgrades: List<String>) {
+		itemStack.set(ModDataComponents.ITEM_UPGRADES.get(), upgrades)
+	}
 
-    fun addUpgrade(itemStack: ItemStack, upgrade: String) {
-        setUpgrades(
-            itemStack,
-            getUpgrades(itemStack) + upgrade
-        )
-    }
+	fun addUpgrade(itemStack: ItemStack, upgrade: String) {
+		setUpgrades(
+			itemStack,
+			getUpgrades(itemStack) + upgrade
+		)
+	}
 
-    fun removeUpgrade(itemStack: ItemStack, upgrade: String) {
-        setUpgrades(
-            itemStack,
-            getUpgrades(itemStack) - upgrade
-        )
-    }
+	fun removeUpgrade(itemStack: ItemStack, upgrade: String) {
+		setUpgrades(
+			itemStack,
+			getUpgrades(itemStack) - upgrade
+		)
+	}
 
-    fun hasUpgrade(itemStack: ItemStack, upgrade: String): Boolean {
-        return upgrade in getUpgrades(itemStack)
-    }
+	fun hasUpgrade(itemStack: ItemStack, upgrade: String): Boolean {
+		return upgrade in getUpgrades(itemStack)
+	}
 
-    // Entity
+	// Entity
 
-    fun getUpgrades(entity: Entity): Set<String> {
-        return entity.getData(ModAttachmentTypes.ENTITY_UPGRADES.get()).upgrades
-    }
+	fun getUpgrades(entity: Entity): Set<String> {
+		return entity.getData(ModAttachmentTypes.ENTITY_UPGRADES.get()).upgrades
+	}
 
-    fun setUpgrades(entity: Entity, upgrades: Set<String>) {
-        entity.setData(ModAttachmentTypes.ENTITY_UPGRADES.get(), EntityUpgrades(upgrades))
+	fun setUpgrades(entity: Entity, upgrades: Set<String>) {
+		entity.setData(ModAttachmentTypes.ENTITY_UPGRADES.get(), EntityUpgrades(upgrades))
 
-        if (!entity.isClientSide) {
-            ModPacketHandler.messageNearbyPlayers(
-                UpdateEntityUpgrades(entity.id, upgrades.toList()),
-                entity.level() as ServerLevel,
-                entity.blockPosition().toVec3(),
-                64.0
-            )
-        }
-    }
+		if (!entity.isClientSide) {
+			ModPacketHandler.messageNearbyPlayers(
+				UpdateEntityUpgrades(entity.id, upgrades.toList()),
+				entity.level() as ServerLevel,
+				entity.blockPosition().toVec3(),
+				64.0
+			)
+		}
+	}
 
-    fun addUpgrade(entity: Entity, upgrade: String) {
-        setUpgrades(
-            entity,
-            getUpgrades(entity) + upgrade
-        )
-    }
+	fun addUpgrade(entity: Entity, upgrade: String) {
+		setUpgrades(
+			entity,
+			getUpgrades(entity) + upgrade
+		)
+	}
 
-    fun removeUpgrade(entity: Entity, upgrade: String) {
-        setUpgrades(
-            entity,
-            getUpgrades(entity) - upgrade
-        )
-    }
+	fun removeUpgrade(entity: Entity, upgrade: String) {
+		setUpgrades(
+			entity,
+			getUpgrades(entity) - upgrade
+		)
+	}
 
-    fun hasUpgrade(entity: Entity, upgrade: String): Boolean {
-        return upgrade in getUpgrades(entity)
-    }
+	fun hasUpgrade(entity: Entity, upgrade: String): Boolean {
+		return upgrade in getUpgrades(entity)
+	}
 
 }
