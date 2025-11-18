@@ -40,7 +40,7 @@ class ShrinkRayProjectile(
 		this.owner = shooter
 	}
 
-	override val requiredWhimsy: Float = Companion.requiredWhimsy
+	override val requiredWhimsy: Float = ModItems.SHRINK_RAY.get().requiredWhimsy
 
 	var isGrow: Boolean
 		get() = entityData.get(IS_GROW)
@@ -100,6 +100,48 @@ class ShrinkRayProjectile(
 		this.discard()
 	}
 
+	private fun changeEntityScale(
+		target: LivingEntity,
+		scaleChange: Double,
+		changer: Player? = null
+	): Boolean {
+
+		if (target is Player) {
+			if (target.isSpectator) return false
+
+			if (!hasEnoughWhimsy(target)) return false
+		}
+
+		val scaleBefore = target.getAttributeValue(Attributes.SCALE)
+
+		target.shrinkRayEffect += scaleChange
+
+		if (abs(target.shrinkRayEffect) < 0.01) {
+			target.shrinkRayEffect = 0.0
+		}
+
+		val scaleAfter = target.getAttributeValue(Attributes.SCALE)
+
+		val scaleChanged = scaleBefore != scaleAfter
+
+		if (scaleChanged) {
+			target.refreshDimensions()
+
+			val entityName = target.name.string
+			val afterString = "%.2f".format(scaleAfter)
+			val changeMessage = Component.literal("$entityName scale effect changed to $afterString")
+
+			changer?.displayClientMessage(changeMessage, true)
+
+			if (changer != target && target is Player) {
+				target.displayClientMessage(changeMessage, true)
+			}
+
+		}
+
+		return scaleChanged
+	}
+
 	private var age = 0
 	override fun tick() {
 		super.tick()
@@ -121,8 +163,6 @@ class ShrinkRayProjectile(
 
 	companion object {
 
-		override val requiredWhimsy: Float = ModItems.SHRINK_RAY.get().requiredWhimsy
-
 		val IS_GROW: EntityDataAccessor<Boolean> =
 			SynchedEntityData.defineId(
 				ShrinkRayProjectile::class.java,
@@ -130,48 +170,6 @@ class ShrinkRayProjectile(
 			)
 
 		const val IS_GROW_NBT = "IsGrow"
-
-		private fun changeEntityScale(
-			target: LivingEntity,
-			scaleChange: Double,
-			changer: Player? = null
-		): Boolean {
-
-			if (target is Player) {
-				if (target.isSpectator) return false
-
-				if (!hasEnoughWhimsy(target)) return false
-			}
-
-			val scaleBefore = target.getAttributeValue(Attributes.SCALE)
-
-			target.shrinkRayEffect += scaleChange
-
-			if (abs(target.shrinkRayEffect) < 0.01) {
-				target.shrinkRayEffect = 0.0
-			}
-
-			val scaleAfter = target.getAttributeValue(Attributes.SCALE)
-
-			val scaleChanged = scaleBefore != scaleAfter
-
-			if (scaleChanged) {
-				target.refreshDimensions()
-
-				val entityName = target.name.string
-				val afterString = "%.2f".format(scaleAfter)
-				val changeMessage = Component.literal("$entityName scale effect changed to $afterString")
-
-				changer?.displayClientMessage(changeMessage, true)
-
-				if (changer != target && target is Player) {
-					target.displayClientMessage(changeMessage, true)
-				}
-
-			}
-
-			return scaleChanged
-		}
 	}
 
 }
