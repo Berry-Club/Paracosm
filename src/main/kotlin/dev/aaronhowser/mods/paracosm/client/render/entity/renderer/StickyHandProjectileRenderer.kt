@@ -27,15 +27,7 @@ class StickyHandProjectileRenderer(
 	context: EntityRendererProvider.Context
 ) : GeoEntityRenderer<StickyHandProjectile>(context, StickyHandProjectileModel()) {
 
-	companion object {
-		val TEXTURE: ResourceLocation = OtherUtil.modResource("textures/entity/sticky_hand.png")
-
-		val RENDER_TYPE: RenderType = RenderType.entityCutout(TEXTURE)
-	}
-
-	override fun getTextureLocation(p0: StickyHandProjectile): ResourceLocation {
-		return TEXTURE
-	}
+	override fun getTextureLocation(p0: StickyHandProjectile): ResourceLocation = TEXTURE
 
 	override fun render(
 		stickyHandEntity: StickyHandProjectile,
@@ -128,6 +120,11 @@ class StickyHandProjectileRenderer(
 			.addVertex(pose, f, f1, f2)
 			.setColor(-0x5ECD80)    // The opposite of the color of the sticky hand (this is green, so color is purple)
 			.setNormal(pose, f3, f4, f5)
+	}
+
+	companion object {
+		val TEXTURE: ResourceLocation = OtherUtil.modResource("textures/entity/sticky_hand.png")
+		val RENDER_TYPE: RenderType = RenderType.entityCutout(TEXTURE)
 	}
 
 }

@@ -15,8 +15,10 @@ class TeddyBearRenderer(
 		withScale(0.7f)
 	}
 
-	override fun getTextureLocation(animatable: TeddyBearEntity): ResourceLocation {
-		return OtherUtil.modResource("textures/entity/teddy_bear.png")
+	override fun getTextureLocation(animatable: TeddyBearEntity): ResourceLocation = TEXTURE
+
+	companion object {
+		val TEXTURE = OtherUtil.modResource("textures/entity/teddy_bear.png")
 	}
 
 }

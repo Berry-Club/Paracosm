@@ -15,8 +15,10 @@ class AaronberryRenderer(
 		withScale(0.7f)
 	}
 
-	override fun getTextureLocation(animatable: AaronberryEntity): ResourceLocation {
-		return OtherUtil.modResource("textures/entity/aaronberry.png")
+	override fun getTextureLocation(animatable: AaronberryEntity): ResourceLocation = TEXTURE
+
+	companion object {
+		val TEXTURE = OtherUtil.modResource("textures/entity/aaronberry.png")
 	}
 
 }

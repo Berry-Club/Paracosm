@@ -11,12 +11,10 @@ class PogoStickVehicleRenderer(
 	context: EntityRendererProvider.Context
 ) : GeoEntityRenderer<PogoStickVehicle>(context, PogoStickVehicleModel()) {
 
+	override fun getTextureLocation(projectile: PogoStickVehicle): ResourceLocation = TEXTURE
+
 	companion object {
 		val TEXTURE = OtherUtil.modResource("textures/entity/pogo_stick.png")
-	}
-
-	override fun getTextureLocation(projectile: PogoStickVehicle): ResourceLocation {
-		return TEXTURE
 	}
 
 }

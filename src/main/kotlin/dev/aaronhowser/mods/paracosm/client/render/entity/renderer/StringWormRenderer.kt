@@ -15,8 +15,10 @@ class StringWormRenderer(
 		withScale(0.7f)
 	}
 
-	override fun getTextureLocation(animatable: StringWormEntity): ResourceLocation {
-		return OtherUtil.modResource("textures/entity/string_worm.png")
+	override fun getTextureLocation(animatable: StringWormEntity): ResourceLocation = TEXTURE
+
+	companion object {
+		val TEXTURE = OtherUtil.modResource("textures/entity/string_worm.png")
 	}
 
 }
