@@ -131,6 +131,13 @@ repositories {
 		}
 	}
 
+	maven {
+		url "https://maven.latvian.dev/releases"
+		content {
+			includeGroup "dev.aaronhowser.mods"
+		}
+	}
+
 }
 
 dependencies {
@@ -142,6 +149,8 @@ dependencies {
 
 	compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
 	runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
+
+	implementation "dev.aaronhowser.mods:aaron-1.21.1:${aaron_lib_version}"
 }
 
 tasks.withType(ProcessResources).configureEach {
