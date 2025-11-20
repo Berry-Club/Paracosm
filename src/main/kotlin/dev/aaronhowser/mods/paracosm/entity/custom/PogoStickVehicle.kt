@@ -366,21 +366,15 @@ class PogoStickVehicle(
 		dimensions: EntityDimensions,
 		partialTick: Float
 	): Vec3 {
-		val height = 1 - JUMP_ANIM_DISTANCE * jumpPercent.toDouble()
+		val heightScale = 1.0 - JUMP_ANIM_DISTANCE * jumpPercent
 
-		val tiltPair = OtherUtil.getRotationForCircle(
-			tiltBackward,
-			tiltRight
-		)
-
-		val tiltBackward = tiltPair.backwards
-		val tiltRight = tiltPair.right
+		val (tiltBackward, tiltRight) = OtherUtil.getRotationForCircle(tiltBackward, tiltRight)
 
 		return Vec3(0.0, 1.0, 0.0)
 			.xRot(tiltBackward * MAX_TILT_RADIAN)
 			.zRot(tiltRight * MAX_TILT_RADIAN)
-			.yRot(this.yRot * Mth.DEG_TO_RAD)
-			.scale(height)
+			.yRot(yRot * Mth.DEG_TO_RAD)
+			.scale(heightScale)
 	}
 
 	override fun getDismountLocationForPassenger(passenger: LivingEntity): Vec3 {
