@@ -179,8 +179,8 @@ class PogoStickVehicle(
 
 		if (controlPacketCooldown > 0) controlPacketCooldown--
 
-		tryJump()
 		doMove()
+		tryJump()
 		updateTilt()
 		updateMomentum()
 		tryResetControls()
