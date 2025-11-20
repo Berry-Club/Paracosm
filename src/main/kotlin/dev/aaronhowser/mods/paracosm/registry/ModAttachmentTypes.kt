@@ -16,19 +16,6 @@ object ModAttachmentTypes {
 	val ATTACHMENT_TYPES_REGISTRY: DeferredRegister<AttachmentType<*>> =
 		DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, Paracosm.ID)
 
-	val WHIMSY: DeferredHolder<AttachmentType<*>, AttachmentType<Double>> =
-		register("whimsy", { 0.0 }, Codec.DOUBLE)
-
-	val DELUSION: DeferredHolder<AttachmentType<*>, AttachmentType<Double>> =
-		register("delusion", { 0.0 }, Codec.DOUBLE)
-
-	val TEMPORARY_WHIMSY: DeferredHolder<AttachmentType<*>, AttachmentType<TemporaryWhimsy>> =
-		register(
-			"temporary_whimsy",
-			{ TemporaryWhimsy(mutableListOf()) },
-			TemporaryWhimsy.CODEC
-		)
-
 	val SHRINK_RAY_EFFECT: DeferredHolder<AttachmentType<*>, AttachmentType<ShrinkRayEffect>> =
 		register("shrink_ray_effect", { ShrinkRayEffect(0.0) }, ShrinkRayEffect.CODEC)
 
