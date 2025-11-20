@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.paracosm.research.ModResearchTypes
 import dev.aaronhowser.mods.paracosm.research.ResearchType
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
+import net.minecraft.commands.arguments.EntityArgument
 import net.minecraft.commands.arguments.ResourceLocationArgument
 import net.minecraft.core.Holder
 import net.minecraft.network.chat.Component
@@ -14,7 +15,7 @@ import net.minecraft.world.entity.player.Player
 
 object SetResearchCommand {
 
-	private const val RESEARCH_TYPE = "research_type"
+	private const val RESEARCH_TYPE = "research-type"
 	private const val AMOUNT = "amount"
 	private const val PLAYER = "player"
 
@@ -34,6 +35,17 @@ object SetResearchCommand {
 								requireNotNull(researchType)
 								getResearchPoints(source, player, researchType)
 							}
+							.then(
+								Commands.argument(PLAYER, EntityArgument.player())
+									.executes {
+										val source = it.source
+										val player = EntityArgument.getPlayer(it, PLAYER)
+										val rl = ResourceLocationArgument.getId(it, RESEARCH_TYPE)
+										val researchType = ModResearchTypes.fromResourceLocation(source.registryAccess(), rl)
+										requireNotNull(researchType)
+										getResearchPoints(source, player, researchType)
+									}
+							)
 					)
 			)
 			.then(
@@ -52,6 +64,18 @@ object SetResearchCommand {
 										val amount = IntegerArgumentType.getInteger(it, AMOUNT)
 										setResearchPoints(source, player, researchType, amount)
 									}
+									.then(
+										Commands.argument(PLAYER, EntityArgument.player())
+											.executes {
+												val source = it.source
+												val player = EntityArgument.getPlayer(it, PLAYER)
+												val rl = ResourceLocationArgument.getId(it, RESEARCH_TYPE)
+												val researchType = ModResearchTypes.fromResourceLocation(source.registryAccess(), rl)
+												requireNotNull(researchType)
+												val amount = IntegerArgumentType.getInteger(it, AMOUNT)
+												setResearchPoints(source, player, researchType, amount)
+											}
+									)
 							)
 					)
 			)
