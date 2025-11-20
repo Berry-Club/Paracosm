@@ -38,7 +38,7 @@ object WhimsyCommand {
 					)
 			)
 			.then(
-				Commands.literal("set")
+				Commands.literal("set-base")
 					.then(
 						Commands.argument(AMOUNT, DoubleArgumentType.doubleArg(0.0, Double.MAX_VALUE))
 							.executes {
