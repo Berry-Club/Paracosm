@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.paracosm.command
 import com.mojang.brigadier.arguments.FloatArgumentType
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
+import dev.aaronhowser.mods.paracosm.handler.WhimsyHandler.rawWhimsy
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
@@ -40,7 +41,7 @@ object SetWhimsyCommand {
 
 		val amount = FloatArgumentType.getFloat(context, AMOUNT_ARGUMENT)
 
-		target.whimsy = amount
+		target.rawWhimsy = amount
 
 		target.sendSystemMessage(Component.literal("Your Whimsy has been set to $amount"))
 		if (commandSender.entity != target) {

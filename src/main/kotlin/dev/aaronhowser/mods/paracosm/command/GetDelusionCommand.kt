@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.paracosm.command
 
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
+import dev.aaronhowser.mods.paracosm.handler.DelusionHandler.getDelusion
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
@@ -32,7 +33,7 @@ object GetDelusionCommand {
 		val commandSender = context.source
 		val target = (entity ?: context.source.entity) as? Player ?: return 0
 
-		val targetDelusion = target.delusion
+		val targetDelusion = target.getDelusion()
 
 		commandSender.sendSystemMessage(Component.literal("${target.gameProfile.name} has $targetDelusion Delusion"))
 

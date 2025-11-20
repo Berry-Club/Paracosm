@@ -7,6 +7,10 @@ import dev.aaronhowser.mods.paracosm.entity.custom.AaronberryEntity
 import dev.aaronhowser.mods.paracosm.entity.custom.PogoStickVehicle
 import dev.aaronhowser.mods.paracosm.entity.custom.StringWormEntity
 import dev.aaronhowser.mods.paracosm.entity.custom.TeddyBearEntity
+import dev.aaronhowser.mods.paracosm.handler.DelusionHandler.getDelusion
+import dev.aaronhowser.mods.paracosm.handler.DelusionHandler.rawDelusion
+import dev.aaronhowser.mods.paracosm.handler.WhimsyHandler.getWhimsy
+import dev.aaronhowser.mods.paracosm.handler.WhimsyHandler.rawWhimsy
 import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateEntityUpgrades
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateRawWhimsyPacket
@@ -53,7 +57,7 @@ object CommonEvents {
 		if (food != null) {
 
 			if (event.item.`is`(ModItemTagsProvider.SWEETS)) {
-				entity.whimsy += 0.5f
+				entity.rawWhimsy += 0.5f
 			}
 
 		}
@@ -65,23 +69,23 @@ object CommonEvents {
 		val entity = event.target
 
 		if (entity is LivingEntity) {
-			if (entity.whimsy != 0f) {
+			if (entity.rawWhimsy != 0.0) {
 				ModPacketHandler.messagePlayer(
 					player,
 					UpdateRawWhimsyPacket(
 						entity.id,
-						entity.whimsy,
+						entity.rawWhimsy,
 						true
 					)
 				)
 			}
 
-			if (entity.delusion != 0f) {
+			if (entity.rawDelusion != 0.0) {
 				ModPacketHandler.messagePlayer(
 					player,
 					UpdateRawWhimsyPacket(
 						entity.id,
-						entity.delusion,
+						entity.rawDelusion,
 						false
 					)
 				)
@@ -107,7 +111,7 @@ object CommonEvents {
 			player,
 			UpdateRawWhimsyPacket(
 				player.id,
-				player.whimsy,
+				player.rawWhimsy,
 				true
 			)
 		)
@@ -116,7 +120,7 @@ object CommonEvents {
 			player,
 			UpdateRawWhimsyPacket(
 				player.id,
-				player.delusion,
+				player.rawDelusion,
 				false
 			)
 		)
