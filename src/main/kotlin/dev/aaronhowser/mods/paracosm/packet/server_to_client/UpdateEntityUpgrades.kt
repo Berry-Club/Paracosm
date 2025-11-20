@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.paracosm.packet.server_to_client
 
-import dev.aaronhowser.mods.paracosm.packet.ModPacket
+import dev.aaronhowser.mods.aaron.packet.ModPacket
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import dev.aaronhowser.mods.paracosm.util.Upgradeable
 import io.netty.buffer.ByteBuf
@@ -12,13 +12,12 @@ import net.neoforged.neoforge.network.handling.IPayloadContext
 class UpdateEntityUpgrades(
 	val entityId: Int,
 	val upgrades: List<String>
-) : ModPacket {
-	override fun receiveMessage(context: IPayloadContext) {
-		context.enqueueWork {
-			val entity = context.player().level().getEntity(entityId) ?: return@enqueueWork
+) : ModPacket() {
 
-			Upgradeable.setUpgrades(entity, upgrades.toSet())
-		}
+	override fun handleOnClient(context: IPayloadContext) {
+		val entity = context.player().level().getEntity(entityId) ?: return
+
+		Upgradeable.setUpgrades(entity, upgrades.toSet())
 	}
 
 	override fun type(): CustomPacketPayload.Type<UpdateEntityUpgrades> {

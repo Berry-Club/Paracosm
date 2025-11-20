@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.paracosm.packet.client_to_server
 
+import dev.aaronhowser.mods.aaron.packet.ModPacket
 import dev.aaronhowser.mods.paracosm.entity.custom.PogoStickVehicle
-import dev.aaronhowser.mods.paracosm.packet.ModPacket
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import io.netty.buffer.ByteBuf
 import net.minecraft.network.codec.ByteBufCodecs
@@ -13,15 +13,13 @@ class UpdatePogoControls(
 	val leftImpulse: Float,
 	val forwardImpulse: Float,
 	val jumping: Boolean
-) : ModPacket {
+) : ModPacket() {
 
-	override fun receiveMessage(context: IPayloadContext) {
-		context.enqueueWork {
-			val player = context.player()
-			val pogoEntity = player.controlledVehicle as? PogoStickVehicle ?: return@enqueueWork
+	override fun handleOnServer(context: IPayloadContext) {
+		val player = context.player()
+		val pogoEntity = player.controlledVehicle as? PogoStickVehicle ?: return
 
-			pogoEntity.setInput(leftImpulse, forwardImpulse, jumping)
-		}
+		pogoEntity.setInput(leftImpulse, forwardImpulse, jumping)
 	}
 
 	override fun type(): CustomPacketPayload.Type<out CustomPacketPayload> {

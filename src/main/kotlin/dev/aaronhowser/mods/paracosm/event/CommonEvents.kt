@@ -7,11 +7,8 @@ import dev.aaronhowser.mods.paracosm.entity.custom.AaronberryEntity
 import dev.aaronhowser.mods.paracosm.entity.custom.PogoStickVehicle
 import dev.aaronhowser.mods.paracosm.entity.custom.StringWormEntity
 import dev.aaronhowser.mods.paracosm.entity.custom.TeddyBearEntity
-import dev.aaronhowser.mods.paracosm.handler.DelusionHandler.rawDelusion
-import dev.aaronhowser.mods.paracosm.handler.WhimsyHandler.rawWhimsy
 import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateEntityUpgrades
-import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateRawWhimsyPacket
 import dev.aaronhowser.mods.paracosm.registry.ModAttributes
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.util.Upgradeable

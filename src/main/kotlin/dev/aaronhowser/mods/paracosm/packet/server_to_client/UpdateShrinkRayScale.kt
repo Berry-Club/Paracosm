@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.paracosm.packet.server_to_client
 
+import dev.aaronhowser.mods.aaron.packet.ModPacket
 import dev.aaronhowser.mods.paracosm.attachment.ShrinkRayEffect.Companion.shrinkRayEffect
-import dev.aaronhowser.mods.paracosm.packet.ModPacket
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import io.netty.buffer.ByteBuf
 import net.minecraft.network.codec.ByteBufCodecs
@@ -13,14 +13,11 @@ import net.neoforged.neoforge.network.handling.IPayloadContext
 class UpdateShrinkRayScale(
 	val entityId: Int,
 	val newScale: Double
-) : ModPacket {
+) : ModPacket() {
 
-	override fun receiveMessage(context: IPayloadContext) {
-		context.enqueueWork {
-			val entity = context.player().level().getEntity(entityId) as? LivingEntity ?: return@enqueueWork
-
-			entity.shrinkRayEffect = newScale
-		}
+	override fun handleOnClient(context: IPayloadContext) {
+		val entity = context.player().level().getEntity(entityId) as? LivingEntity ?: return
+		entity.shrinkRayEffect = newScale
 	}
 
 	override fun type(): CustomPacketPayload.Type<out CustomPacketPayload> {
