@@ -2,6 +2,8 @@ package dev.aaronhowser.mods.paracosm.research
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
+import net.minecraft.core.Holder
+import net.minecraft.network.chat.Component
 import net.minecraft.resources.RegistryFileCodec
 
 data class ResearchType(
@@ -9,6 +11,12 @@ data class ResearchType(
 ) {
 
 	companion object {
+		fun Holder<ResearchType>.getComponent(): Component {
+			val key = this.unwrapKey().orElseThrow()
+			val location = key.location()
+			return Component.translatable("paracosm.research_type.${location.namespace}.${location.path}")
+		}
+
 		val DIRECT_CODEC: Codec<ResearchType> =
 			RecordCodecBuilder.create { instance ->
 				instance.group(
