@@ -277,34 +277,26 @@ class PogoStickVehicle(
 	}
 
 	private fun tryJump() {
-		if (this.controls.spaceHeld) return
+		if (controls.spaceHeld) return
 
 		val currentJumpAmount = jumpPercent
-		if (currentJumpAmount <= 0.1) return
+		if (currentJumpAmount <= 0.1f) return
 
-		if (this.onGround() || Upgradeable.hasUpgrade(this, PogoStickItem.Upgrades.GEPPO)) {
-			val currentTiltBack = tiltBackward
-			val currentTiltRight = tiltRight
-
-			val distance = (this.verticalMomentum * 1.5).coerceIn(7.5, 20.0)
+		if (onGround() || Upgradeable.hasUpgrade(this, PogoStickItem.Upgrades.GEPPO)) {
+			val distance = (verticalMomentum * 1.5).coerceIn(7.5, 20.0)
 			val jumpStrength = getJumpStrengthForDistance(distance)
 
-			val jumpVector =
-				// Unit Vector
-				Vec3(0.0, 1.0, 0.0)
-					// Tilting
-					.xRot(currentTiltBack * MAX_TILT_RADIAN)
-					.zRot(currentTiltRight * MAX_TILT_RADIAN)
-					.yRot(this.yRot * Mth.DEG_TO_RAD)
-					// Scaling
-					.scale(currentJumpAmount.toDouble())
-					.scale(jumpStrength)
+			val jumpVector = Vec3(0.0, 1.0, 0.0)
+				.xRot(tiltBackward * MAX_TILT_RADIAN)
+				.zRot(tiltRight * MAX_TILT_RADIAN)
+				.yRot(yRot * Mth.DEG_TO_RAD)
+				.scale(currentJumpAmount * jumpStrength)
 
 			addDeltaMovement(jumpVector)
-			this.hasImpulse = true
-			this.setOnGround(false)
+			hasImpulse = true
+			setOnGround(false)
 
-			this.verticalMomentum = 0f
+			verticalMomentum = 0f
 		}
 
 		jumpPercent = 0f
