@@ -12,6 +12,8 @@ import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateEntityUpgrades
 import dev.aaronhowser.mods.paracosm.registry.ModAttributes
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
+import dev.aaronhowser.mods.paracosm.research.ModResearchTypes
+import dev.aaronhowser.mods.paracosm.research.ResearchType
 import dev.aaronhowser.mods.paracosm.util.Upgradeable
 import net.minecraft.server.level.ServerPlayer
 import net.neoforged.bus.api.SubscribeEvent
@@ -23,6 +25,7 @@ import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent
 import net.neoforged.neoforge.event.entity.player.PlayerEvent
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent
+import net.neoforged.neoforge.registries.DataPackRegistryEvent
 
 @EventBusSubscriber(
 	modid = Paracosm.ID
@@ -87,6 +90,15 @@ object CommonEvents {
 	@SubscribeEvent
 	fun onIncomingDamage(event: LivingIncomingDamageEvent) {
 		PogoStickVehicle.checkCancelDamage(event)
+	}
+
+	@SubscribeEvent
+	fun onNewDataPackRegistry(event: DataPackRegistryEvent.NewRegistry) {
+		event.dataPackRegistry(
+			ModResearchTypes.RESEARCH_TYPE_RK,
+			ResearchType.DIRECT_CODEC,
+			ResearchType.DIRECT_CODEC
+		)
 	}
 
 }
