@@ -12,8 +12,7 @@ object ModCommands {
 		dispatcher.register(
 			Commands
 				.literal(Paracosm.ID)
-				.then(SetWhimsyCommand.register())
-				.then(GetWhimsyCommand.register())
+				.then(WhimsyCommand.register())
 				.then(DelusionCommand.register())
 				.then(ResetScaleCommand.register())
 				.then(UpgradeCommand.register())

@@ -10,14 +10,14 @@ import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 
-object DelusionCommand {
+object WhimsyCommand {
 
 	private const val TARGET = "target"
 	private const val AMOUNT = "amount"
 
 	fun register(): ArgumentBuilder<CommandSourceStack, *> {
 		return Commands
-			.literal("delusion")
+			.literal("whimsy")
 			.requires { it.hasPermission(2) }
 			.then(
 				Commands.literal("get")
@@ -25,7 +25,7 @@ object DelusionCommand {
 						val source = it.source
 						val target = source.playerOrException
 
-						getDelusion(source, target)
+						getWhimsy(source, target)
 					}
 					.then(
 						Commands.argument(TARGET, EntityArgument.player())
@@ -33,7 +33,7 @@ object DelusionCommand {
 								val source = it.source
 								val target = EntityArgument.getPlayer(it, TARGET)
 
-								getDelusion(source, target)
+								getWhimsy(source, target)
 							}
 					)
 			)
@@ -46,7 +46,7 @@ object DelusionCommand {
 								val target = source.playerOrException
 								val amount = DoubleArgumentType.getDouble(it, AMOUNT)
 
-								setBaseDelusion(source, target, amount)
+								setBaseWhimsy(source, target, amount)
 							}
 							.then(
 								Commands.argument(TARGET, EntityArgument.player())
@@ -55,14 +55,14 @@ object DelusionCommand {
 										val target = EntityArgument.getPlayer(it, TARGET)
 										val amount = DoubleArgumentType.getDouble(it, AMOUNT)
 
-										setBaseDelusion(source, target, amount)
+										setBaseWhimsy(source, target, amount)
 									}
 							)
 					)
 			)
 	}
 
-	private fun setBaseDelusion(
+	private fun setBaseWhimsy(
 		source: CommandSourceStack,
 		target: Entity,
 		amount: Double
@@ -72,9 +72,9 @@ object DelusionCommand {
 			return 0
 		}
 
-		val attribute = target.getAttribute(ModAttributes.DELUSION)
+		val attribute = target.getAttribute(ModAttributes.WHIMSY)
 		if (attribute == null) {
-			source.sendFailure(Component.literal("Target does not have Delusion attribute"))
+			source.sendFailure(Component.literal("Target does not have Whimsy attribute"))
 			return 0
 		}
 
@@ -82,7 +82,7 @@ object DelusionCommand {
 
 		source.sendSuccess(
 			{
-				Component.literal("Set ${target.name.string}'s Delusion base to $amount")
+				Component.literal("Set ${target.name.string}'s Whimsy base to $amount")
 			},
 			false
 		)
@@ -90,7 +90,7 @@ object DelusionCommand {
 		return 1
 	}
 
-	private fun getDelusion(
+	private fun getWhimsy(
 		source: CommandSourceStack,
 		target: Entity
 	): Int {
@@ -101,7 +101,7 @@ object DelusionCommand {
 
 		val attribute = target.getAttribute(ModAttributes.DELUSION)
 		if (attribute == null) {
-			source.sendFailure(Component.literal("Target does not have Delusion attribute"))
+			source.sendFailure(Component.literal("Target does not have Whimsy attribute"))
 			return 0
 		}
 
@@ -110,7 +110,7 @@ object DelusionCommand {
 
 		source.sendSuccess(
 			{
-				Component.literal("${target.name.string}'s Delusion - Base: $base, Current: $current")
+				Component.literal("${target.name.string}'s Whimsy - Base: $base, Current: $current")
 			},
 			false
 		)
