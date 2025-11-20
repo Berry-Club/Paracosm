@@ -12,7 +12,8 @@ object ModRegistries {
 		ModBlockEntities.BLOCK_ENTITY_REGISTRY,
 		ModCreativeTabs.CREATIVE_TAB_REGISTRY,
 		ModEntityTypes.ENTITY_TYPE_REGISTRY,
-		ModSounds.SOUND_EVENT_REGISTRY
+		ModSounds.SOUND_EVENT_REGISTRY,
+		ModAttributes.ATTRIBUTE_REGISTRY,
 	)
 
 	fun register(modBus: IEventBus) {
