@@ -15,7 +15,7 @@ class ToyGunItem : RequiresWhimsy, Item(
 		.stacksTo(1)
 ) {
 
-	override val requiredWhimsy: Float = 5f
+	override val requiredWhimsy: Double = 5.0
 
 	private val nameComponent = TrueFalseComponent(
 		componentTrue = ModItemLang.COOL_GUN.toComponent(),

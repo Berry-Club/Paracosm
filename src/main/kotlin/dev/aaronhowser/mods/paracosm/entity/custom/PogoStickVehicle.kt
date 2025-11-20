@@ -6,7 +6,6 @@ import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.paracosm.config.ServerConfig
 import dev.aaronhowser.mods.paracosm.entity.base.IUpgradeableEntity
 import dev.aaronhowser.mods.paracosm.item.PogoStickItem
-import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
 import dev.aaronhowser.mods.paracosm.packet.client_to_server.UpdatePogoControls
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.registry.ModItems
@@ -184,13 +183,8 @@ class PogoStickVehicle(
 		this.controls.spaceHeld = jumping
 
 		if (this.isClientSide) {
-			ModPacketHandler.messageServer(
-				UpdatePogoControls(
-					leftImpulse,
-					forwardImpulse,
-					jumping
-				)
-			)
+			val packet = UpdatePogoControls(leftImpulse, forwardImpulse, jumping)
+			packet.messageServer()
 		}
 	}
 

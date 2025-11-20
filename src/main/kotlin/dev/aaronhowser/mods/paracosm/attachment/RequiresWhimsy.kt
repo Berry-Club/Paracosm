@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.paracosm.attachment
 
 import dev.aaronhowser.mods.paracosm.config.ServerConfig
+import dev.aaronhowser.mods.paracosm.handler.AttributeHandler.getWhimsy
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import dev.aaronhowser.mods.paracosm.util.OtherUtil.hasLineOfSight
 import net.minecraft.world.entity.LivingEntity
@@ -11,10 +12,10 @@ import kotlin.math.pow
 
 interface RequiresWhimsy {
 
-	val requiredWhimsy: Float
+	val requiredWhimsy: Double
 
-	fun hasEnoughWhimsy(otherEntity: LivingEntity): Boolean {
-		return (otherEntity.getWhimsy()) >= requiredWhimsy
+	fun hasEnoughWhimsy(observerEntity: LivingEntity): Boolean {
+		return (observerEntity.getWhimsy()) >= requiredWhimsy
 	}
 
 	fun hidingFromPlayers(level: Level, vec3: Vec3): List<Player> {

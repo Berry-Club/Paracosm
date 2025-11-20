@@ -1,9 +1,7 @@
 package dev.aaronhowser.mods.paracosm.util
 
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
-import dev.aaronhowser.mods.paracosm.handler.WhimsyHandler.getWhimsy
-import net.minecraft.client.Minecraft
-import net.minecraft.client.player.LocalPlayer
+import dev.aaronhowser.mods.paracosm.handler.AttributeHandler.getWhimsy
 
 object ClientUtil {
 
