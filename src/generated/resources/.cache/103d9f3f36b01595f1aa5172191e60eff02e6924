@@ -1,12 +1,12 @@
-// 1.21.1	2025-11-20T14:22:30.0434121	Registries
+// 1.21.1	2025-11-20T14:23:59.9838091	Registries
 9be18fd6a76b52d8959851a14dd4fc3e76a7c632 data/paracosm/dimension/dream.json
 a22629394a5f692b598bdb903f685319e94a60ff data/paracosm/dimension_type/dream.json
-dc87c3acc3d927888d629e704bf2387a9278597f data/paracosm/paracosm/research_type/action.json
-9868bebe82aef6236b355d997694cb99a125dc2e data/paracosm/paracosm/research_type/adventure.json
-c58b7bab9ebdca2291ded38c381fa057ddee7596 data/paracosm/paracosm/research_type/comfort.json
-103624cdefe8174a2dca6e2dd2eaa01bb665501f data/paracosm/paracosm/research_type/contraptions.json
-71d0a312ce6e2e24a0c0647c409e659fc12e40ca data/paracosm/paracosm/research_type/friendship.json
-31a6302a18f7cf9ba1e2cd1377c4c733e85c0a02 data/paracosm/paracosm/research_type/mischief.json
-3fe9b5cff96fcd946fc4ddc56be9c344b600527c data/paracosm/paracosm/research_type/movement.json
-b6589fc6ab0dc82cf12099d1c2d40ab994e8410c data/paracosm/paracosm/research_type/spooky.json
+85431d26b35393fecc33544b0a8c285b3f9f99a3 data/paracosm/paracosm/research_type/action.json
+aa8d224003e919a743e6d7b832fa3324dd011bd0 data/paracosm/paracosm/research_type/adventure.json
+c6d6152ff6246ab736e1466ecb3b66736583b4e7 data/paracosm/paracosm/research_type/comfort.json
+f3e685d5c5cdcdd3b4deaa6ab53099b54cafc9ef data/paracosm/paracosm/research_type/contraptions.json
+d12671f14aa1629cf9c0735e516425bef3e71cb5 data/paracosm/paracosm/research_type/friendship.json
+53a0fa71bb4a9fcd8bc52691db277fb00cbb1165 data/paracosm/paracosm/research_type/mischief.json
+0ad202f0b7b7c8a2b7b5ff7ae9f08e4b9fd0c709 data/paracosm/paracosm/research_type/movement.json
+95cd926a72d63bde8b6fba65efd03e768f69c837 data/paracosm/paracosm/research_type/spooky.json
 32abb986f45c4e4993e32a54f9b2465ad82388ef data/paracosm/worldgen/biome/test_biome.json
