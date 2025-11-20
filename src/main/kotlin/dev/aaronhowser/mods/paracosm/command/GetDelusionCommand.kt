@@ -1,13 +1,13 @@
 package dev.aaronhowser.mods.paracosm.command
 
 import com.mojang.brigadier.builder.ArgumentBuilder
-import com.mojang.brigadier.context.CommandContext
+import dev.aaronhowser.mods.paracosm.registry.ModAttributes
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.Entity
-import net.minecraft.world.entity.player.Player
+import net.minecraft.world.entity.LivingEntity
 
 object GetDelusionCommand {
 
@@ -17,24 +17,47 @@ object GetDelusionCommand {
 		return Commands
 			.literal("getDelusion")
 			.requires { it.hasPermission(2) }
-			.executes { setDelusion(it, null) }
+			.executes {
+				val source = it.source
+				val target = source.playerOrException
+
+				getDelusion(source, target)
+			}
 			.then(
-				Commands
-					.argument(TARGET_ARGUMENT, EntityArgument.player())
-					.executes { setDelusion(it, EntityArgument.getEntity(it, TARGET_ARGUMENT)) }
+				Commands.argument(TARGET_ARGUMENT, EntityArgument.player())
+					.executes {
+						val source = it.source
+						val target = EntityArgument.getPlayer(it, TARGET_ARGUMENT)
+
+						getDelusion(source, target)
+					}
 			)
 	}
 
-	private fun setDelusion(
-		context: CommandContext<CommandSourceStack>,
-		entity: Entity?
+	private fun getDelusion(
+		source: CommandSourceStack,
+		target: Entity
 	): Int {
-		val commandSender = context.source
-		val target = (entity ?: context.source.entity) as? Player ?: return 0
+		if (target !is LivingEntity) {
+			source.sendFailure(Component.literal("Target must be a living entity"))
+			return 0
+		}
 
-		val targetDelusion = target.getDelusion()
+		val attribute = target.getAttribute(ModAttributes.DELUSION)
+		if (attribute == null) {
+			source.sendFailure(Component.literal("Target does not have Delusion attribute"))
+			return 0
+		}
 
-		commandSender.sendSystemMessage(Component.literal("${target.gameProfile.name} has $targetDelusion Delusion"))
+		val base = attribute.baseValue
+		val current = attribute.value
+
+		source.sendSuccess(
+			{
+				Component.literal("${target.name.string}'s Delusion - Base: $base, Current: $current")
+			},
+			false
+		)
 
 		return 1
 	}
