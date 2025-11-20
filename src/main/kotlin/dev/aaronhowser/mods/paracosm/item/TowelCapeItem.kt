@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.paracosm.item
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
 import dev.aaronhowser.mods.paracosm.attachment.RequiresWhimsy
-import dev.aaronhowser.mods.paracosm.handler.WhimsyHandler.getWhimsy
+import dev.aaronhowser.mods.paracosm.handler.AttributeHandler.getWhimsy
 import dev.aaronhowser.mods.paracosm.item.base.IUpgradeableItem
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
 import net.minecraft.world.entity.Entity
@@ -32,7 +32,7 @@ class TowelCapeItem : IUpgradeableItem, RequiresWhimsy, ElytraItem(
 		private const val DURATION = 20 * 5
 	}
 
-	override val requiredWhimsy: Float = 10f
+	override val requiredWhimsy: Double = 10.0
 
 	override fun inventoryTick(stack: ItemStack, level: Level, entity: Entity, slotId: Int, isSelected: Boolean) {
 		if (level.isClientSide) return

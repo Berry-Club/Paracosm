@@ -28,7 +28,7 @@ class TeddyBearEntity(
 	level: Level
 ) : ToyEntity(entityType, level) {
 
-	override val requiredWhimsy: Float = 10f
+	override val requiredWhimsy: Double = 10.0
 
 	override fun registerGoals() {
 		this.goalSelector.let {

@@ -51,12 +51,8 @@ object Upgradeable {
 		entity.setData(ModAttachmentTypes.ENTITY_UPGRADES.get(), EntityUpgrades(upgrades))
 
 		if (entity.isServerSide) {
-			ModPacketHandler.messageNearbyPlayers(
-				UpdateEntityUpgrades(entity.id, upgrades.toList()),
-				entity.level() as ServerLevel,
-				entity.blockPosition().toVec3(),
-				64.0
-			)
+			val packet = UpdateEntityUpgrades(entity.id, upgrades.toList())
+			packet.messageAllPlayersTrackingEntity(entity)
 		}
 	}
 

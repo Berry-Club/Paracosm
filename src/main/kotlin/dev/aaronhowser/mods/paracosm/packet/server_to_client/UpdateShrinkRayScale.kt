@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.paracosm.packet.server_to_client
 
 import dev.aaronhowser.mods.aaron.packet.AaronPacket
-import dev.aaronhowser.mods.aaron.packet.ModPacket
 import dev.aaronhowser.mods.paracosm.attachment.ShrinkRayEffect.Companion.shrinkRayEffect
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import io.netty.buffer.ByteBuf

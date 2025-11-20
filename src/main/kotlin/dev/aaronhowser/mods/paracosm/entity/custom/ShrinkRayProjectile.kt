@@ -40,7 +40,7 @@ class ShrinkRayProjectile(
 		this.owner = shooter
 	}
 
-	override val requiredWhimsy: Float = ModItems.SHRINK_RAY.get().requiredWhimsy
+	override val requiredWhimsy: Double = ModItems.SHRINK_RAY.get().requiredWhimsy
 
 	var isGrow: Boolean
 		get() = entityData.get(IS_GROW)

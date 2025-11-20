@@ -30,7 +30,7 @@ class StringWormEntity(
 
 	// Entity setup
 
-	override val requiredWhimsy: Float = 5f
+	override val requiredWhimsy: Double = 5.0
 
 	override fun registerGoals() {
 		this.goalSelector.let {

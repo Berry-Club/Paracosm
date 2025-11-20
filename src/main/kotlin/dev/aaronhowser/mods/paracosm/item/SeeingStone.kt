@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.paracosm.item
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.isServerSide
-import dev.aaronhowser.mods.paracosm.handler.WhimsyHandler.rawWhimsy
+import dev.aaronhowser.mods.paracosm.handler.AttributeHandler.baseWhimsy
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.entity.LivingEntity
@@ -27,14 +27,15 @@ class SeeingStone : ICurioItem, Item(
 		return 72000
 	}
 
+	//TODO: Make this an attribute modifier
 	override fun use(level: Level, player: Player, usedHand: InteractionHand): InteractionResultHolder<ItemStack> {
-		if (!level.isClientSide) player.rawWhimsy += 10f
+		if (!level.isClientSide) player.baseWhimsy += 10f
 
 		return ItemUtils.startUsingInstantly(level, player, usedHand)
 	}
 
 	override fun onStopUsing(stack: ItemStack, entity: LivingEntity, count: Int) {
-		if (entity.isServerSide) entity.rawWhimsy -= 10f
+		if (entity.isServerSide) entity.baseWhimsy -= 10f
 
 		super.onStopUsing(stack, entity, count)
 	}

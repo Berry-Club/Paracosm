@@ -19,7 +19,7 @@ class AaronberryEntity(
 	level: Level
 ) : ToyEntity(entityType, level) {
 
-	override val requiredWhimsy: Float = 1f
+	override val requiredWhimsy: Double = 1.0
 
 	override fun registerGoals() {
 		this.goalSelector.let {

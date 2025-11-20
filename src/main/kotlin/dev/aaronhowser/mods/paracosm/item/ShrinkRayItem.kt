@@ -42,6 +42,6 @@ class ShrinkRayItem : RequiresWhimsy, Item(
 		return InteractionResultHolder.sidedSuccess(usedStack, level.isClientSide)
 	}
 
-	override val requiredWhimsy: Float = 10f
+	override val requiredWhimsy: Double = 10.0
 
 }
