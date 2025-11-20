@@ -12,8 +12,6 @@ data class Delusion(
 	val amount: Float
 ) {
 
-	constructor() : this(0f)
-
 	companion object {
 
 		val CODEC: Codec<Delusion> =

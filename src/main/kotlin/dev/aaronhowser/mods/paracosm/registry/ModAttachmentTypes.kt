@@ -2,10 +2,7 @@ package dev.aaronhowser.mods.paracosm.registry
 
 import com.mojang.serialization.Codec
 import dev.aaronhowser.mods.paracosm.Paracosm
-import dev.aaronhowser.mods.paracosm.attachment.Delusion
-import dev.aaronhowser.mods.paracosm.attachment.EntityUpgrades
-import dev.aaronhowser.mods.paracosm.attachment.ShrinkRayEffect
-import dev.aaronhowser.mods.paracosm.attachment.Whimsy
+import dev.aaronhowser.mods.paracosm.attachment.*
 import net.neoforged.neoforge.attachment.AttachmentType
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
@@ -18,10 +15,17 @@ object ModAttachmentTypes {
 		DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, Paracosm.ID)
 
 	val WHIMSY: DeferredHolder<AttachmentType<*>, AttachmentType<Whimsy>> =
-		register("whimsy", { Whimsy() }, Whimsy.CODEC)
+		register("whimsy", { Whimsy(0f) }, Whimsy.CODEC)
+
+	val TEMPORARY_WHIMSY: DeferredHolder<AttachmentType<*>, AttachmentType<TemporaryWhimsy>> =
+		register(
+			"temporary_whimsy",
+			{ TemporaryWhimsy(mutableListOf()) },
+			TemporaryWhimsy.CODEC
+		)
 
 	val DELUSION: DeferredHolder<AttachmentType<*>, AttachmentType<Delusion>> =
-		register("delusion", { Delusion() }, Delusion.CODEC)
+		register("delusion", { Delusion(0f) }, Delusion.CODEC)
 
 	val SHRINK_RAY_EFFECT: DeferredHolder<AttachmentType<*>, AttachmentType<ShrinkRayEffect>> =
 		register("shrink_ray_effect", { ShrinkRayEffect(0.0) }, ShrinkRayEffect.CODEC)

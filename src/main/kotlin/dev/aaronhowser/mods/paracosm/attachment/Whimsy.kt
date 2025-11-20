@@ -12,8 +12,6 @@ data class Whimsy(
 	val amount: Float
 ) {
 
-	constructor() : this(0f)
-
 	companion object {
 
 		val CODEC: Codec<Whimsy> =
