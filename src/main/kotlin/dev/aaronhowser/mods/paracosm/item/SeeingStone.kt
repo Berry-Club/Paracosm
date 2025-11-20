@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.paracosm.item
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.isServerSide
+import dev.aaronhowser.mods.paracosm.handler.WhimsyHandler.rawWhimsy
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.entity.LivingEntity
@@ -27,13 +28,13 @@ class SeeingStone : ICurioItem, Item(
 	}
 
 	override fun use(level: Level, player: Player, usedHand: InteractionHand): InteractionResultHolder<ItemStack> {
-		if (!level.isClientSide) player.whimsy += 10f
+		if (!level.isClientSide) player.rawWhimsy += 10f
 
 		return ItemUtils.startUsingInstantly(level, player, usedHand)
 	}
 
 	override fun onStopUsing(stack: ItemStack, entity: LivingEntity, count: Int) {
-		if (entity.isServerSide) entity.whimsy -= 10f
+		if (entity.isServerSide) entity.rawWhimsy -= 10f
 
 		super.onStopUsing(stack, entity, count)
 	}

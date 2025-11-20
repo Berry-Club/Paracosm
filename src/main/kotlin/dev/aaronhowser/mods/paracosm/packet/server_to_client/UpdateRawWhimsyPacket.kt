@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.packet.server_to_client
 
+import dev.aaronhowser.mods.paracosm.handler.DelusionHandler.rawDelusion
 import dev.aaronhowser.mods.paracosm.handler.WhimsyHandler.rawWhimsy
 import dev.aaronhowser.mods.paracosm.packet.ModPacket
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
@@ -28,7 +29,7 @@ class UpdateRawWhimsyPacket(
 			if (isWhimsy) {
 				entity.rawWhimsy = newAmount
 			} else {
-				entity.delusion = newAmount
+				entity.rawDelusion = newAmount
 			}
 		}
 	}
