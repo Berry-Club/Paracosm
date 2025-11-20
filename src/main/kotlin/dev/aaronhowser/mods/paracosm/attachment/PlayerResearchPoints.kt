@@ -42,6 +42,18 @@ data class PlayerResearchPoints(
 				.unboundedMap(ResearchType.HOLDER_CODEC, Codec.INT)
 				.xmap(::PlayerResearchPoints, PlayerResearchPoints::points)
 
+		fun setPoints(
+			entity: Entity,
+			type: Holder<ResearchType>,
+			amount: Int
+		) {
+			val current = entity.getData(ModAttachmentTypes.RESEARCH_POINTS)
+			val newPoints = current.points.toMutableMap()
+			newPoints[type] = amount
+			val updated = PlayerResearchPoints(newPoints)
+			entity.setData(ModAttachmentTypes.RESEARCH_POINTS, updated)
+		}
+
 		fun addPoints(
 			entity: Entity,
 			type: Holder<ResearchType>,
