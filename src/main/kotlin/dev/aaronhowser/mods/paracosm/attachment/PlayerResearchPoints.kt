@@ -56,10 +56,16 @@ data class PlayerResearchPoints(
 			entity: Entity,
 			type: Holder<ResearchType>,
 			amount: Int
-		) {
+		): Boolean {
+			if (!hasPoints(entity, type, amount)) {
+				return false
+			}
+
 			val current = entity.getData(ModAttachmentTypes.RESEARCH_POINTS)
 			val updated = current.removePoints(type, amount)
 			entity.setData(ModAttachmentTypes.RESEARCH_POINTS, updated)
+
+			return true
 		}
 
 		fun getPoints(
