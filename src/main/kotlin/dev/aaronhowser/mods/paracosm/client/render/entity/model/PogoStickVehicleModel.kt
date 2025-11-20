@@ -16,8 +16,8 @@ class PogoStickVehicleModel : DefaultedEntityGeoModel<PogoStickVehicle>(OtherUti
 		val verticalRotation = animationProcessor.getBone("vertical_rotation")
 		verticalRotation.rotY = animatable.yRot * Mth.DEG_TO_RAD
 
-		val tiltBackward = animatable.entityData.get(PogoStickVehicle.DATA_TILT_BACKWARD)
-		val tiltRight = animatable.entityData.get(PogoStickVehicle.DATA_TILT_RIGHT)
+		val tiltBackward = animatable.tiltBackward
+		val tiltRight = animatable.tiltRight
 
 		val tiltPair = OtherUtil.getRotationForCircle(tiltBackward, tiltRight)
 

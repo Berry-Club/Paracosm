@@ -57,6 +57,26 @@ class PogoStickVehicle(
 		this.setPos(spawnLocation)
 	}
 
+	class Controls(
+		var leftImpulse: Float = 0f,
+		var forwardImpulse: Float = 0f,
+		var spaceHeld: Boolean = false
+	)
+
+	val controls = Controls()
+
+	var tiltRight: Float
+		get() = this.entityData.get(DATA_TILT_RIGHT)
+		private set(value) = this.entityData.set(DATA_TILT_RIGHT, value)
+
+	var tiltBackward: Float
+		get() = this.entityData.get(DATA_TILT_BACKWARD)
+		private set(value) = this.entityData.set(DATA_TILT_BACKWARD, value)
+
+	var jumpPercent: Float
+		get() = this.entityData.get(DATA_JUMP_PERCENT)
+		private set(value) = this.entityData.set(DATA_JUMP_PERCENT, value)
+
 	init {
 		this.blocksBuilding = true
 	}
@@ -133,10 +153,7 @@ class PogoStickVehicle(
 	}
 
 	private val cache = SingletonAnimatableInstanceCache(this)
-
-	override fun getAnimatableInstanceCache(): AnimatableInstanceCache {
-		return cache
-	}
+	override fun getAnimatableInstanceCache(): AnimatableInstanceCache = cache
 
 	// Ride stuff
 
@@ -168,14 +185,6 @@ class PogoStickVehicle(
 	override fun getControllingPassenger(): LivingEntity? {
 		return passengers.firstOrNull() as? LivingEntity
 	}
-
-	class Controls(
-		var leftImpulse: Float = 0f,
-		var forwardImpulse: Float = 0f,
-		var spaceHeld: Boolean = false
-	)
-
-	val controls = Controls()
 
 	fun setInput(leftImpulse: Float, forwardImpulse: Float, jumping: Boolean) {
 		this.controls.leftImpulse = leftImpulse
@@ -266,12 +275,12 @@ class PogoStickVehicle(
 	private fun tryJump() {
 		if (this.controls.spaceHeld) return
 
-		val currentJumpAmount = this.entityData.get(DATA_JUMP_PERCENT)
+		val currentJumpAmount = jumpPercent
 		if (currentJumpAmount <= 0.1) return
 
 		if (this.onGround() || Upgradeable.hasUpgrade(this, PogoStickItem.Upgrades.GEPPO)) {
-			val currentTiltBack = this.entityData.get(DATA_TILT_BACKWARD)
-			val currentTiltRight = this.entityData.get(DATA_TILT_RIGHT)
+			val currentTiltBack = tiltBackward
+			val currentTiltRight = tiltRight
 
 			val distance = (this.verticalMomentum * 1.5).coerceIn(7.5, 20.0)
 			val jumpStrength = getJumpStrengthForDistance(distance)
@@ -294,7 +303,7 @@ class PogoStickVehicle(
 			this.verticalMomentum = 0f
 		}
 
-		this.entityData.set(DATA_JUMP_PERCENT, 0.0f)
+		jumpPercent = 0f
 	}
 
 	private fun updateTilt() {
@@ -306,9 +315,9 @@ class PogoStickVehicle(
 			)
 		}
 
-		var currentTiltBackward = this.entityData.get(DATA_TILT_BACKWARD)
-		var currentTiltRight = this.entityData.get(DATA_TILT_RIGHT)
-		var currentJumpAmount = this.entityData.get(DATA_JUMP_PERCENT)
+		var currentTiltBackward = tiltBackward
+		var currentTiltRight = tiltRight
+		var currentJumpAmount = jumpPercent
 
 		if (this.controls.forwardImpulse > 0) {
 			currentTiltBackward -= 0.1f
@@ -340,9 +349,9 @@ class PogoStickVehicle(
 		currentTiltRight = currentTiltRight.coerceIn(-1.0f, 1.0f)
 		currentJumpAmount = currentJumpAmount.coerceIn(0.0f, 1.0f)
 
-		this.entityData.set(DATA_TILT_BACKWARD, currentTiltBackward)
-		this.entityData.set(DATA_TILT_RIGHT, currentTiltRight)
-		this.entityData.set(DATA_JUMP_PERCENT, currentJumpAmount)
+		tiltBackward = currentTiltBackward
+		tiltRight = currentTiltRight
+		jumpPercent = currentJumpAmount
 
 		tryResetControls()
 	}
@@ -356,11 +365,11 @@ class PogoStickVehicle(
 		dimensions: EntityDimensions,
 		partialTick: Float
 	): Vec3 {
-		val height = 1 - JUMP_ANIM_DISTANCE * this.entityData.get(DATA_JUMP_PERCENT).toDouble()
+		val height = 1 - JUMP_ANIM_DISTANCE * jumpPercent.toDouble()
 
 		val tiltPair = OtherUtil.getRotationForCircle(
-			this.entityData.get(DATA_TILT_BACKWARD),
-			this.entityData.get(DATA_TILT_RIGHT)
+			tiltBackward,
+			tiltRight
 		)
 
 		val tiltBackward = tiltPair.backwards
@@ -421,12 +430,12 @@ class PogoStickVehicle(
 	}
 
 	companion object {
-		val DATA_TILT_RIGHT: EntityDataAccessor<Float> =
+		private fun floatData(): EntityDataAccessor<Float> =
 			SynchedEntityData.defineId(PogoStickVehicle::class.java, EntityDataSerializers.FLOAT)
-		val DATA_TILT_BACKWARD: EntityDataAccessor<Float> =
-			SynchedEntityData.defineId(PogoStickVehicle::class.java, EntityDataSerializers.FLOAT)
-		val DATA_JUMP_PERCENT: EntityDataAccessor<Float> =
-			SynchedEntityData.defineId(PogoStickVehicle::class.java, EntityDataSerializers.FLOAT)
+
+		val DATA_TILT_RIGHT: EntityDataAccessor<Float> = floatData()
+		val DATA_TILT_BACKWARD: EntityDataAccessor<Float> = floatData()
+		val DATA_JUMP_PERCENT: EntityDataAccessor<Float> = floatData()
 
 		const val JUMP_ANIM_DISTANCE = 0.4
 
