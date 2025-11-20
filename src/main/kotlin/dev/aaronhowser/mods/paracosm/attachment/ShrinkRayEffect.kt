@@ -2,7 +2,6 @@ package dev.aaronhowser.mods.paracosm.attachment
 
 import com.mojang.serialization.Codec
 import dev.aaronhowser.mods.aaron.AaronExtensions.isServerSide
-import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateShrinkRayScale
 import dev.aaronhowser.mods.paracosm.registry.ModAttachmentTypes
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
@@ -27,12 +26,8 @@ data class ShrinkRayEffect(
 				val value = valueUnCoerced.coerceIn(-0.9, 2.0)
 
 				if (this.isServerSide) {
-					ModPacketHandler.messageAllPlayers(
-						UpdateShrinkRayScale(
-							this.id,
-							value
-						)
-					)
+					val packet = UpdateShrinkRayScale(this.id, value)
+					packet.messageAllPlayersTrackingEntity(this)
 				}
 
 				this.setData(ModAttachmentTypes.SHRINK_RAY_EFFECT, ShrinkRayEffect(value))

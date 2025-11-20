@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.packet.server_to_client
 
+import dev.aaronhowser.mods.aaron.packet.AaronPacket
 import dev.aaronhowser.mods.aaron.packet.ModPacket
 import dev.aaronhowser.mods.paracosm.attachment.ShrinkRayEffect.Companion.shrinkRayEffect
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
@@ -13,7 +14,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext
 class UpdateShrinkRayScale(
 	val entityId: Int,
 	val newScale: Double
-) : ModPacket() {
+) : AaronPacket() {
 
 	override fun handleOnClient(context: IPayloadContext) {
 		val entity = context.player().level().getEntity(entityId) as? LivingEntity ?: return

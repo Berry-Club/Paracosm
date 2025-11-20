@@ -1,11 +1,9 @@
 package dev.aaronhowser.mods.paracosm.attachment
 
 import dev.aaronhowser.mods.paracosm.config.ServerConfig
-import dev.aaronhowser.mods.paracosm.handler.WhimsyHandler.getWhimsy
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import dev.aaronhowser.mods.paracosm.util.OtherUtil.hasLineOfSight
 import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.Vec3

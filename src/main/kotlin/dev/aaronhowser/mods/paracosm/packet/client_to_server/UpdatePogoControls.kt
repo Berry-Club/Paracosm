@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.paracosm.packet.client_to_server
 
-import dev.aaronhowser.mods.aaron.packet.ModPacket
+import dev.aaronhowser.mods.aaron.packet.AaronPacket
 import dev.aaronhowser.mods.paracosm.entity.custom.PogoStickVehicle
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import io.netty.buffer.ByteBuf
@@ -13,7 +13,7 @@ class UpdatePogoControls(
 	val leftImpulse: Float,
 	val forwardImpulse: Float,
 	val jumping: Boolean
-) : ModPacket() {
+) : AaronPacket() {
 
 	override fun handleOnServer(context: IPayloadContext) {
 		val player = context.player()
