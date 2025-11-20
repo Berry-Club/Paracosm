@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.paracosm.entity.custom
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
+import dev.aaronhowser.mods.aaron.AaronExtensions.status
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.paracosm.config.ServerConfig
 import dev.aaronhowser.mods.paracosm.entity.base.IUpgradeableEntity
@@ -216,35 +217,29 @@ class PogoStickVehicle(
 	}
 
 	private var ticksOnGround = 0
-	private var verticalMomentum = 0f
+	private var bounceForce = 0f
 	private val maxTicksOnGround = 20 * 4
-
-	private var clientMomentumMsgThrottle = 0
 
 	private fun updateMomentum() {
 		if (onGround()) {
 			ticksOnGround++
-			if (ticksOnGround > maxTicksOnGround) verticalMomentum = 0f
+			if (ticksOnGround > maxTicksOnGround) bounceForce = 0f
 		} else {
 			ticksOnGround = 0
 		}
 
-		if (fallDistance > 0f) verticalMomentum = fallDistance + 0.69f
+		if (fallDistance > 0f) bounceForce = fallDistance + 0.69f
 
 		val rider = controllingPassenger
 		if (rider is Player && rider.isClientSide) {
-			if (clientMomentumMsgThrottle <= 0) {
-				val momentumString = String.format("%.2f", verticalMomentum)
-				rider.displayClientMessage(Component.literal("Stored vertical momentum: $momentumString"), true)
-				clientMomentumMsgThrottle = 10
-			} else {
-				clientMomentumMsgThrottle--
-			}
+			val momentumString = String.format("%.2f", bounceForce)
+			rider.status(Component.literal("Bounce force: $momentumString"))
 		}
 	}
 
-	private fun getJumpStrengthForDistance(distance: Number): Double =
-		sqrt(2 * gravity * distance.toDouble())
+	private fun getJumpStrengthForDistance(distance: Number): Double {
+		return sqrt(2 * gravity * distance.toDouble())
+	}
 
 	private fun tryJump() {
 		if (controls.spaceHeld) return
@@ -255,7 +250,7 @@ class PogoStickVehicle(
 		val canJump = onGround() || Upgradeable.hasUpgrade(this, PogoStickItem.Upgrades.GEPPO)
 
 		if (canJump) {
-			val distance = (verticalMomentum * 1.5f).toDouble().coerceIn(7.5, 20.0)
+			val distance = (bounceForce * 1.5f).toDouble().coerceIn(7.5, 20.0)
 			val jumpStrength = getJumpStrengthForDistance(distance)
 			val jumpVector = Vec3(0.0, 1.0, 0.0)
 				.xRot(tiltBackward * MAX_TILT_RADIAN)
@@ -266,7 +261,7 @@ class PogoStickVehicle(
 			addDeltaMovement(jumpVector)
 			hasImpulse = true
 			setOnGround(false)
-			verticalMomentum = 0f
+			bounceForce = 0f
 		}
 
 		jumpPercent = 0f
