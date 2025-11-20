@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.paracosm.datagen
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.datagen.worldgen.ModBiomes
 import dev.aaronhowser.mods.paracosm.datagen.worldgen.ModDimensions
+import dev.aaronhowser.mods.paracosm.research.ModResearchTypes
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.RegistrySetBuilder
 import net.minecraft.core.registries.Registries
@@ -25,6 +26,7 @@ class ModDatapackBuiltinEntriesProvider(
 			.add(Registries.BIOME, ModBiomes::bootstrap)
 			.add(Registries.DIMENSION_TYPE, ModDimensions::bootstrapDimensionType)
 			.add(Registries.LEVEL_STEM, ModDimensions::bootstrapLevelStem)
+			.add(ModResearchTypes.RESEARCH_TYPE_RK, ModResearchTypesProvider::bootstrap)
 	}
 
 }
