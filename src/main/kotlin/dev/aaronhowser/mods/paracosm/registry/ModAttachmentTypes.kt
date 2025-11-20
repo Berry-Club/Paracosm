@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.registry
 
+import com.mojang.serialization.Codec
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.attachment.Delusion
 import dev.aaronhowser.mods.paracosm.attachment.EntityUpgrades
@@ -17,39 +18,34 @@ object ModAttachmentTypes {
 		DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, Paracosm.ID)
 
 	val WHIMSY: DeferredHolder<AttachmentType<*>, AttachmentType<Whimsy>> =
-		ATTACHMENT_TYPES_REGISTRY.register("whimsy", Supplier {
-			AttachmentType
-				.builder(Supplier { Whimsy() })
-				.serialize(Whimsy.CODEC)
-				.copyOnDeath()
-				.build()
-		})
+		register("whimsy", { Whimsy() }, Whimsy.CODEC)
 
 	val DELUSION: DeferredHolder<AttachmentType<*>, AttachmentType<Delusion>> =
-		ATTACHMENT_TYPES_REGISTRY.register("delusion", Supplier {
-			AttachmentType
-				.builder(Supplier { Delusion() })
-				.serialize(Delusion.CODEC)
-				.copyOnDeath()
-				.build()
-		})
+		register("delusion", { Delusion() }, Delusion.CODEC)
 
 	val SHRINK_RAY_EFFECT: DeferredHolder<AttachmentType<*>, AttachmentType<ShrinkRayEffect>> =
-		ATTACHMENT_TYPES_REGISTRY.register("shrink_ray_effect", Supplier {
-			AttachmentType
-				.builder(Supplier { ShrinkRayEffect(0.0) })
-				.serialize(ShrinkRayEffect.CODEC)
-				.copyOnDeath()
-				.build()
-		})
+		register("shrink_ray_effect", { ShrinkRayEffect(0.0) }, ShrinkRayEffect.CODEC)
 
 	val ENTITY_UPGRADES: DeferredHolder<AttachmentType<*>, AttachmentType<EntityUpgrades>> =
-		ATTACHMENT_TYPES_REGISTRY.register("upgrades", Supplier {
-			AttachmentType
-				.builder(Supplier { EntityUpgrades() })
-				.serialize(EntityUpgrades.CODEC)
-				.copyOnDeath()
-				.build()
+		register("entity_upgrades", { EntityUpgrades() }, EntityUpgrades.CODEC)
+
+	private fun <T> register(
+		name: String,
+		builder: Supplier<T>,
+		codec: Codec<T>,
+		copyOnDeath: Boolean = true
+	): DeferredHolder<AttachmentType<*>, AttachmentType<T>> {
+		return ATTACHMENT_TYPES_REGISTRY.register(name, Supplier {
+			val typeBuilder = AttachmentType
+				.builder(builder)
+				.serialize(codec)
+
+			if (copyOnDeath) {
+				typeBuilder.copyOnDeath()
+			}
+
+			typeBuilder.build()
 		})
+	}
 
 }
