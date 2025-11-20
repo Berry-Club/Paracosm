@@ -3,8 +3,8 @@ package dev.aaronhowser.mods.paracosm.registry
 import com.mojang.serialization.Codec
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.attachment.EntityUpgrades
+import dev.aaronhowser.mods.paracosm.attachment.PlayerResearchPoints
 import dev.aaronhowser.mods.paracosm.attachment.ShrinkRayEffect
-import dev.aaronhowser.mods.paracosm.attachment.TemporaryWhimsy
 import net.neoforged.neoforge.attachment.AttachmentType
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
@@ -21,6 +21,9 @@ object ModAttachmentTypes {
 
 	val ENTITY_UPGRADES: DeferredHolder<AttachmentType<*>, AttachmentType<EntityUpgrades>> =
 		register("entity_upgrades", { EntityUpgrades() }, EntityUpgrades.CODEC)
+
+	val RESEARCH_POINTS =
+		register("research_points", { PlayerResearchPoints(emptyMap()) }, PlayerResearchPoints.CODEC)
 
 	private fun <T> register(
 		name: String,
