@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.paracosm.entity.custom
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
-import dev.aaronhowser.mods.aaron.AaronExtensions.isServerSide
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.paracosm.config.ServerConfig
 import dev.aaronhowser.mods.paracosm.entity.base.IUpgradeableEntity
@@ -47,9 +46,6 @@ class PogoStickVehicle(
 	level: Level
 ) : VehicleEntity(entityType, level), GeoEntity, IUpgradeableEntity {
 
-	//TODO: If you fall from high, bounce to high
-	//TODO: Should it bounce even if you didn't tell it to, if it was already bouncing?
-
 	constructor(
 		level: Level,
 		spawnLocation: Vec3
@@ -57,32 +53,34 @@ class PogoStickVehicle(
 		this.setPos(spawnLocation)
 	}
 
-	class Controls(
+	data class Controls(
 		var leftImpulse: Float = 0f,
 		var forwardImpulse: Float = 0f,
 		var spaceHeld: Boolean = false
 	)
 
 	val controls = Controls()
+	private var lastSentControls = Controls()
+	private var controlPacketCooldown = 0
 
 	var tiltRight: Float
-		get() = this.entityData.get(DATA_TILT_RIGHT)
-		private set(value) = this.entityData.set(DATA_TILT_RIGHT, value)
+		get() = entityData.get(DATA_TILT_RIGHT)
+		private set(value) = entityData.set(DATA_TILT_RIGHT, value)
 
 	var tiltBackward: Float
-		get() = this.entityData.get(DATA_TILT_BACKWARD)
-		private set(value) = this.entityData.set(DATA_TILT_BACKWARD, value)
+		get() = entityData.get(DATA_TILT_BACKWARD)
+		private set(value) = entityData.set(DATA_TILT_BACKWARD, value)
 
 	var jumpPercent: Float
-		get() = this.entityData.get(DATA_JUMP_PERCENT)
-		private set(value) = this.entityData.set(DATA_JUMP_PERCENT, value)
+		get() = entityData.get(DATA_JUMP_PERCENT)
+		private set(value) = entityData.set(DATA_JUMP_PERCENT, value)
 
-	var previousTiltRight: Float = tiltRight
-	var previousTiltBackward: Float = tiltBackward
-	var previousJumpPercent: Float = jumpPercent
+	var previousTiltRight: Float = 0f
+	var previousTiltBackward: Float = 0f
+	var previousJumpPercent: Float = 0f
 
 	init {
-		this.blocksBuilding = true
+		blocksBuilding = true
 	}
 
 	override fun defineSynchedData(builder: SynchedEntityData.Builder) {
@@ -100,181 +98,153 @@ class PogoStickVehicle(
 		saveUpgrades(this, compound)
 	}
 
-	override fun getDropItem(): Item {
-		return ModItems.POGO_STICK.get()
-	}
+	override fun getDropItem(): Item = ModItems.POGO_STICK.get()
 
 	override fun destroy(dropItem: Item) {
-		this.kill()
-		if (this.level().gameRules.getBoolean(GameRules.RULE_DOENTITYDROPS)) {
-			val stack = getStack()
+		kill()
 
-			this.spawnAtLocation(stack)
+		if (level().gameRules.getBoolean(GameRules.RULE_DOENTITYDROPS)) {
+			spawnAtLocation(getStack())
 		}
 	}
 
-	override fun canCollideWith(entity: Entity): Boolean {
-		return this.hasControllingPassenger()
-				&& entity.y + (entity.bbHeight * 0.75) < this.y
+	override fun canCollideWith(entity: Entity): Boolean =
+		hasControllingPassenger()
+				&& entity.y + (entity.bbHeight * 0.75) < y
 				&& Boat.canVehicleCollide(this, entity)
-	}
 
-	override fun isPushable(): Boolean {
-		return !this.hasControllingPassenger()
-	}
+	override fun isPushable(): Boolean = !hasControllingPassenger()
 
-	override fun isPickable(): Boolean {
-		return !isRemoved
-	}
+	override fun isPickable(): Boolean = !isRemoved
 
-	override fun getPickResult(): ItemStack? {
-		if (!isPickable) return null
-
-		return getStack()
-	}
+	override fun getPickResult(): ItemStack? = if (!isPickable) null else getStack()
 
 	private fun getStack(): ItemStack {
-		val stack = ItemStack(this.dropItem)
-		stack.set(DataComponents.CUSTOM_NAME, this.customName)
-
+		val stack = ItemStack(dropItem)
+		stack.set(DataComponents.CUSTOM_NAME, customName)
 		for (upgrade in Upgradeable.getUpgrades(this)) {
 			Upgradeable.addUpgrade(stack, upgrade)
 		}
-
 		return stack
 	}
 
-	// GeckoLib stuff
-
 	override fun registerControllers(controllers: AnimatableManager.ControllerRegistrar) {
 		controllers.add(
-			AnimationController(
-				this, "controller", 0
-			) {
-				PlayState.STOP
-			}
+			AnimationController(this, "controller", 0) { PlayState.STOP }
 		)
 	}
 
 	private val cache = SingletonAnimatableInstanceCache(this)
 	override fun getAnimatableInstanceCache(): AnimatableInstanceCache = cache
 
-	// Ride stuff
-
 	override fun interact(player: Player, hand: InteractionHand): InteractionResult {
 		val defaultResult = super.interact(player, hand)
-		if (defaultResult.consumesAction()) {
-			return defaultResult
-		}
+		if (defaultResult.consumesAction()) return defaultResult
 
-		if (player.isSecondaryUseActive) {
-			return InteractionResult.PASS
-		}
+		if (player.isSecondaryUseActive) return InteractionResult.PASS
+		if (isVehicle) return InteractionResult.PASS
 
-		if (this.isVehicle) {
-			return InteractionResult.PASS
-		}
-
-		if (this.isServerSide) {
-			return if (player.startRiding(this)) {
-				InteractionResult.CONSUME
-			} else {
-				InteractionResult.PASS
-			}
-		}
-
-		return InteractionResult.SUCCESS
+		return if (isClientSide) InteractionResult.SUCCESS
+		else if (player.startRiding(this)) InteractionResult.CONSUME else InteractionResult.PASS
 	}
 
-	override fun getControllingPassenger(): LivingEntity? {
-		return passengers.firstOrNull() as? LivingEntity
-	}
+	override fun getControllingPassenger(): LivingEntity? = passengers.firstOrNull() as? LivingEntity
 
 	fun setInput(leftImpulse: Float, forwardImpulse: Float, jumping: Boolean) {
-		this.controls.leftImpulse = leftImpulse
-		this.controls.forwardImpulse = forwardImpulse
-		this.controls.spaceHeld = jumping
+		controls.leftImpulse = leftImpulse
+		controls.forwardImpulse = forwardImpulse
+		controls.spaceHeld = jumping
 
-		if (this.isClientSide) {
-			val packet = UpdatePogoControls(leftImpulse, forwardImpulse, jumping)
-			packet.messageServer()
+		if (isClientSide) {
+			if (controlPacketCooldown <= 0 && controlsChangedSignificantly()) {
+				UpdatePogoControls(leftImpulse, forwardImpulse, jumping).messageServer()
+				lastSentControls.leftImpulse = leftImpulse
+				lastSentControls.forwardImpulse = forwardImpulse
+				lastSentControls.spaceHeld = jumping
+				controlPacketCooldown = 2
+			}
 		}
+	}
+
+	private fun controlsChangedSignificantly(): Boolean {
+		val differenceLeft = abs(controls.leftImpulse - lastSentControls.leftImpulse)
+		val differenceForward = abs(controls.forwardImpulse - lastSentControls.forwardImpulse)
+		val differenceSpace = controls.spaceHeld != lastSentControls.spaceHeld
+		return differenceLeft > 1e-3f || differenceForward > 1e-3f || differenceSpace
 	}
 
 	override fun tick() {
 		super.tick()
 
+		if (controlPacketCooldown > 0) controlPacketCooldown--
+
 		tryJump()
 		doMove()
 		updateTilt()
 		updateMomentum()
+		tryResetControls()
 	}
 
-	override fun getDefaultGravity(): Double {
-		return 0.04
-	}
+	override fun getDefaultGravity(): Double = 0.04
 
 	override fun getGravity(): Double {
-		return if (this.isNoGravity) {
-			0.0
-		} else if (Upgradeable.hasUpgrade(this, PogoStickItem.Upgrades.LOWER_GRAVITY)) {
-			this.defaultGravity / 2
-		} else {
-			this.defaultGravity
+		return when {
+			isNoGravity -> 0.0
+			Upgradeable.hasUpgrade(this, PogoStickItem.Upgrades.LOWER_GRAVITY) -> defaultGravity / 2
+			else -> defaultGravity
 		}
 	}
 
 	private fun doMove() {
-		this.applyGravity()
-		this.move(MoverType.SELF, this.deltaMovement)
-
-		if (this.onGround()) {
-			this.deltaMovement = Vec3.ZERO
+		applyGravity()
+		move(MoverType.SELF, deltaMovement)
+		if (onGround()) {
+			deltaMovement = Vec3.ZERO
 		}
 	}
 
 	private fun tryResetControls() {
-		if (this.hasControllingPassenger()) return
+		if (hasControllingPassenger()) return
 
-		this.controls.leftImpulse = 0f
-		this.controls.forwardImpulse = 0f
-		this.controls.spaceHeld = false
+		controls.leftImpulse = 0f
+		controls.forwardImpulse = 0f
+		controls.spaceHeld = false
+
+		lastSentControls.leftImpulse = 0f
+		lastSentControls.forwardImpulse = 0f
+		lastSentControls.spaceHeld = false
 	}
 
 	private var ticksOnGround = 0
 	private var verticalMomentum = 0f
 	private val maxTicksOnGround = 20 * 4
 
+	private var clientMomentumMsgThrottle = 0
+
 	private fun updateMomentum() {
-		if (this.onGround()) {
-			this.ticksOnGround++
-
-			if (this.ticksOnGround > this.maxTicksOnGround) {
-				this.verticalMomentum = 0f
-			}
+		if (onGround()) {
+			ticksOnGround++
+			if (ticksOnGround > maxTicksOnGround) verticalMomentum = 0f
 		} else {
-			this.ticksOnGround = 0
+			ticksOnGround = 0
 		}
 
-		if (this.fallDistance != 0f) {
-			this.verticalMomentum =
-				this.fallDistance + 0.69f // Nice (For some reason fallDistance skips the first 0.69)
-		}
+		if (fallDistance > 0f) verticalMomentum = fallDistance + 0.69f
 
-		val rider = this.controllingPassenger
+		val rider = controllingPassenger
 		if (rider is Player && rider.isClientSide) {
-			val momentumString = String.format("%.2f", this.verticalMomentum)
-
-			rider.displayClientMessage(
-				Component.literal("Stored vertical momentum: $momentumString"),
-				true
-			)
+			if (clientMomentumMsgThrottle <= 0) {
+				val momentumString = String.format("%.2f", verticalMomentum)
+				rider.displayClientMessage(Component.literal("Stored vertical momentum: $momentumString"), true)
+				clientMomentumMsgThrottle = 10
+			} else {
+				clientMomentumMsgThrottle--
+			}
 		}
 	}
 
-	private fun getJumpStrengthForDistance(distance: Number): Double {
-		return sqrt(2 * this.gravity * distance.toDouble())
-	}
+	private fun getJumpStrengthForDistance(distance: Number): Double =
+		sqrt(2 * gravity * distance.toDouble())
 
 	private fun tryJump() {
 		if (controls.spaceHeld) return
@@ -282,10 +252,11 @@ class PogoStickVehicle(
 		val currentJumpAmount = jumpPercent
 		if (currentJumpAmount <= 0.1f) return
 
-		if (onGround() || Upgradeable.hasUpgrade(this, PogoStickItem.Upgrades.GEPPO)) {
-			val distance = (verticalMomentum * 1.5).coerceIn(7.5, 20.0)
-			val jumpStrength = getJumpStrengthForDistance(distance)
+		val canJump = onGround() || Upgradeable.hasUpgrade(this, PogoStickItem.Upgrades.GEPPO)
 
+		if (canJump) {
+			val distance = (verticalMomentum * 1.5f).toDouble().coerceIn(7.5, 20.0)
+			val jumpStrength = getJumpStrengthForDistance(distance)
 			val jumpVector = Vec3(0.0, 1.0, 0.0)
 				.xRot(tiltBackward * MAX_TILT_RADIAN)
 				.zRot(tiltRight * MAX_TILT_RADIAN)
@@ -295,7 +266,6 @@ class PogoStickVehicle(
 			addDeltaMovement(jumpVector)
 			hasImpulse = true
 			setOnGround(false)
-
 			verticalMomentum = 0f
 		}
 
@@ -307,44 +277,31 @@ class PogoStickVehicle(
 		previousTiltRight = tiltRight
 		previousJumpPercent = jumpPercent
 
-		val rider = this.controllingPassenger
+		val rider = controllingPassenger
 		if (rider != null) {
 			setOldPosAndRot()
-			setRot(
-				-rider.yRot,
-				0f
-			)
+			setRot(-rider.yRot, 0f)
 		}
 
 		var currentTiltBackward = tiltBackward
 		var currentTiltRight = tiltRight
 		var currentJumpAmount = jumpPercent
 
-		if (this.controls.forwardImpulse > 0) {
-			currentTiltBackward -= 0.1f
-		} else if (this.controls.forwardImpulse < 0) {
-			currentTiltBackward += 0.1f
-		} else {
-			currentTiltBackward += if (currentTiltBackward > 0) -0.01f else 0.01f
-			if (currentTiltBackward in -0.09..0.09) {
-				currentTiltBackward = 0.0f
-			}
+		if (controls.forwardImpulse > 0f) currentTiltBackward -= 0.1f
+		else if (controls.forwardImpulse < 0f) currentTiltBackward += 0.1f
+		else {
+			currentTiltBackward += if (currentTiltBackward > 0f) -0.01f else 0.01f
+			if (currentTiltBackward in -0.09f..0.09f) currentTiltBackward = 0.0f
 		}
 
-		if (this.controls.leftImpulse > 0) {
-			currentTiltRight += 0.1f
-		} else if (this.controls.leftImpulse < 0) {
-			currentTiltRight -= 0.1f
-		} else {
-			currentTiltRight += if (currentTiltRight > 0) -0.05f else 0.05f
-			if (currentTiltRight in -0.09..0.09) {
-				currentTiltRight = 0.0f
-			}
+		if (controls.leftImpulse > 0f) currentTiltRight += 0.1f
+		else if (controls.leftImpulse < 0f) currentTiltRight -= 0.1f
+		else {
+			currentTiltRight += if (currentTiltRight > 0f) -0.05f else 0.05f
+			if (currentTiltRight in -0.09f..0.09f) currentTiltRight = 0.0f
 		}
 
-		if (this.controls.spaceHeld) {
-			currentJumpAmount += 0.1f
-		}
+		if (controls.spaceHeld) currentJumpAmount += 0.1f
 
 		currentTiltBackward = currentTiltBackward.coerceIn(-1.0f, 1.0f)
 		currentTiltRight = currentTiltRight.coerceIn(-1.0f, 1.0f)
@@ -353,13 +310,9 @@ class PogoStickVehicle(
 		tiltBackward = currentTiltBackward
 		tiltRight = currentTiltRight
 		jumpPercent = currentJumpAmount
-
-		tryResetControls()
 	}
 
-	override fun shouldRiderSit(): Boolean {
-		return false
-	}
+	override fun shouldRiderSit(): Boolean = false
 
 	override fun getPassengerAttachmentPoint(
 		entity: Entity,
@@ -367,60 +320,42 @@ class PogoStickVehicle(
 		partialTick: Float
 	): Vec3 {
 		val heightScale = 1.0 - JUMP_ANIM_DISTANCE * jumpPercent
-
-		val (tiltBackward, tiltRight) = OtherUtil.getRotationForCircle(tiltBackward, tiltRight)
+		val (percentBack, percentRight) = OtherUtil.getRotationForCircle(tiltBackward, tiltRight)
 
 		return Vec3(0.0, 1.0, 0.0)
-			.xRot(tiltBackward * MAX_TILT_RADIAN)
-			.zRot(tiltRight * MAX_TILT_RADIAN)
+			.xRot(percentBack * MAX_TILT_RADIAN)
+			.zRot(percentRight * MAX_TILT_RADIAN)
 			.yRot(yRot * Mth.DEG_TO_RAD)
 			.scale(heightScale)
 	}
 
-	override fun getDismountLocationForPassenger(passenger: LivingEntity): Vec3 {
-		return this.position()
-	}
+	override fun getDismountLocationForPassenger(passenger: LivingEntity): Vec3 = position()
 
 	override fun setOnGroundWithMovement(onGround: Boolean, movement: Vec3) {
 		super.setOnGroundWithMovement(onGround, movement)
 
-		if (
-			onGround
-			&& movement.y < -this.gravity * 5
-			&& this.hasControllingPassenger()
-			&& Upgradeable.hasUpgrade(this, PogoStickItem.Upgrades.GOOMBA_STOMP)
-		) {
+		if (!onGround) return
+		if (movement.y >= -gravity * 5) return
+		if (!hasControllingPassenger()) return
+		if (!Upgradeable.hasUpgrade(this, PogoStickItem.Upgrades.GOOMBA_STOMP)) return
 
-			fun shouldStomp(entity: Entity): Boolean {
-				if (entity == this) return false
-				if (entity == this.controllingPassenger) return false
-				if (entity.y > this.y) return false
-				if (entity is OwnableEntity && entity.owner == this.controllingPassenger) return false
+		fun shouldStomp(entity: Entity): Boolean {
+			if (entity === this) return false
+			if (entity === controllingPassenger) return false
+			if (entity.y > y) return false
+			if (entity is OwnableEntity && entity.owner == controllingPassenger) return false
+			return true
+		}
 
-				return true
-			}
+		val radius = ServerConfig.CONFIG.pogoGoombaRadius.get()
+		val stompedEntities = level().getEntities(
+			this,
+			AABB(x - radius, y - 0.5, z - radius, x + radius, y + 0.5, z + radius)
+		).filter { shouldStomp(it) }
 
-			val radius = ServerConfig.CONFIG.pogoGoombaRadius.get()
-
-			val stompedEntities = this.level().getEntities(
-				this,
-				AABB(
-					this.x - radius,
-					this.y - 0.5,
-					this.z - radius,
-					this.x + radius,
-					this.y + 0.5,
-					this.z + radius
-				)
-			).filter { shouldStomp(it) }
-
-			//TODO: Improve this
-			val damage = abs(movement.y.toFloat())
-
-			for (entity in stompedEntities) {
-				//TODO: Add a new damage source
-				entity.hurt(this.level().damageSources().fall(), damage)
-			}
+		val damage = abs(movement.y.toFloat())
+		for (entity in stompedEntities) {
+			entity.hurt(damageSources().fall(), damage)
 		}
 	}
 
@@ -433,7 +368,6 @@ class PogoStickVehicle(
 		val DATA_JUMP_PERCENT: EntityDataAccessor<Float> = floatData()
 
 		const val JUMP_ANIM_DISTANCE = 0.4
-
 		const val MAX_TILT_DEGREE = 45f
 		const val MAX_TILT_RADIAN = MAX_TILT_DEGREE * Mth.DEG_TO_RAD
 
@@ -441,30 +375,18 @@ class PogoStickVehicle(
 			val player = AaronClientUtil.localPlayer as? LocalPlayer ?: return
 			val vehicle = player.vehicle as? PogoStickVehicle ?: return
 
-			vehicle.setInput(
-				player.input.leftImpulse,
-				player.input.forwardImpulse,
-				player.input.jumping
-			)
+			vehicle.setInput(player.input.leftImpulse, player.input.forwardImpulse, player.input.jumping)
 		}
 
 		fun checkCancelDamage(event: LivingIncomingDamageEvent) {
 			if (event.isCanceled) return
-
 			val source = event.source
 			val entity = event.entity
-			val level = entity.level()
 
-			if (
-				source != level.damageSources().fall()
-				&& source != level.damageSources().inWall()
-			) return
-
+			if (source != entity.damageSources().fall() && source != entity.damageSources().inWall()) return
 			if (event.entity.vehicle is PogoStickVehicle) {
 				event.isCanceled = true
 			}
 		}
 	}
-
-
 }
