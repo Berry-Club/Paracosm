@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.paracosm.packet.server_to_client
 
-import dev.aaronhowser.mods.paracosm.attachment.Delusion.Companion.delusion
 import dev.aaronhowser.mods.paracosm.handler.WhimsyHandler.rawWhimsy
 import dev.aaronhowser.mods.paracosm.packet.ModPacket
 import dev.aaronhowser.mods.paracosm.util.OtherUtil

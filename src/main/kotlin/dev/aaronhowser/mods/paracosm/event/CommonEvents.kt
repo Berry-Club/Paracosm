@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.paracosm.event
 
 import dev.aaronhowser.mods.paracosm.Paracosm
-import dev.aaronhowser.mods.paracosm.attachment.Delusion.Companion.delusion
 import dev.aaronhowser.mods.paracosm.command.ModCommands
 import dev.aaronhowser.mods.paracosm.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.paracosm.entity.custom.AaronberryEntity

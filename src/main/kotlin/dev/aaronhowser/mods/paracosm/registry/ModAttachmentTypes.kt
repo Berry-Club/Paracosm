@@ -2,7 +2,6 @@ package dev.aaronhowser.mods.paracosm.registry
 
 import com.mojang.serialization.Codec
 import dev.aaronhowser.mods.paracosm.Paracosm
-import dev.aaronhowser.mods.paracosm.attachment.Delusion
 import dev.aaronhowser.mods.paracosm.attachment.EntityUpgrades
 import dev.aaronhowser.mods.paracosm.attachment.ShrinkRayEffect
 import dev.aaronhowser.mods.paracosm.attachment.TemporaryWhimsy
@@ -20,15 +19,15 @@ object ModAttachmentTypes {
 	val WHIMSY: DeferredHolder<AttachmentType<*>, AttachmentType<Double>> =
 		register("whimsy", { 0.0 }, Codec.DOUBLE)
 
+	val DELUSION: DeferredHolder<AttachmentType<*>, AttachmentType<Double>> =
+		register("delusion", { 0.0 }, Codec.DOUBLE)
+
 	val TEMPORARY_WHIMSY: DeferredHolder<AttachmentType<*>, AttachmentType<TemporaryWhimsy>> =
 		register(
 			"temporary_whimsy",
 			{ TemporaryWhimsy(mutableListOf()) },
 			TemporaryWhimsy.CODEC
 		)
-
-	val DELUSION: DeferredHolder<AttachmentType<*>, AttachmentType<Delusion>> =
-		register("delusion", { Delusion(0f) }, Delusion.CODEC)
 
 	val SHRINK_RAY_EFFECT: DeferredHolder<AttachmentType<*>, AttachmentType<ShrinkRayEffect>> =
 		register("shrink_ray_effect", { ShrinkRayEffect(0.0) }, ShrinkRayEffect.CODEC)

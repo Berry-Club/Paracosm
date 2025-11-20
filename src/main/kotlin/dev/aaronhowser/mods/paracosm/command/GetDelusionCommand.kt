@@ -2,7 +2,6 @@ package dev.aaronhowser.mods.paracosm.command
 
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
-import dev.aaronhowser.mods.paracosm.attachment.Delusion.Companion.delusion
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
