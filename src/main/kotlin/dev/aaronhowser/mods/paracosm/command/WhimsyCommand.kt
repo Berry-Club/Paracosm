@@ -99,7 +99,7 @@ object WhimsyCommand {
 			return 0
 		}
 
-		val attribute = target.getAttribute(ModAttributes.DELUSION)
+		val attribute = target.getAttribute(ModAttributes.WHIMSY)
 		if (attribute == null) {
 			source.sendFailure(Component.literal("Target does not have Whimsy attribute"))
 			return 0
