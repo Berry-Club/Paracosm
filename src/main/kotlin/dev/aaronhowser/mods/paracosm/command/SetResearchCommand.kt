@@ -79,6 +79,53 @@ object SetResearchCommand {
 							)
 					)
 			)
+			.then(
+				Commands.literal("add-points")
+					.then(
+						Commands.argument(RESEARCH_TYPE, ResourceLocationArgument.id())
+							.suggests(ModResearchTypes.COMMAND_SUGGESTION)
+							.then(
+								Commands.argument(AMOUNT, IntegerArgumentType.integer(1))
+									.executes {
+										val source = it.source
+										val player = source.playerOrException
+										val rl = ResourceLocationArgument.getId(it, RESEARCH_TYPE)
+										val researchType = ModResearchTypes.fromResourceLocation(source.registryAccess(), rl)
+										requireNotNull(researchType)
+										val amount = IntegerArgumentType.getInteger(it, AMOUNT)
+										addResearchPoints(source, player, researchType, amount)
+									}
+									.then(
+										Commands.argument(PLAYER, EntityArgument.player())
+											.executes {
+												val source = it.source
+												val player = EntityArgument.getPlayer(it, PLAYER)
+												val rl = ResourceLocationArgument.getId(it, RESEARCH_TYPE)
+												val researchType = ModResearchTypes.fromResourceLocation(source.registryAccess(), rl)
+												requireNotNull(researchType)
+												val amount = IntegerArgumentType.getInteger(it, AMOUNT)
+												addResearchPoints(source, player, researchType, amount)
+											}
+									)
+							)
+					)
+			)
+	}
+
+	private fun addResearchPoints(
+		source: CommandSourceStack,
+		player: Player,
+		researchType: Holder<ResearchType>,
+		amount: Int
+	): Int {
+		PlayerResearchPoints.addPoints(player, researchType, amount)
+
+		source.sendSuccess(
+			{ Component.literal("Added: $amount") },
+			false
+		)
+
+		return 1
 	}
 
 	private fun setResearchPoints(
