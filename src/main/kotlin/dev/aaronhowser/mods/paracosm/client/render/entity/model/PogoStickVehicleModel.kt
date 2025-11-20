@@ -13,11 +13,13 @@ class PogoStickVehicleModel : DefaultedEntityGeoModel<PogoStickVehicle>(OtherUti
 		instanceId: Long,
 		animationState: AnimationState<PogoStickVehicle>
 	) {
+		val partialTick = animationState.partialTick
+
 		val verticalRotation = animationProcessor.getBone("vertical_rotation")
 		verticalRotation.rotY = animatable.yRot * Mth.DEG_TO_RAD
 
-		val tiltBackward = animatable.tiltBackward
-		val tiltRight = animatable.tiltRight
+		val tiltBackward = Mth.lerp(partialTick, animatable.previousTiltBackward, animatable.tiltBackward)
+		val tiltRight = Mth.lerp(partialTick, animatable.previousTiltRight, animatable.tiltRight)
 
 		val tiltPair = OtherUtil.getRotationForCircle(tiltBackward, tiltRight)
 
@@ -28,10 +30,10 @@ class PogoStickVehicleModel : DefaultedEntityGeoModel<PogoStickVehicle>(OtherUti
 		whole.rotX = newBackwardTilt * PogoStickVehicle.MAX_TILT_RADIAN
 		whole.rotZ = newRightTilt * PogoStickVehicle.MAX_TILT_RADIAN
 
+		val jumpPercent = Mth.lerp(partialTick, animatable.previousJumpPercent, animatable.jumpPercent)
+
 		val body = animationProcessor.getBone("body")
-		body.posY = -10 *
-				PogoStickVehicle.JUMP_ANIM_DISTANCE.toFloat() *
-				animatable.entityData.get(PogoStickVehicle.DATA_JUMP_PERCENT)
+		body.posY = -10 * PogoStickVehicle.JUMP_ANIM_DISTANCE.toFloat() * jumpPercent
 	}
 
 }

@@ -77,6 +77,10 @@ class PogoStickVehicle(
 		get() = this.entityData.get(DATA_JUMP_PERCENT)
 		private set(value) = this.entityData.set(DATA_JUMP_PERCENT, value)
 
+	var previousTiltRight: Float = tiltRight
+	var previousTiltBackward: Float = tiltBackward
+	var previousJumpPercent: Float = jumpPercent
+
 	init {
 		this.blocksBuilding = true
 	}
@@ -307,6 +311,10 @@ class PogoStickVehicle(
 	}
 
 	private fun updateTilt() {
+		previousTiltBackward = tiltBackward
+		previousTiltRight = tiltRight
+		previousJumpPercent = jumpPercent
+
 		val rider = this.controllingPassenger
 		if (rider != null) {
 			this.setRot(
