@@ -11,7 +11,7 @@ import dev.aaronhowser.mods.paracosm.entity.custom.StringWormEntity
 import dev.aaronhowser.mods.paracosm.entity.custom.TeddyBearEntity
 import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateEntityUpgrades
-import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateWhimsyValue
+import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateRawWhimsyPacket
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.util.Upgradeable
 import net.minecraft.server.level.ServerPlayer
@@ -70,7 +70,7 @@ object CommonEvents {
 			if (entity.whimsy != 0f) {
 				ModPacketHandler.messagePlayer(
 					player,
-					UpdateWhimsyValue(
+					UpdateRawWhimsyPacket(
 						entity.id,
 						entity.whimsy,
 						true
@@ -81,7 +81,7 @@ object CommonEvents {
 			if (entity.delusion != 0f) {
 				ModPacketHandler.messagePlayer(
 					player,
-					UpdateWhimsyValue(
+					UpdateRawWhimsyPacket(
 						entity.id,
 						entity.delusion,
 						false
@@ -107,7 +107,7 @@ object CommonEvents {
 
 		ModPacketHandler.messagePlayer(
 			player,
-			UpdateWhimsyValue(
+			UpdateRawWhimsyPacket(
 				player.id,
 				player.whimsy,
 				true
@@ -116,7 +116,7 @@ object CommonEvents {
 
 		ModPacketHandler.messagePlayer(
 			player,
-			UpdateWhimsyValue(
+			UpdateRawWhimsyPacket(
 				player.id,
 				player.delusion,
 				false

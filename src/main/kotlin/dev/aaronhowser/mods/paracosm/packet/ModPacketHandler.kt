@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.paracosm.packet
 import dev.aaronhowser.mods.paracosm.packet.client_to_server.UpdatePogoControls
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateEntityUpgrades
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateShrinkRayScale
-import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateWhimsyValue
+import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateRawWhimsyPacket
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.phys.Vec3
@@ -17,8 +17,8 @@ object ModPacketHandler {
 		val registrar = event.registrar("1")
 
 		registrar.playToClient(
-			UpdateWhimsyValue.TYPE,
-			UpdateWhimsyValue.STREAM_CODEC,
+			UpdateRawWhimsyPacket.TYPE,
+			UpdateRawWhimsyPacket.STREAM_CODEC,
 			DirectionalPayloadHandler(
 				{ packet, context -> packet.receiveMessage(context) },
 				{ packet, context -> packet.receiveMessage(context) }

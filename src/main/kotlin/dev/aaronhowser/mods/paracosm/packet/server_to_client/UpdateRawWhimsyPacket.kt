@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.paracosm.packet.server_to_client
 
 import dev.aaronhowser.mods.paracosm.attachment.Delusion.Companion.delusion
-import dev.aaronhowser.mods.paracosm.attachment.Whimsy.Companion.whimsy
+import dev.aaronhowser.mods.paracosm.handler.WhimsyHandler.rawWhimsy
 import dev.aaronhowser.mods.paracosm.packet.ModPacket
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import io.netty.buffer.ByteBuf
@@ -11,13 +11,11 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload
 import net.minecraft.world.entity.LivingEntity
 import net.neoforged.neoforge.network.handling.IPayloadContext
 
-class UpdateWhimsyValue(
+class UpdateRawWhimsyPacket(
 	val entityId: Int,
-	val newAmount: Float,
+	val newAmount: Double,
 	val isWhimsy: Boolean
 ) : ModPacket {
-
-	val isDelusion = !isWhimsy
 
 	override fun type(): CustomPacketPayload.Type<out CustomPacketPayload> {
 		return TYPE
@@ -29,7 +27,7 @@ class UpdateWhimsyValue(
 			val entity = context.player().level().getEntity(entityId) as? LivingEntity ?: return@enqueueWork
 
 			if (isWhimsy) {
-				entity.whimsy = newAmount
+				entity.rawWhimsy = newAmount
 			} else {
 				entity.delusion = newAmount
 			}
@@ -37,15 +35,15 @@ class UpdateWhimsyValue(
 	}
 
 	companion object {
-		val TYPE: CustomPacketPayload.Type<UpdateWhimsyValue> =
-			CustomPacketPayload.Type(OtherUtil.modResource("update_whimsy_value"))
+		val TYPE: CustomPacketPayload.Type<UpdateRawWhimsyPacket> =
+			CustomPacketPayload.Type(OtherUtil.modResource("update_whimsy"))
 
-		val STREAM_CODEC: StreamCodec<ByteBuf, UpdateWhimsyValue> =
+		val STREAM_CODEC: StreamCodec<ByteBuf, UpdateRawWhimsyPacket> =
 			StreamCodec.composite(
-				ByteBufCodecs.INT, UpdateWhimsyValue::entityId,
-				ByteBufCodecs.FLOAT, UpdateWhimsyValue::newAmount,
-				ByteBufCodecs.BOOL, UpdateWhimsyValue::isWhimsy,
-				::UpdateWhimsyValue
+				ByteBufCodecs.INT, UpdateRawWhimsyPacket::entityId,
+				ByteBufCodecs.DOUBLE, UpdateRawWhimsyPacket::newAmount,
+				ByteBufCodecs.BOOL, UpdateRawWhimsyPacket::isWhimsy,
+				::UpdateRawWhimsyPacket
 			)
 	}
 
