@@ -7,15 +7,13 @@ import dev.aaronhowser.mods.paracosm.entity.custom.AaronberryEntity
 import dev.aaronhowser.mods.paracosm.entity.custom.PogoStickVehicle
 import dev.aaronhowser.mods.paracosm.entity.custom.StringWormEntity
 import dev.aaronhowser.mods.paracosm.entity.custom.TeddyBearEntity
+import dev.aaronhowser.mods.paracosm.handler.AttributeHandler.baseWhimsy
 import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateEntityUpgrades
 import dev.aaronhowser.mods.paracosm.registry.ModAttributes
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.util.Upgradeable
-import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.server.level.ServerPlayer
-import net.minecraft.world.entity.EntityType
-import net.minecraft.world.entity.LivingEntity
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.event.RegisterCommandsEvent
@@ -69,11 +67,9 @@ object CommonEvents {
 
 		val food = event.item.getFoodProperties(entity)
 		if (food != null) {
-
 			if (event.item.`is`(ModItemTagsProvider.SWEETS)) {
-				entity.rawWhimsy += 0.5f
+				entity.baseWhimsy += 0.5f
 			}
-
 		}
 	}
 
@@ -82,62 +78,10 @@ object CommonEvents {
 		val player = event.entity as? ServerPlayer ?: return
 		val entity = event.target
 
-		if (entity is LivingEntity) {
-			if (entity.rawWhimsy != 0.0) {
-				ModPacketHandler.messagePlayer(
-					player,
-					UpdateRawWhimsyPacket(
-						entity.id,
-						entity.rawWhimsy,
-						true
-					)
-				)
-			}
-
-			if (entity.rawDelusion != 0.0) {
-				ModPacketHandler.messagePlayer(
-					player,
-					UpdateRawWhimsyPacket(
-						entity.id,
-						entity.rawDelusion,
-						false
-					)
-				)
-			}
-		}
-
 		if (Upgradeable.getUpgrades(entity).isNotEmpty()) {
-			ModPacketHandler.messagePlayer(
-				player,
-				UpdateEntityUpgrades(
-					entity.id,
-					Upgradeable.getUpgrades(entity).toList()
-				)
-			)
+			val packet = UpdateEntityUpgrades(entity.id, Upgradeable.getUpgrades(entity).toList())
+			packet.messagePlayer(player)
 		}
-	}
-
-	@SubscribeEvent
-	fun onPlayerJoin(event: PlayerEvent.PlayerLoggedInEvent) {
-		val player = event.entity as? ServerPlayer ?: return
-
-		ModPacketHandler.messagePlayer(
-			player,
-			UpdateRawWhimsyPacket(
-				player.id,
-				player.rawWhimsy,
-				true
-			)
-		)
-
-		ModPacketHandler.messagePlayer(
-			player,
-			UpdateRawWhimsyPacket(
-				player.id,
-				player.rawDelusion,
-				false
-			)
-		)
 	}
 
 	@SubscribeEvent
