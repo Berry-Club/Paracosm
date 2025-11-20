@@ -317,7 +317,8 @@ class PogoStickVehicle(
 
 		val rider = this.controllingPassenger
 		if (rider != null) {
-			this.setRot(
+			setOldPosAndRot()
+			setRot(
 				-rider.yRot,
 				0f
 			)

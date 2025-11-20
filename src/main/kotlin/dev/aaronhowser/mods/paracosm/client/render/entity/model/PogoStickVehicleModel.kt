@@ -16,7 +16,8 @@ class PogoStickVehicleModel : DefaultedEntityGeoModel<PogoStickVehicle>(OtherUti
 		val partialTick = animationState.partialTick
 
 		val verticalRotation = animationProcessor.getBone("vertical_rotation")
-		verticalRotation.rotY = animatable.yRot * Mth.DEG_TO_RAD
+		val angle = Mth.lerp(partialTick, animatable.yRotO, animatable.yRot)
+		verticalRotation.rotY = angle * Mth.DEG_TO_RAD
 
 		val tiltBackward = Mth.lerp(partialTick, animatable.previousTiltBackward, animatable.tiltBackward)
 		val tiltRight = Mth.lerp(partialTick, animatable.previousTiltRight, animatable.tiltRight)
