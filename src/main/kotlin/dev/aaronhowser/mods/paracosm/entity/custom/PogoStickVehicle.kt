@@ -258,7 +258,7 @@ class PogoStickVehicle(
 				.yRot(yRot * Mth.DEG_TO_RAD)
 				.scale(currentJumpAmount * jumpStrength)
 
-			addDeltaMovement(jumpVector)
+			deltaMovement = jumpVector
 			hasImpulse = true
 			setOnGround(false)
 			bounceForce = 0f
