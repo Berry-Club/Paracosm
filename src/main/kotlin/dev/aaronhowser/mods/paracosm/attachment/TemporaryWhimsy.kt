@@ -8,8 +8,18 @@ class TemporaryWhimsy(
 	val instances: MutableList<Instance>
 ) {
 
+	fun tick(livingEntity: LivingEntity) {
+		instances.removeIf(Instance::tick)
+	}
+
+	fun totalAmount(): Double {
+		return instances
+			.filterNot(Instance::isExpired)
+			.sumOf(Instance::amount)
+	}
+
 	class Instance(
-		val amount: Float,
+		val amount: Double,
 		var remainingTicks: Int
 	) {
 		fun isExpired(): Boolean = remainingTicks <= 0
@@ -24,7 +34,7 @@ class TemporaryWhimsy(
 			val CODEC: Codec<Instance> =
 				RecordCodecBuilder.create { instance ->
 					instance.group(
-						Codec.FLOAT
+						Codec.DOUBLE
 							.fieldOf("amount")
 							.forGetter(Instance::amount),
 						Codec.INT
@@ -33,10 +43,6 @@ class TemporaryWhimsy(
 					).apply(instance, ::Instance)
 				}
 		}
-	}
-
-	fun tick(livingEntity: LivingEntity) {
-		instances.removeIf(Instance::tick)
 	}
 
 	companion object {

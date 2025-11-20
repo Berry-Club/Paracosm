@@ -26,9 +26,10 @@ object WhimsyHandler {
 	fun LivingEntity.getWhimsy(): Double {
 		val raw = this.rawWhimsy
 
-		val temporary = this.getData(ModAttachmentTypes.TEMPORARY_WHIMSY)
+		val temporaryWhimsy = this.getData(ModAttachmentTypes.TEMPORARY_WHIMSY)
+		val mod = temporaryWhimsy.totalAmount()
 
-
+		return raw + mod
 	}
 
 }
