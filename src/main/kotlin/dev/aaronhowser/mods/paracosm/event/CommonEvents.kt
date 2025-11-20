@@ -7,21 +7,23 @@ import dev.aaronhowser.mods.paracosm.entity.custom.AaronberryEntity
 import dev.aaronhowser.mods.paracosm.entity.custom.PogoStickVehicle
 import dev.aaronhowser.mods.paracosm.entity.custom.StringWormEntity
 import dev.aaronhowser.mods.paracosm.entity.custom.TeddyBearEntity
-import dev.aaronhowser.mods.paracosm.handler.DelusionHandler.getDelusion
 import dev.aaronhowser.mods.paracosm.handler.DelusionHandler.rawDelusion
-import dev.aaronhowser.mods.paracosm.handler.WhimsyHandler.getWhimsy
 import dev.aaronhowser.mods.paracosm.handler.WhimsyHandler.rawWhimsy
 import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateEntityUpgrades
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateRawWhimsyPacket
+import dev.aaronhowser.mods.paracosm.registry.ModAttributes
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.util.Upgradeable
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.server.level.ServerPlayer
+import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.event.RegisterCommandsEvent
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent
+import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent
 import net.neoforged.neoforge.event.entity.player.PlayerEvent
@@ -35,6 +37,21 @@ object CommonEvents {
 	@SubscribeEvent
 	fun registerPayloads(event: RegisterPayloadHandlersEvent) {
 		ModPacketHandler.registerPayloads(event)
+	}
+
+	@SubscribeEvent
+	fun onEntityAttributeModification(event: EntityAttributeModificationEvent) {
+		val types = event.types
+
+		for (entityType in types) {
+			if (!event.has(entityType, ModAttributes.WHIMSY)) {
+				event.add(entityType, ModAttributes.WHIMSY)
+			}
+
+			if (!event.has(entityType, ModAttributes.DELUSION)) {
+				event.add(entityType, ModAttributes.DELUSION)
+			}
+		}
 	}
 
 	@SubscribeEvent
