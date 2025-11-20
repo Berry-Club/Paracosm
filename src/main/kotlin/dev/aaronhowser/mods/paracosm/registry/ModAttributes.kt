@@ -15,14 +15,14 @@ object ModAttributes {
 
 	val WHIMSY: DeferredHolder<Attribute, Attribute> =
 		register(
-			"paracosm.whimsy",
+			"living.whimsy",
 			0.0, 0.0, Double.MAX_VALUE,
 			sentiment = Attribute.Sentiment.POSITIVE
 		)
 
 	val DELUSION: DeferredHolder<Attribute, Attribute> =
 		register(
-			"paracosm.delusion",
+			"living.delusion",
 			0.0, 0.0, Double.MAX_VALUE,
 			sentiment = Attribute.Sentiment.NEGATIVE
 		)
