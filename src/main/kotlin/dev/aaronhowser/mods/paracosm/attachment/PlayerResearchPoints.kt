@@ -43,23 +43,40 @@ data class PlayerResearchPoints(
 				.xmap(::PlayerResearchPoints, PlayerResearchPoints::points)
 
 		fun addPoints(
-			player: Entity,
+			entity: Entity,
 			type: Holder<ResearchType>,
 			amount: Int
 		) {
-			val current = player.getData(ModAttachmentTypes.RESEARCH_POINTS)
+			val current = entity.getData(ModAttachmentTypes.RESEARCH_POINTS)
 			val updated = current.addPoints(type, amount)
-			player.setData(ModAttachmentTypes.RESEARCH_POINTS, updated)
+			entity.setData(ModAttachmentTypes.RESEARCH_POINTS, updated)
 		}
 
 		fun removePoints(
-			player: Entity,
+			entity: Entity,
 			type: Holder<ResearchType>,
 			amount: Int
 		) {
-			val current = player.getData(ModAttachmentTypes.RESEARCH_POINTS)
+			val current = entity.getData(ModAttachmentTypes.RESEARCH_POINTS)
 			val updated = current.removePoints(type, amount)
-			player.setData(ModAttachmentTypes.RESEARCH_POINTS, updated)
+			entity.setData(ModAttachmentTypes.RESEARCH_POINTS, updated)
+		}
+
+		fun getPoints(
+			entity: Entity,
+			type: Holder<ResearchType>
+		): Int {
+			val current = entity.getData(ModAttachmentTypes.RESEARCH_POINTS)
+			return current.points.getOrDefault(type, 0)
+		}
+
+		fun hasPoints(
+			entity: Entity,
+			type: Holder<ResearchType>,
+			amount: Int
+		): Boolean {
+			val currentPoints = getPoints(entity, type)
+			return currentPoints >= amount
 		}
 	}
 
