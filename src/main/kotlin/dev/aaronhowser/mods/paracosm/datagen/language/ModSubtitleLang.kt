@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.paracosm.datagen.language
 
 import dev.aaronhowser.mods.paracosm.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 
 object ModSubtitleLang {
 

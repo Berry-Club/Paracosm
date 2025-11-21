@@ -43,7 +43,7 @@ class ModAdvancementSubProvider(
 			)
 			.save(saver, ROOT, existingFileHelper)
 
-		val sleepWithNightLight = Advancement.Builder.advancement()
+		Advancement.Builder.advancement()
 			.parent(root)
 			.display(
 				ModBlocks.NIGHT_LIGHT.get(),

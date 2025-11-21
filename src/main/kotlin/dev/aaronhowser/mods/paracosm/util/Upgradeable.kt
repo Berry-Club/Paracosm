@@ -1,13 +1,10 @@
 package dev.aaronhowser.mods.paracosm.util
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.isServerSide
-import dev.aaronhowser.mods.aaron.AaronExtensions.toVec3
 import dev.aaronhowser.mods.paracosm.attachment.EntityUpgrades
-import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateEntityUpgrades
 import dev.aaronhowser.mods.paracosm.registry.ModAttachmentTypes
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
-import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.item.ItemStack
 

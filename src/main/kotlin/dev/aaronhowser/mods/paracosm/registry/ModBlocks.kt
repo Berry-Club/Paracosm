@@ -1,12 +1,7 @@
 package dev.aaronhowser.mods.paracosm.registry
 
 import dev.aaronhowser.mods.paracosm.Paracosm
-import dev.aaronhowser.mods.paracosm.block.CottonBlock
-import dev.aaronhowser.mods.paracosm.block.NightLightBlock
-import dev.aaronhowser.mods.paracosm.block.WalrusBlock
-import dev.aaronhowser.mods.paracosm.block.WhoopeeCushionBlock
-import dev.aaronhowser.mods.paracosm.block.CityRugBlock
-import dev.aaronhowser.mods.paracosm.block.ImaginatorBlock
+import dev.aaronhowser.mods.paracosm.block.*
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockBehaviour
 import net.neoforged.neoforge.registries.DeferredBlock

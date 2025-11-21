@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.paracosm.registry
 
 import dev.aaronhowser.mods.paracosm.Paracosm
-import dev.aaronhowser.mods.paracosm.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.paracosm.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.paracosm.datagen.language.ModItemLang
 import net.minecraft.core.registries.BuiltInRegistries

@@ -2,7 +2,6 @@ package dev.aaronhowser.mods.paracosm.client
 
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.paracosm.registry.ModItems
-import dev.aaronhowser.mods.paracosm.util.ClientUtil
 import net.minecraft.client.Minecraft
 import net.minecraft.resources.ResourceLocation
 import net.neoforged.neoforge.client.event.ClientTickEvent

@@ -63,7 +63,7 @@ object AdvancementHandler {
 				val state = level.getBlockState(pos)
 				if (!state.`is`(ModBlocks.NIGHT_LIGHT)) continue
 
-				if (state.getValue(NightLightBlock.Companion.ENABLED)) {
+				if (state.getValue(NightLightBlock.ENABLED)) {
 					completeAdvancement(player, advancement)
 					break@posLoop
 				}
