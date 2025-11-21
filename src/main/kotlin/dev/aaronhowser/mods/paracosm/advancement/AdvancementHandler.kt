@@ -8,6 +8,7 @@ import net.minecraft.core.BlockPos
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.player.Player
+import net.minecraft.world.level.LightLayer
 import net.neoforged.neoforge.event.level.SleepFinishedTimeEvent
 
 object AdvancementHandler {
@@ -42,11 +43,11 @@ object AdvancementHandler {
 	private fun nightLight(level: ServerLevel, sleepingPlayers: List<ServerPlayer>) {
 		val playersSleepingInDark = sleepingPlayers
 			.filter { player ->
-				level.getRawBrightness(player.blockPosition().above(), 0) < 5
+				level.getBrightness(LightLayer.BLOCK, player.blockPosition().above()) < 10
 			}
 			.toList()
 
-		val advancement = level.server.advancements.get(ModAdvancementSubProvider.Companion.SLEEP_WITH_NIGHT_LIGHT) ?: return
+		val advancement = level.server.advancements.get(ModAdvancementSubProvider.SLEEP_WITH_NIGHT_LIGHT) ?: return
 
 		for (player in playersSleepingInDark) {
 			if (hasCompletedAdvancement(player, advancement)) continue
