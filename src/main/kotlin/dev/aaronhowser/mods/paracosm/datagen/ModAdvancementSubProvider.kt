@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.paracosm.registry.ModItems
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.advancements.Advancement
 import net.minecraft.advancements.AdvancementHolder
+import net.minecraft.advancements.AdvancementRewards
 import net.minecraft.advancements.AdvancementType
 import net.minecraft.advancements.CriteriaTriggers
 import net.minecraft.advancements.critereon.ImpossibleTrigger
@@ -54,6 +55,9 @@ class ModAdvancementSubProvider(
 				true, true, false
 			)
 			.addImpossibleCriterion()
+			.rewards(
+				AdvancementRewards.Builder.function(ModMcFunctionProvider.GIVE_ONE_COMFORT)
+			)
 			.save(saver, SLEEP_WITH_NIGHT_LIGHT, existingFileHelper)
 
 	}

@@ -18,5 +18,8 @@
       "impossible"
     ]
   ],
+  "rewards": {
+    "function": "paracosm:research/give_one_point_comfort"
+  },
   "sends_telemetry_event": true
 }
