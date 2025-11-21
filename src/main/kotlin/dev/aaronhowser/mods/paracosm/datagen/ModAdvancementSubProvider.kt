@@ -1,10 +1,13 @@
 package dev.aaronhowser.mods.paracosm.datagen
 
+import dev.aaronhowser.mods.paracosm.registry.ModBlocks
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.advancements.Advancement
 import net.minecraft.advancements.AdvancementHolder
 import net.minecraft.advancements.AdvancementType
+import net.minecraft.advancements.CriteriaTriggers
+import net.minecraft.advancements.critereon.ImpossibleTrigger
 import net.minecraft.advancements.critereon.InventoryChangeTrigger
 import net.minecraft.core.HolderLookup
 import net.minecraft.network.chat.Component
@@ -23,8 +26,6 @@ class ModAdvancementSubProvider(
 		existingFileHelper: ExistingFileHelper
 	) {
 
-		fun guide(path: String) = OtherUtil.modResource("guide/$path")
-
 		val root = Advancement.Builder.advancement()
 			.display(
 				ModItems.COTTON.get(),
@@ -40,8 +41,35 @@ class ModAdvancementSubProvider(
 				"has_cotton",
 				InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.COTTON)
 			)
-			.save(saver, guide("root"), existingFileHelper)
+			.save(saver, ROOT, existingFileHelper)
 
+		val sleepWithNightLight = Advancement.Builder.advancement()
+			.parent(root)
+			.display(
+				ModBlocks.NIGHT_LIGHT.get(),
+				Component.literal("Sleep with Night Light"),
+				Component.literal("Sleep in the dark with an active Night Light nearby"),
+				null,
+				AdvancementType.TASK,
+				true, true, false
+			)
+			.addImpossibleCriterion()
+			.save(saver, SLEEP_WITH_NIGHT_LIGHT, existingFileHelper)
+
+	}
+
+	companion object {
+		private fun guide(path: String) = OtherUtil.modResource("guide/$path")
+
+		private fun Advancement.Builder.addImpossibleCriterion(): Advancement.Builder {
+			return this.addCriterion(
+				"impossible",
+				CriteriaTriggers.IMPOSSIBLE.createCriterion(ImpossibleTrigger.TriggerInstance())
+			)
+		}
+
+		val ROOT = guide("root")
+		val SLEEP_WITH_NIGHT_LIGHT = guide("sleep_with_night_light")
 	}
 
 }

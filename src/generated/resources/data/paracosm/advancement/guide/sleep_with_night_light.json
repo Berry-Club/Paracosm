@@ -1,0 +1,22 @@
+{
+  "parent": "paracosm:guide/root",
+  "criteria": {
+    "impossible": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": "Sleep in the dark with an active Night Light nearby",
+    "icon": {
+      "count": 1,
+      "id": "paracosm:night_light"
+    },
+    "title": "Sleep with Night Light"
+  },
+  "requirements": [
+    [
+      "impossible"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
