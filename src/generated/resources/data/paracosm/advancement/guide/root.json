@@ -1,0 +1,29 @@
+{
+  "criteria": {
+    "has_cotton": {
+      "conditions": {
+        "items": [
+          {
+            "items": "paracosm:cotton"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "background": "paracosm:textures/block/city_rug0.png",
+    "description": "Yay!! Haha yes yeah haha",
+    "icon": {
+      "count": 1,
+      "id": "paracosm:cotton"
+    },
+    "title": "Paracosm"
+  },
+  "requirements": [
+    [
+      "has_cotton"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
