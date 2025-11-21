@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.paracosm.handler
+package dev.aaronhowser.mods.paracosm.advancement
 
 import dev.aaronhowser.mods.paracosm.block.NightLightBlock
 import dev.aaronhowser.mods.paracosm.datagen.ModAdvancementSubProvider
@@ -46,7 +46,7 @@ object AdvancementHandler {
 			}
 			.toList()
 
-		val advancement = level.server.advancements.get(ModAdvancementSubProvider.SLEEP_WITH_NIGHT_LIGHT) ?: return
+		val advancement = level.server.advancements.get(ModAdvancementSubProvider.Companion.SLEEP_WITH_NIGHT_LIGHT) ?: return
 
 		for (player in playersSleepingInDark) {
 			if (hasCompletedAdvancement(player, advancement)) continue
@@ -62,7 +62,7 @@ object AdvancementHandler {
 				val state = level.getBlockState(pos)
 				if (!state.`is`(ModBlocks.NIGHT_LIGHT)) continue
 
-				if (state.getValue(NightLightBlock.ENABLED)) {
+				if (state.getValue(NightLightBlock.Companion.ENABLED)) {
 					completeAdvancement(player, advancement)
 					break@posLoop
 				}

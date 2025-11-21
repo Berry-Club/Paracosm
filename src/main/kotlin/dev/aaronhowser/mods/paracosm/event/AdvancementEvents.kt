@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.paracosm.event
 
 import dev.aaronhowser.mods.paracosm.Paracosm
-import dev.aaronhowser.mods.paracosm.handler.AdvancementHandler
+import dev.aaronhowser.mods.paracosm.advancement.AdvancementHandler
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.event.level.SleepFinishedTimeEvent
