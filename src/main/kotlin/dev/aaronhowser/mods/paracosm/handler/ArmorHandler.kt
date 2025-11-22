@@ -20,21 +20,20 @@ object ArmorHandler {
 	}
 
 	fun stopAggro(event: LivingEquipmentChangeEvent) {
-		val entity = event.entity
-
 		if (!event.slot.isArmor) return
 
-		val newStack = event.to
+		val aggroImmuneFrom = event
+			.to
+			.get(ModDataComponents.AGGRO_IMMUNE_FROM)
+			?: return
 
-		val aggroImmuneFrom = newStack.get(ModDataComponents.AGGRO_IMMUNE_FROM)
-		if (aggroImmuneFrom != null) {
-			val nearbyMobs = entity.level()
-				.getEntitiesOfClass(Mob::class.java, entity.boundingBox.inflate(20.0))
+		val entity = event.entity
+		val nearbyMobs = entity.level()
+			.getEntitiesOfClass(Mob::class.java, entity.boundingBox.inflate(20.0))
 
-			for (mob in nearbyMobs) {
-				if (mob.type.`is`(aggroImmuneFrom) && mob.target == entity) {
-					mob.target = null
-				}
+		for (mob in nearbyMobs) {
+			if (mob.type.`is`(aggroImmuneFrom) && mob.target == entity) {
+				mob.target = null
 			}
 		}
 	}
