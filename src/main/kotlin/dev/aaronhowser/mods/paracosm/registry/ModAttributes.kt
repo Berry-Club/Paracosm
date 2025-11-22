@@ -11,7 +11,7 @@ import java.util.function.Supplier
 object ModAttributes {
 
 	val ATTRIBUTE_REGISTRY: DeferredRegister<Attribute> =
-		DeferredRegister.create(BuiltInRegistries.ATTRIBUTE, Paracosm.ID)
+		DeferredRegister.create(BuiltInRegistries.ATTRIBUTE, Paracosm.MOD_ID)
 
 	val WHIMSY: DeferredHolder<Attribute, Attribute> =
 		register(

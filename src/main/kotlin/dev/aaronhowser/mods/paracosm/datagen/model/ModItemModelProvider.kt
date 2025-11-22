@@ -15,7 +15,7 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper
 class ModItemModelProvider(
 	output: PackOutput,
 	existingFileHelper: ExistingFileHelper
-) : ItemModelProvider(output, Paracosm.ID, existingFileHelper) {
+) : ItemModelProvider(output, Paracosm.MOD_ID, existingFileHelper) {
 
 	override fun registerModels() {
 		val basicModels = listOf(

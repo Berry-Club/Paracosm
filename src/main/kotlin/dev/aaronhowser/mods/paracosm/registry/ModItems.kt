@@ -6,14 +6,13 @@ import dev.aaronhowser.mods.paracosm.item.*
 import dev.aaronhowser.mods.paracosm.item.base.FancyFoodItem
 import dev.aaronhowser.mods.paracosm.item.base.FancyFoodItem.Companion.fast
 import net.minecraft.world.food.FoodProperties
-import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemNameBlockItem
 import net.neoforged.neoforge.registries.DeferredItem
 import net.neoforged.neoforge.registries.DeferredRegister
 
 object ModItems : AaronItemRegistry() {
 
-	val ITEM_REGISTRY: DeferredRegister.Items = DeferredRegister.createItems(Paracosm.ID)
+	val ITEM_REGISTRY: DeferredRegister.Items = DeferredRegister.createItems(Paracosm.MOD_ID)
 	override fun getItemRegistry(): DeferredRegister.Items = ITEM_REGISTRY
 
 	val COTTON: DeferredItem<ItemNameBlockItem> =

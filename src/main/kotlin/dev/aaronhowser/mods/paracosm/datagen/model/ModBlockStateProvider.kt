@@ -17,7 +17,7 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper
 class ModBlockStateProvider(
 	output: PackOutput,
 	private val existingFileHelper: ExistingFileHelper
-) : BlockStateProvider(output, Paracosm.ID, existingFileHelper) {
+) : BlockStateProvider(output, Paracosm.MOD_ID, existingFileHelper) {
 
 	override fun registerStatesAndModels() {
 		nightLight()

@@ -13,7 +13,7 @@ import java.util.function.Supplier
 object ModCreativeTabs {
 
 	val CREATIVE_TAB_REGISTRY: DeferredRegister<CreativeModeTab> =
-		DeferredRegister.create(BuiltInRegistries.CREATIVE_MODE_TAB, Paracosm.ID)
+		DeferredRegister.create(BuiltInRegistries.CREATIVE_MODE_TAB, Paracosm.MOD_ID)
 
 	val MOD_TAB: DeferredHolder<CreativeModeTab, CreativeModeTab> =
 		CREATIVE_TAB_REGISTRY.register("pitch_perfect", Supplier {

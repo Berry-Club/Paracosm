@@ -11,7 +11,7 @@ import net.neoforged.neoforge.registries.DeferredRegister
 object ModBlockEntityTypes : AaronBlockEntityTypeRegistry() {
 
 	val BLOCK_ENTITY_REGISTRY: DeferredRegister<BlockEntityType<*>> =
-		DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, Paracosm.ID)
+		DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, Paracosm.MOD_ID)
 
 	override fun getBlockEntityRegistry(): DeferredRegister<BlockEntityType<*>> {
 		return BLOCK_ENTITY_REGISTRY

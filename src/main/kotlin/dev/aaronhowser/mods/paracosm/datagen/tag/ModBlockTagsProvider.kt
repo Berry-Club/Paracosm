@@ -20,7 +20,7 @@ class ModBlockTagsProvider(
 	output: PackOutput,
 	lookupProvider: CompletableFuture<HolderLookup.Provider>,
 	existingFileHelper: ExistingFileHelper?
-) : BlockTagsProvider(output, lookupProvider, Paracosm.ID, existingFileHelper) {
+) : BlockTagsProvider(output, lookupProvider, Paracosm.MOD_ID, existingFileHelper) {
 
 	override fun addTags(pProvider: HolderLookup.Provider) {
 

@@ -10,7 +10,7 @@ import net.minecraft.world.entity.Entity
 interface IUpgradeableEntity {
 
 	companion object {
-		private const val UPGRADES_TAG = "${Paracosm.ID}.upgrades"
+		private const val UPGRADES_TAG = "${Paracosm.MOD_ID}.upgrades"
 	}
 
 	fun saveUpgrades(entity: Entity, compoundTag: CompoundTag) {

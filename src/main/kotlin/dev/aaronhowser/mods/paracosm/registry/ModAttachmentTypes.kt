@@ -14,7 +14,7 @@ import java.util.function.Supplier
 object ModAttachmentTypes {
 
 	val ATTACHMENT_TYPES_REGISTRY: DeferredRegister<AttachmentType<*>> =
-		DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, Paracosm.ID)
+		DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, Paracosm.MOD_ID)
 
 	val SHRINK_RAY_EFFECT: DeferredHolder<AttachmentType<*>, AttachmentType<ShrinkRayEffect>> =
 		register("shrink_ray_effect", { ShrinkRayEffect(0.0) }, ShrinkRayEffect.CODEC)

@@ -14,7 +14,7 @@ import kotlin.math.*
 object OtherUtil {
 
 	fun modResource(path: String): ResourceLocation =
-		ResourceLocation.fromNamespaceAndPath(Paracosm.ID, path)
+		ResourceLocation.fromNamespaceAndPath(Paracosm.MOD_ID, path)
 
 	fun isLookingAtPos(
 		livingEntity: LivingEntity,

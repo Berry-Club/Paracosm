@@ -17,7 +17,7 @@ class ModEntityTypeTagsProvider(
 	pOutput: PackOutput,
 	pProvider: CompletableFuture<HolderLookup.Provider>,
 	existingFileHelper: ExistingFileHelper?
-) : EntityTypeTagsProvider(pOutput, pProvider, Paracosm.ID, existingFileHelper) {
+) : EntityTypeTagsProvider(pOutput, pProvider, Paracosm.MOD_ID, existingFileHelper) {
 
 	override fun addTags(pProvider: HolderLookup.Provider) {
 		this.tag(EntityTypeTags.REDIRECTABLE_PROJECTILE)

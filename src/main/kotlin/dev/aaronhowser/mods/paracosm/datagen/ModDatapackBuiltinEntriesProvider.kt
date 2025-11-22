@@ -18,7 +18,7 @@ class ModDatapackBuiltinEntriesProvider(
 	output,
 	registries,
 	BUILDER,
-	setOf(Paracosm.ID)
+	setOf(Paracosm.MOD_ID)
 ) {
 
 	companion object {

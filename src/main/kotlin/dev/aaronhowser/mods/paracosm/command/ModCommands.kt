@@ -11,7 +11,7 @@ object ModCommands {
 
 		dispatcher.register(
 			Commands
-				.literal(Paracosm.ID)
+				.literal(Paracosm.MOD_ID)
 				.then(WhimsyCommand.register())
 				.then(DelusionCommand.register())
 				.then(ResetScaleCommand.register())

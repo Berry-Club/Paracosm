@@ -17,7 +17,7 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper
 import net.neoforged.neoforge.data.event.GatherDataEvent
 import java.util.concurrent.CompletableFuture
 
-@EventBusSubscriber(modid = Paracosm.ID)
+@EventBusSubscriber(modid = Paracosm.MOD_ID)
 object ModDataGen {
 
 	@SubscribeEvent

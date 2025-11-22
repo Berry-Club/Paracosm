@@ -15,7 +15,7 @@ import net.neoforged.neoforge.registries.DeferredRegister
 object ModDataComponents : AaronDataComponentRegistry() {
 
 	val DATA_COMPONENT_REGISTRY: DeferredRegister.DataComponents =
-		DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, Paracosm.ID)
+		DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, Paracosm.MOD_ID)
 
 	override fun getDataComponentRegistry(): DeferredRegister.DataComponents {
 		return DATA_COMPONENT_REGISTRY

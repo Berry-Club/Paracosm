@@ -12,13 +12,11 @@ import dev.aaronhowser.mods.paracosm.handler.AttributeHandler.baseWhimsy
 import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateEntityUpgrades
 import dev.aaronhowser.mods.paracosm.registry.ModAttributes
-import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.research.ModResearchTypes
 import dev.aaronhowser.mods.paracosm.research.ResearchType
 import dev.aaronhowser.mods.paracosm.util.Upgradeable
 import net.minecraft.server.level.ServerPlayer
-import net.minecraft.world.entity.Mob
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.event.RegisterCommandsEvent
@@ -33,7 +31,7 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent
 import net.neoforged.neoforge.registries.DataPackRegistryEvent
 
 @EventBusSubscriber(
-	modid = Paracosm.ID
+	modid = Paracosm.MOD_ID
 )
 object CommonEvents {
 

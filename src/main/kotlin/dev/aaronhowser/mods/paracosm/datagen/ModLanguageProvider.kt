@@ -10,7 +10,7 @@ import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.MutableComponent
 import net.neoforged.neoforge.common.data.LanguageProvider
 
-class ModLanguageProvider(output: PackOutput) : LanguageProvider(output, Paracosm.ID, "en_us") {
+class ModLanguageProvider(output: PackOutput) : LanguageProvider(output, Paracosm.MOD_ID, "en_us") {
 
 	object Curios {
 		const val SEEING_STONE = "curios.identifier.seeing_stone"

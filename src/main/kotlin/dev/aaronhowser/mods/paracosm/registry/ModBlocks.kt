@@ -8,7 +8,7 @@ import net.neoforged.neoforge.registries.DeferredRegister
 
 object ModBlocks : AaronBlockRegistry() {
 
-	val BLOCK_REGISTRY: DeferredRegister.Blocks = DeferredRegister.createBlocks(Paracosm.ID)
+	val BLOCK_REGISTRY: DeferredRegister.Blocks = DeferredRegister.createBlocks(Paracosm.MOD_ID)
 	override fun getBlockRegistry(): DeferredRegister.Blocks = BLOCK_REGISTRY
 	override fun getItemRegistry(): DeferredRegister.Items = ModItems.ITEM_REGISTRY
 

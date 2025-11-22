@@ -9,14 +9,14 @@ import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import thedarkcolour.kotlinforforge.neoforge.forge.MOD_BUS
 
-@Mod(Paracosm.ID)
+@Mod(Paracosm.MOD_ID)
 class Paracosm(
 	modContainer: ModContainer
 ) {
 
 	companion object {
-		const val ID = "paracosm"
-		val LOGGER: Logger = LogManager.getLogger(ID)
+		const val MOD_ID = "paracosm"
+		val LOGGER: Logger = LogManager.getLogger(MOD_ID)
 	}
 
 	init {

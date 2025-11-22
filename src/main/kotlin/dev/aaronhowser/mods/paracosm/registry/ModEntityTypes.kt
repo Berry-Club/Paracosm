@@ -12,7 +12,7 @@ import java.util.function.Supplier
 object ModEntityTypes {
 
 	val ENTITY_TYPE_REGISTRY: DeferredRegister<EntityType<*>> =
-		DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, Paracosm.ID)
+		DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, Paracosm.MOD_ID)
 
 	val TEDDY_BEAR: DeferredHolder<EntityType<*>, EntityType<TeddyBearEntity>> =
 		ENTITY_TYPE_REGISTRY.register("teddy_bear", Supplier {

@@ -6,7 +6,7 @@ import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.event.level.SleepFinishedTimeEvent
 
-@EventBusSubscriber(modid = Paracosm.ID)
+@EventBusSubscriber(modid = Paracosm.MOD_ID)
 object AdvancementEvents {
 
 	@SubscribeEvent

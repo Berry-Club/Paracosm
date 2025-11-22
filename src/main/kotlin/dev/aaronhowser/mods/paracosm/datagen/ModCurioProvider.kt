@@ -12,7 +12,7 @@ class ModCurioProvider(
 	output: PackOutput,
 	fileHelper: ExistingFileHelper?,
 	registries: CompletableFuture<HolderLookup.Provider>?
-) : CuriosDataProvider(Paracosm.ID, output, fileHelper, registries) {
+) : CuriosDataProvider(Paracosm.MOD_ID, output, fileHelper, registries) {
 
 	override fun generate(registries: HolderLookup.Provider?, fileHelper: ExistingFileHelper?) {
 		this.createSlot(SEEING_STONE_SLOT)
