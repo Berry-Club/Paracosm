@@ -5,7 +5,12 @@ import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.item.*
 import dev.aaronhowser.mods.paracosm.item.base.FancyFoodItem
 import dev.aaronhowser.mods.paracosm.item.base.FancyFoodItem.Companion.fast
+import net.minecraft.tags.EntityTypeTags
+import net.minecraft.tags.TagKey
+import net.minecraft.world.entity.EntityType
 import net.minecraft.world.food.FoodProperties
+import net.minecraft.world.item.ArmorItem
+import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemNameBlockItem
 import net.neoforged.neoforge.registries.DeferredItem
 import net.neoforged.neoforge.registries.DeferredRegister
@@ -33,6 +38,9 @@ object ModItems : AaronItemRegistry() {
 		register("pogo_stick", ::PogoStickItem, PogoStickItem.DEFAULT_PROPERTIES)
 	val DUCK_HUNT_GUN: DeferredItem<DuckHuntGunItem> =
 		register("duck_hunt_gun", ::DuckHuntGunItem, DuckHuntGunItem.DEFAULT_PROPERTIES)
+
+	val ZOMBIE_MASK = halloweenMask("zombie_mask", listOf(EntityTypeTags.ZOMBIES))
+	val SKELETON_MASK = halloweenMask("skeleton_mask", listOf(EntityTypeTags.SKELETONS))
 
 	// Foods
 	val CANDY: DeferredItem<FancyFoodItem> =
@@ -62,5 +70,20 @@ object ModItems : AaronItemRegistry() {
 		}
 	val WARM_MILK: DeferredItem<WarmMilkItem> =
 		register("warm_milk", ::WarmMilkItem, WarmMilkItem.DEFAULT_PROPERTIES)
+
+	private fun halloweenMask(
+		id: String,
+		neutralEntities: List<TagKey<EntityType<*>>>
+	) {
+		ITEM_REGISTRY.registerItem(id) {
+			ArmorItem(
+				ModArmorMaterials.HALLOWEEN_MASK,
+				ArmorItem.Type.HELMET,
+				Item.Properties()
+					.stacksTo(1)
+					.component(ModDataComponents.AGGRO_IMMUNE_FROM, neutralEntities)
+			)
+		}
+	}
 
 }
