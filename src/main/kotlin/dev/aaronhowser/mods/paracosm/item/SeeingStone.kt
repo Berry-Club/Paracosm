@@ -14,10 +14,7 @@ import net.minecraft.world.level.Level
 import top.theillusivec4.curios.api.SlotContext
 import top.theillusivec4.curios.api.type.capability.ICurioItem
 
-class SeeingStone : ICurioItem, Item(
-	Properties()
-		.stacksTo(1)
-) {
+class SeeingStone(properties: Properties) : ICurioItem, Item(properties) {
 
 	override fun getUseAnimation(stack: ItemStack): UseAnim {
 		return UseAnim.SPYGLASS
@@ -42,6 +39,10 @@ class SeeingStone : ICurioItem, Item(
 
 	override fun curioTick(slotContext: SlotContext?, stack: ItemStack?) {
 //        println("Curio tick")
+	}
+
+	companion object {
+		val DEFAULT_PROPERTIES: Properties = Properties().stacksTo(1)
 	}
 
 }

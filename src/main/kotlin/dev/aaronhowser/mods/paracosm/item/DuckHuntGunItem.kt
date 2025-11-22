@@ -2,8 +2,10 @@ package dev.aaronhowser.mods.paracosm.item
 
 import net.minecraft.world.item.Item
 
-class DuckHuntGunItem : Item(Properties().stacksTo(1)) {
+class DuckHuntGunItem(properties: Properties) : Item(properties) {
 
-	companion object
+	companion object {
+		val DEFAULT_PROPERTIES: Properties = Properties().stacksTo(1)
+	}
 
 }

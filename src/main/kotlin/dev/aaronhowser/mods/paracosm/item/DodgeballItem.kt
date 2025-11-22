@@ -13,10 +13,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.ProjectileItem
 import net.minecraft.world.level.Level
 
-class DodgeballItem : IUpgradeableItem, ProjectileItem, Item(
-	Properties()
-		.stacksTo(1)
-) {
+class DodgeballItem(properties: Properties) : Item(properties), IUpgradeableItem, ProjectileItem {
 
 	override val possibleUpgrades: List<String> = emptyList()
 
@@ -46,5 +43,8 @@ class DodgeballItem : IUpgradeableItem, ProjectileItem, Item(
 		return InteractionResultHolder.success(heldStack)
 	}
 
+	companion object {
+		val DEFAULT_PROPERTIES: Properties = Properties().stacksTo(1)
+	}
 
 }

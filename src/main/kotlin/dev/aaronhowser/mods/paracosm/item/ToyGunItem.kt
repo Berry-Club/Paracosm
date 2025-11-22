@@ -9,10 +9,7 @@ import net.minecraft.network.chat.Component
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 
-class ToyGunItem : RequiresWhimsy, Item(
-	Properties()
-		.stacksTo(1)
-) {
+class ToyGunItem(properties: Properties) : RequiresWhimsy, Item(properties) {
 
 	override val requiredWhimsy: Double = 5.0
 
@@ -25,5 +22,8 @@ class ToyGunItem : RequiresWhimsy, Item(
 		return nameComponent
 	}
 
+	companion object {
+		val DEFAULT_PROPERTIES: Properties = Properties().stacksTo(1)
+	}
 
 }

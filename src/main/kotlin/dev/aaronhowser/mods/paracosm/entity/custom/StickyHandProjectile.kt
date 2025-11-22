@@ -130,7 +130,7 @@ class StickyHandProjectile(
 	override fun onRemovedFromLevel() {
 		val owner = this.owner
 		if (owner is Player) {
-			StickyHandItem.playerStickyHands.remove(owner)
+			StickyHandItem.PLAYER_STICKY_HANDS.remove(owner)
 		}
 
 		super.onRemovedFromLevel()

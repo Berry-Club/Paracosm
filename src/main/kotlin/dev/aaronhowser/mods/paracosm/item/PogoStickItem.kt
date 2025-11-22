@@ -12,11 +12,7 @@ import net.minecraft.world.item.context.UseOnContext
 import net.minecraft.world.level.gameevent.GameEvent
 import net.minecraft.world.phys.Vec3
 
-class PogoStickItem(
-	properties: Properties = Properties()
-		.stacksTo(1)
-		.component(ModDataComponents.ITEM_UPGRADES, listOf())
-) : Item(properties), IUpgradeableItem {
+class PogoStickItem(properties: Properties) : Item(properties), IUpgradeableItem {
 
 	override val possibleUpgrades: List<String> = listOf(
 		Upgrades.GEPPO,
@@ -32,7 +28,40 @@ class PogoStickItem(
 		const val METEOR_STRIKE = "meteor_strike"
 	}
 
+	override fun useOn(context: UseOnContext): InteractionResult {
+		val usedStack = context.itemInHand
+		val level = context.level
+
+		if (!level.isClientSide) {
+
+			val pogoStickVehicle = PogoStickVehicle(
+				level = level,
+				spawnLocation = getPlacementPos(context)
+			)
+
+			for (upgrade in Upgradeable.getUpgrades(usedStack)) {
+				Upgradeable.addUpgrade(pogoStickVehicle, upgrade)
+			}
+
+			level.addFreshEntity(pogoStickVehicle)
+			level.gameEvent(
+				GameEvent.ENTITY_PLACE,
+				pogoStickVehicle.position(),
+				GameEvent.Context.of(context.player)
+			)
+		}
+
+		usedStack.consume(1, context.player)
+		return InteractionResult.sidedSuccess(level.isClientSide)
+	}
+
 	companion object {
+		val DEFAULT_PROPERTIES: () -> Properties = {
+			Properties()
+				.stacksTo(1)
+				.component(ModDataComponents.ITEM_UPGRADES, listOf())
+		}
+
 		private fun getPlacementPos(context: UseOnContext): Vec3 {
 			val level = context.level
 			val blockPos = context.clickedPos
@@ -63,33 +92,6 @@ class PogoStickItem(
 				blockPos.z + 0.5 + sideClicked.stepZ
 			)
 		}
-	}
-
-	override fun useOn(context: UseOnContext): InteractionResult {
-		val usedStack = context.itemInHand
-		val level = context.level
-
-		if (!level.isClientSide) {
-
-			val pogoStickVehicle = PogoStickVehicle(
-				level = level,
-				spawnLocation = getPlacementPos(context)
-			)
-
-			for (upgrade in Upgradeable.getUpgrades(usedStack)) {
-				Upgradeable.addUpgrade(pogoStickVehicle, upgrade)
-			}
-
-			level.addFreshEntity(pogoStickVehicle)
-			level.gameEvent(
-				GameEvent.ENTITY_PLACE,
-				pogoStickVehicle.position(),
-				GameEvent.Context.of(context.player)
-			)
-		}
-
-		usedStack.consume(1, context.player)
-		return InteractionResult.sidedSuccess(level.isClientSide)
 	}
 
 }

@@ -14,23 +14,11 @@ import net.minecraft.world.item.Rarity
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.gameevent.GameEvent
 
-class TowelCapeItem : IUpgradeableItem, RequiresWhimsy, ElytraItem(
-	Properties()
-		.durability(432)
-		.rarity(Rarity.UNCOMMON)
-		.component(
-			ModDataComponents.TOWEL_CAPE_WORKS,
-			true
-		)
-) {
+class TowelCapeItem(properties: Properties) : IUpgradeableItem, RequiresWhimsy, ElytraItem(properties) {
 
 	override val possibleUpgrades: List<String> = listOf(
 		"cape_boost"
 	)
-
-	companion object {
-		private const val DURATION = 20 * 5
-	}
 
 	override val requiredWhimsy: Double = 10.0
 
@@ -51,7 +39,7 @@ class TowelCapeItem : IUpgradeableItem, RequiresWhimsy, ElytraItem(
 	override fun elytraFlightTick(stack: ItemStack, entity: LivingEntity, flightTicks: Int): Boolean {
 		if (entity.isClientSide) return true
 
-		if (flightTicks >= DURATION) {
+		if (flightTicks >= FLIGHT_DURATION) {
 			stack.set(ModDataComponents.TOWEL_CAPE_WORKS, false)
 			return false
 		}
@@ -66,6 +54,20 @@ class TowelCapeItem : IUpgradeableItem, RequiresWhimsy, ElytraItem(
 		}
 
 		return true
+	}
+
+	companion object {
+		private const val FLIGHT_DURATION = 20 * 5
+
+		val DEFAULT_PROPERTIES: () -> Properties = 	{
+			Properties()
+				.durability(432)
+				.rarity(Rarity.UNCOMMON)
+				.component(
+					ModDataComponents.TOWEL_CAPE_WORKS,
+					true
+				)
+		}
 	}
 
 }

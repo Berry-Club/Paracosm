@@ -10,10 +10,9 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 
-class ShrinkRayItem : RequiresWhimsy, Item(
-	Properties()
-		.stacksTo(1)
-) {
+class ShrinkRayItem(properties: Properties) : RequiresWhimsy, Item(properties) {
+
+	override val requiredWhimsy: Double = 10.0
 
 	override fun use(level: Level, player: Player, usedHand: InteractionHand): InteractionResultHolder<ItemStack> {
 		val usedStack = player.getItemInHand(usedHand)
@@ -42,6 +41,8 @@ class ShrinkRayItem : RequiresWhimsy, Item(
 		return InteractionResultHolder.sidedSuccess(usedStack, level.isClientSide)
 	}
 
-	override val requiredWhimsy: Double = 10.0
+	companion object {
+		val DEFAULT_PROPERTIES: Properties = Properties().stacksTo(1)
+	}
 
 }

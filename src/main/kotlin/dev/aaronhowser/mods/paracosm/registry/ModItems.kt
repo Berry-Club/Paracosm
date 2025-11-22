@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.registry
 
+import dev.aaronhowser.mods.aaron.registry.AaronItemRegistry
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.item.*
 import dev.aaronhowser.mods.paracosm.item.base.FancyFoodItem
@@ -10,29 +11,29 @@ import net.minecraft.world.item.ItemNameBlockItem
 import net.neoforged.neoforge.registries.DeferredItem
 import net.neoforged.neoforge.registries.DeferredRegister
 
-object ModItems {
+object ModItems : AaronItemRegistry() {
 
-	val ITEM_REGISTRY: DeferredRegister.Items =
-		DeferredRegister.createItems(Paracosm.ID)
+	val ITEM_REGISTRY: DeferredRegister.Items = DeferredRegister.createItems(Paracosm.ID)
+	override fun getItemRegistry(): DeferredRegister.Items = ITEM_REGISTRY
 
-	val COTTON: DeferredItem<Item> =
-		ITEM_REGISTRY.registerItem("cotton") { ItemNameBlockItem(ModBlocks.COTTON.get(), Item.Properties()) }
+	val COTTON: DeferredItem<ItemNameBlockItem> =
+		registerItemNameBlockItem("cotton", ModBlocks.COTTON)
 	val TOY_GUN: DeferredItem<ToyGunItem> =
-		ITEM_REGISTRY.registerItem("toy_gun") { ToyGunItem() }
+		register("toy_gun", ::ToyGunItem, ToyGunItem.DEFAULT_PROPERTIES)
 	val TOWEL_CAPE: DeferredItem<TowelCapeItem> =
-		ITEM_REGISTRY.registerItem("towel_cape") { TowelCapeItem() }
+		register("towel_cape", ::TowelCapeItem, TowelCapeItem.DEFAULT_PROPERTIES)
 	val SEEING_STONE: DeferredItem<SeeingStone> =
-		ITEM_REGISTRY.registerItem("seeing_stone") { SeeingStone() }
+		register("seeing_stone", ::SeeingStone, SeeingStone.DEFAULT_PROPERTIES)
 	val DODGEBALL: DeferredItem<DodgeballItem> =
-		ITEM_REGISTRY.registerItem("dodgeball") { DodgeballItem() }
+		register("dodgeball", ::DodgeballItem, DodgeballItem.DEFAULT_PROPERTIES)
 	val SHRINK_RAY: DeferredItem<ShrinkRayItem> =
-		ITEM_REGISTRY.registerItem("shrink_ray") { ShrinkRayItem() }
+		register("shrink_ray", ::ShrinkRayItem, ShrinkRayItem.DEFAULT_PROPERTIES)
 	val STICKY_HAND: DeferredItem<StickyHandItem> =
-		ITEM_REGISTRY.registerItem("sticky_hand") { StickyHandItem() }
+		register("sticky_hand", ::StickyHandItem, StickyHandItem.DEFAULT_PROPERTIES)
 	val POGO_STICK: DeferredItem<PogoStickItem> =
-		ITEM_REGISTRY.registerItem("pogo_stick") { PogoStickItem() }
+		register("pogo_stick", ::PogoStickItem, PogoStickItem.DEFAULT_PROPERTIES)
 	val DUCK_HUNT_GUN: DeferredItem<DuckHuntGunItem> =
-		ITEM_REGISTRY.registerItem("duck_hunt_gun") { DuckHuntGunItem() }
+		register("duck_hunt_gun", ::DuckHuntGunItem, DuckHuntGunItem.DEFAULT_PROPERTIES)
 
 	// Foods
 	val CANDY: DeferredItem<FancyFoodItem> =
@@ -61,6 +62,6 @@ object ModItems {
 			)
 		}
 	val WARM_MILK: DeferredItem<WarmMilkItem> =
-		ITEM_REGISTRY.registerItem("warm_milk") { WarmMilkItem() }
+		register("warm_milk", ::WarmMilkItem, WarmMilkItem.DEFAULT_PROPERTIES)
 
 }

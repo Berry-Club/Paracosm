@@ -12,19 +12,12 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 
 //TODO: Alternate upgrade that makes it PUNCH
-class StickyHandItem : Item(
-	Properties()
-		.stacksTo(1)
-) {
-
-	companion object {
-		val playerStickyHands = mutableMapOf<Player, StickyHandProjectile>()
-	}
+class StickyHandItem(properties: Properties) : Item(properties) {
 
 	override fun use(level: Level, player: Player, usedHand: InteractionHand): InteractionResultHolder<ItemStack> {
 		val heldItem = player.getItemInHand(usedHand)
 
-		val playerHand = playerStickyHands[player]
+		val playerHand = PLAYER_STICKY_HANDS[player]
 
 		if (playerHand == null) {
 			level.playSound(    //TODO: new sound (and another sound for landing? wet thwap)
@@ -41,7 +34,7 @@ class StickyHandItem : Item(
 			if (level is ServerLevel) {
 				val stickyHand = StickyHandProjectile(player)
 
-				playerStickyHands[player] = stickyHand
+				PLAYER_STICKY_HANDS[player] = stickyHand
 				level.addFreshEntity(stickyHand)
 			}
 		} else {
@@ -58,7 +51,7 @@ class StickyHandItem : Item(
 			)
 
 			if (level is ServerLevel) {
-				playerStickyHands.remove(player)
+				PLAYER_STICKY_HANDS.remove(player)
 				playerHand.retrieve()
 			}
 
@@ -66,6 +59,11 @@ class StickyHandItem : Item(
 
 
 		return InteractionResultHolder.sidedSuccess(heldItem, level.isClientSide)
+	}
+
+	companion object {
+		val PLAYER_STICKY_HANDS: MutableMap<Player, StickyHandProjectile> = mutableMapOf()
+		val DEFAULT_PROPERTIES: Properties = Properties().stacksTo(1)
 	}
 
 }

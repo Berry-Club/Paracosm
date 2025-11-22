@@ -16,8 +16,7 @@ class FancyFoodItem(
 ) {
 
 	override fun getUseAnimation(stack: ItemStack): UseAnim {
-		return if (isDrink) UseAnim.DRINK else UseAnim.EAT
-	}
+		return if (isDrink) UseAnim.DRINK else UseAnim.EAT }
 
 	companion object {
 		fun FoodProperties.Builder.fast(seconds: Float): FoodProperties.Builder {
