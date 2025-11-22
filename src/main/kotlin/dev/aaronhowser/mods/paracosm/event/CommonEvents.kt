@@ -11,6 +11,7 @@ import dev.aaronhowser.mods.paracosm.handler.AttributeHandler.baseWhimsy
 import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateEntityUpgrades
 import dev.aaronhowser.mods.paracosm.registry.ModAttributes
+import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.research.ModResearchTypes
 import dev.aaronhowser.mods.paracosm.research.ResearchType
@@ -21,6 +22,7 @@ import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.event.RegisterCommandsEvent
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent
 import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent
+import net.neoforged.neoforge.event.entity.living.LivingChangeTargetEvent
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent
 import net.neoforged.neoforge.event.entity.player.PlayerEvent
@@ -99,6 +101,20 @@ object CommonEvents {
 			ResearchType.DIRECT_CODEC,
 			ResearchType.DIRECT_CODEC
 		)
+	}
+
+	@SubscribeEvent
+	fun onLivingChangeTarget(event: LivingChangeTargetEvent) {
+		val attacker = event.entity
+		val newTarget = event.newAboutToBeSetTarget ?: return
+
+		for (armorStack in newTarget.armorSlots) {
+			val aggroImmuneFrom = armorStack.get(ModDataComponents.AGGRO_IMMUNE_FROM) ?: continue
+			if (aggroImmuneFrom.any { attacker.type.`is`(it) }) {
+				event.isCanceled = true
+				return
+			}
+		}
 	}
 
 }
