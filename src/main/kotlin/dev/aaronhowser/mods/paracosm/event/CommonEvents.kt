@@ -17,6 +17,7 @@ import dev.aaronhowser.mods.paracosm.research.ModResearchTypes
 import dev.aaronhowser.mods.paracosm.research.ResearchType
 import dev.aaronhowser.mods.paracosm.util.Upgradeable
 import net.minecraft.server.level.ServerPlayer
+import net.minecraft.world.entity.Mob
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.event.RegisterCommandsEvent
@@ -24,6 +25,7 @@ import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent
 import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent
 import net.neoforged.neoforge.event.entity.living.LivingChangeTargetEvent
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent
+import net.neoforged.neoforge.event.entity.living.LivingEquipmentChangeEvent
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent
 import net.neoforged.neoforge.event.entity.player.PlayerEvent
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent
@@ -106,13 +108,34 @@ object CommonEvents {
 	@SubscribeEvent
 	fun onLivingChangeTarget(event: LivingChangeTargetEvent) {
 		val attacker = event.entity
-		val newTarget = event.newAboutToBeSetTarget ?: return
+		val newTarget = event.originalAboutToBeSetTarget ?: return
 
 		for (armorStack in newTarget.armorSlots) {
 			val aggroImmuneFrom = armorStack.get(ModDataComponents.AGGRO_IMMUNE_FROM) ?: continue
 			if (aggroImmuneFrom.any { attacker.type.`is`(it) }) {
 				event.isCanceled = true
 				return
+			}
+		}
+	}
+
+	@SubscribeEvent
+	fun onChangeEquipment(event: LivingEquipmentChangeEvent) {
+		val entity = event.entity
+
+		val newStack = event.to
+		val aggroImmuneFrom = newStack.get(ModDataComponents.AGGRO_IMMUNE_FROM)
+		if (aggroImmuneFrom != null) {
+			val nearbyMobs = entity
+				.level()
+				.getEntitiesOfClass(Mob::class.java, entity.boundingBox.inflate(20.0))
+
+			for (mob in nearbyMobs) {
+				if (aggroImmuneFrom.any { mob.type.`is`(it) }) {
+					if (mob.target == entity) {
+						mob.target = null
+					}
+				}
 			}
 		}
 	}
