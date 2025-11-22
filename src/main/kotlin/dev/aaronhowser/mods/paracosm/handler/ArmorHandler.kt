@@ -15,6 +15,7 @@ object ArmorHandler {
 			val aggroImmuneFrom = armorStack.get(ModDataComponents.AGGRO_IMMUNE_FROM) ?: continue
 			if (attacker.type.`is`(aggroImmuneFrom)) {
 				event.isCanceled = true
+				break
 			}
 		}
 	}
