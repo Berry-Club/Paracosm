@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.paracosm.entity.custom.AaronberryEntity
 import dev.aaronhowser.mods.paracosm.entity.custom.PogoStickVehicle
 import dev.aaronhowser.mods.paracosm.entity.custom.StringWormEntity
 import dev.aaronhowser.mods.paracosm.entity.custom.TeddyBearEntity
+import dev.aaronhowser.mods.paracosm.handler.ArmorHandler
 import dev.aaronhowser.mods.paracosm.handler.AttributeHandler.baseWhimsy
 import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateEntityUpgrades
@@ -107,37 +108,12 @@ object CommonEvents {
 
 	@SubscribeEvent
 	fun onLivingChangeTarget(event: LivingChangeTargetEvent) {
-		val attacker = event.entity
-		val newTarget = event.originalAboutToBeSetTarget ?: return
-
-		for (armorStack in newTarget.armorSlots) {
-			val aggroImmuneFrom = armorStack.get(ModDataComponents.AGGRO_IMMUNE_FROM) ?: continue
-			if (aggroImmuneFrom.any { attacker.type.`is`(it) }) {
-				event.isCanceled = true
-				return
-			}
-		}
+		ArmorHandler.stopAggro(event)
 	}
 
 	@SubscribeEvent
 	fun onChangeEquipment(event: LivingEquipmentChangeEvent) {
-		val entity = event.entity
-
-		val newStack = event.to
-		val aggroImmuneFrom = newStack.get(ModDataComponents.AGGRO_IMMUNE_FROM)
-		if (aggroImmuneFrom != null) {
-			val nearbyMobs = entity
-				.level()
-				.getEntitiesOfClass(Mob::class.java, entity.boundingBox.inflate(20.0))
-
-			for (mob in nearbyMobs) {
-				if (aggroImmuneFrom.any { mob.type.`is`(it) }) {
-					if (mob.target == entity) {
-						mob.target = null
-					}
-				}
-			}
-		}
+		ArmorHandler.stopAggro(event)
 	}
 
 }
