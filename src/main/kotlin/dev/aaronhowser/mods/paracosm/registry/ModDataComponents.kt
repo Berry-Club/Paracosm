@@ -31,18 +31,18 @@ object ModDataComponents : AaronDataComponentRegistry() {
 			ByteBufCodecs.STRING_UTF8.apply(ByteBufCodecs.list())
 		)
 
-	val AGGRO_IMMUNE_FROM: DeferredHolder<DataComponentType<*>, DataComponentType<List<TagKey<EntityType<*>>>>> =
+	val AGGRO_IMMUNE_FROM: DeferredHolder<DataComponentType<*>, DataComponentType<TagKey<EntityType<*>>>> =
 		register(
 			"aggro_immune_from",
-			TagKey.codec(Registries.ENTITY_TYPE).listOf(),
-			AaronExtraCodecs.tagKeyStreamCodec(Registries.ENTITY_TYPE).apply(ByteBufCodecs.list())
+			TagKey.codec(Registries.ENTITY_TYPE),
+			AaronExtraCodecs.tagKeyStreamCodec(Registries.ENTITY_TYPE)
 		)
 
-	val SCARES_ENTITY_TYPES: DeferredHolder<DataComponentType<*>, DataComponentType<List<TagKey<EntityType<*>>>>> =
+	val SCARES_ENTITY_TYPES: DeferredHolder<DataComponentType<*>, DataComponentType<TagKey<EntityType<*>>>> =
 		register(
 			"scares_entity_types",
-			TagKey.codec(Registries.ENTITY_TYPE).listOf(),
-			AaronExtraCodecs.tagKeyStreamCodec(Registries.ENTITY_TYPE).apply(ByteBufCodecs.list())
+			TagKey.codec(Registries.ENTITY_TYPE),
+			AaronExtraCodecs.tagKeyStreamCodec(Registries.ENTITY_TYPE)
 		)
 
 }

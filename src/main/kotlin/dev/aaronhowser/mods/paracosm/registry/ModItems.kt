@@ -40,11 +40,11 @@ object ModItems : AaronItemRegistry() {
 		register("duck_hunt_gun", ::DuckHuntGunItem, DuckHuntGunItem.DEFAULT_PROPERTIES)
 
 	val ZOMBIE_MASK: DeferredItem<ArmorItem> =
-		halloweenMask("zombie_mask", listOf(ModEntityTypeTagsProvider.AFFECTED_BY_ZOMBIE_MASK))
+		halloweenMask("zombie_mask", ModEntityTypeTagsProvider.AFFECTED_BY_ZOMBIE_MASK)
 	val SKELETON_MASK: DeferredItem<ArmorItem> =
-		halloweenMask("skeleton_mask", listOf(ModEntityTypeTagsProvider.AFFECTED_BY_SKELETON_MASK))
+		halloweenMask("skeleton_mask", ModEntityTypeTagsProvider.AFFECTED_BY_SKELETON_MASK)
 	val CREEPER_MASK: DeferredItem<ArmorItem> =
-		halloweenMask("creeper_mask", listOf(ModEntityTypeTagsProvider.AFFECTED_BY_CREEPER_MASK))
+		halloweenMask("creeper_mask", ModEntityTypeTagsProvider.AFFECTED_BY_CREEPER_MASK)
 
 	// Foods
 	val CANDY: DeferredItem<FancyFoodItem> =
@@ -77,7 +77,7 @@ object ModItems : AaronItemRegistry() {
 
 	private fun halloweenMask(
 		id: String,
-		neutralEntities: List<TagKey<EntityType<*>>>
+		neutralEntities: TagKey<EntityType<*>>
 	): DeferredItem<ArmorItem> {
 		return ITEM_REGISTRY.registerItem(id) {
 			ArmorItem(
