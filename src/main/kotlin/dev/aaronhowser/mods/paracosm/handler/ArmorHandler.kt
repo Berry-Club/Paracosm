@@ -7,6 +7,10 @@ import net.neoforged.neoforge.event.entity.living.LivingEquipmentChangeEvent
 
 object ArmorHandler {
 
+	//TODO: Make this an upgrade, not just by default
+	// Maybe an upgrade to the PLAYER that makes it so that any worn armor has this effect,
+	// rather than having it be per armor stack?
+
 	fun stopAggro(event: LivingChangeTargetEvent) {
 		val attacker = event.entity
 		val newTarget = event.originalAboutToBeSetTarget ?: return
