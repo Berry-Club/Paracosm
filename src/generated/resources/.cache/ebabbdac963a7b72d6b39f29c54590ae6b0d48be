@@ -1,3 +1,6 @@
-// 1.21.1	2025-11-20T14:22:30.0419108	Tags for minecraft:entity_type mod id paracosm
+// 1.21.1	2025-11-22T13:12:40.6125951	Tags for minecraft:entity_type mod id paracosm
 a30dc1fca54166ab941357d8950658c4a2c0c3b7 data/minecraft/tags/entity_type/redirectable_projectile.json
+da9ec5f7ed64a0d225e00ee60b8e6d6408b431fb data/paracosm/tags/entity_type/affected_by_creeper_mask.json
+cf6c3633d162f5b8bf79d21ea172ed80d9be850e data/paracosm/tags/entity_type/affected_by_skeleton_mask.json
+29c4c858bf8ad96f2189aaf0cf9514ff4755d4ed data/paracosm/tags/entity_type/affected_by_zombie_mask.json
 c3244b01b579766485daeedddcdf55e28b372511 data/paracosm/tags/entity_type/toys.json

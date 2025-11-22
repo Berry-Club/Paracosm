@@ -2,10 +2,10 @@ package dev.aaronhowser.mods.paracosm.registry
 
 import dev.aaronhowser.mods.aaron.registry.AaronItemRegistry
 import dev.aaronhowser.mods.paracosm.Paracosm
+import dev.aaronhowser.mods.paracosm.datagen.tag.ModEntityTypeTagsProvider
 import dev.aaronhowser.mods.paracosm.item.*
 import dev.aaronhowser.mods.paracosm.item.base.FancyFoodItem
 import dev.aaronhowser.mods.paracosm.item.base.FancyFoodItem.Companion.fast
-import net.minecraft.tags.EntityTypeTags
 import net.minecraft.tags.TagKey
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.food.FoodProperties
@@ -39,8 +39,12 @@ object ModItems : AaronItemRegistry() {
 	val DUCK_HUNT_GUN: DeferredItem<DuckHuntGunItem> =
 		register("duck_hunt_gun", ::DuckHuntGunItem, DuckHuntGunItem.DEFAULT_PROPERTIES)
 
-	val ZOMBIE_MASK = halloweenMask("zombie_mask", listOf(EntityTypeTags.ZOMBIES))
-	val SKELETON_MASK = halloweenMask("skeleton_mask", listOf(EntityTypeTags.SKELETONS))
+	val ZOMBIE_MASK: DeferredItem<ArmorItem> =
+		halloweenMask("zombie_mask", listOf(ModEntityTypeTagsProvider.AFFECTED_BY_ZOMBIE_MASK))
+	val SKELETON_MASK: DeferredItem<ArmorItem> =
+		halloweenMask("skeleton_mask", listOf(ModEntityTypeTagsProvider.AFFECTED_BY_SKELETON_MASK))
+	val CREEPER_MASK: DeferredItem<ArmorItem> =
+		halloweenMask("creeper_mask", listOf(ModEntityTypeTagsProvider.AFFECTED_BY_CREEPER_MASK))
 
 	// Foods
 	val CANDY: DeferredItem<FancyFoodItem> =
@@ -74,8 +78,8 @@ object ModItems : AaronItemRegistry() {
 	private fun halloweenMask(
 		id: String,
 		neutralEntities: List<TagKey<EntityType<*>>>
-	) {
-		ITEM_REGISTRY.registerItem(id) {
+	): DeferredItem<ArmorItem> {
+		return ITEM_REGISTRY.registerItem(id) {
 			ArmorItem(
 				ModArmorMaterials.HALLOWEEN_MASK,
 				ArmorItem.Type.HELMET,

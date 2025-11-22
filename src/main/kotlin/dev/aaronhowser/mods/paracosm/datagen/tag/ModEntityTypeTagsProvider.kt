@@ -20,16 +20,27 @@ class ModEntityTypeTagsProvider(
 ) : EntityTypeTagsProvider(pOutput, pProvider, Paracosm.MOD_ID, existingFileHelper) {
 
 	override fun addTags(pProvider: HolderLookup.Provider) {
-		this.tag(EntityTypeTags.REDIRECTABLE_PROJECTILE)
+
+		tag(EntityTypeTags.REDIRECTABLE_PROJECTILE)
 			.add(ModEntityTypes.DODGEBALL.get())
 
-		this.tag(TOYS)
+		tag(TOYS)
 			.add(
 				ModEntityTypes.AARONBERRY.get(),
 				ModEntityTypes.TEDDY_BEAR.get(),
 				ModEntityTypes.STRING_WORM.get(),
 				ModEntityTypes.DODGEBALL.get()
 			)
+
+		tag(AFFECTED_BY_ZOMBIE_MASK)
+			.addTag(EntityTypeTags.ZOMBIES)
+
+		tag(AFFECTED_BY_SKELETON_MASK)
+			.addTag(EntityTypeTags.SKELETONS)
+
+		tag(AFFECTED_BY_CREEPER_MASK)
+			.add(EntityType.CREEPER)
+
 	}
 
 	companion object {
@@ -39,6 +50,10 @@ class ModEntityTypeTagsProvider(
 		}
 
 		val TOYS = create("toys")
+
+		val AFFECTED_BY_ZOMBIE_MASK = create("affected_by_zombie_mask")
+		val AFFECTED_BY_SKELETON_MASK = create("affected_by_skeleton_mask")
+		val AFFECTED_BY_CREEPER_MASK = create("affected_by_creeper_mask")
 	}
 
 }
