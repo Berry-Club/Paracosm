@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.paracosm.block.block_entity
 
-import dev.aaronhowser.mods.paracosm.registry.ModBlockEntities
+import dev.aaronhowser.mods.paracosm.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.state.BlockState
 class CityRugBlockEntity(
 	pPos: BlockPos,
 	pBlockState: BlockState
-) : BlockEntity(ModBlockEntities.CITY_RUG.get(), pPos, pBlockState) {
+) : BlockEntity(ModBlockEntityTypes.CITY_RUG.get(), pPos, pBlockState) {
 
 	var origin: BlockPos? = null
 	var childBlocks: List<BlockPos> = emptyList()
