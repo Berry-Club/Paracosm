@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.paracosm.item
 
-import dev.aaronhowser.mods.paracosm.entity.custom.StickyHandProjectile
+import dev.aaronhowser.mods.paracosm.entity.StickyHandProjectile
 import dev.aaronhowser.mods.paracosm.registry.ModSounds
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.sounds.SoundSource

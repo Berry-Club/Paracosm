@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.paracosm.client.render.entity.renderer
 
-import dev.aaronhowser.mods.paracosm.entity.custom.ShrinkRayProjectile
+import dev.aaronhowser.mods.paracosm.entity.ShrinkRayProjectile
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.client.renderer.entity.ArrowRenderer
 import net.minecraft.client.renderer.entity.EntityRendererProvider

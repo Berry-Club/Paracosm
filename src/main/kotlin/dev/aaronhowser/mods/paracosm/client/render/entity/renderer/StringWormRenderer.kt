@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.paracosm.client.render.entity.renderer
 
 import dev.aaronhowser.mods.paracosm.client.render.entity.model.StringWormModel
-import dev.aaronhowser.mods.paracosm.entity.custom.StringWormEntity
+import dev.aaronhowser.mods.paracosm.entity.StringWormEntity
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.client.renderer.entity.EntityRendererProvider
 import net.minecraft.resources.ResourceLocation

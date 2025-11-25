@@ -1,7 +1,13 @@
 package dev.aaronhowser.mods.paracosm.registry
 
 import dev.aaronhowser.mods.paracosm.Paracosm
-import dev.aaronhowser.mods.paracosm.entity.custom.*
+import dev.aaronhowser.mods.paracosm.entity.AaronberryEntity
+import dev.aaronhowser.mods.paracosm.entity.DodgeballEntity
+import dev.aaronhowser.mods.paracosm.entity.PogoStickVehicle
+import dev.aaronhowser.mods.paracosm.entity.ShrinkRayProjectile
+import dev.aaronhowser.mods.paracosm.entity.StickyHandProjectile
+import dev.aaronhowser.mods.paracosm.entity.StringWormEntity
+import dev.aaronhowser.mods.paracosm.entity.TeddyBearEntity
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.MobCategory

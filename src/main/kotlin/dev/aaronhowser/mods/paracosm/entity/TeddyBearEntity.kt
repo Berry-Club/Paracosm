@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.paracosm.entity.custom
+package dev.aaronhowser.mods.paracosm.entity
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
 import dev.aaronhowser.mods.aaron.AaronExtensions.isServerSide

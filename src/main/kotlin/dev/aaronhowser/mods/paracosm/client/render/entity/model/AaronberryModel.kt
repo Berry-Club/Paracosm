@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.paracosm.client.render.entity.model
 
-import dev.aaronhowser.mods.paracosm.entity.custom.AaronberryEntity
+import dev.aaronhowser.mods.paracosm.entity.AaronberryEntity
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import dev.aaronhowser.mods.paracosm.util.OtherUtil.map
 import software.bernie.geckolib.animation.AnimationState

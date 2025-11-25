@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.paracosm.entity.custom
+package dev.aaronhowser.mods.paracosm.entity
 
 import dev.aaronhowser.mods.paracosm.entity.base.ToyEntity
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyLookAtPlayerGoal

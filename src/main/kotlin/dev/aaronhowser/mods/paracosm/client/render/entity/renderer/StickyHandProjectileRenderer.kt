@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.blaze3d.vertex.VertexConsumer
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.paracosm.client.render.entity.model.StickyHandProjectileModel
-import dev.aaronhowser.mods.paracosm.entity.custom.StickyHandProjectile
+import dev.aaronhowser.mods.paracosm.entity.StickyHandProjectile
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.client.renderer.MultiBufferSource

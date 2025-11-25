@@ -5,7 +5,7 @@ import dev.aaronhowser.mods.paracosm.client.DuckHuntGunShaderHandler
 import dev.aaronhowser.mods.paracosm.client.render.entity.renderer.*
 import dev.aaronhowser.mods.paracosm.client.render.layer.TowelCapeLayer
 import dev.aaronhowser.mods.paracosm.datagen.model.ModItemModelProvider
-import dev.aaronhowser.mods.paracosm.entity.custom.PogoStickVehicle
+import dev.aaronhowser.mods.paracosm.entity.PogoStickVehicle
 import dev.aaronhowser.mods.paracosm.item.ToyGunItem
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.registry.ModItems

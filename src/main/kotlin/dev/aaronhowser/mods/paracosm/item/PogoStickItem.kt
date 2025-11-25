@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.paracosm.item
 
-import dev.aaronhowser.mods.paracosm.entity.custom.PogoStickVehicle
+import dev.aaronhowser.mods.paracosm.entity.PogoStickVehicle
 import dev.aaronhowser.mods.paracosm.item.base.IUpgradeableItem
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes

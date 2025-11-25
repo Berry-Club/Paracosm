@@ -3,10 +3,10 @@ package dev.aaronhowser.mods.paracosm.event
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.command.ModCommands
 import dev.aaronhowser.mods.paracosm.datagen.tag.ModItemTagsProvider
-import dev.aaronhowser.mods.paracosm.entity.custom.AaronberryEntity
-import dev.aaronhowser.mods.paracosm.entity.custom.PogoStickVehicle
-import dev.aaronhowser.mods.paracosm.entity.custom.StringWormEntity
-import dev.aaronhowser.mods.paracosm.entity.custom.TeddyBearEntity
+import dev.aaronhowser.mods.paracosm.entity.AaronberryEntity
+import dev.aaronhowser.mods.paracosm.entity.PogoStickVehicle
+import dev.aaronhowser.mods.paracosm.entity.StringWormEntity
+import dev.aaronhowser.mods.paracosm.entity.TeddyBearEntity
 import dev.aaronhowser.mods.paracosm.handler.ArmorHandler
 import dev.aaronhowser.mods.paracosm.handler.AttributeHandler.baseWhimsy
 import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler

@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.paracosm.client.render.entity.model
 
-import dev.aaronhowser.mods.paracosm.entity.custom.StringWormEntity
+import dev.aaronhowser.mods.paracosm.entity.StringWormEntity
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.util.Mth
 import software.bernie.geckolib.animation.AnimationState

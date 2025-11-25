@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.paracosm.packet.client_to_server
 
 import dev.aaronhowser.mods.aaron.packet.AaronPacket
-import dev.aaronhowser.mods.paracosm.entity.custom.PogoStickVehicle
+import dev.aaronhowser.mods.paracosm.entity.PogoStickVehicle
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import io.netty.buffer.ByteBuf
 import net.minecraft.network.codec.ByteBufCodecs
