@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.paracosm.entity
 import dev.aaronhowser.mods.aaron.AaronExtensions.isServerSide
 import net.minecraft.network.syncher.SynchedEntityData
 import net.minecraft.world.entity.EntityType
-import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.entity.projectile.Projectile
 import net.minecraft.world.item.ItemStack
@@ -18,7 +17,6 @@ open class FoamDartProjectile(
 	level: Level
 ) : Projectile(entityType, level) {
 
-	protected var owner: LivingEntity? = null
 	protected var pickupItemStack: ItemStack? = null
 
 	override fun defineSynchedData(builder: SynchedEntityData.Builder) {
@@ -45,6 +43,8 @@ open class FoamDartProjectile(
 		val blockState = level.getBlockState(blockPos)
 		val block = blockState.block
 
+		val owner = getOwner()
+
 		if (block is ButtonBlock) {
 			block.press(blockState, level, blockPos, owner as? Player)
 		}
@@ -59,6 +59,8 @@ open class FoamDartProjectile(
 			)
 		}
 	}
+
+	override fun getDefaultGravity(): Double = 0.05
 
 }
 
