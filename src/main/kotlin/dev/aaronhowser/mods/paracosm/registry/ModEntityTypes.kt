@@ -36,6 +36,9 @@ object ModEntityTypes {
 	val POGO_STICK_VEHICLE: DeferredHolder<EntityType<*>, EntityType<PogoStickVehicle>> =
 		register("pogo_stick", ::PogoStickVehicle, MobCategory.MISC, 0.5f, 1.5f)
 
+	val FOAM_DART: DeferredHolder<EntityType<*>, EntityType<FoamDartProjectile>> =
+		register("foam_dart", ::FoamDartProjectile, MobCategory.MISC, 0.25f, 0.25f)
+
 	private fun <T : Entity> register(
 		name: String,
 		factory: EntityType.EntityFactory<T>,

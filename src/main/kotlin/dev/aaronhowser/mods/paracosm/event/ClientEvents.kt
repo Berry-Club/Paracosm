@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.paracosm.client.DuckHuntGunShaderHandler
 import dev.aaronhowser.mods.paracosm.client.render.entity.renderer.*
 import dev.aaronhowser.mods.paracosm.client.render.layer.TowelCapeLayer
 import dev.aaronhowser.mods.paracosm.datagen.model.ModItemModelProvider
+import dev.aaronhowser.mods.paracosm.entity.FoamDartProjectile
 import dev.aaronhowser.mods.paracosm.entity.PogoStickVehicle
 import dev.aaronhowser.mods.paracosm.item.ToyGunItem
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
@@ -51,7 +52,7 @@ object ClientEvents {
 		event.registerEntityRenderer(ModEntityTypes.SHRINK_RAY_PROJECTILE.get(), ::ShrinkRayProjectileRenderer)
 		event.registerEntityRenderer(ModEntityTypes.STICKY_HAND_PROJECTILE.get(), ::StickyHandProjectileRenderer)
 		event.registerEntityRenderer(ModEntityTypes.POGO_STICK_VEHICLE.get(), ::PogoStickVehicleRenderer)
-
+		event.registerEntityRenderer(ModEntityTypes.FOAM_DART.get(), ::FoamDartRenderer)
 	}
 
 	@SubscribeEvent
