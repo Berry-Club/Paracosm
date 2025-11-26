@@ -1,10 +1,10 @@
 package dev.aaronhowser.mods.paracosm.entity
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.isServerSide
-import net.minecraft.network.syncher.SynchedEntityData
+import dev.aaronhowser.mods.paracosm.registry.ModItems
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.player.Player
-import net.minecraft.world.entity.projectile.Projectile
+import net.minecraft.world.entity.projectile.AbstractArrow
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.ButtonBlock
@@ -15,21 +15,13 @@ import net.minecraft.world.phys.HitResult
 open class FoamDartProjectile(
 	entityType: EntityType<out FoamDartProjectile>,
 	level: Level
-) : Projectile(entityType, level) {
-
-	protected var pickupItemStack: ItemStack? = null
-
-	override fun defineSynchedData(builder: SynchedEntityData.Builder) {
-		// none
-	}
+) : AbstractArrow(entityType, level) {
 
 	override fun onHit(result: HitResult) {
 		super.onHit(result)
 
 		if (isServerSide) {
-			if (pickupItemStack != null) {
-				spawnAtLocation(pickupItemStack!!)
-			}
+			spawnAtLocation(pickupItem, 0.1f)
 			discard()
 		}
 	}
@@ -60,7 +52,7 @@ open class FoamDartProjectile(
 		}
 	}
 
-	override fun getDefaultGravity(): Double = 0.05
+	override fun getDefaultPickupItem(): ItemStack = ModItems.FOAM_DART.toStack()
 
 }
 
