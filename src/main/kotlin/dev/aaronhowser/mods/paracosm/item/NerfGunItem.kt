@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.paracosm.item
 
 import dev.aaronhowser.mods.paracosm.registry.ModItems
+import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.entity.LivingEntity
@@ -19,6 +20,23 @@ class NerfGunItem(properties: Properties) : ProjectileWeaponItem(properties) {
 		usedHand: InteractionHand
 	): InteractionResultHolder<ItemStack> {
 		val ammoStack = ModItems.FOAM_DART.toStack()
+		val usedStack = player.getItemInHand(usedHand)
+
+		if (level is ServerLevel) {
+			shoot(
+				level,
+				player,
+				usedHand,
+				usedStack,
+				listOf(ammoStack),
+				3f,
+				0f,
+				false,
+				null
+			)
+		}
+
+		return InteractionResultHolder.success(usedStack)
 	}
 
 	override fun shootProjectile(

@@ -48,7 +48,8 @@ object ModItems : AaronItemRegistry() {
 
 	val NERF_GUN: DeferredItem<NerfGunItem> =
 		register("nerf_gun", ::NerfGunItem, NerfGunItem.DEFAULT_PROPERTIES)
-	val FOAM_DART = basic("foam_dart")
+	val FOAM_DART: DeferredItem<FoamDartItem> =
+		register("foam_dart", ::FoamDartItem, FoamDartItem.DEFAULT_PROPERTIES)
 
 	// Foods
 	val CANDY: DeferredItem<FancyFoodItem> =
