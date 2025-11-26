@@ -61,7 +61,7 @@ class FoamDartModel(
 						1f, 1f, 5f,
 						CubeDeformation(0f)
 					),
-				PartPose.offset(0f, 24f, 0f)
+				PartPose.offset(0f, 0f, 0f)
 			)
 
 			return LayerDefinition.create(meshDefinition, 16, 16)
