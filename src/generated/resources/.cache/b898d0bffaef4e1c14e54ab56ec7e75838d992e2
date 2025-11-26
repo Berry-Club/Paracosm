@@ -1,11 +1,17 @@
-// 1.21.1	2025-11-20T14:22:30.0434121	Item Models: paracosm
+// 1.21.1	2025-11-26T09:14:11.698935	Item Models: paracosm
 9bf3a355896cf086aa2a477cf80aa6a02cee41b8 assets/paracosm/models/item/candy.json
 2013e1546b218961a92875a099c0602d7ae580cf assets/paracosm/models/item/cotton.json
+f2e68e391264d505654584e23d47470819e83380 assets/paracosm/models/item/creeper_mask.json
+af64e912fc76e2258b41361d07f590d069b5623a assets/paracosm/models/item/duck_hunt_gun.json
+8538a6cb1825d807081d416138f5f2115cecfbcd assets/paracosm/models/item/foam_dart.json
+78bacd812b1d04407449de1dabe3cf321b0a8774 assets/paracosm/models/item/nerf_gun.json
 dca6ef991a130cc1f8c22a0ec93476afac7c9f6d assets/paracosm/models/item/pogo_stick.json
 5d165852ab60268cf09ba2488531abe07b4a459e assets/paracosm/models/item/shrink_ray.json
+0031c996024060ee750847edfc52ed88e82b6d39 assets/paracosm/models/item/skeleton_mask.json
 1320fd102cf40afab498681f44e2df375c079ed2 assets/paracosm/models/item/soda.json
 6149d45a94350ee38f76cac6d9e984e0e4630d33 assets/paracosm/models/item/sticky_hand.json
 e5a01083dbb8c2def12a366a5ce3e0e0b48d6057 assets/paracosm/models/item/towel_cape.json
 f79493ea0f689e199e79dd1cb70b87478f2061d4 assets/paracosm/models/item/toy_gun.json
 848dfadf0ac405c10a66bd390d1eee2dae9cfdf9 assets/paracosm/models/item/toy_gun_whimsy.json
 4133faf3b9a66b59f3a21a14c4609e68ddb292d7 assets/paracosm/models/item/warm_milk.json
+c28f5a9caaf1f5fc4e311fd818aa2dea0d78810b assets/paracosm/models/item/zombie_mask.json

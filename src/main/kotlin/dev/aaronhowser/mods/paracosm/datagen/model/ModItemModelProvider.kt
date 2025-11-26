@@ -26,7 +26,13 @@ class ModItemModelProvider(
 			ModItems.WARM_MILK,
 			ModItems.SHRINK_RAY, //TODO: Make whimsy
 			ModItems.STICKY_HAND,
-			ModItems.POGO_STICK
+			ModItems.POGO_STICK,
+			ModItems.DUCK_HUNT_GUN,
+			ModItems.ZOMBIE_MASK,
+			ModItems.SKELETON_MASK,
+			ModItems.CREEPER_MASK,
+			ModItems.NERF_GUN,
+			ModItems.FOAM_DART
 		)
 
 		for (item in basicModels) {
