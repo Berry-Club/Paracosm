@@ -7,6 +7,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.entity.projectile.Projectile
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.ButtonBlock
+import net.minecraft.world.level.block.DoorBlock
 import net.minecraft.world.phys.BlockHitResult
 
 open class FoamDartProjectile(
@@ -31,6 +32,16 @@ open class FoamDartProjectile(
 
 		if (block is ButtonBlock) {
 			block.press(blockState, level, blockPos, owner as? Player)
+		}
+
+		if (block is DoorBlock) {
+			block.setOpen(
+				owner,
+				level,
+				blockState,
+				blockPos,
+				!blockState.getValue(DoorBlock.OPEN)
+			)
 		}
 	}
 
