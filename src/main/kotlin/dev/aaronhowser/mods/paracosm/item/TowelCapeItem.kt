@@ -59,7 +59,7 @@ class TowelCapeItem(properties: Properties) : IUpgradeableItem, RequiresWhimsy, 
 	companion object {
 		private const val FLIGHT_DURATION = 20 * 5
 
-		val DEFAULT_PROPERTIES: () -> Properties = 	{
+		val DEFAULT_PROPERTIES: () -> Properties = {
 			Properties()
 				.durability(432)
 				.rarity(Rarity.UNCOMMON)

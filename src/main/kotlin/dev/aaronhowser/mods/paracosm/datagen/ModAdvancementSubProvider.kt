@@ -3,11 +3,7 @@ package dev.aaronhowser.mods.paracosm.datagen
 import dev.aaronhowser.mods.paracosm.registry.ModBlocks
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
-import net.minecraft.advancements.Advancement
-import net.minecraft.advancements.AdvancementHolder
-import net.minecraft.advancements.AdvancementRewards
-import net.minecraft.advancements.AdvancementType
-import net.minecraft.advancements.CriteriaTriggers
+import net.minecraft.advancements.*
 import net.minecraft.advancements.critereon.ImpossibleTrigger
 import net.minecraft.advancements.critereon.InventoryChangeTrigger
 import net.minecraft.core.HolderLookup

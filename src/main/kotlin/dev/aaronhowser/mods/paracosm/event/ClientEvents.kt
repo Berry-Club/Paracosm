@@ -2,10 +2,10 @@ package dev.aaronhowser.mods.paracosm.event
 
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.client.DuckHuntGunShaderHandler
+import dev.aaronhowser.mods.paracosm.client.render.entity.model.FoamDartModel
 import dev.aaronhowser.mods.paracosm.client.render.entity.renderer.*
 import dev.aaronhowser.mods.paracosm.client.render.layer.TowelCapeLayer
 import dev.aaronhowser.mods.paracosm.datagen.model.ModItemModelProvider
-import dev.aaronhowser.mods.paracosm.entity.FoamDartProjectile
 import dev.aaronhowser.mods.paracosm.entity.PogoStickVehicle
 import dev.aaronhowser.mods.paracosm.item.ToyGunItem
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
@@ -69,6 +69,11 @@ object ClientEvents {
 	}
 
 	@SubscribeEvent
+	fun onRegisterLayerDefinitions(event: EntityRenderersEvent.RegisterLayerDefinitions) {
+		event.registerLayerDefinition(FoamDartModel.LAYER_LOCATION, FoamDartModel::createBodyLayer)
+	}
+
+	@SubscribeEvent
 	fun addLayers(event: EntityRenderersEvent.AddLayers) {
 		// Grabbed essentially in its entirety from https://github.com/mekanism/Mekanism/blob/0601185d5826b5a195f6148aab4d35761141f806/src/main/java/mekanism/client/ClientRegistration.java#L625
 
@@ -87,7 +92,6 @@ object ClientEvents {
 				addCustomLayers(entityType, renderer, event.context)
 			}
 		}
-
 	}
 
 	private fun <E : LivingEntity, M : EntityModel<E>> addCustomLayers(

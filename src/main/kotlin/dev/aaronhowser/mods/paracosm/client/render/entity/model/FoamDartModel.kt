@@ -51,7 +51,7 @@ class FoamDartModel(
 			val meshDefinition = MeshDefinition()
 			val partDefinition = meshDefinition.root
 
-			val main = partDefinition.addOrReplaceChild(
+			partDefinition.addOrReplaceChild(
 				"main",
 				CubeListBuilder
 					.create()
