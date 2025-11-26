@@ -38,7 +38,6 @@ open class FoamDartProjectile : AbstractArrow {
 	)
 
 	constructor(
-		level: Level,
 		owner: LivingEntity,
 		pickupStack: ItemStack,
 		firedFromWeapon: ItemStack?

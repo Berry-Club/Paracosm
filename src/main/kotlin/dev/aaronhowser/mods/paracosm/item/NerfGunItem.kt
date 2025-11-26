@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.item
 
+import dev.aaronhowser.mods.paracosm.entity.FoamDartProjectile
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.InteractionHand
@@ -37,6 +38,20 @@ class NerfGunItem(properties: Properties) : ProjectileWeaponItem(properties) {
 		}
 
 		return InteractionResultHolder.success(usedStack)
+	}
+
+	override fun createProjectile(
+		level: Level,
+		shooter: LivingEntity,
+		weapon: ItemStack,
+		ammo: ItemStack,
+		isCrit: Boolean
+	): Projectile {
+		if (ammo.item is FoamDartItem) {
+			return FoamDartProjectile(shooter, ammo.copyWithCount(1), weapon)
+		}
+
+		return super.createProjectile(level, shooter, weapon, ammo, isCrit)
 	}
 
 	override fun shootProjectile(
