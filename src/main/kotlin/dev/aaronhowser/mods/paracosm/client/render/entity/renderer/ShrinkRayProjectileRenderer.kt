@@ -19,8 +19,8 @@ class ShrinkRayProjectileRenderer(
 	}
 
 	companion object {
-		val SHRINK_TEXTURE = OtherUtil.modResource("textures/entity/projectile/shrink_ray.png")
-		val GROW_TEXTURE = OtherUtil.modResource("textures/entity/projectile/shrink_ray_grow.png")
+		val SHRINK_TEXTURE = OtherUtil.modResource("textures/entity/shrink_ray/shrink.png")
+		val GROW_TEXTURE = OtherUtil.modResource("textures/entity/shrink_ray/grow.png")
 	}
 
 }
