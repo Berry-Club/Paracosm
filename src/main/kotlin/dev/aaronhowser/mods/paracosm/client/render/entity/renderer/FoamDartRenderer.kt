@@ -27,6 +27,13 @@ class FoamDartRenderer(
 		bufferSource: MultiBufferSource,
 		packedLight: Int
 	) {
+		super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight)
+		model.renderToBuffer(
+			poseStack,
+			bufferSource.getBuffer(model.renderType(TEXTURE)),
+			packedLight,
+			-1
+		)
 	}
 
 	companion object {
