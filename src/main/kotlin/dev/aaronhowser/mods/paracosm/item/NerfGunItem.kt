@@ -30,7 +30,7 @@ class NerfGunItem(properties: Properties) : ProjectileWeaponItem(properties) {
 				usedHand,
 				usedStack,
 				listOf(ammoStack),
-				3f,
+				1f,
 				0f,
 				false,
 				null
