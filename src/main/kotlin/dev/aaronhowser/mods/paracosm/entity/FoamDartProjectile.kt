@@ -1,8 +1,11 @@
 package dev.aaronhowser.mods.paracosm.entity
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.isServerSide
+import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.registry.ModItems
+import net.minecraft.core.Position
 import net.minecraft.world.entity.EntityType
+import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.entity.projectile.AbstractArrow
 import net.minecraft.world.item.ItemStack
@@ -12,10 +15,40 @@ import net.minecraft.world.level.block.DoorBlock
 import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.HitResult
 
-open class FoamDartProjectile(
-	entityType: EntityType<out FoamDartProjectile>,
-	level: Level
-) : AbstractArrow(entityType, level) {
+open class FoamDartProjectile : AbstractArrow {
+
+	constructor(
+		entityType: EntityType<out FoamDartProjectile>,
+		level: Level
+	) : super(entityType, level)
+
+	constructor(
+		level: Level,
+		position: Position,
+		pickupStack: ItemStack,
+		firedFromWeapon: ItemStack?
+	) : super(
+		ModEntityTypes.FOAM_DART.get(),
+		position.x(),
+		position.y(),
+		position.z(),
+		level,
+		pickupStack,
+		firedFromWeapon
+	)
+
+	constructor(
+		level: Level,
+		owner: LivingEntity,
+		pickupStack: ItemStack,
+		firedFromWeapon: ItemStack?
+	) : super(
+		ModEntityTypes.FOAM_DART.get(),
+		owner,
+		owner.level(),
+		pickupStack,
+		firedFromWeapon
+	)
 
 	override fun onHit(result: HitResult) {
 		super.onHit(result)

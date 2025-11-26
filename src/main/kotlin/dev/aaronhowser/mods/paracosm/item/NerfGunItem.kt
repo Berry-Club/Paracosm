@@ -1,20 +1,25 @@
 package dev.aaronhowser.mods.paracosm.item
 
 import dev.aaronhowser.mods.paracosm.registry.ModItems
+import net.minecraft.world.InteractionHand
+import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.player.Player
 import net.minecraft.world.entity.projectile.Projectile
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.ProjectileWeaponItem
+import net.minecraft.world.level.Level
 import java.util.function.Predicate
 
 class NerfGunItem(properties: Properties) : ProjectileWeaponItem(properties) {
 
-	@Deprecated("Deprecated in Java")
-	override fun getAllSupportedProjectiles(): Predicate<ItemStack> {
-		return Predicate { stack: ItemStack -> stack.`is`(ModItems.FOAM_DART) }
+	override fun use(
+		level: Level,
+		player: Player,
+		usedHand: InteractionHand
+	): InteractionResultHolder<ItemStack> {
+		val ammoStack = ModItems.FOAM_DART.toStack()
 	}
-
-	override fun getDefaultProjectileRange(): Int = 15
 
 	override fun shootProjectile(
 		shooter: LivingEntity,
@@ -33,6 +38,13 @@ class NerfGunItem(properties: Properties) : ProjectileWeaponItem(properties) {
 			velocity,
 			inaccuracy
 		)
+	}
+
+	override fun getDefaultProjectileRange(): Int = 15
+
+	@Deprecated("Deprecated in Java")
+	override fun getAllSupportedProjectiles(): Predicate<ItemStack> {
+		return Predicate { stack: ItemStack -> stack.`is`(ModItems.FOAM_DART) }
 	}
 
 	companion object {
