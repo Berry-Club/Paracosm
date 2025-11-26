@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.paracosm.entity
 import dev.aaronhowser.mods.aaron.AaronExtensions.isServerSide
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.registry.ModItems
+import net.minecraft.core.BlockPos
 import net.minecraft.core.Position
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
@@ -61,16 +62,25 @@ open class FoamDartProjectile : AbstractArrow {
 	override fun onHitBlock(result: BlockHitResult) {
 		super.onHitBlock(result)
 
-		val level = level()
-		val blockPos = result.blockPos
+		val blockPosHit = result.blockPos
+		val blockPosIn = BlockPos.containing(position())
 
-		val blockState = level.getBlockState(blockPos)
+		interactWithBlockPos(blockPosHit)
+		if (blockPosIn != blockPosHit) {
+			interactWithBlockPos(blockPosIn)
+		}
+	}
+
+	private fun interactWithBlockPos(blockPosHit: BlockPos) {
+		val level = level()
+
+		val blockState = level.getBlockState(blockPosHit)
 		val block = blockState.block
 
 		val owner = getOwner()
 
 		if (block is ButtonBlock) {
-			block.press(blockState, level, blockPos, owner as? Player)
+			block.press(blockState, level, blockPosHit, owner as? Player)
 		}
 
 		if (block is DoorBlock) {
@@ -78,7 +88,7 @@ open class FoamDartProjectile : AbstractArrow {
 				owner,
 				level,
 				blockState,
-				blockPos,
+				blockPosHit,
 				!blockState.getValue(DoorBlock.OPEN)
 			)
 		}
