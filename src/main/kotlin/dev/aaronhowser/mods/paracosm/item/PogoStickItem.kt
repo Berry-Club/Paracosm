@@ -1,10 +1,10 @@
 package dev.aaronhowser.mods.paracosm.item
 
 import dev.aaronhowser.mods.paracosm.entity.PogoStickVehicle
+import dev.aaronhowser.mods.paracosm.entity.base.IUpgradeableEntity
 import dev.aaronhowser.mods.paracosm.item.base.IUpgradeableItem
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
-import dev.aaronhowser.mods.paracosm.util.Upgradeable
 import net.minecraft.core.Direction
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.item.Item
@@ -39,8 +39,8 @@ class PogoStickItem(properties: Properties) : Item(properties), IUpgradeableItem
 				spawnLocation = getPlacementPos(context)
 			)
 
-			for (upgrade in Upgradeable.getUpgrades(usedStack)) {
-				Upgradeable.addUpgrade(pogoStickVehicle, upgrade)
+			for (upgrade in IUpgradeableItem.getUpgrades(usedStack)) {
+				IUpgradeableEntity.addUpgrade(pogoStickVehicle, upgrade)
 			}
 
 			level.addFreshEntity(pogoStickVehicle)

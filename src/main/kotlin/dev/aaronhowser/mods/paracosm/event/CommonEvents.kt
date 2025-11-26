@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.paracosm.entity.AaronberryEntity
 import dev.aaronhowser.mods.paracosm.entity.PogoStickVehicle
 import dev.aaronhowser.mods.paracosm.entity.StringWormEntity
 import dev.aaronhowser.mods.paracosm.entity.TeddyBearEntity
+import dev.aaronhowser.mods.paracosm.entity.base.IUpgradeableEntity
 import dev.aaronhowser.mods.paracosm.handler.ArmorHandler
 import dev.aaronhowser.mods.paracosm.handler.AttributeHandler.baseWhimsy
 import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
@@ -15,7 +16,6 @@ import dev.aaronhowser.mods.paracosm.registry.ModAttributes
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.research.ModResearchTypes
 import dev.aaronhowser.mods.paracosm.research.ResearchType
-import dev.aaronhowser.mods.paracosm.util.Upgradeable
 import net.minecraft.server.level.ServerPlayer
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
@@ -84,8 +84,8 @@ object CommonEvents {
 		val player = event.entity as? ServerPlayer ?: return
 		val entity = event.target
 
-		if (Upgradeable.getUpgrades(entity).isNotEmpty()) {
-			val packet = UpdateEntityUpgrades(entity.id, Upgradeable.getUpgrades(entity).toList())
+		if (IUpgradeableEntity.getUpgrades(entity).isNotEmpty()) {
+			val packet = UpdateEntityUpgrades(entity.id, IUpgradeableEntity.getUpgrades(entity).toList())
 			packet.messagePlayer(player)
 		}
 	}

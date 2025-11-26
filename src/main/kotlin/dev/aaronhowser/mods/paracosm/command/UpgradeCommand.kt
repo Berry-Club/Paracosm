@@ -5,7 +5,6 @@ import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import com.mojang.brigadier.suggestion.SuggestionProvider
 import dev.aaronhowser.mods.paracosm.item.base.IUpgradeableItem
-import dev.aaronhowser.mods.paracosm.util.Upgradeable
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.SharedSuggestionProvider
@@ -47,8 +46,8 @@ object UpgradeCommand {
 		val upgrade = StringArgumentType.getString(commandContext, UPGRADE_ARGUMENT)
 
 		val heldStack = player.mainHandItem
-
 		val heldItem = heldStack.item
+
 		if (heldItem !is IUpgradeableItem) {
 			player.sendSystemMessage(Component.literal("This item cannot be upgraded"))
 			return 0
@@ -59,7 +58,7 @@ object UpgradeCommand {
 			return 0
 		}
 
-		Upgradeable.addUpgrade(heldStack, upgrade)
+		IUpgradeableItem.addUpgrade(heldStack, upgrade)
 
 		return 1
 	}
@@ -68,18 +67,19 @@ object UpgradeCommand {
 		val player = commandContext.source.entity as? Player ?: return 0
 		val upgrade = StringArgumentType.getString(commandContext, UPGRADE_ARGUMENT)
 
-		val heldItem = player.mainHandItem
-		if (heldItem.item !is IUpgradeableItem) {
+		val heldStack = player.mainHandItem
+
+		if (heldStack.item !is IUpgradeableItem) {
 			player.sendSystemMessage(Component.literal("This item cannot be upgraded"))
 			return 0
 		}
 
-		if (!Upgradeable.hasUpgrade(heldItem, upgrade)) {
+		if (!IUpgradeableItem.hasUpgrade(heldStack, upgrade)) {
 			player.sendSystemMessage(Component.literal("This item does not have the upgrade $upgrade"))
 			return 0
 		}
 
-		Upgradeable.removeUpgrade(heldItem, upgrade)
+		IUpgradeableItem.removeUpgrade(heldStack, upgrade)
 
 		return 1
 	}

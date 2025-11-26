@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.paracosm.packet.server_to_client
 
 import dev.aaronhowser.mods.aaron.packet.AaronPacket
+import dev.aaronhowser.mods.paracosm.entity.base.IUpgradeableEntity
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
-import dev.aaronhowser.mods.paracosm.util.Upgradeable
 import io.netty.buffer.ByteBuf
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
@@ -17,7 +17,7 @@ class UpdateEntityUpgrades(
 	override fun handleOnClient(context: IPayloadContext) {
 		val entity = context.player().level().getEntity(entityId) ?: return
 
-		Upgradeable.setUpgrades(entity, upgrades.toSet())
+		IUpgradeableEntity.setUpgrades(entity, upgrades.toSet())
 	}
 
 	override fun type(): CustomPacketPayload.Type<UpdateEntityUpgrades> {

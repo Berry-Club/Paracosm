@@ -6,11 +6,11 @@ import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.paracosm.config.ServerConfig
 import dev.aaronhowser.mods.paracosm.entity.base.IUpgradeableEntity
 import dev.aaronhowser.mods.paracosm.item.PogoStickItem
+import dev.aaronhowser.mods.paracosm.item.base.IUpgradeableItem
 import dev.aaronhowser.mods.paracosm.packet.client_to_server.UpdatePogoControls
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
-import dev.aaronhowser.mods.paracosm.util.Upgradeable
 import net.minecraft.client.player.LocalPlayer
 import net.minecraft.core.component.DataComponents
 import net.minecraft.nbt.CompoundTag
@@ -92,11 +92,11 @@ class PogoStickVehicle(
 	}
 
 	override fun readAdditionalSaveData(compound: CompoundTag) {
-		loadUpgrades(this, compound)
+		IUpgradeableEntity.loadUpgrades(this, compound)
 	}
 
 	override fun addAdditionalSaveData(compound: CompoundTag) {
-		saveUpgrades(this, compound)
+		IUpgradeableEntity.saveUpgrades(this, compound)
 	}
 
 	override fun getDropItem(): Item = ModItems.POGO_STICK.get()
@@ -123,8 +123,8 @@ class PogoStickVehicle(
 	private fun getStack(): ItemStack {
 		val stack = ItemStack(dropItem)
 		stack.set(DataComponents.CUSTOM_NAME, customName)
-		for (upgrade in Upgradeable.getUpgrades(this)) {
-			Upgradeable.addUpgrade(stack, upgrade)
+		for (upgrade in IUpgradeableEntity.getUpgrades(this)) {
+			IUpgradeableItem.addUpgrade(stack, upgrade)
 		}
 		return stack
 	}
@@ -191,7 +191,7 @@ class PogoStickVehicle(
 	override fun getGravity(): Double {
 		return when {
 			isNoGravity -> 0.0
-			Upgradeable.hasUpgrade(this, PogoStickItem.Upgrades.LOWER_GRAVITY) -> defaultGravity / 2
+			IUpgradeableEntity.hasUpgrade(this, PogoStickItem.Upgrades.LOWER_GRAVITY) -> defaultGravity / 2
 			else -> defaultGravity
 		}
 	}
@@ -247,7 +247,7 @@ class PogoStickVehicle(
 		val currentJumpAmount = jumpPercent
 		if (currentJumpAmount <= 0.1f) return
 
-		val canJump = onGround() || Upgradeable.hasUpgrade(this, PogoStickItem.Upgrades.GEPPO)
+		val canJump = onGround() || IUpgradeableEntity.hasUpgrade(this, PogoStickItem.Upgrades.GEPPO)
 
 		if (canJump) {
 			val distance = (bounceForce * 1.5f).toDouble().coerceIn(7.5, 20.0)
@@ -332,7 +332,7 @@ class PogoStickVehicle(
 		if (!onGround) return
 		if (movement.y >= -gravity * 5) return
 		if (!hasControllingPassenger()) return
-		if (!Upgradeable.hasUpgrade(this, PogoStickItem.Upgrades.GOOMBA_STOMP)) return
+		if (!IUpgradeableEntity.hasUpgrade(this, PogoStickItem.Upgrades.GOOMBA_STOMP)) return
 
 		fun shouldStomp(entity: Entity): Boolean {
 			if (entity === this) return false
