@@ -50,6 +50,10 @@ open class FoamDartProjectile : AbstractArrow {
 		firedFromWeapon
 	)
 
+	init {
+		pickup = Pickup.CREATIVE_ONLY
+	}
+
 	override fun onHit(result: HitResult) {
 		super.onHit(result)
 
