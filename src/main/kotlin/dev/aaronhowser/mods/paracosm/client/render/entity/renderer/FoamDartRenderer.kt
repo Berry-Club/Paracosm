@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.entity.EntityRenderer
 import net.minecraft.client.renderer.entity.EntityRendererProvider
+import net.minecraft.client.renderer.texture.OverlayTexture
 import net.minecraft.resources.ResourceLocation
 
 class FoamDartRenderer(
@@ -32,7 +33,7 @@ class FoamDartRenderer(
 			poseStack,
 			bufferSource.getBuffer(model.renderType(TEXTURE)),
 			packedLight,
-			-1
+			OverlayTexture.NO_OVERLAY
 		)
 	}
 
