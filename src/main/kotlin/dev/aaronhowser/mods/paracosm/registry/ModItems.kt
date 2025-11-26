@@ -46,6 +46,8 @@ object ModItems : AaronItemRegistry() {
 	val CREEPER_MASK: DeferredItem<ArmorItem> =
 		halloweenMask("creeper_mask", ModEntityTypeTagsProvider.AFFECTED_BY_CREEPER_MASK)
 
+	val NERF_GUN: DeferredItem<NerfGunItem> =
+		register("nerf_gun", ::NerfGunItem, NerfGunItem.DEFAULT_PROPERTIES)
 	val FOAM_DART = basic("foam_dart")
 
 	// Foods

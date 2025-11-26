@@ -25,6 +25,9 @@ object ModItemLang {
 			addItem(ModItems.STICKY_HAND, "Sticky Hand")
 			addItem(ModItems.POGO_STICK, "Pogo Stick")
 
+			addItem(ModItems.NERF_GUN, "Nerf Gun")
+			addItem(ModItems.FOAM_DART, "Foam Dart")
+
 			add(TOY_GUN, "Toy Gun")
 			add(COOL_GUN, "Cool Gun")
 		}
