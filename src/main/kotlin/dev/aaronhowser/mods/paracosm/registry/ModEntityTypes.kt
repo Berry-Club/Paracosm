@@ -1,14 +1,9 @@
 package dev.aaronhowser.mods.paracosm.registry
 
 import dev.aaronhowser.mods.paracosm.Paracosm
-import dev.aaronhowser.mods.paracosm.entity.AaronberryEntity
-import dev.aaronhowser.mods.paracosm.entity.DodgeballEntity
-import dev.aaronhowser.mods.paracosm.entity.PogoStickVehicle
-import dev.aaronhowser.mods.paracosm.entity.ShrinkRayProjectile
-import dev.aaronhowser.mods.paracosm.entity.StickyHandProjectile
-import dev.aaronhowser.mods.paracosm.entity.StringWormEntity
-import dev.aaronhowser.mods.paracosm.entity.TeddyBearEntity
+import dev.aaronhowser.mods.paracosm.entity.*
 import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.MobCategory
 import net.neoforged.neoforge.registries.DeferredHolder
@@ -21,73 +16,41 @@ object ModEntityTypes {
 		DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, Paracosm.MOD_ID)
 
 	val TEDDY_BEAR: DeferredHolder<EntityType<*>, EntityType<TeddyBearEntity>> =
-		ENTITY_TYPE_REGISTRY.register("teddy_bear", Supplier {
-			EntityType.Builder.of(
-				::TeddyBearEntity,
-				MobCategory.CREATURE
-			)
-				.sized(0.5f, 1.1f)
-				.build("teddy_bear")
-		})
+		register("teddy_bear", ::TeddyBearEntity, MobCategory.CREATURE, 0.5f, 1.1f)
 
 	val STRING_WORM: DeferredHolder<EntityType<*>, EntityType<StringWormEntity>> =
-		ENTITY_TYPE_REGISTRY.register("string_worm", Supplier {
-			EntityType.Builder.of(
-				::StringWormEntity,
-				MobCategory.CREATURE
-			)
-				.sized(1f, 1f)
-				.build("string_worm")
-		})
+		register("string_worm", ::StringWormEntity, MobCategory.CREATURE, 1f, 1f)
 
 	val AARONBERRY: DeferredHolder<EntityType<*>, EntityType<AaronberryEntity>> =
-		ENTITY_TYPE_REGISTRY.register("aaronberry", Supplier {
-			EntityType.Builder.of(
-				::AaronberryEntity,
-				MobCategory.CREATURE
-			)
-				.sized(0.3f, 0.6f)
-				.build("aaronberry")
-		})
+		register("aaronberry", ::AaronberryEntity, MobCategory.CREATURE, 0.3f, 0.6f)
 
 	val DODGEBALL: DeferredHolder<EntityType<*>, EntityType<DodgeballEntity>> =
-		ENTITY_TYPE_REGISTRY.register("dodgeball", Supplier {
-			EntityType.Builder.of(
-				::DodgeballEntity,
-				MobCategory.MISC
-			)
-				.sized(0.25f, 0.25f)
-				.build("dodgeball")
-		})
+		register("dodgeball", ::DodgeballEntity, MobCategory.MISC, 0.25f, 0.25f)
 
 	val SHRINK_RAY_PROJECTILE: DeferredHolder<EntityType<*>, EntityType<ShrinkRayProjectile>> =
-		ENTITY_TYPE_REGISTRY.register("shrink_ray_projectile", Supplier {
-			EntityType.Builder.of(
-				::ShrinkRayProjectile,
-				MobCategory.MISC
-			)
-				.sized(0.25f, 0.25f)
-				.build("shrink_ray_projectile")
-		})
+		register("shrink_ray_projectile", ::ShrinkRayProjectile, MobCategory.MISC, 0.25f, 0.25f)
 
 	val STICKY_HAND_PROJECTILE: DeferredHolder<EntityType<*>, EntityType<StickyHandProjectile>> =
-		ENTITY_TYPE_REGISTRY.register("sticky_hand_projectile", Supplier {
-			EntityType.Builder.of(
-				::StickyHandProjectile,
-				MobCategory.MISC
-			)
-				.sized(0.25f, 0.25f)
-				.build("sticky_hand_projectile")
-		})
+		register("sticky_hand_projectile", ::StickyHandProjectile, MobCategory.MISC, 0.25f, 0.25f)
 
 	val POGO_STICK_VEHICLE: DeferredHolder<EntityType<*>, EntityType<PogoStickVehicle>> =
-		ENTITY_TYPE_REGISTRY.register("pogo_stick", Supplier {
+		register("pogo_stick", ::PogoStickVehicle, MobCategory.MISC, 0.5f, 1.5f)
+
+	private fun <T : Entity> register(
+		name: String,
+		factory: EntityType.EntityFactory<T>,
+		mobCategory: MobCategory,
+		width: Float,
+		height: Float
+	): DeferredHolder<EntityType<*>, EntityType<T>> {
+		return ENTITY_TYPE_REGISTRY.register(name, Supplier {
 			EntityType.Builder.of(
-				::PogoStickVehicle,
-				MobCategory.MISC
+				factory,
+				mobCategory
 			)
-				.sized(0.5f, 1.5f)
-				.build("pogo_stick")
+				.sized(width, height)
+				.build(name)
 		})
+	}
 
 }
