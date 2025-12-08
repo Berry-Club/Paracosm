@@ -14,6 +14,9 @@ object ClientKeyHandler {
 
 		if (isSpaceHeld != wasSpaceHeld) {
 			wasSpaceHeld = isSpaceHeld
+
+			KeyHandler.setIsHoldingSpace(player, isSpaceHeld)
+
 			val packet = UpdateControlsPacket(isHoldingSpace = isSpaceHeld)
 			packet.messageServer()
 		}
