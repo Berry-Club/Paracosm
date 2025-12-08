@@ -32,6 +32,8 @@ object ModItemLang {
 			addItem(ModItems.NERF_GUN, "Nerf Gun")
 			addItem(ModItems.FOAM_DART, "Foam Dart")
 
+			addItem(ModItems.PROPELLER_HAT, "Propeller Hat")
+
 			add(TOY_GUN, "Toy Gun")
 			add(COOL_GUN, "Cool Gun")
 		}
