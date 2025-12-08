@@ -11,9 +11,14 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.Vec3
 
-class PropellerHatItem(properties: Properties) : WearableItem(properties) {
+class PropellerHatItem(properties: Properties) : WearableItem(properties), IUpgradeableItem {
 
 	override fun getEquipmentSlot(): EquipmentSlot = EquipmentSlot.HEAD
+
+	override val possibleUpgrades: List<String> = listOf(
+		SMOOTH_FLIGHT_UPGRADE,
+		BURST_FLIGHT_UPGRADE
+	)
 
 	override fun inventoryTick(stack: ItemStack, level: Level, entity: Entity, slotId: Int, isSelected: Boolean) {
 		if (entity !is LivingEntity) return
@@ -31,12 +36,18 @@ class PropellerHatItem(properties: Properties) : WearableItem(properties) {
 		val DEFAULT_PROPERTIES: Properties = Properties()
 			.stacksTo(1)
 
+		const val SMOOTH_FLIGHT_UPGRADE = "smooth_flight"
+		const val BURST_FLIGHT_UPGRADE = "burst_flight"
+
 		//TODO: Whizz sound effect
 		// What is it called? the thing that spins, i think?
 		// Like this but only the high pitched part: https://www.youtube.com/watch?v=asFIJcLfoos
 		private fun burstFlightTick(entity: LivingEntity) {
-			if (entity !is Player) return
-			if (entity.cooldowns.isOnCooldown(ModItems.PROPELLER_HAT.get())) return
+			if (entity !is Player
+				|| !entity.jumping
+				|| entity.cooldowns.isOnCooldown(ModItems.PROPELLER_HAT.get())
+			) return
+
 			entity.cooldowns.addCooldown(ModItems.PROPELLER_HAT.get(), 20)
 
 			entity.addDeltaMovement(
