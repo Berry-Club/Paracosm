@@ -25,9 +25,9 @@ class PropellerHatItem(properties: Properties) : WearableItem(properties), IUpgr
 		val headItem = entity.getItemBySlot(EquipmentSlot.HEAD)
 		if (headItem != stack) return
 
-		if (IUpgradeableItem.hasUpgrade(stack, "smooth_flight")) {
+		if (IUpgradeableItem.hasUpgrade(stack, SMOOTH_FLIGHT_UPGRADE)) {
 			smoothFlightTick(entity)
-		} else if (IUpgradeableItem.hasUpgrade(stack, "burst_flight")) {
+		} else if (IUpgradeableItem.hasUpgrade(stack, BURST_FLIGHT_UPGRADE)) {
 			burstFlightTick(entity)
 		}
 	}
