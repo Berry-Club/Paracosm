@@ -60,8 +60,6 @@ class PropellerHatItem(properties: Properties) : WearableItem(properties), IUpgr
 			player.fallDistance = 0f
 		}
 
-		//FIXME: Player deltamovement is only on client, so this is probably broken on server
-		// The fall distance canceling is DEFINITELY broken on server
 		//TODO: Helicopter style sounds
 		// Or maybe this: https://www.youtube.com/watch?v=n_xR1M3tGck
 		private fun smoothFlightTick(player: Player) {
@@ -77,9 +75,7 @@ class PropellerHatItem(properties: Properties) : WearableItem(properties), IUpgr
 				)
 			}
 
-			if (movement.y > -0.05) {
-				player.fallDistance = 0f
-			}
+			player.fallDistance = 0f
 		}
 	}
 
