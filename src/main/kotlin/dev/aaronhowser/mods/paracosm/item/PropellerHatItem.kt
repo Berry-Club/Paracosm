@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.paracosm.item
 import dev.aaronhowser.mods.paracosm.handler.KeyHandler
 import dev.aaronhowser.mods.paracosm.item.base.IUpgradeableItem
 import dev.aaronhowser.mods.paracosm.item.base.WearableItem
+import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EquipmentSlot
@@ -26,7 +27,7 @@ class PropellerHatItem(properties: Properties) : WearableItem(properties), IUpgr
 		if (headItem != stack) return
 
 		if (IUpgradeableItem.hasUpgrade(stack, SMOOTH_FLIGHT_UPGRADE)) {
-			smoothFlightTick(entity)
+			smoothFlightTick(entity, stack)
 		} else if (IUpgradeableItem.hasUpgrade(stack, BURST_FLIGHT_UPGRADE)) {
 			burstFlightTick(entity)
 		}
@@ -38,6 +39,8 @@ class PropellerHatItem(properties: Properties) : WearableItem(properties), IUpgr
 
 		const val SMOOTH_FLIGHT_UPGRADE = "smooth_flight"
 		const val BURST_FLIGHT_UPGRADE = "burst_flight"
+
+		//TODO: Gui indicator for both of these
 
 		//TODO: Whizz sound effect
 		// What is it called? the thing that spins, i think?
@@ -62,10 +65,15 @@ class PropellerHatItem(properties: Properties) : WearableItem(properties), IUpgr
 
 		//TODO: Helicopter style sounds
 		// Or maybe this: https://www.youtube.com/watch?v=n_xR1M3tGck
-		private fun smoothFlightTick(player: Player) {
+		private fun smoothFlightTick(player: Player, stack: ItemStack) {
 			val movement = player.deltaMovement
 
-			if (KeyHandler.isHoldingSpace(player) && movement.y < 1) {
+			val flightTicksRemaining = stack.getOrDefault(ModDataComponents.PROPELLER_HAT_FLIGHT_TICKS, 20 * 5)
+
+			if (KeyHandler.isHoldingSpace(player)
+				&& movement.y < 1
+				&& !player.cooldowns.isOnCooldown(ModItems.PROPELLER_HAT.get())
+			) {
 				player.addDeltaMovement(
 					Vec3(
 						0.0,
@@ -73,9 +81,20 @@ class PropellerHatItem(properties: Properties) : WearableItem(properties), IUpgr
 						0.0
 					)
 				)
-			}
 
-			player.fallDistance = 0f
+				player.fallDistance = 0f
+
+				val newAmount = flightTicksRemaining - 1
+				if (newAmount <= 0) {
+					player.cooldowns.addCooldown(ModItems.PROPELLER_HAT.get(), 20 * 3)
+					// TODO: Play a sound, like a helicopter running out of fuel
+				}
+
+				stack.set(ModDataComponents.PROPELLER_HAT_FLIGHT_TICKS, newAmount)
+			} else {
+				val newAmount = minOf(flightTicksRemaining + 2, 20 * 5)
+				stack.set(ModDataComponents.PROPELLER_HAT_FLIGHT_TICKS, newAmount)
+			}
 		}
 	}
 

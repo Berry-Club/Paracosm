@@ -45,4 +45,7 @@ object ModDataComponents : AaronDataComponentRegistry() {
 			AaronExtraCodecs.tagKeyStreamCodec(Registries.ENTITY_TYPE)
 		)
 
+	val PROPELLER_HAT_FLIGHT_TICKS: DeferredHolder<DataComponentType<*>, DataComponentType<Int>> =
+		int("propeller_hat_flight_ticks")
+
 }
