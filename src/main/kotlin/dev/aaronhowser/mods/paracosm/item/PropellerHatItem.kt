@@ -17,8 +17,21 @@ class PropellerHatItem(properties: Properties) : WearableItem(properties) {
 		val headItem = entity.getItemBySlot(EquipmentSlot.HEAD)
 		if (headItem != stack) return
 
-		if (entity.jumping) {
-			entity.addDeltaMovement(Vec3(0.0, 0.5, 0.0))
+		val movement = entity.deltaMovement
+
+		if (entity.jumping && movement.y < 1) {
+			entity.addDeltaMovement(
+				Vec3(
+					0.0,
+					entity.gravity * 1.2,
+					0.0
+				)
+			)
+
+			// FIXME: Is this only being applied on client, because jumping is only true on client?
+			if (movement.y > -2) {
+ 				entity.fallDistance = 0f
+			}
 		}
 	}
 
