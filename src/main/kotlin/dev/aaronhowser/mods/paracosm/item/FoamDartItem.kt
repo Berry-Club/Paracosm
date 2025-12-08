@@ -17,8 +17,7 @@ class FoamDartItem(properties: Properties) : Item(properties), ProjectileItem {
 	}
 
 	companion object {
-		val DEFAULT_PROPERTIES: Properties =
-			Properties()
+		val DEFAULT_PROPERTIES: Properties = Properties()
 	}
 
 }

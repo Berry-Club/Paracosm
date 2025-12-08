@@ -5,11 +5,10 @@ import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.datagen.tag.ModEntityTypeTagsProvider
 import dev.aaronhowser.mods.paracosm.item.*
 import dev.aaronhowser.mods.paracosm.item.base.FancyFoodItem
-import dev.aaronhowser.mods.paracosm.item.base.FancyFoodItem.Companion.fast
+import dev.aaronhowser.mods.paracosm.item.base.FancyFoodItem.Companion.eatTime
 import net.minecraft.tags.TagKey
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.food.FoodProperties
-import net.minecraft.world.item.ArmorItem
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemNameBlockItem
 import net.neoforged.neoforge.registries.DeferredItem
@@ -51,6 +50,9 @@ object ModItems : AaronItemRegistry() {
 	val FOAM_DART: DeferredItem<FoamDartItem> =
 		register("foam_dart", ::FoamDartItem, FoamDartItem.DEFAULT_PROPERTIES)
 
+	val PROPELLER_HAT: DeferredItem<PropellerHatItem> =
+		register("propeller_hat", ::PropellerHatItem, PropellerHatItem.DEFAULT_PROPERTIES)
+
 	// Foods
 	val CANDY: DeferredItem<FancyFoodItem> =
 		ITEM_REGISTRY.registerItem("candy") {
@@ -61,7 +63,7 @@ object ModItems : AaronItemRegistry() {
 					.Builder()
 					.nutrition(1)
 					.saturationModifier(-0.1f)
-					.fast(0.1f)
+					.eatTime(0.1f)
 					.build()
 			)
 		}

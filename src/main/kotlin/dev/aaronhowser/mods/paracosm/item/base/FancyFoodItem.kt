@@ -20,7 +20,7 @@ class FancyFoodItem(
 	}
 
 	companion object {
-		fun FoodProperties.Builder.fast(seconds: Float): FoodProperties.Builder {
+		fun FoodProperties.Builder.eatTime(seconds: Float): FoodProperties.Builder {
 			this.eatSeconds = seconds
 			return this
 		}
