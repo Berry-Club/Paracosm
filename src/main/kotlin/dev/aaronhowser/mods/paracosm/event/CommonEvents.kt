@@ -10,6 +10,7 @@ import dev.aaronhowser.mods.paracosm.entity.TeddyBearEntity
 import dev.aaronhowser.mods.paracosm.entity.base.IUpgradeableEntity
 import dev.aaronhowser.mods.paracosm.handler.ArmorHandler
 import dev.aaronhowser.mods.paracosm.handler.AttributeHandler.baseWhimsy
+import dev.aaronhowser.mods.paracosm.handler.KeyHandler
 import dev.aaronhowser.mods.paracosm.packet.ModPacketHandler
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateEntityUpgrades
 import dev.aaronhowser.mods.paracosm.registry.ModAttributes
@@ -112,6 +113,16 @@ object CommonEvents {
 	@SubscribeEvent
 	fun onChangeEquipment(event: LivingEquipmentChangeEvent) {
 		ArmorHandler.stopAggro(event)
+	}
+
+	@SubscribeEvent
+	fun onPlayerLogout(event: PlayerEvent.PlayerLoggedOutEvent) {
+		KeyHandler.remove(event.entity)
+	}
+
+	@SubscribeEvent
+	fun onPlayerChangeDimension(event: PlayerEvent.PlayerChangedDimensionEvent) {
+		KeyHandler.remove(event.entity)
 	}
 
 }
