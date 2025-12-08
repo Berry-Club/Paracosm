@@ -12,6 +12,8 @@ class PropellerHatItem(properties: Properties) : WearableItem(properties) {
 
 	override fun getEquipmentSlot(): EquipmentSlot = EquipmentSlot.HEAD
 
+	//FIXME: Player deltamovement is only on client, so this is probably broken on server
+	// The fall distance canceling is DEFINITELY broken on server
 	override fun inventoryTick(stack: ItemStack, level: Level, entity: Entity, slotId: Int, isSelected: Boolean) {
 		if (entity !is LivingEntity) return
 		val headItem = entity.getItemBySlot(EquipmentSlot.HEAD)
@@ -27,11 +29,10 @@ class PropellerHatItem(properties: Properties) : WearableItem(properties) {
 					0.0
 				)
 			)
+		}
 
-			// FIXME: Is this only being applied on client, because jumping is only true on client?
-			if (movement.y > -2) {
- 				entity.fallDistance = 0f
-			}
+		if (movement.y > -0.05) {
+			entity.fallDistance = 0f
 		}
 	}
 
