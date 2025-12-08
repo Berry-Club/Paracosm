@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.paracosm.packet
 
 import dev.aaronhowser.mods.aaron.packet.AaronPacketRegistrar
+import dev.aaronhowser.mods.paracosm.packet.client_to_server.UpdateControlsPacket
 import dev.aaronhowser.mods.paracosm.packet.client_to_server.UpdatePogoControls
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateEntityUpgrades
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateShrinkRayScale
@@ -27,6 +28,12 @@ object ModPacketHandler : AaronPacketRegistrar {
 			registrar,
 			UpdatePogoControls.TYPE,
 			UpdatePogoControls.STREAM_CODEC,
+		)
+
+		toServer(
+			registrar,
+			UpdateControlsPacket.TYPE,
+			UpdateControlsPacket.STREAM_CODEC,
 		)
 
 	}
