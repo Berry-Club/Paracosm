@@ -17,7 +17,9 @@ class PropellerHatItem(properties: Properties) : WearableItem(properties) {
 		val headItem = entity.getItemBySlot(EquipmentSlot.HEAD)
 		if (headItem != stack) return
 
-		entity.addDeltaMovement(Vec3(0.0, 0.5, 0.0))
+		if (entity.jumping) {
+			entity.addDeltaMovement(Vec3(0.0, 0.5, 0.0))
+		}
 	}
 
 	companion object {
