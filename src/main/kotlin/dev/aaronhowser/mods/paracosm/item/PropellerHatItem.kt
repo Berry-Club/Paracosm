@@ -1,11 +1,11 @@
 package dev.aaronhowser.mods.paracosm.item
 
+import dev.aaronhowser.mods.paracosm.handler.KeyHandler
 import dev.aaronhowser.mods.paracosm.item.base.IUpgradeableItem
 import dev.aaronhowser.mods.paracosm.item.base.WearableItem
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EquipmentSlot
-import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
@@ -21,7 +21,7 @@ class PropellerHatItem(properties: Properties) : WearableItem(properties), IUpgr
 	)
 
 	override fun inventoryTick(stack: ItemStack, level: Level, entity: Entity, slotId: Int, isSelected: Boolean) {
-		if (entity !is LivingEntity) return
+		if (entity !is Player) return
 		val headItem = entity.getItemBySlot(EquipmentSlot.HEAD)
 		if (headItem != stack) return
 
@@ -42,15 +42,14 @@ class PropellerHatItem(properties: Properties) : WearableItem(properties), IUpgr
 		//TODO: Whizz sound effect
 		// What is it called? the thing that spins, i think?
 		// Like this but only the high pitched part: https://www.youtube.com/watch?v=asFIJcLfoos
-		private fun burstFlightTick(entity: LivingEntity) {
-			if (entity !is Player
-				|| !entity.jumping
-				|| entity.cooldowns.isOnCooldown(ModItems.PROPELLER_HAT.get())
+		private fun burstFlightTick(player: Player) {
+			if (!KeyHandler.isHoldingSpace(player)
+				|| player.cooldowns.isOnCooldown(ModItems.PROPELLER_HAT.get())
 			) return
 
-			entity.cooldowns.addCooldown(ModItems.PROPELLER_HAT.get(), 20)
+			player.cooldowns.addCooldown(ModItems.PROPELLER_HAT.get(), 20)
 
-			entity.addDeltaMovement(
+			player.addDeltaMovement(
 				Vec3(
 					0.0,
 					1.0,
@@ -58,28 +57,28 @@ class PropellerHatItem(properties: Properties) : WearableItem(properties), IUpgr
 				)
 			)
 
-			entity.fallDistance = 0f
+			player.fallDistance = 0f
 		}
 
 		//FIXME: Player deltamovement is only on client, so this is probably broken on server
 		// The fall distance canceling is DEFINITELY broken on server
 		//TODO: Helicopter style sounds
 		// Or maybe this: https://www.youtube.com/watch?v=n_xR1M3tGck
-		private fun smoothFlightTick(entity: LivingEntity) {
-			val movement = entity.deltaMovement
+		private fun smoothFlightTick(player: Player) {
+			val movement = player.deltaMovement
 
-			if (entity.jumping && movement.y < 1) {
-				entity.addDeltaMovement(
+			if (KeyHandler.isHoldingSpace(player) && movement.y < 1) {
+				player.addDeltaMovement(
 					Vec3(
 						0.0,
-						entity.gravity * 1.2,
+						player.gravity * 1.2,
 						0.0
 					)
 				)
 			}
 
 			if (movement.y > -0.05) {
-				entity.fallDistance = 0f
+				player.fallDistance = 0f
 			}
 		}
 	}
