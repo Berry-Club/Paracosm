@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.paracosm.client.render.entity.renderer.*
 import dev.aaronhowser.mods.paracosm.client.render.layer.TowelCapeLayer
 import dev.aaronhowser.mods.paracosm.datagen.model.ModItemModelProvider
 import dev.aaronhowser.mods.paracosm.entity.PogoStickVehicle
+import dev.aaronhowser.mods.paracosm.handler.ClientKeyHandler
 import dev.aaronhowser.mods.paracosm.item.ToyGunItem
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.registry.ModItems
@@ -40,11 +41,11 @@ object ClientEvents {
 	fun beforeClientTick(event: ClientTickEvent.Pre) {
 		PogoStickVehicle.handleInput(event)
 		DuckHuntGunShaderHandler.updateShader(event)
+		ClientKeyHandler.updateControls()
 	}
 
 	@SubscribeEvent
 	fun registerEntityRenderer(event: EntityRenderersEvent.RegisterRenderers) {
-
 		event.registerEntityRenderer(ModEntityTypes.TEDDY_BEAR.get(), ::TeddyBearRenderer)
 		event.registerEntityRenderer(ModEntityTypes.STRING_WORM.get(), ::StringWormRenderer)
 		event.registerEntityRenderer(ModEntityTypes.AARONBERRY.get(), ::AaronberryRenderer)
@@ -121,7 +122,6 @@ object ClientEvents {
 				Paracosm.LOGGER.debug("Added $name layer to $entityName")
 			}
 		}
-
 	}
 
 }
