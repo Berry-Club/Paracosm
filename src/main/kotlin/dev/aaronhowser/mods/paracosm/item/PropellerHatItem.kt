@@ -1,18 +1,29 @@
 package dev.aaronhowser.mods.paracosm.item
 
+import dev.aaronhowser.mods.paracosm.client.render.armor.PropellerHatRenderer
 import dev.aaronhowser.mods.paracosm.handler.KeyHandler
 import dev.aaronhowser.mods.paracosm.item.base.IUpgradeableItem
 import dev.aaronhowser.mods.paracosm.item.base.WearableItem
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
 import dev.aaronhowser.mods.paracosm.registry.ModItems
+import net.minecraft.client.model.HumanoidModel
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EquipmentSlot
+import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.Vec3
+import software.bernie.geckolib.animatable.GeoItem
+import software.bernie.geckolib.animatable.client.GeoRenderProvider
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache
+import software.bernie.geckolib.animation.AnimatableManager
+import software.bernie.geckolib.animation.AnimationController
+import software.bernie.geckolib.constant.DefaultAnimations
+import software.bernie.geckolib.util.GeckoLibUtil
+import java.util.function.Consumer
 
-class PropellerHatItem(properties: Properties) : WearableItem(properties), IUpgradeableItem {
+class PropellerHatItem(properties: Properties) : WearableItem(properties), IUpgradeableItem, GeoItem {
 
 	override fun getEquipmentSlot(): EquipmentSlot = EquipmentSlot.HEAD
 
@@ -31,6 +42,31 @@ class PropellerHatItem(properties: Properties) : WearableItem(properties), IUpgr
 		} else if (IUpgradeableItem.hasUpgrade(stack, BURST_FLIGHT_UPGRADE)) {
 			burstFlightTick(entity)
 		}
+	}
+
+	private val cache: AnimatableInstanceCache = GeckoLibUtil.createInstanceCache(this)
+	override fun getAnimatableInstanceCache(): AnimatableInstanceCache = cache
+
+	override fun registerControllers(controllers: AnimatableManager.ControllerRegistrar) {
+		controllers.add(AnimationController(this, 20) { it.setAndContinue(DefaultAnimations.IDLE_FLYING) })
+	}
+
+	override fun createGeoRenderer(consumer: Consumer<GeoRenderProvider>) {
+		consumer.accept(object : GeoRenderProvider {
+			private var cache: PropellerHatRenderer? = null
+
+			override fun <T : LivingEntity> getGeoArmorRenderer(
+				livingEntity: T?,
+				itemStack: ItemStack,
+				equipmentSlot: EquipmentSlot?,
+				original: HumanoidModel<T>?
+			): HumanoidModel<*> {
+				if (this.cache == null) {
+					this.cache = PropellerHatRenderer()
+				}
+				return this.cache!!
+			}
+		})
 	}
 
 	companion object {
