@@ -39,23 +39,24 @@ class ModItemModelProvider(
 			basicItem(item.get())
 		}
 
+		toyGun()
+	}
+
+	private fun toyGun() {
 		whimsy(
 			ModItems.TOY_GUN,
 			mcLoc("item/stick"),
 			mcLoc("item/diamond")
 		)
-
-	}
-
-	companion object {
-		val WHIMSY_PREDICATE_NAME = OtherUtil.modResource("whimsy")
 	}
 
 	fun whimsy(
 		item: ItemLike,
 		textureOne: ResourceLocation,
 		textureTwo: ResourceLocation
-	) = whimsy(item.asItem(), textureOne, textureTwo)
+	) {
+		whimsy(item.asItem(), textureOne, textureTwo)
+	}
 
 	fun whimsy(
 		item: Item,
@@ -78,6 +79,11 @@ class ModItemModelProvider(
 			)
 			.model(whimsyModel)
 			.end()
+	}
+
+
+	companion object {
+		val WHIMSY_PREDICATE_NAME = OtherUtil.modResource("whimsy")
 	}
 
 }

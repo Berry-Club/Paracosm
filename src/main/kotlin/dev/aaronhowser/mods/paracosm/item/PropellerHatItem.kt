@@ -15,6 +15,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.Vec3
 import software.bernie.geckolib.animatable.GeoItem
+import software.bernie.geckolib.animatable.SingletonGeoAnimatable
 import software.bernie.geckolib.animatable.client.GeoRenderProvider
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.animation.AnimatableManager
@@ -24,6 +25,10 @@ import software.bernie.geckolib.util.GeckoLibUtil
 import java.util.function.Consumer
 
 class PropellerHatItem(properties: Properties) : WearableItem(properties), IUpgradeableItem, GeoItem {
+
+	init {
+		SingletonGeoAnimatable.registerSyncedAnimatable(this)
+	}
 
 	override fun getEquipmentSlot(): EquipmentSlot = EquipmentSlot.HEAD
 
@@ -53,7 +58,7 @@ class PropellerHatItem(properties: Properties) : WearableItem(properties), IUpgr
 
 	override fun createGeoRenderer(consumer: Consumer<GeoRenderProvider>) {
 		consumer.accept(object : GeoRenderProvider {
-			private var cache: PropellerHatRenderer? = null
+			private var rendererCache: PropellerHatRenderer? = null
 
 			override fun <T : LivingEntity> getGeoArmorRenderer(
 				livingEntity: T?,
@@ -61,10 +66,10 @@ class PropellerHatItem(properties: Properties) : WearableItem(properties), IUpgr
 				equipmentSlot: EquipmentSlot?,
 				original: HumanoidModel<T>?
 			): HumanoidModel<*> {
-				if (this.cache == null) {
-					this.cache = PropellerHatRenderer()
+				if (this.rendererCache == null) {
+					this.rendererCache = PropellerHatRenderer()
 				}
-				return this.cache!!
+				return this.rendererCache!!
 			}
 		})
 	}
