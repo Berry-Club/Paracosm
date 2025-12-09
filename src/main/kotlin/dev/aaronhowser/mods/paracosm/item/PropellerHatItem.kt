@@ -81,6 +81,7 @@ class PropellerHatItem(properties: Properties) : WearableItem(properties), IUpgr
 		const val SMOOTH_FLIGHT_UPGRADE = "smooth_flight"
 		const val BURST_FLIGHT_UPGRADE = "burst_flight"
 
+		//TODO: Make it so that it spins when you move vertically, not just looping always
 		val SPIN_ANIM: RawAnimation = RawAnimation.begin().thenLoop("animation.propellerhat.spin")
 
 		//TODO: Gui indicator for both of these
