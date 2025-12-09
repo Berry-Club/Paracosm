@@ -20,7 +20,7 @@ import software.bernie.geckolib.animatable.client.GeoRenderProvider
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.animation.AnimatableManager
 import software.bernie.geckolib.animation.AnimationController
-import software.bernie.geckolib.constant.DefaultAnimations
+import software.bernie.geckolib.animation.RawAnimation
 import software.bernie.geckolib.util.GeckoLibUtil
 import java.util.function.Consumer
 
@@ -53,7 +53,7 @@ class PropellerHatItem(properties: Properties) : WearableItem(properties), IUpgr
 	override fun getAnimatableInstanceCache(): AnimatableInstanceCache = cache
 
 	override fun registerControllers(controllers: AnimatableManager.ControllerRegistrar) {
-		controllers.add(AnimationController(this, 20) { it.setAndContinue(DefaultAnimations.IDLE_FLYING) })
+		controllers.add(AnimationController(this, 0) { it.setAndContinue(SPIN_ANIM) })
 	}
 
 	override fun createGeoRenderer(consumer: Consumer<GeoRenderProvider>) {
@@ -80,6 +80,8 @@ class PropellerHatItem(properties: Properties) : WearableItem(properties), IUpgr
 
 		const val SMOOTH_FLIGHT_UPGRADE = "smooth_flight"
 		const val BURST_FLIGHT_UPGRADE = "burst_flight"
+
+		val SPIN_ANIM: RawAnimation = RawAnimation.begin().thenLoop("animation.propellerhat.spin")
 
 		//TODO: Gui indicator for both of these
 
