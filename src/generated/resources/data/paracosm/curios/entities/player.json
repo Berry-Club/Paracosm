@@ -1,8 +1,9 @@
 {
-	"entities": [
-		"minecraft:player"
-	],
-	"slots": [
-		"seeing_stone"
-	]
+  "entities": [
+    "minecraft:player"
+  ],
+  "slots": [
+    "seeing_stone",
+    "belt"
+  ]
 }

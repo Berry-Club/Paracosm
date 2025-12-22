@@ -22,11 +22,13 @@ class ModCurioProvider(
 
 		this.createEntities(PLAYER_RULE)
 			.addPlayer()
-			.addSlots(SEEING_STONE_SLOT)
+			.addSlots(SEEING_STONE_SLOT, BELT_SLOT)
 	}
 
 	companion object {
 		const val SEEING_STONE_SLOT = "seeing_stone"
+		const val BELT_SLOT = "belt"
+
 		const val PLAYER_RULE = "player"
 	}
 

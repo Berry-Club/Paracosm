@@ -32,9 +32,14 @@ class ModItemTagsProvider(
 				ModItems.SODA.get()
 			)
 
-		this.tag(SEEING_STONE)
+		this.tag(SEEING_STONE_CURIO)
 			.add(
 				ModItems.SEEING_STONE.get()
+			)
+
+		this.tag(BELT_CURIO)
+			.add(
+				ModItems.HULA_HOOP.get()
 			)
 
 	}
@@ -51,6 +56,7 @@ class ModItemTagsProvider(
 		}
 
 		val SWEETS = create("sweets")
-		val SEEING_STONE = curio("seeing_stone")
+		val SEEING_STONE_CURIO = curio("seeing_stone")
+		val BELT_CURIO = curio("belt")
 	}
 }
