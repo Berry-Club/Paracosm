@@ -60,7 +60,7 @@ data class RotationalMomentumDataComponent(
 					Codec.DOUBLE
 						.fieldOf("momentum")
 						.forGetter(RotationalMomentumDataComponent::clockwiseMomentum),
-					AaronExtraCodecs.VECTOR3D_CODEC
+					AaronExtraCodecs.VECTOR2D_CODEC
 						.fieldOf("position")
 						.forGetter(RotationalMomentumDataComponent::previousPosition),
 					Codec.DOUBLE
