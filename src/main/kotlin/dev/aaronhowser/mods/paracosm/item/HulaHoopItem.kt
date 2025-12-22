@@ -33,7 +33,13 @@ class HulaHoopItem(properties: Properties) : Item(properties), ICurioItem {
 		private fun updateMomentum(entity: LivingEntity, stack: ItemStack) {
 			val momentum = stack.get(ModDataComponents.ROTATIONAL_MOMENTUM)
 			if (momentum == null) {
-				initializeMomentum(entity, stack)
+				val component = RotationalMomentumDataComponent(
+					clockwiseMomentum = 0.0,
+					previousPosition = entity.position(),
+					previousDirection = 0.0
+				)
+
+				stack.set(ModDataComponents.ROTATIONAL_MOMENTUM, component)
 				return
 			}
 
@@ -43,16 +49,6 @@ class HulaHoopItem(properties: Properties) : Item(properties), ICurioItem {
 			if (entity is Player) {
 				entity.status("momentum: ${String.format("%.2f", newMomentum.clockwiseMomentum)} - direction: ${String.format("%.2f", newMomentum.previousDirection)}")
 			}
-		}
-
-		private fun initializeMomentum(entity: LivingEntity, stack: ItemStack) {
-			val component = RotationalMomentumDataComponent(
-				clockwiseMomentum = 0.0,
-				previousPosition = entity.position(),
-				previousDirection = 0.0
-			)
-
-			stack.set(ModDataComponents.ROTATIONAL_MOMENTUM, component)
 		}
 	}
 
