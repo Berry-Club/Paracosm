@@ -56,13 +56,13 @@ data class RotationalMomentumDataComponent(
 			RecordCodecBuilder.create { instance ->
 				instance.group(
 					Codec.DOUBLE
-						.fieldOf("clockwise_momentum")
+						.fieldOf("momentum")
 						.forGetter(RotationalMomentumDataComponent::clockwiseMomentum),
 					Codec.pair(Codec.DOUBLE, Codec.DOUBLE)
-						.fieldOf("previous_position")
+						.fieldOf("position")
 						.forGetter(RotationalMomentumDataComponent::previousPosition),
 					Codec.DOUBLE
-						.fieldOf("previous_direction")
+						.fieldOf("direction")
 						.forGetter(RotationalMomentumDataComponent::previousDirection)
 				).apply(instance, ::RotationalMomentumDataComponent)
 			}
