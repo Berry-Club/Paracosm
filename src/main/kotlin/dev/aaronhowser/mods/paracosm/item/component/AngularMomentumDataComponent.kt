@@ -59,7 +59,7 @@ data class AngularMomentumDataComponent(
 	}
 
 	private fun bleedMomentum(newPosition: Vec3, newDirection: Double): AngularMomentumDataComponent {
-		val bleedAmount = 0.5 * counterclockwiseMomentum.sign
+		val bleedAmount = 0.05 * counterclockwiseMomentum.sign
 		var newMomentum = counterclockwiseMomentum - bleedAmount
 		if (abs(newMomentum) < 1.0) {
 			newMomentum = 0.0
@@ -74,7 +74,7 @@ data class AngularMomentumDataComponent(
 
 	fun getWithLessMomentum(amount: Double): AngularMomentumDataComponent {
 		var newMomentum = counterclockwiseMomentum - amount * counterclockwiseMomentum.sign
-		if (abs(newMomentum) < 1.0) {
+		if (abs(newMomentum) < 0.05) {
 			newMomentum = 0.0
 		}
 

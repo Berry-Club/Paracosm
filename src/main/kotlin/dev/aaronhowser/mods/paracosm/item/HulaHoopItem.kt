@@ -67,13 +67,13 @@ class HulaHoopItem(properties: Properties) : Item(properties), ICurioItem {
 			val currentTick = wearer.level().gameTime
 
 			for (entity in entitiesNearby) {
-				val momentum = hulaStack.get(ModDataComponents.ANGULAR_MOMENTUM) ?: return
-				if (momentum.counterclockwiseMomentum.absoluteValue < 1.0) return
-
 				val lastBumpedAt = LAST_BUMPED_AT[entity.uuid] ?: 0L
 				if (currentTick - lastBumpedAt < 20L) {
 					continue
 				}
+
+				val momentum = hulaStack.get(ModDataComponents.ANGULAR_MOMENTUM) ?: return
+				if (momentum.counterclockwiseMomentum.absoluteValue < 1.0) return
 
 				LAST_BUMPED_AT[entity.uuid] = currentTick
 
@@ -93,7 +93,6 @@ class HulaHoopItem(properties: Properties) : Item(properties), ICurioItem {
 				hulaStack.set(ModDataComponents.ANGULAR_MOMENTUM, newMomentum)
 
 				//TODO: Play a thunk sound?
-				//TODO: Cooldown so it can't ht on consecutive ticks
 
 				wearer.tell("Bumped ${entity.name.string}!")
 			}
