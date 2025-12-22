@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.item
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
 import dev.aaronhowser.mods.aaron.AaronExtensions.status
 import dev.aaronhowser.mods.aaron.AaronExtensions.tell
 import dev.aaronhowser.mods.paracosm.item.component.AngularMomentumDataComponent
@@ -20,6 +21,8 @@ class HulaHoopItem(properties: Properties) : Item(properties), ICurioItem {
 		super.curioTick(slotContext, stack)
 
 		val entity = slotContext.entity
+		if (entity.isClientSide) return
+
 		updateMomentum(entity, stack)
 		bumpAwayEntities(entity, stack)
 	}
