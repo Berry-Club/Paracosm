@@ -1,8 +1,10 @@
 package dev.aaronhowser.mods.paracosm.item
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.status
 import dev.aaronhowser.mods.paracosm.item.component.RotationalMomentumDataComponent
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import top.theillusivec4.curios.api.SlotContext
@@ -29,6 +31,13 @@ class HulaHoopItem(properties: Properties) : Item(properties), ICurioItem {
 			if (momentum == null) {
 				initializeMomentum(entity, stack)
 				return
+			}
+
+			val newMomentum = momentum.getWithNewPosition(entity.position())
+			stack.set(ModDataComponents.ROTATIONAL_MOMENTUM, newMomentum)
+
+			if (entity is Player) {
+				entity.status("momentum: ${String.format("%.2f", newMomentum.clockwiseMomentum)} - direction: ${String.format("%.2f", newMomentum.previousDirection)}")
 			}
 		}
 
