@@ -14,17 +14,17 @@ import kotlin.math.abs
 import kotlin.math.atan2
 
 data class RotationalMomentumDataComponent(
-	val clockwiseMomentum: Double,
+	val counterclockwiseMomentum: Double,
 	val previousPosition: Vector2d,
 	val previousDirection: Double
 ) {
 
 	constructor(
-		clockwiseMomentum: Double,
+		counterclockwiseMomentum: Double,
 		previousPosition: Vec3,
 		previousDirection: Double
 	) : this(
-		clockwiseMomentum,
+		counterclockwiseMomentum,
 		Vector2d(previousPosition.x, previousPosition.z),
 		previousDirection
 	)
@@ -50,14 +50,14 @@ data class RotationalMomentumDataComponent(
 		val additionalMomentum = directionDifference * 0.1
 
 		return RotationalMomentumDataComponent(
-			clockwiseMomentum + additionalMomentum,
+			counterclockwiseMomentum + additionalMomentum,
 			Vector2d(newPosition.x, newPosition.z),
 			newDirection
 		)
 	}
 
 	private fun bleedMomentum(newPosition: Vec3, newDirection: Double): RotationalMomentumDataComponent {
-		var newMomentum = clockwiseMomentum * 0.99
+		var newMomentum = counterclockwiseMomentum * 0.99
 		if (abs(newMomentum) < 0.1) {
 			newMomentum = 0.0
 		}
@@ -75,7 +75,7 @@ data class RotationalMomentumDataComponent(
 				instance.group(
 					Codec.DOUBLE
 						.fieldOf("momentum")
-						.forGetter(RotationalMomentumDataComponent::clockwiseMomentum),
+						.forGetter(RotationalMomentumDataComponent::counterclockwiseMomentum),
 					AaronExtraCodecs.VECTOR2D_CODEC
 						.fieldOf("position")
 						.forGetter(RotationalMomentumDataComponent::previousPosition),
@@ -87,7 +87,7 @@ data class RotationalMomentumDataComponent(
 
 		val STREAM_CODEC: StreamCodec<ByteBuf, RotationalMomentumDataComponent> =
 			StreamCodec.composite(
-				ByteBufCodecs.DOUBLE, RotationalMomentumDataComponent::clockwiseMomentum,
+				ByteBufCodecs.DOUBLE, RotationalMomentumDataComponent::counterclockwiseMomentum,
 				AaronExtraCodecs.VECTOR2D_STREAM_CODEC, RotationalMomentumDataComponent::previousPosition,
 				ByteBufCodecs.DOUBLE, RotationalMomentumDataComponent::previousDirection,
 				::RotationalMomentumDataComponent
