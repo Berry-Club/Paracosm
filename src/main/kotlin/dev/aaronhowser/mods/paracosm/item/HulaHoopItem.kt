@@ -11,6 +11,7 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import top.theillusivec4.curios.api.SlotContext
 import top.theillusivec4.curios.api.type.capability.ICurioItem
+import java.util.*
 import kotlin.math.absoluteValue
 
 class HulaHoopItem(properties: Properties) : Item(properties), ICurioItem {
@@ -33,6 +34,8 @@ class HulaHoopItem(properties: Properties) : Item(properties), ICurioItem {
 	companion object {
 		val DEFAULT_PROPERTIES: Properties = Properties()
 			.stacksTo(1)
+
+		private val LAST_BUMPED_AT = WeakHashMap<UUID, Long>()
 
 		private fun updateMomentum(wearer: LivingEntity, hulaStack: ItemStack) {
 			val momentum = hulaStack.get(ModDataComponents.ANGULAR_MOMENTUM)
@@ -61,9 +64,18 @@ class HulaHoopItem(properties: Properties) : Item(properties), ICurioItem {
 				wearer.boundingBox.inflate(0.5, 0.5, 0.5)
 			).filterIsInstance<LivingEntity>()
 
+			val currentTick = wearer.level().gameTime
+
 			for (entity in entitiesNearby) {
 				val momentum = hulaStack.get(ModDataComponents.ANGULAR_MOMENTUM) ?: return
 				if (momentum.counterclockwiseMomentum.absoluteValue < 1.0) return
+
+				val lastBumpedAt = LAST_BUMPED_AT[entity.uuid] ?: 0L
+				if (currentTick - lastBumpedAt < 20L) {
+					continue
+				}
+
+				LAST_BUMPED_AT[entity.uuid] = currentTick
 
 				val pushDirection = wearer
 					.position()
