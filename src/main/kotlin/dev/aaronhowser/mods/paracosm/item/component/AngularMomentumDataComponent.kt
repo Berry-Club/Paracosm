@@ -72,6 +72,19 @@ data class AngularMomentumDataComponent(
 		)
 	}
 
+	fun getWithLessMomentum(amount: Double): AngularMomentumDataComponent {
+		var newMomentum = counterclockwiseMomentum - amount * counterclockwiseMomentum.sign
+		if (abs(newMomentum) < 1.0) {
+			newMomentum = 0.0
+		}
+
+		return AngularMomentumDataComponent(
+			newMomentum,
+			previousPosition,
+			previousDirection
+		)
+	}
+
 	companion object {
 		val CODEC: Codec<AngularMomentumDataComponent> =
 			RecordCodecBuilder.create { instance ->

@@ -62,7 +62,7 @@ class HulaHoopItem(properties: Properties) : Item(properties), ICurioItem {
 
 			for (entity in entitiesNearby) {
 				val momentum = hulaStack.get(ModDataComponents.ANGULAR_MOMENTUM) ?: return
-				if (momentum.counterclockwiseMomentum.absoluteValue < 0.1) return
+				if (momentum.counterclockwiseMomentum.absoluteValue < 1.0) return
 
 				val pushDirection = wearer
 					.position()
@@ -72,8 +72,13 @@ class HulaHoopItem(properties: Properties) : Item(properties), ICurioItem {
 					.with(Direction.Axis.Y, 0.5)
 
 				val pushVec = pushDirection.scale(0.3)
-
 				entity.addDeltaMovement(pushVec)
+
+				val newMomentum = momentum.getWithLessMomentum(1.0)
+				hulaStack.set(ModDataComponents.ANGULAR_MOMENTUM, newMomentum)
+
+				//TODO: Play a thunk sound?
+				//TODO: Cooldown so it can't ht on consecutive ticks
 			}
 		}
 	}
