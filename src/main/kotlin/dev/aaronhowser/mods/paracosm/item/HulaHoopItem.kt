@@ -57,7 +57,7 @@ class HulaHoopItem(properties: Properties) : Item(properties), ICurioItem {
 		private fun bumpAwayEntities(wearer: LivingEntity, hulaStack: ItemStack) {
 			val entitiesNearby = wearer.level().getEntities(
 				wearer,
-				wearer.boundingBox.inflate(1.5, 0.5, 1.5)
+				wearer.boundingBox.inflate(0.5, 0.5, 0.5)
 			).filterIsInstance<LivingEntity>()
 
 			for (entity in entitiesNearby) {
