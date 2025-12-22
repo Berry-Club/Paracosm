@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.paracosm.item.component
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
+import dev.aaronhowser.mods.aaron.AaronExtensions.toDegrees
 import dev.aaronhowser.mods.aaron.AaronExtraCodecs
 import io.netty.buffer.ByteBuf
 import net.minecraft.network.codec.ByteBufCodecs
@@ -33,7 +34,7 @@ data class RotationalMomentumDataComponent(
 		val deltaX = newPosition.x - prevX
 		val deltaZ = newPosition.z - prevZ
 
-		val newDirection = Math.toDegrees(atan2(deltaZ, deltaX))
+		val newDirection = atan2(deltaZ, deltaX).toDegrees()
 		val directionDifference = ((newDirection - previousDirection + 540) % 360) - 180
 
 		if (directionDifference == 0.0 || directionDifference !in -90.0..90.0) {

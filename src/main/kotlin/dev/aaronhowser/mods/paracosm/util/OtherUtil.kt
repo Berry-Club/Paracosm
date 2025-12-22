@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.util
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.toDegrees
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.config.ServerConfig
 import net.minecraft.resources.ResourceLocation
@@ -26,8 +27,7 @@ object OtherUtil {
 		val entityVec = livingEntity.eyePosition
 		val toPosVec = pos.subtract(entityVec).normalize()
 
-		val angleRad = acos(lookVec.dot(toPosVec))
-		val angle = Math.toDegrees(angleRad)
+		val angle = acos(lookVec.dot(toPosVec)).toDegrees()
 
 		return angle < angleDegrees
 	}
