@@ -38,13 +38,6 @@ object ModDataComponents : AaronDataComponentRegistry() {
 			AaronExtraCodecs.tagKeyStreamCodec(Registries.ENTITY_TYPE)
 		)
 
-	val SCARES_ENTITY_TYPES: DeferredHolder<DataComponentType<*>, DataComponentType<TagKey<EntityType<*>>>> =
-		register(
-			"scares_entity_types",
-			TagKey.codec(Registries.ENTITY_TYPE),
-			AaronExtraCodecs.tagKeyStreamCodec(Registries.ENTITY_TYPE)
-		)
-
 	val PROPELLER_HAT_FLIGHT_TICKS: DeferredHolder<DataComponentType<*>, DataComponentType<Int>> =
 		int("propeller_hat_flight_ticks")
 
