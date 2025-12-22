@@ -14,7 +14,7 @@ import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.sign
 
-data class RotationalMomentumDataComponent(
+data class AngularMomentumDataComponent(
 	val counterclockwiseMomentum: Double,
 	val previousPosition: Vector2d,
 	val previousDirection: Double
@@ -31,7 +31,7 @@ data class RotationalMomentumDataComponent(
 	)
 
 	//TODO: Make it not jump when changing from not moving to moving (in certain direction) and vice versa
-	fun getWithNewPosition(newPosition: Vec3): RotationalMomentumDataComponent {
+	fun getWithNewPosition(newPosition: Vec3): AngularMomentumDataComponent {
 		if (newPosition == previousPosition) {
 			return bleedMomentum(newPosition, previousDirection)
 		}
@@ -51,21 +51,21 @@ data class RotationalMomentumDataComponent(
 
 		val additionalMomentum = directionDifference * 0.1
 
-		return RotationalMomentumDataComponent(
+		return AngularMomentumDataComponent(
 			counterclockwiseMomentum + additionalMomentum,
 			Vector2d(newPosition.x, newPosition.z),
 			newDirection
 		)
 	}
 
-	private fun bleedMomentum(newPosition: Vec3, newDirection: Double): RotationalMomentumDataComponent {
+	private fun bleedMomentum(newPosition: Vec3, newDirection: Double): AngularMomentumDataComponent {
 		val bleedAmount = 0.5 * counterclockwiseMomentum.sign
 		var newMomentum = counterclockwiseMomentum - bleedAmount
 		if (abs(newMomentum) < 1.0) {
 			newMomentum = 0.0
 		}
 
-		return RotationalMomentumDataComponent(
+		return AngularMomentumDataComponent(
 			newMomentum,
 			Vector2d(newPosition.x, newPosition.z),
 			newDirection
@@ -73,27 +73,27 @@ data class RotationalMomentumDataComponent(
 	}
 
 	companion object {
-		val CODEC: Codec<RotationalMomentumDataComponent> =
+		val CODEC: Codec<AngularMomentumDataComponent> =
 			RecordCodecBuilder.create { instance ->
 				instance.group(
 					Codec.DOUBLE
 						.fieldOf("momentum")
-						.forGetter(RotationalMomentumDataComponent::counterclockwiseMomentum),
+						.forGetter(AngularMomentumDataComponent::counterclockwiseMomentum),
 					AaronExtraCodecs.VECTOR2D_CODEC
 						.fieldOf("position")
-						.forGetter(RotationalMomentumDataComponent::previousPosition),
+						.forGetter(AngularMomentumDataComponent::previousPosition),
 					Codec.DOUBLE
 						.fieldOf("direction")
-						.forGetter(RotationalMomentumDataComponent::previousDirection)
-				).apply(instance, ::RotationalMomentumDataComponent)
+						.forGetter(AngularMomentumDataComponent::previousDirection)
+				).apply(instance, ::AngularMomentumDataComponent)
 			}
 
-		val STREAM_CODEC: StreamCodec<ByteBuf, RotationalMomentumDataComponent> =
+		val STREAM_CODEC: StreamCodec<ByteBuf, AngularMomentumDataComponent> =
 			StreamCodec.composite(
-				ByteBufCodecs.DOUBLE, RotationalMomentumDataComponent::counterclockwiseMomentum,
-				AaronExtraCodecs.VECTOR2D_STREAM_CODEC, RotationalMomentumDataComponent::previousPosition,
-				ByteBufCodecs.DOUBLE, RotationalMomentumDataComponent::previousDirection,
-				::RotationalMomentumDataComponent
+				ByteBufCodecs.DOUBLE, AngularMomentumDataComponent::counterclockwiseMomentum,
+				AaronExtraCodecs.VECTOR2D_STREAM_CODEC, AngularMomentumDataComponent::previousPosition,
+				ByteBufCodecs.DOUBLE, AngularMomentumDataComponent::previousDirection,
+				::AngularMomentumDataComponent
 			)
 	}
 
