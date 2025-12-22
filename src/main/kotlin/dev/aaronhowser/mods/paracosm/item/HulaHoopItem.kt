@@ -71,7 +71,7 @@ class HulaHoopItem(properties: Properties) : Item(properties), ICurioItem {
 			if (entitiesNearby.isEmpty()) return
 
 			val currentTick = wearer.level().gameTime
-			val momentumCost = ServerConfig.CONFIG.hulaHoopMomentumPerPush.get()
+			val momentumCost = ServerConfig.CONFIG.hulaHoopCostPerPush.get()
 
 			for (entity in entitiesNearby) {
 				val lastBumpedAt = LAST_BUMPED_AT[entity.uuid] ?: 0L
@@ -91,7 +91,7 @@ class HulaHoopItem(properties: Properties) : Item(properties), ICurioItem {
 					.normalize()
 					.with(Direction.Axis.Y, 0.5)
 
-				val pushAmount = momentum.counterclockwiseMomentum.absoluteValue
+				val pushAmount = momentum.counterclockwiseMomentum.absoluteValue * ServerConfig.CONFIG.hulaHoopPushScale.get()
 
 				val pushVec = pushDirection.scale(pushAmount)
 				entity.addDeltaMovement(pushVec)

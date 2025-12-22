@@ -10,7 +10,8 @@ class ServerConfig(
 	lateinit var toyFlopRange: ModConfigSpec.DoubleValue
 	lateinit var pogoGoombaRadius: ModConfigSpec.DoubleValue
 
-	lateinit var hulaHoopMomentumPerPush: ModConfigSpec.DoubleValue
+	lateinit var hulaHoopCostPerPush: ModConfigSpec.DoubleValue
+	lateinit var hulaHoopPushScale: ModConfigSpec.DoubleValue
 	lateinit var hulaHoopMomentumPerRotation: ModConfigSpec.DoubleValue
 	lateinit var hulaHoopBleedPerTick: ModConfigSpec.DoubleValue
 
@@ -33,9 +34,13 @@ class ServerConfig(
 	private fun hulaHoop() {
 		builder.push("Hula Hoop")
 
-		hulaHoopMomentumPerPush = builder
+		hulaHoopCostPerPush = builder
 			.comment("How much momentum to drain when pushing an entity.")
 			.defineInRange("Hula Hoop Momentum Per Push", 1.0, 0.0, Double.MAX_VALUE)
+
+		hulaHoopPushScale = builder
+			.comment("Scale factor for how much velocity is applied to an entity when pushed by a hula hoop.")
+			.defineInRange("Hula Hoop Push Scale", 1.0, 0.0, Double.MAX_VALUE)
 
 		hulaHoopMomentumPerRotation = builder
 			.comment("The amount of angular momentum added to a Hula Hoop per full circle rotated.")
