@@ -10,12 +10,17 @@ class ServerConfig(
 	lateinit var toyFlopRange: ModConfigSpec.DoubleValue
 	lateinit var pogoGoombaRadius: ModConfigSpec.DoubleValue
 
+	lateinit var hulaHoopMomentumPerPush: ModConfigSpec.DoubleValue
+	lateinit var hulaHoopMomentumPerRotation: ModConfigSpec.DoubleValue
+	lateinit var hulaHoopBleedPerTick: ModConfigSpec.DoubleValue
+
 	init {
-		serverConfigs()
+		generalConfigs()
+		hulaHoop()
 		builder.build()
 	}
 
-	private fun serverConfigs() {
+	private fun generalConfigs() {
 		toyFlopRange = builder
 			.comment("The range that a toy checks for players to hide from.")
 			.defineInRange("Toy Flop Range", 80.0, 0.0, Double.MAX_VALUE)
@@ -23,6 +28,24 @@ class ServerConfig(
 		pogoGoombaRadius = builder
 			.comment("The radius that a pogo stick checks for entities to stomp.")
 			.defineInRange("Pogo Goomba Radius", 1.5, 0.0, Double.MAX_VALUE)
+	}
+
+	private fun hulaHoop() {
+		builder.push("Hula Hoop")
+
+		hulaHoopMomentumPerPush = builder
+			.comment("How much momentum to drain when pushing an entity.")
+			.defineInRange("Hula Hoop Momentum Per Push", 1.0, 0.0, Double.MAX_VALUE)
+
+		hulaHoopMomentumPerRotation = builder
+			.comment("The amount of angular momentum added to a Hula Hoop per full circle rotated.")
+			.defineInRange("Hula Hoop Momentum Per Rotation", 1.0, 0.0, Double.MAX_VALUE)
+
+		hulaHoopBleedPerTick = builder
+			.comment("The amount of angular momentum a hula hoop loses per tick.")
+			.defineInRange("Hula Hoop Bleed Per Tick", 0.05, 0.0, Double.MAX_VALUE)
+
+		builder.pop()
 	}
 
 	companion object {

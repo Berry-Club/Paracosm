@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.aaron.AaronExtensions.toDegrees
 import dev.aaronhowser.mods.aaron.AaronExtraCodecs
+import dev.aaronhowser.mods.paracosm.config.ServerConfig
 import io.netty.buffer.ByteBuf
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
@@ -49,7 +50,7 @@ data class AngularMomentumDataComponent(
 			return bleedMomentum(newPosition, newDirection)
 		}
 
-		val additionalMomentum = directionDifference / 360.0
+		val additionalMomentum = directionDifference / 360.0 * ServerConfig.CONFIG.hulaHoopMomentumPerRotation.get()
 
 		return AngularMomentumDataComponent(
 			counterclockwiseMomentum + additionalMomentum,
@@ -59,9 +60,12 @@ data class AngularMomentumDataComponent(
 	}
 
 	private fun bleedMomentum(newPosition: Vec3, newDirection: Double): AngularMomentumDataComponent {
-		val bleedAmount = 0.05 * counterclockwiseMomentum.sign
-		var newMomentum = counterclockwiseMomentum - bleedAmount
-		if (abs(newMomentum) < 1.0) {
+		val bleedAmount = ServerConfig.CONFIG.hulaHoopBleedPerTick.get()
+		val amountToRemove = bleedAmount * counterclockwiseMomentum.sign
+
+		var newMomentum = counterclockwiseMomentum - amountToRemove
+
+		if (abs(newMomentum) < bleedAmount) {
 			newMomentum = 0.0
 		}
 
@@ -74,7 +78,7 @@ data class AngularMomentumDataComponent(
 
 	fun getWithLessMomentum(amount: Double): AngularMomentumDataComponent {
 		var newMomentum = counterclockwiseMomentum - amount * counterclockwiseMomentum.sign
-		if (abs(newMomentum) < 0.05) {
+		if (abs(newMomentum) < ServerConfig.CONFIG.hulaHoopBleedPerTick.get()) {
 			newMomentum = 0.0
 		}
 
