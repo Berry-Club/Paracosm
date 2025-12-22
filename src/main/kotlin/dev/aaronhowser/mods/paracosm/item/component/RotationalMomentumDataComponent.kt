@@ -34,7 +34,7 @@ data class RotationalMomentumDataComponent(
 		val newDirection = Math.toDegrees(atan2(deltaZ, deltaX))
 		val directionDifference = ((newDirection - previousDirection + 540) % 360) - 180
 
-		if (directionDifference == 0.0) {
+		if (directionDifference == 0.0 || directionDifference !in -90.0..90.0) {
 			return RotationalMomentumDataComponent(
 				clockwiseMomentum,
 				Pair(newPosition.x, newPosition.z),
