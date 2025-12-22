@@ -49,7 +49,7 @@ data class AngularMomentumDataComponent(
 			return bleedMomentum(newPosition, newDirection)
 		}
 
-		val additionalMomentum = directionDifference * 0.1
+		val additionalMomentum = directionDifference / 360.0
 
 		return AngularMomentumDataComponent(
 			counterclockwiseMomentum + additionalMomentum,

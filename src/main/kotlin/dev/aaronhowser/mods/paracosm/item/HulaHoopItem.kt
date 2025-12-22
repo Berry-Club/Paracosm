@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.paracosm.item
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.status
+import dev.aaronhowser.mods.aaron.AaronExtensions.tell
 import dev.aaronhowser.mods.paracosm.item.component.AngularMomentumDataComponent
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
 import net.minecraft.core.Direction
@@ -71,7 +72,9 @@ class HulaHoopItem(properties: Properties) : Item(properties), ICurioItem {
 					.normalize()
 					.with(Direction.Axis.Y, 0.5)
 
-				val pushVec = pushDirection.scale(0.3)
+				val pushAmount = momentum.counterclockwiseMomentum.absoluteValue
+
+				val pushVec = pushDirection.scale(pushAmount)
 				entity.addDeltaMovement(pushVec)
 
 				val newMomentum = momentum.getWithLessMomentum(1.0)
@@ -79,6 +82,8 @@ class HulaHoopItem(properties: Properties) : Item(properties), ICurioItem {
 
 				//TODO: Play a thunk sound?
 				//TODO: Cooldown so it can't ht on consecutive ticks
+
+				wearer.tell("Bumped ${entity.name.string}!")
 			}
 		}
 	}
