@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec
 import dev.aaronhowser.mods.aaron.AaronExtraCodecs
 import dev.aaronhowser.mods.aaron.registry.AaronDataComponentRegistry
 import dev.aaronhowser.mods.paracosm.Paracosm
+import dev.aaronhowser.mods.paracosm.item.component.RotationalMomentumDataComponent
 import net.minecraft.core.component.DataComponentType
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.codec.ByteBufCodecs
@@ -40,5 +41,8 @@ object ModDataComponents : AaronDataComponentRegistry() {
 
 	val PROPELLER_HAT_FLIGHT_TICKS: DeferredHolder<DataComponentType<*>, DataComponentType<Int>> =
 		int("propeller_hat_flight_ticks")
+
+	val ROTATIONAL_MOMENTUM: DeferredHolder<DataComponentType<*>, DataComponentType<RotationalMomentumDataComponent>> =
+		register("rotational_momentum", RotationalMomentumDataComponent.CODEC, RotationalMomentumDataComponent.STREAM_CODEC)
 
 }
