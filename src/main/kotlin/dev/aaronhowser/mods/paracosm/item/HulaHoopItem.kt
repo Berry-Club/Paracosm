@@ -67,6 +67,8 @@ class HulaHoopItem(properties: Properties) : Item(properties), ICurioItem {
 				wearer.boundingBox.inflate(0.5, 0.5, 0.5)
 			).filterIsInstance<LivingEntity>()
 
+			if (entitiesNearby.isEmpty()) return
+
 			val currentTick = wearer.level().gameTime
 
 			for (entity in entitiesNearby) {
