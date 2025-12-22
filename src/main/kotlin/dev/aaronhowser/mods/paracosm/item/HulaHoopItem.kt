@@ -26,6 +26,9 @@ class HulaHoopItem(properties: Properties) : Item(properties), ICurioItem {
 	}
 
 	companion object {
+		val DEFAULT_PROPERTIES: Properties = Properties()
+			.stacksTo(1)
+
 		private fun updateMomentum(entity: LivingEntity, stack: ItemStack) {
 			val momentum = stack.get(ModDataComponents.ROTATIONAL_MOMENTUM)
 			if (momentum == null) {

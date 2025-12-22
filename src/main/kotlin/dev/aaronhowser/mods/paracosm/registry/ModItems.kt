@@ -52,6 +52,8 @@ object ModItems : AaronItemRegistry() {
 
 	val PROPELLER_HAT: DeferredItem<PropellerHatItem> =
 		register("propeller_hat", ::PropellerHatItem, PropellerHatItem.DEFAULT_PROPERTIES)
+	val HULA_HOOP: DeferredItem<HulaHoopItem> =
+		register("hula_hoop", ::HulaHoopItem, HulaHoopItem.DEFAULT_PROPERTIES)
 
 	// Foods
 	val CANDY: DeferredItem<FancyFoodItem> =
