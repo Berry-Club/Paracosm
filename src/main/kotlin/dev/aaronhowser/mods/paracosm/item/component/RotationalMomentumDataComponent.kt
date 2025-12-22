@@ -1,16 +1,18 @@
 package dev.aaronhowser.mods.paracosm.item.component
 
-import com.mojang.datafixers.util.Pair
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
+import dev.aaronhowser.mods.aaron.AaronExtraCodecs
 import io.netty.buffer.ByteBuf
+import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.world.phys.Vec3
+import org.joml.Vector2d
 import kotlin.math.atan2
 
 data class RotationalMomentumDataComponent(
 	val clockwiseMomentum: Double,
-	val previousPosition: Pair<Double, Double>,
+	val previousPosition: Vector2d,
 	val previousDirection: Double
 ) {
 
@@ -20,13 +22,13 @@ data class RotationalMomentumDataComponent(
 		previousDirection: Double
 	) : this(
 		clockwiseMomentum,
-		Pair(previousPosition.x, previousPosition.z),
+		Vector2d(previousPosition.x, previousPosition.z),
 		previousDirection
 	)
 
 	fun getWithNewPosition(newPosition: Vec3): RotationalMomentumDataComponent {
-		val prevX = previousPosition.first
-		val prevZ = previousPosition.second
+		val prevX = previousPosition.x
+		val prevZ = previousPosition.y
 
 		val deltaX = newPosition.x - prevX
 		val deltaZ = newPosition.z - prevZ
@@ -37,7 +39,7 @@ data class RotationalMomentumDataComponent(
 		if (directionDifference == 0.0 || directionDifference !in -90.0..90.0) {
 			return RotationalMomentumDataComponent(
 				clockwiseMomentum,
-				Pair(newPosition.x, newPosition.z),
+				Vector2d(newPosition.x, newPosition.z),
 				newDirection
 			)
 		}
@@ -46,7 +48,7 @@ data class RotationalMomentumDataComponent(
 
 		return RotationalMomentumDataComponent(
 			clockwiseMomentum + additionalMomentum,
-			Pair(newPosition.x, newPosition.z),
+			Vector2d(newPosition.x, newPosition.z),
 			newDirection
 		)
 	}
@@ -58,7 +60,7 @@ data class RotationalMomentumDataComponent(
 					Codec.DOUBLE
 						.fieldOf("momentum")
 						.forGetter(RotationalMomentumDataComponent::clockwiseMomentum),
-					Codec.pair(Codec.DOUBLE, Codec.DOUBLE)
+					AaronExtraCodecs.VECTOR3D_CODEC
 						.fieldOf("position")
 						.forGetter(RotationalMomentumDataComponent::previousPosition),
 					Codec.DOUBLE
@@ -68,26 +70,12 @@ data class RotationalMomentumDataComponent(
 			}
 
 		val STREAM_CODEC: StreamCodec<ByteBuf, RotationalMomentumDataComponent> =
-			object : StreamCodec<ByteBuf, RotationalMomentumDataComponent> {
-				override fun encode(buffer: ByteBuf, value: RotationalMomentumDataComponent) {
-					buffer.writeDouble(value.clockwiseMomentum)
-					buffer.writeDouble(value.previousPosition.first)
-					buffer.writeDouble(value.previousPosition.second)
-					buffer.writeDouble(value.previousDirection)
-				}
-
-				override fun decode(buffer: ByteBuf): RotationalMomentumDataComponent {
-					val clockwiseMomentum = buffer.readDouble()
-					val previousX = buffer.readDouble()
-					val previousZ = buffer.readDouble()
-					val previousDirection = buffer.readDouble()
-					return RotationalMomentumDataComponent(
-						clockwiseMomentum,
-						Pair(previousX, previousZ),
-						previousDirection
-					)
-				}
-			}
+			StreamCodec.composite(
+				ByteBufCodecs.DOUBLE, RotationalMomentumDataComponent::clockwiseMomentum,
+				AaronExtraCodecs.VECTOR2D_STREAM_CODEC, RotationalMomentumDataComponent::previousPosition,
+				ByteBufCodecs.DOUBLE, RotationalMomentumDataComponent::previousDirection,
+				::RotationalMomentumDataComponent
+			)
 	}
 
 }
