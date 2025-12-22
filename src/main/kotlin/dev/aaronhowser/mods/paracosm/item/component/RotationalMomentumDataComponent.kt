@@ -12,6 +12,7 @@ import net.minecraft.world.phys.Vec3
 import org.joml.Vector2d
 import kotlin.math.abs
 import kotlin.math.atan2
+import kotlin.math.sign
 
 data class RotationalMomentumDataComponent(
 	val counterclockwiseMomentum: Double,
@@ -29,6 +30,7 @@ data class RotationalMomentumDataComponent(
 		previousDirection
 	)
 
+	//TODO: Make it not jump when changing from not moving to moving (in certain direction) and vice versa
 	fun getWithNewPosition(newPosition: Vec3): RotationalMomentumDataComponent {
 		if (newPosition == previousPosition) {
 			return bleedMomentum(newPosition, previousDirection)
@@ -57,8 +59,9 @@ data class RotationalMomentumDataComponent(
 	}
 
 	private fun bleedMomentum(newPosition: Vec3, newDirection: Double): RotationalMomentumDataComponent {
-		var newMomentum = counterclockwiseMomentum * 0.99
-		if (abs(newMomentum) < 0.1) {
+		val bleedAmount = 0.5 * counterclockwiseMomentum.sign
+		var newMomentum = counterclockwiseMomentum - bleedAmount
+		if (abs(newMomentum) < 1.0) {
 			newMomentum = 0.0
 		}
 
