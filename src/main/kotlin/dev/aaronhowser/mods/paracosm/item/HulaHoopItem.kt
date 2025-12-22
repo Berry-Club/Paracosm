@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.paracosm.item
 import dev.aaronhowser.mods.aaron.AaronExtensions.status
 import dev.aaronhowser.mods.paracosm.item.component.AngularMomentumDataComponent
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
+import net.minecraft.core.Direction
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
@@ -18,6 +19,7 @@ class HulaHoopItem(properties: Properties) : Item(properties), ICurioItem {
 
 		val entity = slotContext.entity
 		updateMomentum(entity, stack)
+		bumpAwayEntities(entity, stack)
 	}
 
 	//FIXME: Not working?
@@ -53,8 +55,26 @@ class HulaHoopItem(properties: Properties) : Item(properties), ICurioItem {
 		}
 
 		private fun bumpAwayEntities(wearer: LivingEntity, hulaStack: ItemStack) {
-			val momentum = hulaStack.get(ModDataComponents.ANGULAR_MOMENTUM) ?: return
-			if (momentum.counterclockwiseMomentum.absoluteValue < 0.1) return
+			val entitiesNearby = wearer.level().getEntities(
+				wearer,
+				wearer.boundingBox.inflate(1.5, 0.5, 1.5)
+			).filterIsInstance<LivingEntity>()
+
+			for (entity in entitiesNearby) {
+				val momentum = hulaStack.get(ModDataComponents.ANGULAR_MOMENTUM) ?: return
+				if (momentum.counterclockwiseMomentum.absoluteValue < 0.1) return
+
+				val pushDirection = wearer
+					.position()
+					.vectorTo(entity.position())
+					.with(Direction.Axis.Y, 0.0)
+					.normalize()
+					.with(Direction.Axis.Y, 0.5)
+
+				val pushVec = pushDirection.scale(0.3)
+
+				entity.addDeltaMovement(pushVec)
+			}
 		}
 	}
 
