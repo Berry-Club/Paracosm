@@ -7,8 +7,10 @@ import dev.aaronhowser.mods.aaron.AaronExtraCodecs
 import io.netty.buffer.ByteBuf
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
+import net.minecraft.util.Mth
 import net.minecraft.world.phys.Vec3
 import org.joml.Vector2d
+import kotlin.math.abs
 import kotlin.math.atan2
 
 data class RotationalMomentumDataComponent(
@@ -28,6 +30,10 @@ data class RotationalMomentumDataComponent(
 	)
 
 	fun getWithNewPosition(newPosition: Vec3): RotationalMomentumDataComponent {
+		if (newPosition == previousPosition) {
+			return bleedMomentum(newPosition, previousDirection)
+		}
+
 		val prevX = previousPosition.x
 		val prevZ = previousPosition.y
 
@@ -35,20 +41,29 @@ data class RotationalMomentumDataComponent(
 		val deltaZ = newPosition.z - prevZ
 
 		val newDirection = atan2(deltaZ, deltaX).toDegrees()
-		val directionDifference = ((newDirection - previousDirection + 540) % 360) - 180
+		val directionDifference = Mth.degreesDifference(newDirection.toFloat(), previousDirection.toFloat())
 
-		if (directionDifference == 0.0 || directionDifference !in -90.0..90.0) {
-			return RotationalMomentumDataComponent(
-				clockwiseMomentum,
-				Vector2d(newPosition.x, newPosition.z),
-				newDirection
-			)
+		if (directionDifference in -1.0..1.0 || directionDifference !in -90.0..90.0) {
+			return bleedMomentum(newPosition, newDirection)
 		}
 
 		val additionalMomentum = directionDifference * 0.1
 
 		return RotationalMomentumDataComponent(
 			clockwiseMomentum + additionalMomentum,
+			Vector2d(newPosition.x, newPosition.z),
+			newDirection
+		)
+	}
+
+	private fun bleedMomentum(newPosition: Vec3, newDirection: Double): RotationalMomentumDataComponent {
+		var newMomentum = clockwiseMomentum * 0.99
+		if (abs(newMomentum) < 0.1) {
+			newMomentum = 0.0
+		}
+
+		return RotationalMomentumDataComponent(
+			newMomentum,
 			Vector2d(newPosition.x, newPosition.z),
 			newDirection
 		)
