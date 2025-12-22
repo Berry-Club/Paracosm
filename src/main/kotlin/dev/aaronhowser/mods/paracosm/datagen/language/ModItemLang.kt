@@ -33,6 +33,7 @@ object ModItemLang {
 			addItem(ModItems.FOAM_DART, "Foam Dart")
 
 			addItem(ModItems.PROPELLER_HAT, "Propeller Hat")
+			addItem(ModItems.HULA_HOOP, "Hula Hoop")
 
 			add(TOY_GUN, "Toy Gun")
 			add(COOL_GUN, "Cool Gun")
