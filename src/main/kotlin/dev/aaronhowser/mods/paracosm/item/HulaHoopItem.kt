@@ -19,6 +19,7 @@ class HulaHoopItem(properties: Properties) : Item(properties), ICurioItem {
 		updateMomentum(entity, stack)
 	}
 
+	//FIXME: Not working?
 	override fun onUnequip(slotContext: SlotContext, newStack: ItemStack, stack: ItemStack) {
 		super.onUnequip(slotContext, newStack, stack)
 
