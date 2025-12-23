@@ -8,6 +8,7 @@ import dev.aaronhowser.mods.paracosm.item.component.AngularMomentumDataComponent
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
 import net.minecraft.core.Direction
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.OwnableEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
@@ -74,6 +75,10 @@ class HulaHoopItem(properties: Properties) : Item(properties), ICurioItem {
 			val momentumCost = ServerConfig.CONFIG.hulaHoopCostPerPush.get()
 
 			for (entity in entitiesNearby) {
+				if (entity is OwnableEntity && entity.owner == wearer) {
+					continue
+				}
+
 				val lastBumpedAt = LAST_BUMPED_AT[entity.uuid] ?: 0L
 				if (currentTick - lastBumpedAt < 20L) {
 					continue
