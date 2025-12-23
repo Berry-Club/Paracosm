@@ -37,23 +37,22 @@ object ModItems : AaronItemRegistry() {
 		register("pogo_stick", ::PogoStickItem, PogoStickItem.DEFAULT_PROPERTIES)
 	val DUCK_HUNT_GUN: DeferredItem<DuckHuntGunItem> =
 		register("duck_hunt_gun", ::DuckHuntGunItem, DuckHuntGunItem.DEFAULT_PROPERTIES)
-
 	val ZOMBIE_MASK: DeferredItem<HalloweenMaskItem> =
 		halloweenMask("zombie_mask", ModEntityTypeTagsProvider.AFFECTED_BY_ZOMBIE_MASK)
 	val SKELETON_MASK: DeferredItem<HalloweenMaskItem> =
 		halloweenMask("skeleton_mask", ModEntityTypeTagsProvider.AFFECTED_BY_SKELETON_MASK)
 	val CREEPER_MASK: DeferredItem<HalloweenMaskItem> =
 		halloweenMask("creeper_mask", ModEntityTypeTagsProvider.AFFECTED_BY_CREEPER_MASK)
-
 	val NERF_GUN: DeferredItem<NerfGunItem> =
 		register("nerf_gun", ::NerfGunItem, NerfGunItem.DEFAULT_PROPERTIES)
 	val FOAM_DART: DeferredItem<FoamDartItem> =
 		register("foam_dart", ::FoamDartItem, FoamDartItem.DEFAULT_PROPERTIES)
-
 	val PROPELLER_HAT: DeferredItem<PropellerHatItem> =
 		register("propeller_hat", ::PropellerHatItem, PropellerHatItem.DEFAULT_PROPERTIES)
 	val HULA_HOOP: DeferredItem<HulaHoopItem> =
 		register("hula_hoop", ::HulaHoopItem, HulaHoopItem.DEFAULT_PROPERTIES)
+	val LIGHT_UP_SHOES: DeferredItem<LightUpShoesItem> =
+		register("light_up_shoes", ::LightUpShoesItem, LightUpShoesItem.DEFAULT_PROPERTIES)
 
 	// Foods
 	val CANDY: DeferredItem<FancyFoodItem> =
