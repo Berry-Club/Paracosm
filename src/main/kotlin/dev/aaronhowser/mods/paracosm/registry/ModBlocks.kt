@@ -24,7 +24,7 @@ object ModBlocks : AaronBlockRegistry() {
 		registerBlock("imaginator", ::ImaginatorBlock)
 	val CITY_RUG: DeferredBlock<CityRugBlock> =
 		registerBlock("city_rug", ::CityRugBlock)
-	val TEMPORARY_LIGHT: DeferredBlock<TemporaryLightBlock> =
-		registerBlockWithoutItem("temporary_light", ::TemporaryLightBlock)
+	val LIGHT_UP_SHOES_LIGHT: DeferredBlock<LightUpShoesLightBlock> =
+		registerBlockWithoutItem("light_up_shoes_light", ::LightUpShoesLightBlock)
 
 }

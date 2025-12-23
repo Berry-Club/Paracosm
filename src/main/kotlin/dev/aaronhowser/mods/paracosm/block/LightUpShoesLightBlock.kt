@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.phys.AABB
 
-class TemporaryLightBlock : AirBlock(
+class LightUpShoesLightBlock : AirBlock(
 	Properties.ofFullCopy(Blocks.AIR)
 		.lightLevel { 10 }
 ) {
@@ -23,15 +23,14 @@ class TemporaryLightBlock : AirBlock(
 	}
 
 	override fun tick(state: BlockState, level: ServerLevel, pos: BlockPos, random: RandomSource) {
-		super.tick(state, level, pos, random)
-		if (level.getBlockState(pos).`is`(this)) {
-			level.removeBlock(pos, false)
+		val hasShoes = level
+			.getEntitiesOfClass(LivingEntity::class.java, AABB(pos))
+			.any { it.getItemBySlot(EquipmentSlot.FEET).`is`(ModItems.LIGHT_UP_SHOES) }
 
-			val entitiesInPos = level.getEntitiesOfClass(LivingEntity::class.java, AABB(pos))
-			val isWearingShoes = entitiesInPos.any { it.getItemBySlot(EquipmentSlot.FEET).`is`(ModItems.LIGHT_UP_SHOES) }
-			if (isWearingShoes) {
-				level.setBlock(pos, this.defaultBlockState(), UPDATE_CLIENTS)
-			}
+		if (hasShoes) {
+			level.scheduleTick(pos, this, 3)
+		} else {
+			level.removeBlock(pos, false)
 		}
 	}
 
