@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.paracosm.item
 import dev.aaronhowser.mods.paracosm.client.render.armor.PropellerHatRenderer
 import dev.aaronhowser.mods.paracosm.handler.KeyHandler
 import dev.aaronhowser.mods.paracosm.item.base.IUpgradeableItem
-import dev.aaronhowser.mods.paracosm.item.base.WearableItem
+import dev.aaronhowser.mods.paracosm.registry.ModArmorMaterials
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import net.minecraft.client.model.HumanoidModel
@@ -11,6 +11,7 @@ import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EquipmentSlot
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
+import net.minecraft.world.item.ArmorItem
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.Vec3
@@ -24,7 +25,7 @@ import software.bernie.geckolib.animation.RawAnimation
 import software.bernie.geckolib.util.GeckoLibUtil
 import java.util.function.Consumer
 
-class PropellerHatItem(properties: Properties) : WearableItem(properties), IUpgradeableItem, GeoItem {
+class PropellerHatItem(properties: Properties) : ArmorItem(ModArmorMaterials.PROPELLER_HAT, Type.HELMET, properties), IUpgradeableItem, GeoItem {
 
 	init {
 		SingletonGeoAnimatable.registerSyncedAnimatable(this)

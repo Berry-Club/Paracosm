@@ -18,4 +18,14 @@ object ModArmorMaterials : AaronArmorMaterialRegistry() {
 			.armor(0)
 			.register()
 
+	val PROPELLER_HAT =
+		Builder("propeller_hat")
+			.armor(0)
+			.register()
+
+	val HALLOWEEN_MASK =
+		Builder("halloween_mask")
+			.armor(0)
+			.register()
+
 }
