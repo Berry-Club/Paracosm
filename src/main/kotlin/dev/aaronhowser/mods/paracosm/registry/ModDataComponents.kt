@@ -39,6 +39,9 @@ object ModDataComponents : AaronDataComponentRegistry() {
 			AaronExtraCodecs.tagKeyStreamCodec(Registries.ENTITY_TYPE)
 		)
 
+	val MASK_FACE: DeferredHolder<DataComponentType<*>, DataComponentType<String>> =
+		register("mask_face", Codec.STRING, ByteBufCodecs.STRING_UTF8)
+
 	val PROPELLER_HAT_FLIGHT_TICKS: DeferredHolder<DataComponentType<*>, DataComponentType<Int>> =
 		int("propeller_hat_flight_ticks")
 
