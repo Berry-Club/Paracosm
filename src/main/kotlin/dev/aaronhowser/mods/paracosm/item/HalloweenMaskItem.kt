@@ -23,7 +23,7 @@ class HalloweenMaskItem(properties: Properties) : ArmorItem(ModArmorMaterials.HA
 		val face = stack.get(ModDataComponents.MASK_FACE)
 			?: return super.getArmorTexture(stack, entity, slot, layer, innerModel)
 
-		return OtherUtil.modResource("textures/models/armor/mask/$face.png")
+		return OtherUtil.modResource("textures/models/armor/halloween_mask/$face.png")
 	}
 
 	companion object {
