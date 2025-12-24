@@ -2,14 +2,10 @@ package dev.aaronhowser.mods.paracosm.registry
 
 import dev.aaronhowser.mods.aaron.registry.AaronItemRegistry
 import dev.aaronhowser.mods.paracosm.Paracosm
-import dev.aaronhowser.mods.paracosm.datagen.tag.ModEntityTypeTagsProvider
 import dev.aaronhowser.mods.paracosm.item.*
 import dev.aaronhowser.mods.paracosm.item.base.FancyFoodItem
 import dev.aaronhowser.mods.paracosm.item.base.FancyFoodItem.Companion.eatTime
-import net.minecraft.tags.TagKey
-import net.minecraft.world.entity.EntityType
 import net.minecraft.world.food.FoodProperties
-import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemNameBlockItem
 import net.neoforged.neoforge.registries.DeferredItem
 import net.neoforged.neoforge.registries.DeferredRegister
@@ -38,11 +34,11 @@ object ModItems : AaronItemRegistry() {
 	val DUCK_HUNT_GUN: DeferredItem<DuckHuntGunItem> =
 		register("duck_hunt_gun", ::DuckHuntGunItem, DuckHuntGunItem.DEFAULT_PROPERTIES)
 	val ZOMBIE_MASK: DeferredItem<HalloweenMaskItem> =
-		halloweenMask("zombie_mask", ModEntityTypeTagsProvider.AFFECTED_BY_ZOMBIE_MASK)
+		register("zombie_mask", ::HalloweenMaskItem, HalloweenMaskItem.DEFAULT_ZOMBIE_PROPERTIES)
 	val SKELETON_MASK: DeferredItem<HalloweenMaskItem> =
-		halloweenMask("skeleton_mask", ModEntityTypeTagsProvider.AFFECTED_BY_SKELETON_MASK)
+		register("skeleton_mask", ::HalloweenMaskItem, HalloweenMaskItem.DEFAULT_SKELETON_PROPERTIES)
 	val CREEPER_MASK: DeferredItem<HalloweenMaskItem> =
-		halloweenMask("creeper_mask", ModEntityTypeTagsProvider.AFFECTED_BY_CREEPER_MASK)
+		register("creeper_mask", ::HalloweenMaskItem, HalloweenMaskItem.DEFAULT_CREEPER_PROPERTIES)
 	val NERF_GUN: DeferredItem<NerfGunItem> =
 		register("nerf_gun", ::NerfGunItem, NerfGunItem.DEFAULT_PROPERTIES)
 	val FOAM_DART: DeferredItem<FoamDartItem> =
@@ -82,18 +78,5 @@ object ModItems : AaronItemRegistry() {
 		}
 	val WARM_MILK: DeferredItem<WarmMilkItem> =
 		register("warm_milk", ::WarmMilkItem, WarmMilkItem.DEFAULT_PROPERTIES)
-
-	private fun halloweenMask(
-		id: String,
-		neutralEntities: TagKey<EntityType<*>>
-	): DeferredItem<HalloweenMaskItem> {
-		return ITEM_REGISTRY.registerItem(id) {
-			HalloweenMaskItem(
-				Item.Properties()
-					.stacksTo(1)
-					.component(ModDataComponents.AGGRO_IMMUNE_FROM, neutralEntities)
-			)
-		}
-	}
 
 }
