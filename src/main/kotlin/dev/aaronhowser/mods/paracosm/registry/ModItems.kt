@@ -54,26 +54,15 @@ object ModItems : AaronItemRegistry() {
 	val CANDY: DeferredItem<FancyFoodItem> =
 		ITEM_REGISTRY.registerItem("candy") {
 			FancyFoodItem(
-				stacksTo = 99,
 				isDrink = false,
-				FoodProperties
-					.Builder()
-					.nutrition(1)
-					.saturationModifier(-0.1f)
-					.eatTime(0.1f)
-					.build()
+				properties = FancyFoodItem.DEFAULT_CANDY_PROPERTIES.invoke()
 			)
 		}
 	val SODA: DeferredItem<FancyFoodItem> =
 		ITEM_REGISTRY.registerItem("soda") {
 			FancyFoodItem(
-				stacksTo = 1,
 				isDrink = true,
-				FoodProperties
-					.Builder()
-					.nutrition(1)
-					.saturationModifier(0.1f)
-					.build()
+				properties = FancyFoodItem.DEFAULT_SODA_PROPERTIES.invoke()
 			)
 		}
 	val WARM_MILK: DeferredItem<WarmMilkItem> =
