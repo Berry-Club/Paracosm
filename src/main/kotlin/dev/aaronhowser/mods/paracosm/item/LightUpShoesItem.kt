@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.item
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.defaultBlockState
 import dev.aaronhowser.mods.paracosm.item.base.WearableItem
 import dev.aaronhowser.mods.paracosm.registry.ModBlocks
 import net.minecraft.world.entity.Entity
@@ -25,7 +26,7 @@ class LightUpShoesItem(properties: Properties) : WearableItem(properties) {
 
 		val pos = entity.blockPosition()
 		if (level.isEmptyBlock(pos)) {
-			level.setBlock(pos, ModBlocks.LIGHT_UP_SHOES_LIGHT.get().defaultBlockState(), Block.UPDATE_CLIENTS)
+			level.setBlock(pos, ModBlocks.LIGHT_UP_SHOES_LIGHT.defaultBlockState(), Block.UPDATE_CLIENTS)
 		}
 	}
 
