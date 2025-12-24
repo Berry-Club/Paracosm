@@ -13,7 +13,8 @@ object ModRegistries {
 		ModCreativeTabs.CREATIVE_TAB_REGISTRY,
 		ModEntityTypes.ENTITY_TYPE_REGISTRY,
 		ModSounds.SOUND_EVENT_REGISTRY,
-		ModAttributes.ATTRIBUTE_REGISTRY
+		ModAttributes.ATTRIBUTE_REGISTRY,
+		ModArmorMaterials.ARMOR_MATERIAL_REGISTRY
 	)
 
 	fun register(modBus: IEventBus) {
