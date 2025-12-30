@@ -1,6 +1,8 @@
 package dev.aaronhowser.mods.paracosm.entity
 
 import dev.aaronhowser.mods.paracosm.entity.base.ToySoldierEntity
+import dev.aaronhowser.mods.paracosm.entity.goal.ToyLookAtPlayerGoal
+import dev.aaronhowser.mods.paracosm.entity.goal.ToyRandomLookAroundGoal
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier
@@ -20,6 +22,18 @@ class ToySoldierGunnerEntity : ToySoldierEntity {
 	) : super(entityType, level)
 
 	override val requiredWhimsy: Double = 10.0
+
+	override fun registerGoals() {
+		goalSelector.addGoal(4, ToyLookAtPlayerGoal(this))
+		goalSelector.addGoal(5, ToyRandomLookAroundGoal(this))
+	}
+
+	override fun tick() {
+		super.tick()
+
+
+	}
+
 	override fun registerControllers(controllers: AnimatableManager.ControllerRegistrar) {}
 
 	companion object {
