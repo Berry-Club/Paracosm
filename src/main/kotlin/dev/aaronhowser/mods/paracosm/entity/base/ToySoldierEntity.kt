@@ -5,6 +5,8 @@ import dev.aaronhowser.mods.paracosm.entity.goal.ToyRandomLookAroundGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyStrollGoal
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier
+import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.ai.goal.FloatGoal
 import net.minecraft.world.entity.ai.goal.FollowOwnerGoal
 import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal
@@ -43,7 +45,7 @@ abstract class ToySoldierEntity(
 		val leaderUuid = squadLeaderUuid ?: return null
 		val nearbySoldiers = level().getEntities(
 			this,
-			boundingBox.inflate(40.0)
+			boundingBox.inflate(40.0 * getAttributeValue(Attributes.SCALE))
 		).filterIsInstance<ToySoldierEntity>()
 
 		return nearbySoldiers.firstOrNull { it.uuid == leaderUuid }
@@ -67,7 +69,7 @@ abstract class ToySoldierEntity(
 
 		val nearbySoldiers = level().getEntities(
 			this,
-			boundingBox.inflate(40.0)
+			boundingBox.inflate(40.0 * getAttributeValue(Attributes.SCALE))
 		).filterIsInstance<ToySoldierEntity>()
 
 		return nearbySoldiers.filter { it.squadLeaderUuid == this.uuid }
@@ -77,6 +79,17 @@ abstract class ToySoldierEntity(
 		val leader = getSquadLeader() ?: return emptyList()
 
 		return leader.getChildren() + leader
+	}
+
+	companion object {
+		fun setAttributes(): AttributeSupplier {
+			return createMobAttributes()
+				.add(Attributes.MAX_HEALTH, 20.0)
+				.add(Attributes.ATTACK_DAMAGE, 2.0)
+				.add(Attributes.ATTACK_SPEED, 1.0)
+				.add(Attributes.MOVEMENT_SPEED, 0.2)
+				.build()
+		}
 	}
 
 }

@@ -1,15 +1,8 @@
 package dev.aaronhowser.mods.paracosm.entity
 
 import dev.aaronhowser.mods.paracosm.entity.base.ToySoldierEntity
-import dev.aaronhowser.mods.paracosm.entity.goal.ToyLookAtPlayerGoal
-import dev.aaronhowser.mods.paracosm.entity.goal.ToyRandomLookAroundGoal
-import dev.aaronhowser.mods.paracosm.entity.goal.ToyStrollGoal
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import net.minecraft.world.entity.EntityType
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier
-import net.minecraft.world.entity.ai.attributes.Attributes
-import net.minecraft.world.entity.ai.goal.FloatGoal
-import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal
 import net.minecraft.world.level.Level
 import software.bernie.geckolib.animation.AnimatableManager
 import software.bernie.geckolib.animation.AnimationController
@@ -43,15 +36,6 @@ class ToySoldierGunnerEntity : ToySoldierEntity {
 
 	companion object {
 		val WALK_ANIM: RawAnimation = RawAnimation.begin().thenLoop("animation.toygunner.walk")
-
-		fun setAttributes(): AttributeSupplier {
-			return createMobAttributes()
-				.add(Attributes.MAX_HEALTH, 20.0)
-				.add(Attributes.ATTACK_DAMAGE, 2.0)
-				.add(Attributes.ATTACK_SPEED, 1.0)
-				.add(Attributes.MOVEMENT_SPEED, 0.2)
-				.build()
-		}
 	}
 
 }
