@@ -12,7 +12,7 @@ data class ResearchType(
 
 	companion object {
 		fun Holder<ResearchType>.getComponent(): Component {
-			val key = this.unwrapKey().orElseThrow()
+			val key = unwrapKey().orElseThrow()
 			val location = key.location()
 			return Component.translatable("paracosm.research_type.${location.namespace}.${location.path}")
 		}

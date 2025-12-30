@@ -24,11 +24,11 @@ class AaronberryEntity : ToyEntity {
 	override val requiredWhimsy: Double = 1.0
 
 	override fun registerGoals() {
-		this.goalSelector.addGoal(0, FloatGoal(this))
-		this.goalSelector.addGoal(2, SitWhenOrderedToGoal(this))
-		this.goalSelector.addGoal(3, ToyStrollGoal(this, 1.0))
-		this.goalSelector.addGoal(4, ToyLookAtPlayerGoal(this))
-		this.goalSelector.addGoal(5, ToyRandomLookAroundGoal(this))
+		goalSelector.addGoal(0, FloatGoal(this))
+		goalSelector.addGoal(2, SitWhenOrderedToGoal(this))
+		goalSelector.addGoal(3, ToyStrollGoal(this, 1.0))
+		goalSelector.addGoal(4, ToyLookAtPlayerGoal(this))
+		goalSelector.addGoal(5, ToyRandomLookAroundGoal(this))
 	}
 
 	override fun registerControllers(controllers: AnimatableManager.ControllerRegistrar) {

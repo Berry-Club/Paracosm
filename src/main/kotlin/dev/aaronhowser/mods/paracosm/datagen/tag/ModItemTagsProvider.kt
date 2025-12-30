@@ -25,19 +25,19 @@ class ModItemTagsProvider(
 
 	override fun addTags(pProvider: HolderLookup.Provider) {
 
-		this.tag(SWEETS)
+		tag(SWEETS)
 			.add(
 				Items.COOKIE,
 				ModItems.CANDY.get(),
 				ModItems.SODA.get()
 			)
 
-		this.tag(SEEING_STONE_CURIO)
+		tag(SEEING_STONE_CURIO)
 			.add(
 				ModItems.SEEING_STONE.get()
 			)
 
-		this.tag(BELT_CURIO)
+		tag(BELT_CURIO)
 			.add(
 				ModItems.HULA_HOOP.get()
 			)

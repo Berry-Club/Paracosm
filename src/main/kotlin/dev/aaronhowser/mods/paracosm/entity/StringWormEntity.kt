@@ -19,8 +19,6 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.Vec3
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache
-import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache
 import software.bernie.geckolib.animation.*
 
 class StringWormEntity(
@@ -33,13 +31,11 @@ class StringWormEntity(
 	override val requiredWhimsy: Double = 5.0
 
 	override fun registerGoals() {
-		this.goalSelector.let {
-			it.addGoal(0, FloatGoal(this))
-			it.addGoal(2, SitWhenOrderedToGoal(this))
-			it.addGoal(3, ToyStrollGoal(this, 1.0))
-			it.addGoal(4, ToyLookAtPlayerGoal(this))
-			it.addGoal(5, ToyRandomLookAroundGoal(this))
-		}
+		goalSelector.addGoal(0, FloatGoal(this))
+		goalSelector.addGoal(2, SitWhenOrderedToGoal(this))
+		goalSelector.addGoal(3, ToyStrollGoal(this, 1.0))
+		goalSelector.addGoal(4, ToyLookAtPlayerGoal(this))
+		goalSelector.addGoal(5, ToyRandomLookAroundGoal(this))
 	}
 
 	// Animation
@@ -49,7 +45,7 @@ class StringWormEntity(
 	}
 
 	private fun predicate(animationState: AnimationState<StringWormEntity>): PlayState {
-		val animationName = if (this.isHiding) {
+		val animationName = if (isHiding) {
 			return PlayState.STOP
 		} else if (animationState.isMoving) {
 			"animation.stringworm.slither"
@@ -75,17 +71,17 @@ class StringWormEntity(
 
 
 	private fun fedFood(usedStack: ItemStack): InteractionResult {
-		if (!this.isFood(usedStack)) return InteractionResult.FAIL
+		if (!isFood(usedStack)) return InteractionResult.FAIL
 
-		if (this.health < this.maxHealth) {
+		if (health < maxHealth) {
 			val healAmount = 1f
-			this.heal(healAmount)
+			heal(healAmount)
 
-			return InteractionResult.sidedSuccess(this.isClientSide)
+			return InteractionResult.sidedSuccess(isClientSide)
 		}
 
-		if (this.scale < 2.0) {
-			this.getAttribute(Attributes.SCALE)?.let {
+		if (scale < 2.0) {
+			getAttribute(Attributes.SCALE)?.let {
 				it.baseValue += 0.1
 			}
 

@@ -67,10 +67,10 @@ class PropellerHatItem(properties: Properties) : ArmorItem(ModArmorMaterials.PRO
 				equipmentSlot: EquipmentSlot?,
 				original: HumanoidModel<T>?
 			): HumanoidModel<*> {
-				if (this.rendererCache == null) {
-					this.rendererCache = PropellerHatRenderer()
+				if (rendererCache == null) {
+					rendererCache = PropellerHatRenderer()
 				}
-				return this.rendererCache!!
+				return rendererCache!!
 			}
 		})
 	}

@@ -44,7 +44,7 @@ class StickyHandProjectileRenderer(
 		val f = player.getAttackAnim(partialTick)
 		val f1 = sin(sqrt(f) * 3.1415927f)
 
-		val vec3: Vec3 = this.getPlayerHandPos(player, f1, partialTick)
+		val vec3: Vec3 = getPlayerHandPos(player, f1, partialTick)
 		val vec31: Vec3 = stickyHandEntity.getPosition(partialTick).add(0.0, 0.25, 0.0)
 
 		val f2 = (vec3.x - vec31.x).toFloat()
@@ -75,7 +75,7 @@ class StickyHandProjectileRenderer(
 		val stickyStack = player.mainHandItem
 		if (stickyStack.item != ModItems.STICKY_HAND.get()) i = -1
 
-		if (player == AaronClientUtil.localPlayer && this.entityRenderDispatcher.options.cameraType.isFirstPerson) {
+		if (player == AaronClientUtil.localPlayer && entityRenderDispatcher.options.cameraType.isFirstPerson) {
 			val d4 = 960.0 / (entityRenderDispatcher.options.fov().get() as Int).toDouble()
 			val vec3 = entityRenderDispatcher.camera.nearPlane
 				.getPointOnPlane(i.toFloat() * 0.525f, -0.1f)

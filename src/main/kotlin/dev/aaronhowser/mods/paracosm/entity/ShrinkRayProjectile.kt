@@ -33,11 +33,11 @@ class ShrinkRayProjectile(
 		ModEntityTypes.SHRINK_RAY_PROJECTILE.get(),
 		shooter.level()
 	) {
-		this.isGrow = shooter.isSecondaryUseActive
+		isGrow = shooter.isSecondaryUseActive
 
-		this.moveTo(shooter.x, shooter.eyeY, shooter.z)
+		moveTo(shooter.x, shooter.eyeY, shooter.z)
 
-		this.owner = shooter
+		owner = shooter
 	}
 
 	override val requiredWhimsy: Double = ModItems.SHRINK_RAY.get().requiredWhimsy
@@ -70,7 +70,7 @@ class ShrinkRayProjectile(
 
 		val blockHit = level().getBlockState(result.blockPos)
 		if (!blockHit.`is`(ModBlockTagsProvider.REFLECTIVE)) {
-			this.discard()
+			discard()
 			return
 		}
 
@@ -80,14 +80,14 @@ class ShrinkRayProjectile(
 		val newY = if (directionNormal.y != 0) -deltaMovement.y else deltaMovement.y
 		val newZ = if (directionNormal.z != 0) -deltaMovement.z else deltaMovement.z
 
-		this.setDeltaMovement(newX, newY, newZ)
+		setDeltaMovement(newX, newY, newZ)
 
-		this.lookAt(
+		lookAt(
 			EntityAnchorArgument.Anchor.EYES,
-			this.position().add(newX, newY, newZ)
+			position().add(newX, newY, newZ)
 		)
 
-		this.age = 0
+		age = 0
 	}
 
 	override fun onHitEntity(result: EntityHitResult) {
@@ -97,7 +97,7 @@ class ShrinkRayProjectile(
 
 		changeEntityScale(target, amount, shooter)
 
-		this.discard()
+		discard()
 	}
 
 	private fun changeEntityScale(
@@ -147,13 +147,13 @@ class ShrinkRayProjectile(
 		super.tick()
 
 		if (isHiding(level(), position())) {
-			this.discard()
+			discard()
 			return
 		}
 
 		age++
 		if (age > 20 * 1) {
-			this.discard()
+			discard()
 		}
 	}
 

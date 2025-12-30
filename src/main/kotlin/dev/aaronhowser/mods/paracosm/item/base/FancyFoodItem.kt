@@ -41,7 +41,7 @@ class FancyFoodItem(
 		}
 
 		fun FoodProperties.Builder.eatTime(seconds: Float): FoodProperties.Builder {
-			this.eatSeconds = seconds
+			eatSeconds = seconds
 			return this
 		}
 	}

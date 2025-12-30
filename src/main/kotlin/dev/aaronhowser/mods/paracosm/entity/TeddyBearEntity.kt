@@ -29,23 +29,21 @@ class TeddyBearEntity(
 	override val requiredWhimsy: Double = 10.0
 
 	override fun registerGoals() {
-		this.goalSelector.let {
-			it.addGoal(0, FloatGoal(this))
-			it.addGoal(2, SitWhenOrderedToGoal(this))
-			it.addGoal(3, ToyStrollGoal(this, 1.0))
-			it.addGoal(4, ToyLookAtPlayerGoal(this))
-			it.addGoal(5, ToyRandomLookAroundGoal(this))
-		}
+		goalSelector.addGoal(0, FloatGoal(this))
+		goalSelector.addGoal(2, SitWhenOrderedToGoal(this))
+		goalSelector.addGoal(3, ToyStrollGoal(this, 1.0))
+		goalSelector.addGoal(4, ToyLookAtPlayerGoal(this))
+		goalSelector.addGoal(5, ToyRandomLookAroundGoal(this))
 	}
 
 	override fun mobInteract(player: Player, hand: InteractionHand): InteractionResult {
 
-		if (this.isServerSide && hand == InteractionHand.MAIN_HAND) {
-			this.level().playSound(
+		if (isServerSide && hand == InteractionHand.MAIN_HAND) {
+			level().playSound(
 				this,
-				this.blockPosition(),
+				blockPosition(),
 				ModSounds.SQUEE.get(),
-				this.soundSource,
+				soundSource,
 				1f,
 				1f
 			)

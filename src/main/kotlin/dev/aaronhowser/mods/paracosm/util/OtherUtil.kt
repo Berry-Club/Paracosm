@@ -33,9 +33,9 @@ object OtherUtil {
 	}
 
 	fun LivingEntity.hasLineOfSight(level: Level, vec3: Vec3): Boolean {
-		if (this.level() != level) return false
+		if (level() != level) return false
 
-		val entityVec = Vec3(this.x, this.eyeY, this.z)
+		val entityVec = Vec3(x, eyeY, z)
 
 		val isInRange = vec3.closerThan(entityVec, ServerConfig.CONFIG.toyFlopRange.get())
 		if (!isInRange) return false
@@ -52,7 +52,7 @@ object OtherUtil {
 	}
 
 	fun Number.map(min1: Float, max1: Float, min2: Float, max2: Float): Float {
-		return min2 + (max2 - min2) * ((this.toFloat() - min1) / (max1 - min1))
+		return min2 + (max2 - min2) * ((toFloat() - min1) / (max1 - min1))
 	}
 
 	data class RotationPair(val backwards: Float, val right: Float)

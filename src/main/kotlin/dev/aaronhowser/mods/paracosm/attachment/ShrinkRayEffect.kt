@@ -21,18 +21,18 @@ data class ShrinkRayEffect(
 		val attributeModifierId = OtherUtil.modResource("shrink_ray_effect")
 
 		var LivingEntity.shrinkRayEffect: Double
-			get() = this.getData(ModAttachmentTypes.SHRINK_RAY_EFFECT).amount
+			get() = getData(ModAttachmentTypes.SHRINK_RAY_EFFECT).amount
 			set(valueUnCoerced) {
 				val value = valueUnCoerced.coerceIn(-0.9, 2.0)
 
-				if (this.isServerSide) {
-					val packet = UpdateShrinkRayScale(this.id, value)
+				if (isServerSide) {
+					val packet = UpdateShrinkRayScale(id, value)
 					packet.messageAllPlayersTrackingEntity(this)
 				}
 
-				this.setData(ModAttachmentTypes.SHRINK_RAY_EFFECT, ShrinkRayEffect(value))
+				setData(ModAttachmentTypes.SHRINK_RAY_EFFECT, ShrinkRayEffect(value))
 
-				val scaleAttribute = this.getAttribute(Attributes.SCALE) ?: return
+				val scaleAttribute = getAttribute(Attributes.SCALE) ?: return
 				val modifier = AttributeModifier(
 					attributeModifierId,
 					shrinkRayEffect,

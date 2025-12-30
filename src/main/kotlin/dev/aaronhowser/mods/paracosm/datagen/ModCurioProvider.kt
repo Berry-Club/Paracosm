@@ -15,12 +15,12 @@ class ModCurioProvider(
 ) : CuriosDataProvider(Paracosm.MOD_ID, output, fileHelper, registries) {
 
 	override fun generate(registries: HolderLookup.Provider?, fileHelper: ExistingFileHelper?) {
-		this.createSlot(SEEING_STONE_SLOT)
+		createSlot(SEEING_STONE_SLOT)
 			.size(1)
 			.dropRule(ICurio.DropRule.DEFAULT)
 			.addCosmetic(true)
 
-		this.createEntities(PLAYER_RULE)
+		createEntities(PLAYER_RULE)
 			.addPlayer()
 			.addSlots(SEEING_STONE_SLOT, BELT_SLOT)
 	}

@@ -24,22 +24,22 @@ class ModBlockTagsProvider(
 
 	override fun addTags(pProvider: HolderLookup.Provider) {
 
-		this.tag(REFLECTIVE)
+		tag(REFLECTIVE)
 			.addTags(Tags.Blocks.GLASS_BLOCKS)
 			.addTags(Tags.Blocks.GLAZED_TERRACOTTAS)
 
-		this.tag(POGO_BOOST)
+		tag(POGO_BOOST)
 			.add(Blocks.SLIME_BLOCK)
 			.addTags(BlockTags.BEDS)
 
-		this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
+		tag(BlockTags.MINEABLE_WITH_PICKAXE)
 			.add(ModBlocks.NIGHT_LIGHT.get())
 
-		this.tag(BlockTags.MINEABLE_WITH_AXE)
+		tag(BlockTags.MINEABLE_WITH_AXE)
 			.add(ModBlocks.IMAGINATOR.get())
 
-		this.tag(BlockTags.CROPS).add(ModBlocks.COTTON.get())
-		this.tag(BlockTags.PRESSURE_PLATES).add(ModBlocks.WHOOPEE_CUSHION.get())
+		tag(BlockTags.CROPS).add(ModBlocks.COTTON.get())
+		tag(BlockTags.PRESSURE_PLATES).add(ModBlocks.WHOOPEE_CUSHION.get())
 	}
 
 	companion object {

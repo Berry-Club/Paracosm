@@ -5,19 +5,19 @@ import net.minecraft.world.entity.LivingEntity
 
 object AttributeHandler {
 
-	fun LivingEntity.getWhimsy(): Double = this.getAttributeValue(ModAttributes.WHIMSY)
-	fun LivingEntity.getDelusion(): Double = this.getAttributeValue(ModAttributes.DELUSION)
+	fun LivingEntity.getWhimsy(): Double = getAttributeValue(ModAttributes.WHIMSY)
+	fun LivingEntity.getDelusion(): Double = getAttributeValue(ModAttributes.DELUSION)
 
 	var LivingEntity.baseWhimsy: Double
-		get() = this.getAttribute(ModAttributes.WHIMSY)?.baseValue ?: 0.0
+		get() = getAttribute(ModAttributes.WHIMSY)?.baseValue ?: 0.0
 		set(value) {
-			this.getAttribute(ModAttributes.WHIMSY)?.baseValue = value
+			getAttribute(ModAttributes.WHIMSY)?.baseValue = value
 		}
 
 	var LivingEntity.baseDelusion: Double
-		get() = this.getAttribute(ModAttributes.DELUSION)?.baseValue ?: 0.0
+		get() = getAttribute(ModAttributes.DELUSION)?.baseValue ?: 0.0
 		set(value) {
-			this.getAttribute(ModAttributes.DELUSION)?.baseValue = value
+			getAttribute(ModAttributes.DELUSION)?.baseValue = value
 		}
 
 }

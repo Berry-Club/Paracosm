@@ -9,11 +9,11 @@ class ToyStrollGoal(
 ) : WaterAvoidingRandomStrollGoal(toy, speedModifier) {
 
 	override fun canUse(): Boolean {
-		return !this.toy.isHiding && super.canUse()
+		return !toy.isHiding && super.canUse()
 	}
 
 	override fun canContinueToUse(): Boolean {
-		return !this.toy.isHiding && super.canContinueToUse()
+		return !toy.isHiding && super.canContinueToUse()
 	}
 
 }

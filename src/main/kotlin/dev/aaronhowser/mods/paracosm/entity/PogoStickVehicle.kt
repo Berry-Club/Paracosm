@@ -51,7 +51,7 @@ class PogoStickVehicle(
 		level: Level,
 		spawnLocation: Vec3
 	) : this(ModEntityTypes.POGO_STICK_VEHICLE.get(), level) {
-		this.setPos(spawnLocation)
+		setPos(spawnLocation)
 	}
 
 	data class Controls(

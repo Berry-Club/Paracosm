@@ -62,7 +62,7 @@ class ModAdvancementSubProvider(
 		private fun guide(path: String) = OtherUtil.modResource("guide/$path")
 
 		private fun Advancement.Builder.addImpossibleCriterion(): Advancement.Builder {
-			return this.addCriterion(
+			return addCriterion(
 				"impossible",
 				CriteriaTriggers.IMPOSSIBLE.createCriterion(ImpossibleTrigger.TriggerInstance())
 			)

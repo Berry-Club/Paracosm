@@ -8,12 +8,12 @@ class ToyRandomLookAroundGoal(
 ) : RandomLookAroundGoal(toyEntity) {
 
 	override fun canUse(): Boolean {
-		if (this.toyEntity.isHiding) return false
+		if (toyEntity.isHiding) return false
 		return super.canUse()
 	}
 
 	override fun canContinueToUse(): Boolean {
-		if (this.toyEntity.isHiding) return false
+		if (toyEntity.isHiding) return false
 		return super.canContinueToUse()
 	}
 

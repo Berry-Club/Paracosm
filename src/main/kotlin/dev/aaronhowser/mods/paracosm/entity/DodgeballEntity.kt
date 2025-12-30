@@ -43,11 +43,11 @@ class DodgeballEntity : ThrowableItemProjectile {
 
 		val entity = result.entity
 		if (entity is LivingEntity) {
-			val vec = entity.position().subtract(this.position())
+			val vec = entity.position().subtract(position())
 
 			entity.knockback(0.5, vec.x, vec.z)
 
-			this.deltaMovement = vec.normalize().scale(-1.0)
+			deltaMovement = vec.normalize().scale(-1.0)
 		}
 	}
 
@@ -55,13 +55,13 @@ class DodgeballEntity : ThrowableItemProjectile {
 		super.onHitBlock(result)
 
 		if (result.isInside) {
-			this.deltaMovement = this.deltaMovement.scale(-1.0)
+			deltaMovement = deltaMovement.scale(-1.0)
 			return
 		}
 
 		val sideHit = result.direction
 
-		this.addDeltaMovement(
+		addDeltaMovement(
 			Vec3(
 				sideHit.stepX.toDouble(),
 				sideHit.stepY.toDouble(),
@@ -77,11 +77,11 @@ class DodgeballEntity : ThrowableItemProjectile {
 	override fun onHit(result: HitResult) {
 		super.onHit(result)
 
-		this.level().playSound(
+		level().playSound(
 			this,
-			this.blockPosition(),
+			blockPosition(),
 			ModSounds.DODGEBALL.get(),
-			this.soundSource,
+			soundSource,
 			1f,
 			0.8f + Random.nextFloat() * 0.2f
 		)

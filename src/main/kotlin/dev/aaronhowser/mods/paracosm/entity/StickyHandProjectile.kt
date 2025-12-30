@@ -38,8 +38,8 @@ class StickyHandProjectile(
 		ModEntityTypes.STICKY_HAND_PROJECTILE.get(),
 		owner.level()
 	) {
-		this.moveTo(owner.x, owner.eyeY, owner.z, owner.yRot, owner.xRot)
-		this.owner = owner
+		moveTo(owner.x, owner.eyeY, owner.z, owner.yRot, owner.xRot)
+		owner = owner
 
 		val pitch = owner.xRot
 		val yaw = owner.yRot
@@ -50,7 +50,7 @@ class StickyHandProjectile(
 			cos(yaw * Mth.DEG_TO_RAD) * cos(pitch * Mth.DEG_TO_RAD).toDouble()
 		)
 
-		this.deltaMovement = velocity
+		deltaMovement = velocity
 	}
 
 	var grabbedEntity: Entity? = null
@@ -61,8 +61,8 @@ class StickyHandProjectile(
 
 	override fun onSyncedDataUpdated(key: EntityDataAccessor<*>) {
 		if (HOOKED_ENTITY == key) {
-			val entityId = this.entityData.get(HOOKED_ENTITY)
-			this.grabbedEntity = if (entityId > 0) level().getEntity(entityId - 1) else null
+			val entityId = entityData.get(HOOKED_ENTITY)
+			grabbedEntity = if (entityId > 0) level().getEntity(entityId - 1) else null
 		}
 	}
 
@@ -72,10 +72,10 @@ class StickyHandProjectile(
 	override fun tick() {
 		super.tick()
 
-		if (this.isClientSide) return
+		if (isClientSide) return
 
 		if (shouldDiscard()) {
-			this.discard()
+			discard()
 			return
 		}
 
