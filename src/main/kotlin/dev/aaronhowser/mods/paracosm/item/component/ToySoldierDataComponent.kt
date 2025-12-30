@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.paracosm.item.component
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
-import io.netty.buffer.ByteBuf
 import net.minecraft.core.Holder
 import net.minecraft.core.Position
 import net.minecraft.core.registries.BuiltInRegistries

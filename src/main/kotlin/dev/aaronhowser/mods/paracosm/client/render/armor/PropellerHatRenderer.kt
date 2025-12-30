@@ -5,5 +5,4 @@ import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import software.bernie.geckolib.model.DefaultedItemGeoModel
 import software.bernie.geckolib.renderer.GeoArmorRenderer
 
-class PropellerHatRenderer : GeoArmorRenderer<PropellerHatItem>(DefaultedItemGeoModel(OtherUtil.modResource("armor/propeller_hat"))) {
-}
+class PropellerHatRenderer : GeoArmorRenderer<PropellerHatItem>(DefaultedItemGeoModel(OtherUtil.modResource("armor/propeller_hat")))

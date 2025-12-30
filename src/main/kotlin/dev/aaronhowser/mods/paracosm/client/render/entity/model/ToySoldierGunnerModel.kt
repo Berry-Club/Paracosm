@@ -4,5 +4,4 @@ import dev.aaronhowser.mods.paracosm.entity.ToySoldierGunnerEntity
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import software.bernie.geckolib.model.DefaultedEntityGeoModel
 
-class ToySoldierGunnerModel : DefaultedEntityGeoModel<ToySoldierGunnerEntity>(OtherUtil.modResource("toy_soldier_gunner")) {
-}
+class ToySoldierGunnerModel : DefaultedEntityGeoModel<ToySoldierGunnerEntity>(OtherUtil.modResource("toy_soldier_gunner"))
