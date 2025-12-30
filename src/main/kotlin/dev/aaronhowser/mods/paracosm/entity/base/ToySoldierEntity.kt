@@ -40,7 +40,11 @@ abstract class ToySoldierEntity(
 		if (isSquadLeader) return this
 
 		val leaderUuid = squadLeaderUuid ?: return null
-		val nearbySoldiers = level().getEntities(this, boundingBox.inflate(40.0)).filterIsInstance<ToySoldierEntity>()
+		val nearbySoldiers = level().getEntities(
+			this,
+			boundingBox.inflate(40.0)
+		).filterIsInstance<ToySoldierEntity>()
+
 		return nearbySoldiers.firstOrNull { it.uuid == leaderUuid }
 	}
 
@@ -59,7 +63,11 @@ abstract class ToySoldierEntity(
 	fun getChildren(): List<ToySoldierEntity> {
 		if (!isSquadLeader) return emptyList()
 
-		val nearbySoldiers = level().getEntities(this, boundingBox.inflate(40.0)).filterIsInstance<ToySoldierEntity>()
+		val nearbySoldiers = level().getEntities(
+			this,
+			boundingBox.inflate(40.0)
+		).filterIsInstance<ToySoldierEntity>()
+
 		return nearbySoldiers.filter { it.squadLeaderUuid == this.uuid }
 	}
 
