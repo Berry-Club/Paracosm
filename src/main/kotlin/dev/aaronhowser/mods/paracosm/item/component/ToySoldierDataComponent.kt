@@ -88,7 +88,8 @@ data class ToySoldierDataComponent(
 				"Rotation",
 				"Pos",
 				"HurtTime",
-				"Owner"
+				"Owner",
+				"id"
 			)
 
 			for (tag in badTags) {
