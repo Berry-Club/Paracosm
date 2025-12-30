@@ -1,6 +1,13 @@
 package dev.aaronhowser.mods.paracosm.entity.base
 
+import dev.aaronhowser.mods.paracosm.entity.goal.ToyLookAtPlayerGoal
+import dev.aaronhowser.mods.paracosm.entity.goal.ToyRandomLookAroundGoal
+import dev.aaronhowser.mods.paracosm.entity.goal.ToyStrollGoal
 import net.minecraft.world.entity.EntityType
+import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.ai.goal.FloatGoal
+import net.minecraft.world.entity.ai.goal.FollowOwnerGoal
+import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal
 import net.minecraft.world.level.Level
 import java.util.*
 
@@ -11,6 +18,23 @@ abstract class ToySoldierEntity(
 
 	var squadLeaderUuid: UUID? = null
 	val isSquadLeader: Boolean get() = squadLeaderUuid == null
+
+	override fun registerGoals() {
+		goalSelector.addGoal(0, FloatGoal(this))
+		goalSelector.addGoal(2, SitWhenOrderedToGoal(this))
+		goalSelector.addGoal(3, ToyLookAtPlayerGoal(this))
+		goalSelector.addGoal(4, ToyRandomLookAroundGoal(this))
+		goalSelector.addGoal(5, FollowOwnerGoal(this, 1.0, 10f, 2f))
+		goalSelector.addGoal(6, ToyStrollGoal(this, 1.0))
+	}
+
+	override fun getOwner(): LivingEntity? {
+		return if (isSquadLeader) {
+			super.getOwner()
+		} else {
+			getSquadLeader()
+		}
+	}
 
 	fun getSquadLeader(): ToySoldierEntity? {
 		if (isSquadLeader) return this

@@ -29,14 +29,6 @@ class ToySoldierGunnerEntity : ToySoldierEntity {
 
 	override val requiredWhimsy: Double = 10.0
 
-	override fun registerGoals() {
-		goalSelector.addGoal(0, FloatGoal(this))
-		goalSelector.addGoal(2, SitWhenOrderedToGoal(this))
-		goalSelector.addGoal(3, ToyStrollGoal(this, 1.0))
-		goalSelector.addGoal(4, ToyLookAtPlayerGoal(this))
-		goalSelector.addGoal(5, ToyRandomLookAroundGoal(this))
-	}
-
 	override fun registerControllers(controllers: AnimatableManager.ControllerRegistrar) {
 		val walking = AnimationController(this, "walking", 0) {
 			return@AnimationController if (it.isMoving) {
