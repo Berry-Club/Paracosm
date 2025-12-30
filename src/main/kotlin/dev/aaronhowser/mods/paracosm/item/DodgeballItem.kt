@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.paracosm.item
 
-import dev.aaronhowser.mods.paracosm.entity.DodgeballEntity
+import dev.aaronhowser.mods.paracosm.entity.projectile.DodgeballEntity
 import dev.aaronhowser.mods.paracosm.item.base.IUpgradeableItem
 import net.minecraft.core.Direction
 import net.minecraft.core.Position

@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.paracosm.item
 
-import dev.aaronhowser.mods.paracosm.entity.FoamDartProjectile
+import dev.aaronhowser.mods.paracosm.entity.projectile.FoamDartProjectile
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.InteractionHand

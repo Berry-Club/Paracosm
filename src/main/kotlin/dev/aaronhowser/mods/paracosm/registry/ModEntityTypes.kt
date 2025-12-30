@@ -2,6 +2,10 @@ package dev.aaronhowser.mods.paracosm.registry
 
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.entity.*
+import dev.aaronhowser.mods.paracosm.entity.projectile.DodgeballEntity
+import dev.aaronhowser.mods.paracosm.entity.projectile.FoamDartProjectile
+import dev.aaronhowser.mods.paracosm.entity.projectile.ShrinkRayProjectile
+import dev.aaronhowser.mods.paracosm.entity.projectile.StickyHandProjectile
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType

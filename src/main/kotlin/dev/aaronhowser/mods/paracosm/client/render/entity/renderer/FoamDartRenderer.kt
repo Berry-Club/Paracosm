@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.paracosm.client.render.entity.renderer
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.math.Axis
 import dev.aaronhowser.mods.paracosm.client.render.entity.model.FoamDartModel
-import dev.aaronhowser.mods.paracosm.entity.FoamDartProjectile
+import dev.aaronhowser.mods.paracosm.entity.projectile.FoamDartProjectile
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.entity.EntityRenderer

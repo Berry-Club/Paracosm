@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.paracosm.item
 
-import dev.aaronhowser.mods.paracosm.entity.FoamDartProjectile
+import dev.aaronhowser.mods.paracosm.entity.projectile.FoamDartProjectile
 import net.minecraft.core.Direction
 import net.minecraft.core.Position
 import net.minecraft.world.entity.projectile.Projectile

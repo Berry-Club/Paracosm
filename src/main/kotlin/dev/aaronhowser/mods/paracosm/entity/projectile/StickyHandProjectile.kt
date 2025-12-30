@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.paracosm.entity
+package dev.aaronhowser.mods.paracosm.entity.projectile
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
 import dev.aaronhowser.mods.paracosm.item.StickyHandItem
@@ -39,7 +39,7 @@ class StickyHandProjectile(
 		owner.level()
 	) {
 		moveTo(owner.x, owner.eyeY, owner.z, owner.yRot, owner.xRot)
-		owner = owner
+		this.owner = owner
 
 		val pitch = owner.xRot
 		val yaw = owner.yRot

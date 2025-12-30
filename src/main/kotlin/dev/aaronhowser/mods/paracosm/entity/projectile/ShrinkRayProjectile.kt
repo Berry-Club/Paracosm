@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.paracosm.entity
+package dev.aaronhowser.mods.paracosm.entity.projectile
 
 import dev.aaronhowser.mods.paracosm.attachment.RequiresWhimsy
 import dev.aaronhowser.mods.paracosm.attachment.ShrinkRayEffect.Companion.shrinkRayEffect

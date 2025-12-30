@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.paracosm.client.render.entity.model
 
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.blaze3d.vertex.VertexConsumer
-import dev.aaronhowser.mods.paracosm.entity.FoamDartProjectile
+import dev.aaronhowser.mods.paracosm.entity.projectile.FoamDartProjectile
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.client.model.EntityModel
 import net.minecraft.client.model.geom.ModelLayerLocation

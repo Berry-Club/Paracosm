@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.paracosm.item
 
 import dev.aaronhowser.mods.paracosm.attachment.RequiresWhimsy
-import dev.aaronhowser.mods.paracosm.entity.ShrinkRayProjectile
+import dev.aaronhowser.mods.paracosm.entity.projectile.ShrinkRayProjectile
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder

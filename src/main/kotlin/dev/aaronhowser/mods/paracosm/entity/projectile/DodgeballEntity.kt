@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.paracosm.entity
+package dev.aaronhowser.mods.paracosm.entity.projectile
 
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.registry.ModItems
