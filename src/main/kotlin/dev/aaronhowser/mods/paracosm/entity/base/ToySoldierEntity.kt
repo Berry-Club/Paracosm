@@ -1,8 +1,16 @@
 package dev.aaronhowser.mods.paracosm.entity.base
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.giveOrDropStack
+import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
+import dev.aaronhowser.mods.aaron.AaronExtensions.withComponent
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyLookAtPlayerGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyRandomLookAroundGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyStrollGoal
+import dev.aaronhowser.mods.paracosm.item.component.ToySoldierDataComponent
+import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
+import dev.aaronhowser.mods.paracosm.registry.ModItems
+import net.minecraft.world.InteractionHand
+import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier
@@ -10,7 +18,10 @@ import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.ai.goal.FloatGoal
 import net.minecraft.world.entity.ai.goal.FollowOwnerGoal
 import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal
+import net.minecraft.world.entity.player.Player
+import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
+import net.minecraft.world.phys.Vec3
 import java.util.*
 
 abstract class ToySoldierEntity(
@@ -37,6 +48,10 @@ abstract class ToySoldierEntity(
 		} else {
 			getSquadLeader()
 		}
+	}
+
+	fun getSquadOwner(): LivingEntity? {
+		return getSquadLeader()?.owner
 	}
 
 	fun getSquadLeader(): ToySoldierEntity? {
@@ -79,6 +94,30 @@ abstract class ToySoldierEntity(
 		val leader = getSquadLeader() ?: return emptyList()
 
 		return leader.getChildren() + leader
+	}
+
+	fun getStack(): ItemStack {
+		val component = ToySoldierDataComponent.fromEntity(this)
+		return ModItems.TOY_SOLDIER.withComponent(ModDataComponents.TOY_SOLDIER.get(), component)
+	}
+
+	override fun interactAt(player: Player, vec: Vec3, hand: InteractionHand): InteractionResult {
+		if (
+			isClientSide
+			|| !player.isSecondaryUseActive
+			|| hand != InteractionHand.MAIN_HAND
+			|| player != getSquadOwner()
+		) return InteractionResult.PASS
+
+		val squad = getSquadMembers()
+		for (member in squad) {
+			val stack = member.getStack()
+			if (player.giveOrDropStack(stack)) {
+				member.discard()
+			}
+		}
+
+		return InteractionResult.SUCCESS
 	}
 
 	companion object {
