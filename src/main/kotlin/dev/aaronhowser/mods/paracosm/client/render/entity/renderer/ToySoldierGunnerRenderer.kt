@@ -9,4 +9,8 @@ class ToySoldierGunnerRenderer(
 	renderManager: EntityRendererProvider.Context,
 ) : GeoEntityRenderer<ToySoldierGunnerEntity>(renderManager, ToySoldierGunnerModel()) {
 
+	init {
+		withScale(0.2f)
+	}
+
 }
