@@ -4,8 +4,6 @@ import dev.aaronhowser.mods.aaron.registry.AaronItemRegistry
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.item.*
 import dev.aaronhowser.mods.paracosm.item.base.FancyFoodItem
-import dev.aaronhowser.mods.paracosm.item.base.FancyFoodItem.Companion.eatTime
-import net.minecraft.world.food.FoodProperties
 import net.minecraft.world.item.ItemNameBlockItem
 import net.neoforged.neoforge.registries.DeferredItem
 import net.neoforged.neoforge.registries.DeferredRegister
@@ -49,6 +47,8 @@ object ModItems : AaronItemRegistry() {
 		register("hula_hoop", ::HulaHoopItem, HulaHoopItem.DEFAULT_PROPERTIES)
 	val LIGHT_UP_SHOES: DeferredItem<LightUpShoesItem> =
 		register("light_up_shoes", ::LightUpShoesItem, LightUpShoesItem.DEFAULT_PROPERTIES)
+	val TOY_SOLDIER: DeferredItem<ToySoldierItem> =
+		register("toy_soldier", ::ToySoldierItem, ToySoldierItem.DEFAULT_PROPERTIES)
 
 	// Foods
 	val CANDY: DeferredItem<FancyFoodItem> =
