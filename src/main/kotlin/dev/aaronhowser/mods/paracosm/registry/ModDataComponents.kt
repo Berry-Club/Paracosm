@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.aaron.AaronExtraCodecs
 import dev.aaronhowser.mods.aaron.registry.AaronDataComponentRegistry
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.item.component.AngularMomentumDataComponent
+import dev.aaronhowser.mods.paracosm.item.component.ToySoldierDataComponent
 import net.minecraft.core.component.DataComponentType
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.codec.ByteBufCodecs
@@ -55,5 +56,8 @@ object ModDataComponents : AaronDataComponentRegistry() {
 			CustomData.CODEC.listOf(),
 			CustomData.STREAM_CODEC.apply(ByteBufCodecs.list())
 		)
+
+	val TOY_SOLDIER: DeferredHolder<DataComponentType<*>, DataComponentType<ToySoldierDataComponent>> =
+		register("toy_soldier", ToySoldierDataComponent.CODEC, ToySoldierDataComponent.STREAM_CODEC)
 
 }
