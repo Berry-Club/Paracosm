@@ -36,9 +36,8 @@ data class ToySoldierDataComponent(
 
 		entity.moveTo(position.x(), position.y(), position.z())
 		val success = level.addFreshEntity(entity)
-		if (!success) return null
 
-		return entity
+		return if (success) entity else null
 	}
 
 	companion object {
