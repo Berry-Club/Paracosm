@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.paracosm.item.component
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
+import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import io.netty.buffer.ByteBuf
 import net.minecraft.core.Holder
 import net.minecraft.core.Position
@@ -45,7 +46,7 @@ data class ToySoldierDataComponent(
 			RecordCodecBuilder.create { instance ->
 				instance.group(
 					BuiltInRegistries.ENTITY_TYPE.holderByNameCodec()
-						.fieldOf("type")
+						.optionalFieldOf("type", ModEntityTypes.TOY_SOLDIER_GUNNER)
 						.forGetter(ToySoldierDataComponent::type),
 					CustomData.CODEC
 						.optionalFieldOf("data")
@@ -65,9 +66,9 @@ data class ToySoldierDataComponent(
 			entity.save(nbt)
 
 			stripData(nbt)
+			val optional = if (nbt.isEmpty) Optional.empty() else Optional.of(CustomData.of(nbt))
 
-			val customData = CustomData.of(nbt)
-			return ToySoldierDataComponent(entity.type.builtInRegistryHolder(), Optional.of(customData))
+			return ToySoldierDataComponent(entity.type.builtInRegistryHolder(), optional)
 		}
 
 		private fun stripData(compoundTag: CompoundTag) {
