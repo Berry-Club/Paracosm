@@ -66,16 +66,18 @@ abstract class ToySoldierEntity(
 		return nearbySoldiers.firstOrNull { it.uuid == leaderUuid }
 	}
 
-	fun setSquadLeader(toySoldierEntity: ToySoldierEntity?): Boolean {
-		if (toySoldierEntity == null) {
+	fun setSquadLeader(newSquadLeader: ToySoldierEntity?): Boolean {
+		if (newSquadLeader == null) {
 			squadLeaderUuid = null
 			return true
 		}
 
-		if (toySoldierEntity == this) return false
-		if (!toySoldierEntity.isSquadLeader) return false
+		if (newSquadLeader == this) return false
+		if (!newSquadLeader.isSquadLeader) {
+			return setSquadLeader(newSquadLeader.getSquadLeader())
+		}
 
-		squadLeaderUuid = toySoldierEntity.uuid
+		squadLeaderUuid = newSquadLeader.uuid
 		return true
 	}
 

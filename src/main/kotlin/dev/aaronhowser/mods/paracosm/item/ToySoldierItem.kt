@@ -5,15 +5,20 @@ import dev.aaronhowser.mods.paracosm.item.component.ToySoldierDataComponent
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import net.minecraft.commands.arguments.EntityAnchorArgument
+import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
+import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
+import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.context.UseOnContext
 
 class ToySoldierItem(properties: Properties) : Item(properties) {
 
 	override fun useOn(context: UseOnContext): InteractionResult {
 		val stack = context.itemInHand
-		val entityData = stack.get(ModDataComponents.TOY_SOLDIER) ?: return InteractionResult.PASS
+
+		val dataComponent = stack.get(ModDataComponents.TOY_SOLDIER) ?: return InteractionResult.PASS
 
 		val level = context.level
 
@@ -32,7 +37,7 @@ class ToySoldierItem(properties: Properties) : Item(properties) {
 			relative
 		}
 
-		val entity = entityData.placeEntity(level, posToSpawn.bottomCenter) ?: return InteractionResult.FAIL
+		val entity = dataComponent.placeEntity(level, posToSpawn.bottomCenter) ?: return InteractionResult.FAIL
 
 		val player = context.player
 
@@ -45,6 +50,28 @@ class ToySoldierItem(properties: Properties) : Item(properties) {
 		}
 
 		return InteractionResult.SUCCESS
+	}
+
+	override fun interactLivingEntity(
+		stack: ItemStack,
+		player: Player,
+		interactionTarget: LivingEntity,
+		usedHand: InteractionHand
+	): InteractionResult {
+		if (interactionTarget !is ToySoldierEntity) return InteractionResult.PASS
+
+		val level = player.level()
+
+		val dataComponent = stack.get(ModDataComponents.TOY_SOLDIER) ?: return InteractionResult.PASS
+		val entity = dataComponent.placeEntity(level, interactionTarget.position()) ?: return InteractionResult.FAIL
+
+		if (entity is ToySoldierEntity) {
+			entity.setSquadLeader(interactionTarget)
+		}
+
+		entity.lookAt(EntityAnchorArgument.Anchor.FEET, player.eyePosition)
+
+		return InteractionResult.sidedSuccess(level.isClientSide)
 	}
 
 	companion object {
