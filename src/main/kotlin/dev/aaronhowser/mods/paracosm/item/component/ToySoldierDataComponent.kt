@@ -35,7 +35,8 @@ data class ToySoldierDataComponent(
 		}
 
 		entity.moveTo(position.x(), position.y(), position.z())
-		level.addFreshEntity(entity)
+		val success = level.addFreshEntity(entity)
+		if (!success) return null
 
 		return entity
 	}
