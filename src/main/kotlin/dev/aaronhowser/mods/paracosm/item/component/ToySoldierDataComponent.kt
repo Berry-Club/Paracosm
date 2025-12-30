@@ -6,6 +6,7 @@ import com.mojang.serialization.codecs.EitherCodec
 import dev.aaronhowser.mods.aaron.AaronExtensions.isRight
 import io.netty.buffer.ByteBuf
 import net.minecraft.core.Position
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.codec.ByteBufCodecs
@@ -16,13 +17,12 @@ import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.item.component.CustomData
 import net.minecraft.world.level.Level
-import net.neoforged.neoforge.registries.DeferredHolder
 
 data class ToySoldierDataComponent(
 	val either: Either<ResourceLocation, CustomData>
 ) {
 
-	constructor(deferredEntityType: DeferredHolder<out EntityType<*>, out EntityType<*>>) : this(deferredEntityType.id)
+	constructor(entityType: EntityType<*>) : this(BuiltInRegistries.ENTITY_TYPE.getKey(entityType))
 	constructor(location: ResourceLocation) : this(Either.left(location))
 	constructor(data: CustomData) : this(Either.right(data))
 
