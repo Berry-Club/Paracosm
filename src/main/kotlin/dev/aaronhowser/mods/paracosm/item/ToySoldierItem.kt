@@ -1,7 +1,9 @@
 package dev.aaronhowser.mods.paracosm.item
 
 import dev.aaronhowser.mods.paracosm.entity.base.ToySoldierEntity
+import dev.aaronhowser.mods.paracosm.item.component.ToySoldierDataComponent
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
+import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.context.UseOnContext
@@ -36,6 +38,13 @@ class ToySoldierItem(properties: Properties) : Item(properties) {
 		}
 
 		return InteractionResult.SUCCESS
+	}
+
+	companion object {
+		val DEFAULT_PROPERTIES = {
+			Properties()
+				.component(ModDataComponents.TOY_SOLDIER.get(), ToySoldierDataComponent(ModEntityTypes.TOY_SOLDIER_GUNNER))
+		}
 	}
 
 }

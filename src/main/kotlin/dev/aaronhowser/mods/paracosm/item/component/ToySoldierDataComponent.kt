@@ -21,7 +21,7 @@ data class ToySoldierDataComponent(
 	val either: Either<ResourceLocation, CustomData>
 ) {
 
-	constructor(deferredEntityType: DeferredHolder<EntityType<*>, EntityType<*>>) : this(deferredEntityType.id)
+	constructor(deferredEntityType: DeferredHolder<out EntityType<*>, out EntityType<*>>) : this(deferredEntityType.id)
 	constructor(location: ResourceLocation) : this(Either.left(location))
 	constructor(data: CustomData) : this(Either.right(data))
 
