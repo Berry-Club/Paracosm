@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.paracosm.item.component
 import com.mojang.datafixers.util.Either
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.EitherCodec
+import dev.aaronhowser.mods.aaron.AaronExtensions.isRight
 import io.netty.buffer.ByteBuf
 import net.minecraft.core.Position
 import net.minecraft.core.registries.Registries
@@ -24,6 +25,8 @@ data class ToySoldierDataComponent(
 	constructor(deferredEntityType: DeferredHolder<out EntityType<*>, out EntityType<*>>) : this(deferredEntityType.id)
 	constructor(location: ResourceLocation) : this(Either.left(location))
 	constructor(data: CustomData) : this(Either.right(data))
+
+	fun hasCustomData(): Boolean = either.isRight()
 
 	fun placeEntity(level: Level, position: Position): Entity? {
 		var result: Entity? = null

@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.item
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isNotTrue
 import dev.aaronhowser.mods.paracosm.entity.base.ToySoldierEntity
 import dev.aaronhowser.mods.paracosm.item.component.ToySoldierDataComponent
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
@@ -49,6 +50,10 @@ class ToySoldierItem(properties: Properties) : Item(properties) {
 			entity.lookAt(EntityAnchorArgument.Anchor.FEET, player.eyePosition)
 		}
 
+		if (player?.hasInfiniteMaterials().isNotTrue() || dataComponent.hasCustomData()) {
+			stack.shrink(1)
+		}
+
 		return InteractionResult.SUCCESS
 	}
 
@@ -70,6 +75,10 @@ class ToySoldierItem(properties: Properties) : Item(properties) {
 		}
 
 		entity.lookAt(EntityAnchorArgument.Anchor.FEET, player.eyePosition)
+
+		if (!player.hasInfiniteMaterials() || dataComponent.hasCustomData()) {
+			stack.shrink(1)
+		}
 
 		return InteractionResult.sidedSuccess(level.isClientSide)
 	}
