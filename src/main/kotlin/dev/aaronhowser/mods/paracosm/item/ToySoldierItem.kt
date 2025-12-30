@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.paracosm.entity.base.ToySoldierEntity
 import dev.aaronhowser.mods.paracosm.item.component.ToySoldierDataComponent
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
+import net.minecraft.commands.arguments.EntityAnchorArgument
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.context.UseOnContext
@@ -33,8 +34,14 @@ class ToySoldierItem(properties: Properties) : Item(properties) {
 
 		val entity = entityData.placeEntity(level, posToSpawn.bottomCenter) ?: return InteractionResult.FAIL
 
+		val player = context.player
+
 		if (entity is ToySoldierEntity) {
-			entity.ownerUUID = context.player?.uuid
+			entity.ownerUUID = player?.uuid
+		}
+
+		if (player != null) {
+			entity.lookAt(EntityAnchorArgument.Anchor.FEET, player.eyePosition)
 		}
 
 		return InteractionResult.SUCCESS
