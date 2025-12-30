@@ -15,6 +15,14 @@ abstract class ToyEntity(
 	level: Level
 ) : TamableAnimal(entityType, level), RequiresWhimsy, GeoEntity {
 
+	var isHiding: Boolean = false
+		private set
+
+	override fun tick() {
+		super.tick()
+		isHiding = super.isHiding(level(), eyePosition)
+	}
+
 	fun hidingFromPlayers(): List<Player> {
 		return super.hidingFromPlayers(level(), eyePosition)
 	}
@@ -26,13 +34,5 @@ abstract class ToyEntity(
 	override fun isFood(p0: ItemStack): Boolean {
 		return false
 	}
-
-	override fun tick() {
-		super.tick()
-		isHiding = super.isHiding(level(), eyePosition)
-	}
-
-	var isHiding: Boolean = false
-		private set
 
 }
