@@ -3,9 +3,12 @@ package dev.aaronhowser.mods.paracosm.item.component
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import io.netty.buffer.ByteBuf
+import net.minecraft.core.Holder
 import net.minecraft.core.Position
 import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.core.registries.Registries
 import net.minecraft.nbt.CompoundTag
+import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.world.entity.Entity
@@ -16,16 +19,16 @@ import net.minecraft.world.level.Level
 import java.util.*
 
 data class ToySoldierDataComponent(
-	val type: EntityType<*>,
+	val type: Holder<EntityType<*>>,
 	val data: Optional<CustomData>
 ) {
 
-	constructor(entityType: EntityType<*>) : this(entityType, Optional.empty())
+	constructor(entityType: EntityType<*>) : this(entityType.builtInRegistryHolder(), Optional.empty())
 
 	fun hasCustomData(): Boolean = data.isPresent
 
 	fun placeEntity(level: Level, position: Position): Entity? {
-		val entity = type.create(level) ?: return null
+		val entity = type.value().create(level) ?: return null
 
 		data.ifPresent { nbt ->
 			nbt.loadInto(entity)
@@ -41,7 +44,7 @@ data class ToySoldierDataComponent(
 		val CODEC: Codec<ToySoldierDataComponent> =
 			RecordCodecBuilder.create { instance ->
 				instance.group(
-					BuiltInRegistries.ENTITY_TYPE.byNameCodec()
+					BuiltInRegistries.ENTITY_TYPE.holderByNameCodec()
 						.fieldOf("type")
 						.forGetter(ToySoldierDataComponent::type),
 					CustomData.CODEC
@@ -50,9 +53,9 @@ data class ToySoldierDataComponent(
 				).apply(instance, ::ToySoldierDataComponent)
 			}
 
-		val STREAM_CODEC: StreamCodec<ByteBuf, ToySoldierDataComponent> =
+		val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, ToySoldierDataComponent> =
 			StreamCodec.composite(
-				ByteBufCodecs.fromCodec(BuiltInRegistries.ENTITY_TYPE.byNameCodec()), ToySoldierDataComponent::type,
+				ByteBufCodecs.holderRegistry(Registries.ENTITY_TYPE), ToySoldierDataComponent::type,
 				ByteBufCodecs.optional(CustomData.STREAM_CODEC), ToySoldierDataComponent::data,
 				::ToySoldierDataComponent
 			)
@@ -64,7 +67,7 @@ data class ToySoldierDataComponent(
 			stripData(nbt)
 
 			val customData = CustomData.of(nbt)
-			return ToySoldierDataComponent(entity.type, Optional.of(customData))
+			return ToySoldierDataComponent(entity.type.builtInRegistryHolder(), Optional.of(customData))
 		}
 
 		private fun stripData(compoundTag: CompoundTag) {
