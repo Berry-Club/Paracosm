@@ -54,6 +54,7 @@ object ClientEvents {
 		event.registerEntityRenderer(ModEntityTypes.STICKY_HAND_PROJECTILE.get(), ::StickyHandProjectileRenderer)
 		event.registerEntityRenderer(ModEntityTypes.POGO_STICK_VEHICLE.get(), ::PogoStickVehicleRenderer)
 		event.registerEntityRenderer(ModEntityTypes.FOAM_DART.get(), ::FoamDartRenderer)
+		event.registerEntityRenderer(ModEntityTypes.TOY_SOLDIER_GUNNER.get(), ::ToySoldierGunnerRenderer)
 	}
 
 	@SubscribeEvent
