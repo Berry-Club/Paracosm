@@ -3,10 +3,13 @@ package dev.aaronhowser.mods.paracosm.entity
 import dev.aaronhowser.mods.paracosm.entity.base.ToySoldierEntity
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyLookAtPlayerGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyRandomLookAroundGoal
+import dev.aaronhowser.mods.paracosm.entity.goal.ToyStrollGoal
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier
 import net.minecraft.world.entity.ai.attributes.Attributes
+import net.minecraft.world.entity.ai.goal.FloatGoal
+import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal
 import net.minecraft.world.level.Level
 import software.bernie.geckolib.animation.AnimatableManager
 
@@ -24,6 +27,9 @@ class ToySoldierGunnerEntity : ToySoldierEntity {
 	override val requiredWhimsy: Double = 10.0
 
 	override fun registerGoals() {
+		goalSelector.addGoal(0, FloatGoal(this))
+		goalSelector.addGoal(2, SitWhenOrderedToGoal(this))
+		goalSelector.addGoal(3, ToyStrollGoal(this, 1.0))
 		goalSelector.addGoal(4, ToyLookAtPlayerGoal(this))
 		goalSelector.addGoal(5, ToyRandomLookAroundGoal(this))
 	}
