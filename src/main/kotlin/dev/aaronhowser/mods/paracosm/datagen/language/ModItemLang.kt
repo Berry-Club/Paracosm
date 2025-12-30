@@ -25,14 +25,17 @@ object ModItemLang {
 			addItem(ModItems.STICKY_HAND, "Sticky Hand")
 			addItem(ModItems.POGO_STICK, "Pogo Stick")
 			addItem(ModItems.DUCK_HUNT_GUN, "Duck Hunt Gun")
-			addItem(ModItems.ZOMBIE_MASK, "Zombie Mask")
-			addItem(ModItems.SKELETON_MASK, "Skeleton Mask")
-			addItem(ModItems.CREEPER_MASK, "Creeper Mask")
+			addItem(ModItems.TOY_SOLDIER, "Toy Soldier")
 
 			addItem(ModItems.NERF_GUN, "Nerf Gun")
 			addItem(ModItems.FOAM_DART, "Foam Dart")
 
+			addItem(ModItems.ZOMBIE_MASK, "Zombie Mask")
+			addItem(ModItems.SKELETON_MASK, "Skeleton Mask")
+			addItem(ModItems.CREEPER_MASK, "Creeper Mask")
 			addItem(ModItems.PROPELLER_HAT, "Propeller Hat")
+			addItem(ModItems.LIGHT_UP_SHOES, "Light-Up Shoes")
+
 			addItem(ModItems.HULA_HOOP, "Hula Hoop")
 
 			add(TOY_GUN, "Toy Gun")
