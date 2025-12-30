@@ -1,8 +1,7 @@
 package dev.aaronhowser.mods.paracosm.item
 
-import net.minecraft.core.component.DataComponents
-import net.minecraft.core.registries.Registries
-import net.minecraft.resources.ResourceLocation
+import dev.aaronhowser.mods.paracosm.entity.base.ToySoldierEntity
+import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.context.UseOnContext
@@ -11,7 +10,7 @@ class ToySoldierItem(properties: Properties) : Item(properties) {
 
 	override fun useOn(context: UseOnContext): InteractionResult {
 		val stack = context.itemInHand
-		val entityData = stack.get(DataComponents.CUSTOM_DATA) ?: return InteractionResult.PASS
+		val entityData = stack.get(ModDataComponents.TOY_SOLDIER) ?: return InteractionResult.PASS
 
 		val level = context.level
 
@@ -30,18 +29,11 @@ class ToySoldierItem(properties: Properties) : Item(properties) {
 			relative
 		}
 
-		val entityTypeString = entityData.copyTag().getString("id")
-		val entityType = level.registryAccess()
-			.registryOrThrow(Registries.ENTITY_TYPE)
-			.get(ResourceLocation.parse(entityTypeString))
+		val entity = entityData.placeEntity(level, posToSpawn.bottomCenter) ?: return InteractionResult.FAIL
 
-		val entity = entityType?.create(level) ?: return InteractionResult.FAIL
-
-		entityData.loadInto(entity)
-		entity.moveTo(posToSpawn.bottomCenter)
-		level.addFreshEntity(entity)
-
-		stack.shrink(1)
+		if (entity is ToySoldierEntity) {
+			entity.ownerUUID = context.player?.uuid
+		}
 
 		return InteractionResult.SUCCESS
 	}
