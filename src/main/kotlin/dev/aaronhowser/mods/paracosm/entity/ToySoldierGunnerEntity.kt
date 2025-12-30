@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.entity
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isMoving
 import dev.aaronhowser.mods.paracosm.entity.base.ToySoldierEntity
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyLookAtPlayerGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyRandomLookAroundGoal
@@ -12,6 +13,9 @@ import net.minecraft.world.entity.ai.goal.FloatGoal
 import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal
 import net.minecraft.world.level.Level
 import software.bernie.geckolib.animation.AnimatableManager
+import software.bernie.geckolib.animation.AnimationController
+import software.bernie.geckolib.animation.PlayState
+import software.bernie.geckolib.animation.RawAnimation
 
 class ToySoldierGunnerEntity : ToySoldierEntity {
 
@@ -34,15 +38,21 @@ class ToySoldierGunnerEntity : ToySoldierEntity {
 		goalSelector.addGoal(5, ToyRandomLookAroundGoal(this))
 	}
 
-	override fun tick() {
-		super.tick()
+	override fun registerControllers(controllers: AnimatableManager.ControllerRegistrar) {
+		val walking = AnimationController(this, "walking", 0) {
+			return@AnimationController if (isMoving()) {
+				it.setAndContinue(WALK_ANIM)
+			} else {
+				PlayState.STOP
+			}
+		}
 
-
+		controllers.add(walking)
 	}
 
-	override fun registerControllers(controllers: AnimatableManager.ControllerRegistrar) {}
-
 	companion object {
+		val WALK_ANIM: RawAnimation = RawAnimation.begin().thenLoop("animation.toygunner.walk")
+
 		fun setAttributes(): AttributeSupplier {
 			return createMobAttributes()
 				.add(Attributes.MAX_HEALTH, 20.0)
