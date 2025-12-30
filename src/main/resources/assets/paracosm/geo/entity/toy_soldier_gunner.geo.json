@@ -12,7 +12,12 @@
 			},
 			"bones": [
 				{
+					"name": "rotation",
+					"pivot": [0, 0, 0]
+				},
+				{
 					"name": "body",
+					"parent": "rotation",
 					"pivot": [0, 24, 0],
 					"rotation": [0, -127.5, 0],
 					"cubes": [
