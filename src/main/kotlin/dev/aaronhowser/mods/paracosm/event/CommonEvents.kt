@@ -3,10 +3,7 @@ package dev.aaronhowser.mods.paracosm.event
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.command.ModCommands
 import dev.aaronhowser.mods.paracosm.datagen.tag.ModItemTagsProvider
-import dev.aaronhowser.mods.paracosm.entity.AaronberryEntity
-import dev.aaronhowser.mods.paracosm.entity.PogoStickVehicle
-import dev.aaronhowser.mods.paracosm.entity.StringWormEntity
-import dev.aaronhowser.mods.paracosm.entity.TeddyBearEntity
+import dev.aaronhowser.mods.paracosm.entity.*
 import dev.aaronhowser.mods.paracosm.entity.base.IUpgradeableEntity
 import dev.aaronhowser.mods.paracosm.handler.ArmorHandler
 import dev.aaronhowser.mods.paracosm.handler.AttributeHandler.baseWhimsy
@@ -61,6 +58,7 @@ object CommonEvents {
 		event.put(ModEntityTypes.TEDDY_BEAR.get(), TeddyBearEntity.setAttributes())
 		event.put(ModEntityTypes.STRING_WORM.get(), StringWormEntity.setAttributes())
 		event.put(ModEntityTypes.AARONBERRY.get(), AaronberryEntity.setAttributes())
+		event.put(ModEntityTypes.TOY_SOLDIER_GUNNER.get(), ToySoldierGunnerEntity.setAttributes())
 	}
 
 	@SubscribeEvent
