@@ -10,6 +10,7 @@ import net.minecraft.core.registries.Registries
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.tags.TagKey
 import net.minecraft.world.entity.EntityType
+import net.minecraft.world.item.component.CustomData
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
 
@@ -47,5 +48,12 @@ object ModDataComponents : AaronDataComponentRegistry() {
 
 	val ANGULAR_MOMENTUM: DeferredHolder<DataComponentType<*>, DataComponentType<AngularMomentumDataComponent>> =
 		register("angular_momentum", AngularMomentumDataComponent.CODEC, AngularMomentumDataComponent.STREAM_CODEC)
+
+	val ENTITY_LIST: DeferredHolder<DataComponentType<*>, DataComponentType<List<CustomData>>> =
+		register(
+			"entity_list",
+			CustomData.CODEC.listOf(),
+			CustomData.STREAM_CODEC.apply(ByteBufCodecs.list())
+		)
 
 }
