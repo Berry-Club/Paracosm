@@ -67,9 +67,6 @@ class StringWormEntity(
 		return PlayState.CONTINUE
 	}
 
-	private val cache = SingletonAnimatableInstanceCache(this)
-	override fun getAnimatableInstanceCache(): AnimatableInstanceCache = cache
-
 	// Behavior
 
 	override fun isFood(p0: ItemStack): Boolean {

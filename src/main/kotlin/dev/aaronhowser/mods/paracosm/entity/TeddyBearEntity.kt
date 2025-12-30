@@ -19,8 +19,6 @@ import net.minecraft.world.entity.ai.goal.FloatGoal
 import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.Level
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache
-import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache
 import software.bernie.geckolib.animation.*
 
 class TeddyBearEntity(
@@ -83,10 +81,10 @@ class TeddyBearEntity(
 	}
 
 	override fun registerControllers(controllers: AnimatableManager.ControllerRegistrar) {
-		controllers.add(AnimationController(this, "controller", 0, this::predicate))
+		controllers.add(AnimationController(this, "controller", 0, this::animationPredicate))
 	}
 
-	private fun predicate(animationState: AnimationState<TeddyBearEntity>): PlayState {
+	private fun animationPredicate(animationState: AnimationState<TeddyBearEntity>): PlayState {
 		val animationName = if (isHiding) {
 			"animation.teddybear.flop"
 		} else if (animationState.isMoving) {
@@ -102,9 +100,6 @@ class TeddyBearEntity(
 
 		return PlayState.CONTINUE
 	}
-
-	private val cache = SingletonAnimatableInstanceCache(this)
-	override fun getAnimatableInstanceCache(): AnimatableInstanceCache = cache
 
 	companion object {
 		fun setAttributes(): AttributeSupplier {

@@ -9,11 +9,16 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 import software.bernie.geckolib.animatable.GeoEntity
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache
+import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache
 
 abstract class ToyEntity(
 	entityType: EntityType<out TamableAnimal>,
 	level: Level
 ) : TamableAnimal(entityType, level), RequiresWhimsy, GeoEntity {
+
+	private val cache: SingletonAnimatableInstanceCache by lazy { SingletonAnimatableInstanceCache(this) }
+	override fun getAnimatableInstanceCache(): AnimatableInstanceCache = cache
 
 	var isHiding: Boolean = false
 		private set

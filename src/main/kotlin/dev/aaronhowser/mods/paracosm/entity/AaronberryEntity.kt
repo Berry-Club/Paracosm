@@ -52,9 +52,6 @@ class AaronberryEntity : ToyEntity {
 		return PlayState.CONTINUE
 	}
 
-	private val cache = SingletonAnimatableInstanceCache(this)
-	override fun getAnimatableInstanceCache(): AnimatableInstanceCache = cache
-
 	companion object {
 		fun setAttributes(): AttributeSupplier {
 			return createMobAttributes()
