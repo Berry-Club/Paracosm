@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.paracosm.entity
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.isMoving
 import dev.aaronhowser.mods.paracosm.entity.base.ToySoldierEntity
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyLookAtPlayerGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyRandomLookAroundGoal
