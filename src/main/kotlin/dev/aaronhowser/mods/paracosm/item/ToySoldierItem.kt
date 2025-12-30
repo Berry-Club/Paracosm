@@ -50,7 +50,7 @@ class ToySoldierItem(properties: Properties) : Item(properties) {
 		if (player != null) {
 			entity.lookAt(EntityAnchorArgument.Anchor.FEET, player.eyePosition)
 
-			if (dataComponent.hasCustomData()) {
+			if (!player.hasInfiniteMaterials() || dataComponent.hasCustomData()) {
 				val actualStack = player.getItemInHand(context.hand)
 				actualStack.shrink(1)
 			}
