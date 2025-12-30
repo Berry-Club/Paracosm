@@ -40,7 +40,7 @@ class ToySoldierGunnerEntity : ToySoldierEntity {
 
 	override fun registerControllers(controllers: AnimatableManager.ControllerRegistrar) {
 		val walking = AnimationController(this, "walking", 0) {
-			return@AnimationController if (isMoving()) {
+			return@AnimationController if (it.isMoving) {
 				it.setAndContinue(WALK_ANIM)
 			} else {
 				PlayState.STOP
