@@ -27,8 +27,7 @@ object ArmorHandler {
 	fun stopAggro(event: LivingEquipmentChangeEvent) {
 		if (!event.slot.isArmor) return
 
-		val aggroImmuneFrom = event
-			.to
+		val aggroImmuneFrom = event.to
 			.get(ModDataComponents.AGGRO_IMMUNE_FROM)
 			?: return
 
