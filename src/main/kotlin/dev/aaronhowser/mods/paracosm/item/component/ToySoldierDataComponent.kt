@@ -25,8 +25,8 @@ data class ToySoldierDataComponent(
 	constructor(location: ResourceLocation) : this(Either.left(location))
 	constructor(data: CustomData) : this(Either.right(data))
 
-	fun spawnAt(level: Level, position: Position): Boolean {
-		var result = false
+	fun placeEntity(level: Level, position: Position): Entity? {
+		var result: Entity? = null
 
 		either
 			.ifLeft { location ->
@@ -39,25 +39,25 @@ data class ToySoldierDataComponent(
 		return result
 	}
 
-	private fun spawnFromData(level: Level, position: Position, data: CustomData): Boolean {
+	private fun spawnFromData(level: Level, position: Position, data: CustomData): Entity? {
 		val typeLocation = ResourceLocation.parse(data.copyTag().getString("id"))
-		val entity = getEntity(level, typeLocation) ?: return false
+		val entity = getEntity(level, typeLocation) ?: return null
 
 		data.loadInto(entity)
 
 		entity.moveTo(position.x(), position.y(), position.z())
 		level.addFreshEntity(entity)
 
-		return true
+		return entity
 	}
 
-	private fun spawnFromType(level: Level, position: Position, typeLocation: ResourceLocation): Boolean {
-		val entity = getEntity(level, typeLocation) ?: return false
+	private fun spawnFromType(level: Level, position: Position, typeLocation: ResourceLocation): Entity? {
+		val entity = getEntity(level, typeLocation) ?: return null
 
 		entity.moveTo(position.x(), position.y(), position.z())
 		level.addFreshEntity(entity)
 
-		return true
+		return entity
 	}
 
 	private fun getEntity(level: Level, typeRl: ResourceLocation): Entity? {
