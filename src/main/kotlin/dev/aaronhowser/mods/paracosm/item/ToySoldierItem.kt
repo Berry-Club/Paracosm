@@ -14,6 +14,7 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.context.UseOnContext
 
+//FIXME: stack shrinking isn't working when in creative mode with a custom data soldier
 class ToySoldierItem(properties: Properties) : Item(properties) {
 
 	override fun useOn(context: UseOnContext): InteractionResult {
@@ -54,7 +55,7 @@ class ToySoldierItem(properties: Properties) : Item(properties) {
 			stack.shrink(1)
 		}
 
-		return InteractionResult.SUCCESS
+		return InteractionResult.sidedSuccess(level.isClientSide)
 	}
 
 	override fun interactLivingEntity(
