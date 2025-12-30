@@ -44,7 +44,7 @@ object ModEntityTypes {
 		register("foam_dart", ::FoamDartProjectile, MobCategory.MISC, 0.25f, 0.25f)
 
 	val TOY_SOLDIER_GUNNER: DeferredHolder<EntityType<*>, EntityType<ToySoldierGunnerEntity>> =
-		register("toy_soldier_gunner", ::ToySoldierGunnerEntity, MobCategory.CREATURE, 0.6f, 1.8f)
+		register("toy_soldier_gunner", ::ToySoldierGunnerEntity, MobCategory.CREATURE, 0.2f, 0.4f)
 
 	private fun <T : Entity> register(
 		name: String,
