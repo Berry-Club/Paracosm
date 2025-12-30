@@ -82,8 +82,36 @@ data class ToySoldierDataComponent(
 			val nbt = CompoundTag()
 			entity.save(nbt)
 
+			stripData(nbt)
+
 			val customData = CustomData.of(nbt)
 			return ToySoldierDataComponent(customData)
+		}
+
+		private fun stripData(compoundTag: CompoundTag) {
+			val badTags = listOf(
+				"HurtByTimestamp",
+				"Sitting",
+				"FallFlying",
+				"PortalCooldown",
+				"FallDistance",
+				"InLove",
+				"DeathTime",
+				"UUID",
+				"Age",
+				"ForcedAge",
+				"Motion",
+				"Air",
+				"OnGround",
+				"Rotation",
+				"Pos",
+				"HurtTime",
+				"Owner"
+			)
+
+			for (tag in badTags) {
+				compoundTag.remove(tag)
+			}
 		}
 	}
 
