@@ -17,6 +17,7 @@ abstract class ToySoldierEntity(
 ) : ToyEntity(entityType, level) {
 
 	var squadLeaderUuid: UUID? = null
+		private set
 	val isSquadLeader: Boolean get() = squadLeaderUuid == null
 
 	override fun registerGoals() {
@@ -56,6 +57,7 @@ abstract class ToySoldierEntity(
 
 		if (toySoldierEntity == this) return false
 		if (!toySoldierEntity.isSquadLeader) return false
+
 		squadLeaderUuid = toySoldierEntity.uuid
 		return true
 	}
