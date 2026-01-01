@@ -71,7 +71,10 @@ class ToySoldierItem(properties: Properties) : Item(properties) {
 	companion object {
 		val DEFAULT_PROPERTIES: () -> Properties = {
 			Properties()
-				.component(ModDataComponents.TOY_SOLDIER.get(), ToySoldierDataComponent(ModEntityTypes.TOY_SOLDIER_GUNNER.get()))
+				.component(
+					ModDataComponents.TOY_SOLDIER.get(),
+					ToySoldierDataComponent(ModEntityTypes.TOY_SOLDIER_GUNNER.get())
+				)
 		}
 
 		fun placeToySoldier(

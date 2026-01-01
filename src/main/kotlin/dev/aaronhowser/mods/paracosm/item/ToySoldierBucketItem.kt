@@ -1,8 +1,10 @@
 package dev.aaronhowser.mods.paracosm.item
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.aaron.AaronExtensions.totalCount
 import dev.aaronhowser.mods.aaron.AaronUtil
 import dev.aaronhowser.mods.paracosm.config.ServerConfig
+import dev.aaronhowser.mods.paracosm.entity.base.ToySoldierEntity
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
 import net.minecraft.core.component.DataComponents
 import net.minecraft.sounds.SoundEvents
@@ -20,6 +22,12 @@ class ToySoldierBucketItem(properties: Properties) : Item(properties) {
 
 	override fun useOn(context: UseOnContext): InteractionResult {
 		val stack = context.itemInHand
+		val containerContents = stack.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
+		val storedStacks = containerContents.nonEmptyItems().toList()
+
+		if (storedStacks.isEmpty()) {
+			return InteractionResult.PASS
+		}
 
 		val level = context.level
 
@@ -37,6 +45,32 @@ class ToySoldierBucketItem(properties: Properties) : Item(properties) {
 
 			relative
 		}
+
+		var squadLeader: ToySoldierEntity? = null
+
+		for (storedStack in storedStacks) {
+			while (storedStack.isNotEmpty()) {
+				val spawnedEntity = ToySoldierItem.placeToySoldier(
+					storedStack,
+					level,
+					posToSpawn.bottomCenter,
+					squadLeader,
+					context.player
+				)
+
+				if (squadLeader == null && spawnedEntity is ToySoldierEntity) {
+					squadLeader = spawnedEntity
+				}
+
+				storedStack.shrink(1)
+			}
+		}
+
+		if (squadLeader == null) {
+			return InteractionResult.PASS
+		}
+
+		stack.remove(DataComponents.CONTAINER)
 
 		return InteractionResult.sidedSuccess(level.isClientSide)
 	}
