@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.paracosm.item
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.isEntity
+import dev.aaronhowser.mods.aaron.AaronExtensions.withComponent
 import dev.aaronhowser.mods.paracosm.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.paracosm.datagen.language.ModItemLang
 import dev.aaronhowser.mods.paracosm.datagen.tag.ModEntityTypeTagsProvider
@@ -8,6 +9,7 @@ import dev.aaronhowser.mods.paracosm.entity.base.ToySoldierEntity
 import dev.aaronhowser.mods.paracosm.item.component.ToySoldierDataComponent
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
+import dev.aaronhowser.mods.paracosm.registry.ModItems
 import net.minecraft.commands.arguments.EntityAnchorArgument
 import net.minecraft.core.Position
 import net.minecraft.core.component.DataComponents
@@ -123,6 +125,16 @@ class ToySoldierItem(properties: Properties) : Item(properties) {
 
 			return placedEntity
 		}
+
+		fun getGunnerStack(): ItemStack = ModItems.TOY_SOLDIER.withComponent(
+			ModDataComponents.TOY_SOLDIER.get(),
+			ToySoldierDataComponent(ModEntityTypes.TOY_SOLDIER_GUNNER.get())
+		)
+
+		fun getGrenadierStack(): ItemStack = ModItems.TOY_SOLDIER.withComponent(
+			ModDataComponents.TOY_SOLDIER.get(),
+			ToySoldierDataComponent(ModEntityTypes.TOY_SOLDIER_GRENADIER.get())
+		)
 	}
 
 }

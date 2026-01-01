@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.aaron.AaronExtensions.withComponent
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.paracosm.datagen.language.ModItemLang
+import dev.aaronhowser.mods.paracosm.item.ToySoldierItem
 import dev.aaronhowser.mods.paracosm.item.component.ToySoldierDataComponent
 import net.minecraft.core.component.DataComponents
 import net.minecraft.core.registries.BuiltInRegistries
@@ -25,11 +26,16 @@ object ModCreativeTabs {
 				.title(ModItemLang.CREATIVE_TAB.toComponent())
 				.icon { ModItems.COTTON.toStack() }
 				.displayItems { displayContext, output ->
-					val itemsToSkip: Set<Item> = setOf()
+					val itemsToSkip: Set<Item> = setOf(
+						ModItems.TOY_SOLDIER.get()
+					)
 
 					val allItems = ModItems.ITEM_REGISTRY.entries.map(DeferredHolder<Item, out Item>::get)
 
 					output.acceptAll((allItems - itemsToSkip).map(Item::getDefaultInstance))
+
+					output.accept(ToySoldierItem.getGunnerStack())
+					output.accept(ToySoldierItem.getGrenadierStack())
 
 					output.accept(
 						ModItems.TOY_SOLDIER_BUCKET
@@ -37,11 +43,8 @@ object ModCreativeTabs {
 								DataComponents.CONTAINER,
 								ItemContainerContents.fromItems(
 									listOf(
-										ModItems.TOY_SOLDIER.get().defaultInstance.copyWithCount(3),
-										ModItems.TOY_SOLDIER.withComponent(
-											ModDataComponents.TOY_SOLDIER.get(),
-											ToySoldierDataComponent(ModEntityTypes.TOY_SOLDIER_GRENADIER.get())
-										)
+										ToySoldierItem.getGunnerStack().copyWithCount(3),
+										ToySoldierItem.getGrenadierStack()
 									)
 								)
 							)
