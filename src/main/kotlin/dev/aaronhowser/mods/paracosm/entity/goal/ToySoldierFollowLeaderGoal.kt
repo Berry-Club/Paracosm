@@ -1,11 +1,10 @@
 package dev.aaronhowser.mods.paracosm.entity.goal
 
 import dev.aaronhowser.mods.paracosm.entity.base.ToySoldierEntity
-import net.minecraft.world.entity.TamableAnimal
 import net.minecraft.world.entity.ai.goal.FollowOwnerGoal
 
 class ToySoldierFollowLeaderGoal(
-	tamable: TamableAnimal,
+	tamable: ToySoldierEntity,
 	speedModifier: Double,
 	startDistanceToPlayer: Float,
 	stopDistanceToPlayer: Float,
@@ -13,10 +12,10 @@ class ToySoldierFollowLeaderGoal(
 	private val stopDistanceToLeader: Float
 ) : FollowOwnerGoal(tamable, speedModifier, startDistanceToPlayer, stopDistanceToPlayer) {
 
-	val toySoldier: ToySoldierEntity? = tamable as? ToySoldierEntity
+	val toySoldier: ToySoldierEntity = tamable
 
 	override fun canUse(): Boolean {
-		if (toySoldier == null || toySoldier.isSquadLeader) {
+		if (toySoldier.isSquadLeader) {
 			return super.canUse()
 		}
 
@@ -31,7 +30,7 @@ class ToySoldierFollowLeaderGoal(
 	}
 
 	override fun canContinueToUse(): Boolean {
-		if (toySoldier == null || toySoldier.isSquadLeader) {
+		if (toySoldier.isSquadLeader) {
 			return super.canContinueToUse()
 		}
 
