@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.paracosm.item.component
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.aaron.AaronExtensions.getMinimalTag
+import dev.aaronhowser.mods.paracosm.entity.base.ToySoldierEntity
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import net.minecraft.core.Holder
 import net.minecraft.core.Position
@@ -62,6 +63,8 @@ data class ToySoldierDataComponent(
 
 		fun fromEntity(entity: LivingEntity): ToySoldierDataComponent {
 			val nbt = entity.getMinimalTag(stripUniqueness = true)
+
+			nbt.remove(ToySoldierEntity.SQUAD_LEADER_UUID_KEY)
 
 			val optional = if (nbt.isEmpty) {
 				Optional.empty()

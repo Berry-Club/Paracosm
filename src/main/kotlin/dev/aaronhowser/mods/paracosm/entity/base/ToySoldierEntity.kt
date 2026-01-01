@@ -154,7 +154,7 @@ abstract class ToySoldierEntity(
 	}
 
 	companion object {
-		private const val SQUAD_LEADER_UUID_KEY = "SquadLeaderUUID"
+		const val SQUAD_LEADER_UUID_KEY = "SquadLeaderUUID"
 
 		fun setAttributes(): AttributeSupplier {
 			return createMobAttributes()
