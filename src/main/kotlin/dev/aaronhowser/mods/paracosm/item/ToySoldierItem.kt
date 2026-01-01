@@ -5,22 +5,23 @@ import dev.aaronhowser.mods.paracosm.item.component.ToySoldierDataComponent
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import net.minecraft.commands.arguments.EntityAnchorArgument
+import net.minecraft.core.Position
 import net.minecraft.core.component.DataComponents
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
+import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.context.UseOnContext
+import net.minecraft.world.level.Level
 
-//FIXME: stack shrinking isn't working when in creative mode with a custom data soldier
+//FIXME: stack shrinking isn't working when in creative mode
 class ToySoldierItem(properties: Properties) : Item(properties) {
 
 	override fun useOn(context: UseOnContext): InteractionResult {
 		val stack = context.itemInHand
-
-		val dataComponent = stack.get(ModDataComponents.TOY_SOLDIER) ?: return InteractionResult.PASS
 
 		val level = context.level
 
@@ -39,31 +40,11 @@ class ToySoldierItem(properties: Properties) : Item(properties) {
 			relative
 		}
 
-		val placedEntity = dataComponent.placeEntity(level, posToSpawn.bottomCenter) ?: return InteractionResult.FAIL
+		val success = placeToySoldier(stack, level, posToSpawn.bottomCenter, null, context.player) != null
 
-		val name = stack.get(DataComponents.CUSTOM_NAME)
-		if (name != null) {
-				placedEntity.customName = name
-		}
+		if (!success) return InteractionResult.PASS
 
-		val player = context.player
-
-		if (placedEntity is ToySoldierEntity) {
-			placedEntity.ownerUUID = player?.uuid
-		}
-
-		if (player != null) {
-			placedEntity.lookAt(EntityAnchorArgument.Anchor.FEET, player.eyePosition)
-
-			if (!player.hasInfiniteMaterials() || dataComponent.hasCustomData()) {
-				val actualStack = player.getItemInHand(context.hand)
-				actualStack.shrink(1)
-			}
-		} else {
-			if (dataComponent.hasCustomData()) {
-				stack.shrink(1)
-			}
-		}
+		stack.shrink(1)
 
 		return InteractionResult.sidedSuccess(level.isClientSide)
 	}
@@ -78,18 +59,11 @@ class ToySoldierItem(properties: Properties) : Item(properties) {
 
 		val level = player.level()
 
-		val dataComponent = stack.get(ModDataComponents.TOY_SOLDIER) ?: return InteractionResult.PASS
-		val placedEntity = dataComponent.placeEntity(level, interactionTarget.position()) ?: return InteractionResult.FAIL
+		val success = placeToySoldier(stack, level, interactionTarget.position(), interactionTarget, player) != null
 
-		if (placedEntity is ToySoldierEntity) {
-			placedEntity.setSquadLeader(interactionTarget)
-		}
+		if (!success) return InteractionResult.PASS
 
-		placedEntity.lookAt(EntityAnchorArgument.Anchor.FEET, player.eyePosition)
-
-		if (!player.hasInfiniteMaterials() || dataComponent.hasCustomData()) {
-			stack.shrink(1)
-		}
+		stack.shrink(1)
 
 		return InteractionResult.sidedSuccess(level.isClientSide)
 	}
@@ -98,6 +72,36 @@ class ToySoldierItem(properties: Properties) : Item(properties) {
 		val DEFAULT_PROPERTIES: () -> Properties = {
 			Properties()
 				.component(ModDataComponents.TOY_SOLDIER.get(), ToySoldierDataComponent(ModEntityTypes.TOY_SOLDIER_GUNNER.get()))
+		}
+
+		fun placeToySoldier(
+			stack: ItemStack,
+			level: Level,
+			pos: Position,
+			clickedSoldier: ToySoldierEntity?,
+			placer: Player?
+		): Entity? {
+			val soldierComponent = stack.get(ModDataComponents.TOY_SOLDIER) ?: return null
+			val placedEntity = soldierComponent.placeEntity(level, pos) ?: return null
+
+			val name = stack.get(DataComponents.CUSTOM_NAME)
+			if (name != null) {
+				placedEntity.customName = name
+			}
+
+			if (placedEntity is ToySoldierEntity) {
+				placedEntity.ownerUUID = placer?.uuid
+
+				if (clickedSoldier != null) {
+					placedEntity.setSquadLeader(clickedSoldier)
+				}
+
+				if (placer != null) {
+					placedEntity.lookAt(EntityAnchorArgument.Anchor.FEET, placer.eyePosition)
+				}
+			}
+
+			return placedEntity
 		}
 	}
 
