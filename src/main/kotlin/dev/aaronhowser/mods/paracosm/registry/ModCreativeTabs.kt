@@ -38,10 +38,7 @@ object ModCreativeTabs {
 								DataComponents.CONTAINER,
 								ItemContainerContents.fromItems(
 									listOf(
-										ModItems.TOY_SOLDIER.get().defaultInstance,
-										ModItems.TOY_SOLDIER.get().defaultInstance,
-										ModItems.TOY_SOLDIER.get().defaultInstance,
-										ModItems.TOY_SOLDIER.get().defaultInstance,
+										ModItems.TOY_SOLDIER.get().defaultInstance.copyWithCount(4)
 									)
 								)
 							)

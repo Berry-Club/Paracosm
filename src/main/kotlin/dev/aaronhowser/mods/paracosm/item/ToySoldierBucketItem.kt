@@ -112,7 +112,7 @@ class ToySoldierBucketItem(properties: Properties) : Item(properties) {
 
 		for (storedStack in storedStacks) {
 			val count = storedStack.count
-			val itemName = storedStack.displayName
+			val itemName = storedStack.hoverName
 			tooltipComponents.add(
 				Component.empty()
 					.append(Component.literal(" - "))
