@@ -16,10 +16,18 @@
 					"pivot": [0, 0, 0]
 				},
 				{
-					"name": "body",
+					"name": "platform",
 					"parent": "rotation",
-					"pivot": [0, 24, 0],
+					"pivot": [0, 0, 0],
 					"rotation": [0, -127.5, 0],
+					"cubes": [
+						{"origin": [-4, 0, -11], "size": [8, 1, 22], "pivot": [0, 0, 0], "rotation": [0, -30, 0], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "body",
+					"parent": "platform",
+					"pivot": [0, 24, 0],
 					"cubes": [
 						{"origin": [-4, 12, -2], "size": [8, 12, 4], "uv": [38, 39]}
 					]
@@ -81,15 +89,6 @@
 					"pivot": [0, 24, 0],
 					"cubes": [
 						{"origin": [-17, 24, 13], "size": [17, 2, 2], "pivot": [-16, 24, 14], "rotation": [0, 37.5, 0], "uv": [0, 39]}
-					]
-				},
-				{
-					"name": "platform",
-					"parent": "body",
-					"pivot": [0, 0, 0],
-					"rotation": [0, 5, 0],
-					"cubes": [
-						{"origin": [-4, 0, -11], "size": [8, 1, 22], "pivot": [0, 0, 0], "rotation": [0, -30, 0], "uv": [0, 0]}
 					]
 				}
 			]
