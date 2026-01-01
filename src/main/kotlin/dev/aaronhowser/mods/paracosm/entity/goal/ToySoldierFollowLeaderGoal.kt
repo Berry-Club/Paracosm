@@ -13,21 +13,35 @@ class ToySoldierFollowLeaderGoal(
 	private val stopDistanceToLeader: Float
 ) : FollowOwnerGoal(tamable, speedModifier, startDistanceToPlayer, stopDistanceToPlayer) {
 
-	override fun canUse(): Boolean {
-		val me = this.tamable as? ToySoldierEntity
+	val toySoldier: ToySoldierEntity? = tamable as? ToySoldierEntity
 
-		if (me == null || me.isSquadLeader) {
+	override fun canUse(): Boolean {
+		if (toySoldier == null || toySoldier.isSquadLeader) {
 			return super.canUse()
 		}
 
-		val leader = me.getSquadLeader() ?: return false
+		val leader = toySoldier.getSquadLeader() ?: return false
 
-		if (me.unableToMoveToOwner() || me.closerThan(leader, startDistanceToLeader.toDouble())) {
+		if (toySoldier.unableToMoveToOwner() || toySoldier.closerThan(leader, startDistanceToLeader.toDouble())) {
 			return false
 		}
 
 		this.owner = leader
 		return true
+	}
+
+	override fun canContinueToUse(): Boolean {
+		if (toySoldier == null || toySoldier.isSquadLeader) {
+			return super.canContinueToUse()
+		}
+
+		val leader = toySoldier.getSquadLeader() ?: return false
+
+		if (this.navigation.isDone || toySoldier.unableToMoveToOwner()) {
+			return false
+		}
+
+		return !toySoldier.closerThan(leader, stopDistanceToLeader.toDouble())
 	}
 
 }
