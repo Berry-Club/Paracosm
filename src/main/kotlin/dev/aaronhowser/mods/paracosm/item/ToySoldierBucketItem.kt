@@ -11,6 +11,7 @@ import dev.aaronhowser.mods.paracosm.entity.base.ToySoldierEntity
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import net.minecraft.core.component.DataComponents
+import net.minecraft.network.chat.Component
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.Entity
@@ -20,6 +21,7 @@ import net.minecraft.world.inventory.ClickAction
 import net.minecraft.world.inventory.Slot
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.item.component.ItemContainerContents
 import net.minecraft.world.item.context.UseOnContext
 import net.minecraft.world.level.Level
@@ -97,6 +99,28 @@ class ToySoldierBucketItem(properties: Properties) : Item(properties) {
 		)
 
 		return true
+	}
+
+	override fun appendHoverText(
+		stack: ItemStack,
+		context: TooltipContext,
+		tooltipComponents: MutableList<Component>,
+		tooltipFlag: TooltipFlag
+	) {
+		val contents = stack.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
+		val storedStacks = contents.nonEmptyItems().toList()
+
+		for (storedStack in storedStacks) {
+			val count = storedStack.count
+			val itemName = storedStack.displayName
+			tooltipComponents.add(
+				Component.empty()
+					.append(Component.literal(" - "))
+					.append(Component.literal("$count x "))
+					.append(itemName)
+			)
+		}
+
 	}
 
 	companion object {
