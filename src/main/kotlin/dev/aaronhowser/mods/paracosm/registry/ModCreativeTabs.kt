@@ -24,9 +24,7 @@ object ModCreativeTabs {
 				.title(ModItemLang.CREATIVE_TAB.toComponent())
 				.icon { ModItems.COTTON.toStack() }
 				.displayItems { displayContext, output ->
-					val itemsToSkip = listOf(
-						ModItems.TOY_SOLDIER_BUCKET.get()
-					).toSet()
+					val itemsToSkip: Set<Item> = setOf()
 
 					val allItems = ModItems.ITEM_REGISTRY.entries.map(DeferredHolder<Item, out Item>::get)
 
