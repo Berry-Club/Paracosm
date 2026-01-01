@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.paracosm.item
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
+import dev.aaronhowser.mods.aaron.AaronExtensions.nextRange
 import dev.aaronhowser.mods.aaron.AaronExtensions.totalCount
 import dev.aaronhowser.mods.aaron.AaronUtil
 import dev.aaronhowser.mods.paracosm.config.ServerConfig
@@ -20,6 +21,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.component.ItemContainerContents
 import net.minecraft.world.item.context.UseOnContext
 import net.minecraft.world.level.Level
+import net.minecraft.world.phys.Vec3
 
 class ToySoldierBucketItem(properties: Properties) : Item(properties) {
 
@@ -100,7 +102,7 @@ class ToySoldierBucketItem(properties: Properties) : Item(properties) {
 		fun emptyToySoldierBucket(
 			stack: ItemStack,
 			level: Level,
-			position: Position,
+			position: Vec3,
 			placer: Player?
 		): List<Entity> {
 			val containerContents = stack.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
@@ -116,10 +118,13 @@ class ToySoldierBucketItem(properties: Properties) : Item(properties) {
 
 			for (storedStack in storedStacks) {
 				while (storedStack.isNotEmpty()) {
+					val dx = level.random.nextRange(-0.01, 0.01)
+					val dz = level.random.nextRange(-0.01, 0.01)
+
 					val spawnedEntity = ToySoldierItem.placeToySoldier(
 						storedStack,
 						level,
-						position,
+						position.add(dx, 0.0, dz),
 						squadLeader,
 						placer
 					)
