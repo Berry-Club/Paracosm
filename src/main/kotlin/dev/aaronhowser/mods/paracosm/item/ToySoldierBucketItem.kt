@@ -1,14 +1,11 @@
 package dev.aaronhowser.mods.paracosm.item
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
-import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.AaronExtensions.totalCount
 import dev.aaronhowser.mods.aaron.AaronUtil
 import dev.aaronhowser.mods.paracosm.config.ServerConfig
-import dev.aaronhowser.mods.paracosm.registry.ModItems
+import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
 import net.minecraft.core.component.DataComponents
 import net.minecraft.sounds.SoundEvents
-import net.minecraft.sounds.SoundSource
 import net.minecraft.world.entity.SlotAccess
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.ClickAction
@@ -29,7 +26,7 @@ class ToySoldierBucketItem(properties: Properties) : Item(properties) {
 	): Boolean {
 		if (action != ClickAction.SECONDARY
 			|| !slot.allowModification(player)
-			|| !other.isItem(ModItems.TOY_SOLDIER)
+			|| !other.has(ModDataComponents.TOY_SOLDIER)
 		) return false
 
 		val currentContents = stack.get(DataComponents.CONTAINER) ?: ItemContainerContents.fromItems(listOf())
