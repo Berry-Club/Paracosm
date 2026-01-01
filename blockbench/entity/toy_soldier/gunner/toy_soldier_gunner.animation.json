@@ -5,7 +5,7 @@
 			"loop": true,
 			"animation_length": 1,
 			"bones": {
-				"body": {
+				"platform": {
 					"position": {
 						"0.0": {
 							"vector": [0, 0, 0]
