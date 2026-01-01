@@ -21,10 +21,6 @@ class ModLanguageProvider(output: PackOutput) : LanguageProvider(output, Paracos
 		const val SWEETS_TAG = "tag.item.paracosm.sweets"
 	}
 
-	companion object {
-		fun String.toComponent(vararg args: Any): MutableComponent = Component.translatable(this, *args)
-	}
-
 	override fun addTranslations() {
 		ModItemLang.add(this)
 		ModBlockLang.add(this)
@@ -35,5 +31,9 @@ class ModLanguageProvider(output: PackOutput) : LanguageProvider(output, Paracos
 
 		add(Emi.SEEING_STONE_TAG, "Seeing Stone")
 		add(Emi.SWEETS_TAG, "Sweets")
+	}
+
+	companion object {
+		fun String.toComponent(vararg args: Any): MutableComponent = Component.translatable(this, *args)
 	}
 }
