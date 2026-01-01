@@ -10,6 +10,10 @@ object ModItemLang {
 	const val TOY_GUN = "item.paracosm.toy_gun"
 	const val COOL_GUN = "item.paracosm.cool_gun"
 
+	const val TOY_SOLDIER = "item.paracosm.toy_soldier_with_type"
+	const val TOY_SOLDIER_GUNNER = "item.paracosm.toy_soldier.gunner"
+	const val TOY_SOLDER_UNKNOWN = "item.paracosm.toy_soldier.unknown"
+
 	fun add(provider: ModLanguageProvider) {
 		provider.apply {
 			add(CREATIVE_TAB, "Paracosm")
@@ -25,11 +29,14 @@ object ModItemLang {
 			addItem(ModItems.STICKY_HAND, "Sticky Hand")
 			addItem(ModItems.POGO_STICK, "Pogo Stick")
 			addItem(ModItems.DUCK_HUNT_GUN, "Duck Hunt Gun")
-			addItem(ModItems.TOY_SOLDIER, "Toy Soldier")
 			addItem(ModItems.TOY_SOLDIER_BUCKET, "Toy Soldier Bucket")
 
 			addItem(ModItems.NERF_GUN, "Nerf Gun")
 			addItem(ModItems.FOAM_DART, "Foam Dart")
+			addItem(ModItems.TOY_SOLDIER, "Toy Soldier")
+			add(TOY_SOLDIER, "Toy Soldier (%s)")
+			add(TOY_SOLDIER_GUNNER, "Gunner")
+			add(TOY_SOLDER_UNKNOWN, "Unknown")
 
 			addItem(ModItems.ZOMBIE_MASK, "Zombie Mask")
 			addItem(ModItems.SKELETON_MASK, "Skeleton Mask")

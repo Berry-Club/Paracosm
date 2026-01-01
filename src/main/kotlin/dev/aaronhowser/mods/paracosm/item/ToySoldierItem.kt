@@ -1,5 +1,7 @@
 package dev.aaronhowser.mods.paracosm.item
 
+import dev.aaronhowser.mods.paracosm.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.paracosm.datagen.language.ModItemLang
 import dev.aaronhowser.mods.paracosm.entity.base.ToySoldierEntity
 import dev.aaronhowser.mods.paracosm.item.component.ToySoldierDataComponent
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
@@ -7,6 +9,7 @@ import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import net.minecraft.commands.arguments.EntityAnchorArgument
 import net.minecraft.core.Position
 import net.minecraft.core.component.DataComponents
+import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.Entity
@@ -66,6 +69,19 @@ class ToySoldierItem(properties: Properties) : Item(properties) {
 		stack.shrink(1)
 
 		return InteractionResult.sidedSuccess(level.isClientSide)
+	}
+
+	override fun getName(stack: ItemStack): Component {
+		val soldierComponent = stack.get(ModDataComponents.TOY_SOLDIER) ?: return super.getName(stack)
+
+		val entityType = soldierComponent.type.value()
+
+		val soldierTypeName = when (entityType) {
+			ModEntityTypes.TOY_SOLDIER_GUNNER.get() -> ModItemLang.TOY_SOLDIER_GUNNER
+			else -> ModItemLang.TOY_SOLDER_UNKNOWN
+		}
+
+		return ModItemLang.TOY_SOLDIER.toComponent(soldierTypeName)
 	}
 
 	companion object {
