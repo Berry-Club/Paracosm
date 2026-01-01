@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.aaron.AaronExtensions.giveOrDropStack
 import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyLookAtPlayerGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyRandomLookAroundGoal
+import dev.aaronhowser.mods.paracosm.entity.goal.ToySoldierFollowLeaderGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyStrollGoal
 import dev.aaronhowser.mods.paracosm.item.component.ToySoldierDataComponent
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
@@ -16,7 +17,6 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier
 import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.ai.goal.FloatGoal
-import net.minecraft.world.entity.ai.goal.FollowOwnerGoal
 import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
@@ -38,7 +38,14 @@ abstract class ToySoldierEntity(
 		goalSelector.addGoal(2, SitWhenOrderedToGoal(this))
 		goalSelector.addGoal(3, ToyLookAtPlayerGoal(this))
 		goalSelector.addGoal(4, ToyRandomLookAroundGoal(this))
-		goalSelector.addGoal(5, FollowOwnerGoal(this, 1.0, 10f, 2f))
+		goalSelector.addGoal(
+			5, ToySoldierFollowLeaderGoal(
+				this,
+				1.0,
+				15f, 2f,
+				2f, 1f
+			)
+		)
 		goalSelector.addGoal(6, ToyStrollGoal(this, 1.0))
 	}
 
