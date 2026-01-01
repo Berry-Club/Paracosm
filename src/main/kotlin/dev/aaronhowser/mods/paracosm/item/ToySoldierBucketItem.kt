@@ -1,7 +1,9 @@
 package dev.aaronhowser.mods.paracosm.item
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
 import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
+import dev.aaronhowser.mods.aaron.AaronExtensions.isNotTrue
 import dev.aaronhowser.mods.aaron.AaronExtensions.nextRange
 import dev.aaronhowser.mods.aaron.AaronExtensions.totalCount
 import dev.aaronhowser.mods.aaron.AaronUtil
@@ -73,8 +75,6 @@ class ToySoldierBucketItem(properties: Properties) : Item(properties) {
 			}
 		}
 
-		stack.shrink(1)
-
 		return InteractionResult.sidedSuccess(level.isClientSide)
 	}
 
@@ -88,22 +88,28 @@ class ToySoldierBucketItem(properties: Properties) : Item(properties) {
 			return InteractionResult.PASS
 		}
 
-		val soldierStack = interactionTarget.getStack()
-		addStackToBucket(stack, soldierStack)
+		var anySuccess = false
 
-		if (soldierStack.isEmpty) {
-			interactionTarget.discard()
+		val squad = interactionTarget.getSquadMembers()
 
-			player.playSound(
-				SoundEvents.ITEM_PICKUP,
-				1f,
-				0.33f
-			)
+		for (soldier in squad) {
+			val soldierStack = soldier.getStack()
+			addStackToBucket(stack, soldierStack)
 
-			return InteractionResult.sidedSuccess(player.level().isClientSide)
+			if (soldierStack.isEmpty) {
+				soldier.discard()
+
+				player.playSound(
+					SoundEvents.ITEM_PICKUP,
+					1f,
+					0.33f
+				)
+
+				anySuccess = true
+			}
 		}
 
-		return InteractionResult.PASS
+		return if (anySuccess) InteractionResult.sidedSuccess(player.isClientSide) else InteractionResult.PASS
 	}
 
 	override fun overrideOtherStackedOnMe(
@@ -222,7 +228,9 @@ class ToySoldierBucketItem(properties: Properties) : Item(properties) {
 				}
 			}
 
-			stack.remove(DataComponents.CONTAINER)
+			if (placer?.hasInfiniteMaterials().isNotTrue()) {
+				stack.remove(DataComponents.CONTAINER)
+			}
 
 			return spawnedEntities
 		}
