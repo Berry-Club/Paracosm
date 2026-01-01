@@ -15,6 +15,8 @@ class ServerConfig(
 	lateinit var hulaHoopMomentumPerRotation: ModConfigSpec.DoubleValue
 	lateinit var hulaHoopBleedPerTick: ModConfigSpec.DoubleValue
 
+	lateinit var toySoldierBucketMaxStored: ModConfigSpec.IntValue
+
 	init {
 		generalConfigs()
 		hulaHoop()
@@ -49,6 +51,16 @@ class ServerConfig(
 		hulaHoopBleedPerTick = builder
 			.comment("The amount of angular momentum a hula hoop loses per tick.")
 			.defineInRange("Hula Hoop Bleed Per Tick", 0.05, 0.0, Double.MAX_VALUE)
+
+		builder.pop()
+	}
+
+	private fun toySoldiers() {
+		builder.push("Toy Soldiers")
+
+		toySoldierBucketMaxStored = builder
+			.comment("The maximum number of Toy Soldiers that can be stored in a Toy Soldier Bucket.")
+			.defineInRange("Toy Soldier Bucket Max Stored", 6, 1, Int.MAX_VALUE)
 
 		builder.pop()
 	}
