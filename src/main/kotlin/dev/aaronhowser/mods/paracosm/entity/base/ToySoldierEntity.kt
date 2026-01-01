@@ -2,13 +2,13 @@ package dev.aaronhowser.mods.paracosm.entity.base
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.giveOrDropStack
 import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
-import dev.aaronhowser.mods.aaron.AaronExtensions.withComponent
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyLookAtPlayerGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyRandomLookAroundGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyStrollGoal
 import dev.aaronhowser.mods.paracosm.item.component.ToySoldierDataComponent
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
 import dev.aaronhowser.mods.paracosm.registry.ModItems
+import net.minecraft.core.component.DataComponents
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.EntityType
@@ -99,8 +99,15 @@ abstract class ToySoldierEntity(
 	}
 
 	fun getStack(): ItemStack {
-		val component = ToySoldierDataComponent.fromEntity(this)
-		return ModItems.TOY_SOLDIER.withComponent(ModDataComponents.TOY_SOLDIER.get(), component)
+		val stack = ModItems.TOY_SOLDIER.get().defaultInstance
+		stack.set(ModDataComponents.TOY_SOLDIER.get(), ToySoldierDataComponent.fromEntity(this))
+
+		val name = customName
+		if (name != null) {
+			stack.set(DataComponents.CUSTOM_NAME, name)
+		}
+
+		return stack
 	}
 
 	override fun interactAt(player: Player, vec: Vec3, hand: InteractionHand): InteractionResult {

@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.paracosm.item.component.ToySoldierDataComponent
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import net.minecraft.commands.arguments.EntityAnchorArgument
+import net.minecraft.core.component.DataComponents
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.LivingEntity
@@ -39,6 +40,11 @@ class ToySoldierItem(properties: Properties) : Item(properties) {
 		}
 
 		val placedEntity = dataComponent.placeEntity(level, posToSpawn.bottomCenter) ?: return InteractionResult.FAIL
+
+		val name = stack.get(DataComponents.CUSTOM_NAME)
+		if (name != null) {
+				placedEntity.customName = name
+		}
 
 		val player = context.player
 
