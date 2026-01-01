@@ -49,6 +49,8 @@ object ModItems : AaronItemRegistry() {
 		register("light_up_shoes", ::LightUpShoesItem, LightUpShoesItem.DEFAULT_PROPERTIES)
 	val TOY_SOLDIER: DeferredItem<ToySoldierItem> =
 		register("toy_soldier", ::ToySoldierItem, ToySoldierItem.DEFAULT_PROPERTIES)
+	val TOY_SOLDIER_BUCKET: DeferredItem<ToySoldierBucketItem> =
+		register("toy_soldier_bucket", ::ToySoldierBucketItem, ToySoldierBucketItem.DEFAULT_PROPERTIES)
 
 	// Foods
 	val CANDY: DeferredItem<FancyFoodItem> =
