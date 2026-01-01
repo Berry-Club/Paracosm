@@ -77,8 +77,8 @@ class ToySoldierItem(properties: Properties) : Item(properties) {
 		val entityType = soldierComponent.type.value()
 
 		val soldierTypeName = when (entityType) {
-			ModEntityTypes.TOY_SOLDIER_GUNNER.get() -> ModItemLang.TOY_SOLDIER_GUNNER
-			else -> ModItemLang.TOY_SOLDER_UNKNOWN
+			ModEntityTypes.TOY_SOLDIER_GUNNER.get() -> ModItemLang.TOY_SOLDIER_GUNNER.toComponent()
+			else -> ModItemLang.TOY_SOLDER_UNKNOWN.toComponent()
 		}
 
 		return ModItemLang.TOY_SOLDIER.toComponent(soldierTypeName)
