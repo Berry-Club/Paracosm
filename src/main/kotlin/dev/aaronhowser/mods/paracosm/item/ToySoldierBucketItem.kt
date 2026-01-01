@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.item
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.aaron.AaronExtensions.nextRange
 import dev.aaronhowser.mods.aaron.AaronExtensions.totalCount
@@ -8,6 +9,7 @@ import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTi
 import dev.aaronhowser.mods.paracosm.config.ServerConfig
 import dev.aaronhowser.mods.paracosm.entity.base.ToySoldierEntity
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
+import dev.aaronhowser.mods.paracosm.registry.ModItems
 import net.minecraft.core.component.DataComponents
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.world.InteractionResult
@@ -85,18 +87,8 @@ class ToySoldierBucketItem(properties: Properties) : Item(properties) {
 			|| !other.has(ModDataComponents.TOY_SOLDIER)
 		) return false
 
-		val currentContents = stack.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
-		val storedStacks = currentContents.nonEmptyItems().toList()
-
-		val countStored = storedStacks.totalCount()
-		val maxAmount = ServerConfig.CONFIG.toySoldierBucketMaxStored.get()
-		val amountToInsert = other.count.coerceAtMost(maxAmount - countStored)
-		if (amountToInsert <= 0) return false
-
-		val stackToInsert = other.split(amountToInsert)
-		val newContent = AaronUtil.flattenStacks(storedStacks + stackToInsert)
-
-		stack.set(DataComponents.CONTAINER, ItemContainerContents.fromItems(newContent))
+		val added = addStackToBucket(stack, other) > 0
+		if (!added) return false
 
 		player.playSound(
 			SoundEvents.ITEM_PICKUP,
@@ -109,6 +101,30 @@ class ToySoldierBucketItem(properties: Properties) : Item(properties) {
 
 	companion object {
 		val DEFAULT_PROPERTIES: Properties = Properties().stacksTo(1)
+
+		/** @return The amount actually added to the bucket. */
+		fun addStackToBucket(
+			bucketStack: ItemStack,
+			stackToAdd: ItemStack
+		): Int {
+			if (!bucketStack.isItem(ModItems.TOY_SOLDIER_BUCKET)) return 0
+
+			val currentContents = bucketStack.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
+			val storedStacks = currentContents.nonEmptyItems().toList()
+
+			val countStored = storedStacks.totalCount()
+			val maxAmount = ServerConfig.CONFIG.toySoldierBucketMaxStored.get()
+			val amountToInsert = stackToAdd.count.coerceAtMost(maxAmount - countStored)
+
+			if (amountToInsert <= 0) return 0
+
+			val stackToInsert = stackToAdd.split(amountToInsert)
+			val newContent = AaronUtil.flattenStacks(storedStacks + stackToInsert)
+
+			bucketStack.set(DataComponents.CONTAINER, ItemContainerContents.fromItems(newContent))
+
+			return amountToInsert
+		}
 
 		fun emptyToySoldierBucket(
 			stack: ItemStack,

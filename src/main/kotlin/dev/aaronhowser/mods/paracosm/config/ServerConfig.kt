@@ -20,6 +20,7 @@ class ServerConfig(
 	init {
 		generalConfigs()
 		hulaHoop()
+		toySoldiers()
 		builder.build()
 	}
 
