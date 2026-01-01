@@ -29,8 +29,8 @@ class ToySoldierBucketItem(properties: Properties) : Item(properties) {
 			|| !other.has(ModDataComponents.TOY_SOLDIER)
 		) return false
 
-		val currentContents = stack.get(DataComponents.CONTAINER) ?: ItemContainerContents.fromItems(listOf())
-		val storedStacks = currentContents.nonEmptyItems().toList()
+		val currentContents = stack.get(DataComponents.CONTAINER)
+		val storedStacks = currentContents?.nonEmptyItems()?.toList() ?: emptyList()
 
 		val countStored = storedStacks.totalCount()
 		val maxAmount = ServerConfig.CONFIG.toySoldierBucketMaxStored.get()
