@@ -63,6 +63,7 @@ object CommonEvents {
 		event.put(ModEntityTypes.STRING_WORM.get(), StringWormEntity.setAttributes())
 		event.put(ModEntityTypes.AARONBERRY.get(), AaronberryEntity.setAttributes())
 		event.put(ModEntityTypes.TOY_SOLDIER_GUNNER.get(), ToySoldierEntity.setAttributes())
+		event.put(ModEntityTypes.TOY_SOLDIER_GRENADIER.get(), ToySoldierEntity.setAttributes())
 	}
 
 	@SubscribeEvent
