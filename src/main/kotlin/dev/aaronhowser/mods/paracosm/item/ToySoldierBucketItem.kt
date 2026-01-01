@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.paracosm.config.ServerConfig
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
 import net.minecraft.core.component.DataComponents
 import net.minecraft.sounds.SoundEvents
+import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.SlotAccess
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.ClickAction
@@ -13,8 +14,32 @@ import net.minecraft.world.inventory.Slot
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.component.ItemContainerContents
+import net.minecraft.world.item.context.UseOnContext
 
 class ToySoldierBucketItem(properties: Properties) : Item(properties) {
+
+	override fun useOn(context: UseOnContext): InteractionResult {
+		val stack = context.itemInHand
+
+		val level = context.level
+
+		val clickedPos = context.clickedPos
+		val clickedFace = context.clickedFace
+		val clickedState = level.getBlockState(clickedPos)
+
+		val posToSpawn = if (!clickedState.isSuffocating(level, clickedPos)) {
+			clickedPos
+		} else {
+			val relative = clickedPos.relative(clickedFace)
+			if (level.getBlockState(relative).isSuffocating(level, relative)) {
+				return InteractionResult.FAIL
+			}
+
+			relative
+		}
+
+		return InteractionResult.sidedSuccess(level.isClientSide)
+	}
 
 	override fun overrideOtherStackedOnMe(
 		stack: ItemStack,
