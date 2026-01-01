@@ -13,8 +13,10 @@ import dev.aaronhowser.mods.paracosm.registry.ModItems
 import net.minecraft.core.component.DataComponents
 import net.minecraft.network.chat.Component
 import net.minecraft.sounds.SoundEvents
+import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.Entity
+import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.SlotAccess
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.ClickAction
@@ -74,6 +76,34 @@ class ToySoldierBucketItem(properties: Properties) : Item(properties) {
 		stack.shrink(1)
 
 		return InteractionResult.sidedSuccess(level.isClientSide)
+	}
+
+	override fun interactLivingEntity(
+		stack: ItemStack,
+		player: Player,
+		interactionTarget: LivingEntity,
+		usedHand: InteractionHand
+	): InteractionResult {
+		if (interactionTarget !is ToySoldierEntity) {
+			return InteractionResult.PASS
+		}
+
+		val soldierStack = interactionTarget.getStack()
+		addStackToBucket(stack, soldierStack)
+
+		if (soldierStack.isEmpty) {
+			interactionTarget.discard()
+
+			player.playSound(
+				SoundEvents.ITEM_PICKUP,
+				1f,
+				0.33f
+			)
+
+			return InteractionResult.sidedSuccess(player.level().isClientSide)
+		}
+
+		return InteractionResult.PASS
 	}
 
 	override fun overrideOtherStackedOnMe(

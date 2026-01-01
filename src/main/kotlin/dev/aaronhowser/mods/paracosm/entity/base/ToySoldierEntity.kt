@@ -7,7 +7,6 @@ import dev.aaronhowser.mods.paracosm.entity.goal.ToyLookAtPlayerGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyRandomLookAroundGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToySoldierFollowLeaderGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyStrollGoal
-import dev.aaronhowser.mods.paracosm.item.ToySoldierBucketItem
 import dev.aaronhowser.mods.paracosm.item.component.ToySoldierDataComponent
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
 import dev.aaronhowser.mods.paracosm.registry.ModItems
@@ -126,23 +125,14 @@ abstract class ToySoldierEntity(
 			|| !player.isSecondaryUseActive
 			|| hand != InteractionHand.MAIN_HAND
 			|| player != getSquadOwner()
+			|| !player.getItemInHand(hand).isEmpty
 		) return InteractionResult.PASS
-
-		val usedStack = player.getItemInHand(hand)
 
 		val squad = getSquadMembers()
 		for (member in squad) {
 			val stack = member.getStack()
 
-			ToySoldierBucketItem.addStackToBucket(usedStack, stack)
-
-			val success = if (stack.isEmpty) {
-				true
-			} else {
-				player.giveOrDropStack(stack)
-			}
-
-			if (success) {
+			if (player.giveOrDropStack(stack)) {
 				member.discard()
 			}
 		}
