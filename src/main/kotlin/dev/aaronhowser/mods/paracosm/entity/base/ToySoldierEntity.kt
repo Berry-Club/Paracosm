@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.entity.base
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.getUuidOrNull
 import dev.aaronhowser.mods.aaron.AaronExtensions.giveOrDropStack
 import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyLookAtPlayerGoal
@@ -10,6 +11,7 @@ import dev.aaronhowser.mods.paracosm.item.component.ToySoldierDataComponent
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import net.minecraft.core.component.DataComponents
+import net.minecraft.nbt.CompoundTag
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.EntityType
@@ -136,7 +138,24 @@ abstract class ToySoldierEntity(
 		return InteractionResult.SUCCESS
 	}
 
+	override fun addAdditionalSaveData(compound: CompoundTag) {
+		super.addAdditionalSaveData(compound)
+
+		val squadLeaderUuid = squadLeaderUuid
+		if (squadLeaderUuid != null) {
+			compound.putUUID(SQUAD_LEADER_UUID_KEY, squadLeaderUuid)
+		}
+	}
+
+	override fun readAdditionalSaveData(compound: CompoundTag) {
+		super.readAdditionalSaveData(compound)
+
+		squadLeaderUuid = compound.getUuidOrNull(SQUAD_LEADER_UUID_KEY)
+	}
+
 	companion object {
+		private const val SQUAD_LEADER_UUID_KEY = "SquadLeaderUUID"
+
 		fun setAttributes(): AttributeSupplier {
 			return createMobAttributes()
 				.add(Attributes.MAX_HEALTH, 20.0)
