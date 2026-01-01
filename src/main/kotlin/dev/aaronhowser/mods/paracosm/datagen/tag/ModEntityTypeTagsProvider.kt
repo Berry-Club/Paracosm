@@ -29,7 +29,13 @@ class ModEntityTypeTagsProvider(
 				ModEntityTypes.AARONBERRY.get(),
 				ModEntityTypes.TEDDY_BEAR.get(),
 				ModEntityTypes.STRING_WORM.get(),
-				ModEntityTypes.DODGEBALL.get()
+				ModEntityTypes.DODGEBALL.get(),
+				ModEntityTypes.TOY_SOLDIER_GUNNER.get()
+			)
+
+		tag(TOY_SOLDIERS)
+			.add(
+				ModEntityTypes.TOY_SOLDIER_GUNNER.get(),
 			)
 
 		tag(AFFECTED_BY_ZOMBIE_MASK)
@@ -50,6 +56,7 @@ class ModEntityTypeTagsProvider(
 		}
 
 		val TOYS = create("toys")
+		val TOY_SOLDIERS = create("toy_soldiers")
 
 		val AFFECTED_BY_ZOMBIE_MASK = create("affected_by_zombie_mask")
 		val AFFECTED_BY_SKELETON_MASK = create("affected_by_skeleton_mask")

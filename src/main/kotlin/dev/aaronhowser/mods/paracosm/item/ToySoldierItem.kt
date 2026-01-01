@@ -1,7 +1,9 @@
 package dev.aaronhowser.mods.paracosm.item
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isEntity
 import dev.aaronhowser.mods.paracosm.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.paracosm.datagen.language.ModItemLang
+import dev.aaronhowser.mods.paracosm.datagen.tag.ModEntityTypeTagsProvider
 import dev.aaronhowser.mods.paracosm.entity.base.ToySoldierEntity
 import dev.aaronhowser.mods.paracosm.item.component.ToySoldierDataComponent
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
@@ -76,12 +78,11 @@ class ToySoldierItem(properties: Properties) : Item(properties) {
 
 		val entityType = soldierComponent.type.value()
 
-		val soldierTypeName = when (entityType) {
-			ModEntityTypes.TOY_SOLDIER_GUNNER.get() -> ModItemLang.TOY_SOLDIER_GUNNER.toComponent()
-			else -> ModItemLang.TOY_SOLDER_UNKNOWN.toComponent()
+		if (entityType.isEntity(ModEntityTypeTagsProvider.TOY_SOLDIERS)) {
+			return entityType.description
 		}
 
-		return ModItemLang.TOY_SOLDIER.toComponent(soldierTypeName)
+		return ModItemLang.TOY_SOLDIER_WITH_TYPE.toComponent(entityType.description)
 	}
 
 	companion object {

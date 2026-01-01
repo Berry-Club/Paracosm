@@ -10,9 +10,7 @@ object ModItemLang {
 	const val TOY_GUN = "item.paracosm.toy_gun"
 	const val COOL_GUN = "item.paracosm.cool_gun"
 
-	const val TOY_SOLDIER = "item.paracosm.toy_soldier_with_type"
-	const val TOY_SOLDIER_GUNNER = "item.paracosm.toy_soldier.gunner"
-	const val TOY_SOLDER_UNKNOWN = "item.paracosm.toy_soldier.unknown"
+	const val TOY_SOLDIER_WITH_TYPE = "item.paracosm.toy_soldier_with_type"
 
 	fun add(provider: ModLanguageProvider) {
 		provider.apply {
@@ -34,9 +32,7 @@ object ModItemLang {
 			addItem(ModItems.NERF_GUN, "Nerf Gun")
 			addItem(ModItems.FOAM_DART, "Foam Dart")
 			addItem(ModItems.TOY_SOLDIER, "Toy Soldier")
-			add(TOY_SOLDIER, "Toy Soldier (%s)")
-			add(TOY_SOLDIER_GUNNER, "Gunner")
-			add(TOY_SOLDER_UNKNOWN, "Unknown")
+			add(TOY_SOLDIER_WITH_TYPE, "Toy Soldier (%s)")
 
 			addItem(ModItems.ZOMBIE_MASK, "Zombie Mask")
 			addItem(ModItems.SKELETON_MASK, "Skeleton Mask")
