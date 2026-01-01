@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.paracosm.item
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.tell
 import dev.aaronhowser.mods.paracosm.entity.base.ToySoldierEntity
 import dev.aaronhowser.mods.paracosm.item.component.ToySoldierDataComponent
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
@@ -39,16 +38,16 @@ class ToySoldierItem(properties: Properties) : Item(properties) {
 			relative
 		}
 
-		val entity = dataComponent.placeEntity(level, posToSpawn.bottomCenter) ?: return InteractionResult.FAIL
+		val placedEntity = dataComponent.placeEntity(level, posToSpawn.bottomCenter) ?: return InteractionResult.FAIL
 
 		val player = context.player
 
-		if (entity is ToySoldierEntity) {
-			entity.ownerUUID = player?.uuid
+		if (placedEntity is ToySoldierEntity) {
+			placedEntity.ownerUUID = player?.uuid
 		}
 
 		if (player != null) {
-			entity.lookAt(EntityAnchorArgument.Anchor.FEET, player.eyePosition)
+			placedEntity.lookAt(EntityAnchorArgument.Anchor.FEET, player.eyePosition)
 
 			if (!player.hasInfiniteMaterials() || dataComponent.hasCustomData()) {
 				val actualStack = player.getItemInHand(context.hand)
@@ -74,13 +73,13 @@ class ToySoldierItem(properties: Properties) : Item(properties) {
 		val level = player.level()
 
 		val dataComponent = stack.get(ModDataComponents.TOY_SOLDIER) ?: return InteractionResult.PASS
-		val entity = dataComponent.placeEntity(level, interactionTarget.position()) ?: return InteractionResult.FAIL
+		val placedEntity = dataComponent.placeEntity(level, interactionTarget.position()) ?: return InteractionResult.FAIL
 
-		if (entity is ToySoldierEntity) {
-			entity.setSquadLeader(interactionTarget)
+		if (placedEntity is ToySoldierEntity) {
+			placedEntity.setSquadLeader(interactionTarget)
 		}
 
-		entity.lookAt(EntityAnchorArgument.Anchor.FEET, player.eyePosition)
+		placedEntity.lookAt(EntityAnchorArgument.Anchor.FEET, player.eyePosition)
 
 		if (!player.hasInfiniteMaterials() || dataComponent.hasCustomData()) {
 			stack.shrink(1)
