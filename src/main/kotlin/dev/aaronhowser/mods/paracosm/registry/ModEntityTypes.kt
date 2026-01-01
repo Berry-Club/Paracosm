@@ -46,6 +46,9 @@ object ModEntityTypes {
 	val TOY_SOLDIER_GUNNER: DeferredHolder<EntityType<*>, EntityType<ToySoldierGunnerEntity>> =
 		register("toy_soldier_gunner", ::ToySoldierGunnerEntity, MobCategory.CREATURE, 0.2f, 0.4f)
 
+	val TOY_SOLDIER_GRENADIER: DeferredHolder<EntityType<*>, EntityType<ToySoldierGrenadierEntity>> =
+		register("toy_soldier_grenadier", ::ToySoldierGrenadierEntity, MobCategory.CREATURE, 0.2f, 0.4f)
+
 	private fun <T : Entity> register(
 		name: String,
 		factory: EntityType.EntityFactory<T>,

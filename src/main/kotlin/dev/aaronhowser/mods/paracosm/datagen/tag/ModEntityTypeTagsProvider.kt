@@ -36,6 +36,7 @@ class ModEntityTypeTagsProvider(
 		tag(TOY_SOLDIERS)
 			.add(
 				ModEntityTypes.TOY_SOLDIER_GUNNER.get(),
+				ModEntityTypes.TOY_SOLDIER_GRENADIER.get()
 			)
 
 		tag(AFFECTED_BY_ZOMBIE_MASK)
