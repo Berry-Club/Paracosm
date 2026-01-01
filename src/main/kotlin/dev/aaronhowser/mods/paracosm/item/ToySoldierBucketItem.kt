@@ -8,7 +8,6 @@ import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTi
 import dev.aaronhowser.mods.paracosm.config.ServerConfig
 import dev.aaronhowser.mods.paracosm.entity.base.ToySoldierEntity
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
-import net.minecraft.core.Position
 import net.minecraft.core.component.DataComponents
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.world.InteractionResult
