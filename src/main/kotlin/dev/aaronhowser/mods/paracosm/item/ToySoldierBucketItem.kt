@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.aaron.AaronExtensions.nextRange
 import dev.aaronhowser.mods.aaron.AaronExtensions.totalCount
 import dev.aaronhowser.mods.aaron.AaronUtil
+import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.paracosm.config.ServerConfig
 import dev.aaronhowser.mods.paracosm.entity.base.ToySoldierEntity
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
@@ -56,6 +57,17 @@ class ToySoldierBucketItem(properties: Properties) : Item(properties) {
 			return InteractionResult.PASS
 		}
 
+		for (i in spawnedEntities.indices) {
+			val entity = spawnedEntities[i]
+			level.scheduleTaskInTicks(i) {
+				entity.playSound(
+					SoundEvents.ITEM_PICKUP,
+					1f,
+					level.random.nextRange(0.2f, 0.5f)
+				)
+			}
+		}
+
 		stack.shrink(1)
 
 		return InteractionResult.sidedSuccess(level.isClientSide)
@@ -74,8 +86,8 @@ class ToySoldierBucketItem(properties: Properties) : Item(properties) {
 			|| !other.has(ModDataComponents.TOY_SOLDIER)
 		) return false
 
-		val currentContents = stack.get(DataComponents.CONTAINER)
-		val storedStacks = currentContents?.nonEmptyItems()?.toList() ?: emptyList()
+		val currentContents = stack.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
+		val storedStacks = currentContents.nonEmptyItems().toList()
 
 		val countStored = storedStacks.totalCount()
 		val maxAmount = ServerConfig.CONFIG.toySoldierBucketMaxStored.get()
@@ -106,7 +118,7 @@ class ToySoldierBucketItem(properties: Properties) : Item(properties) {
 			placer: Player?
 		): List<Entity> {
 			val containerContents = stack.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
-			val storedStacks = containerContents.nonEmptyItems().toList()
+			val storedStacks = containerContents.nonEmptyItemsCopy().toList()
 
 			if (storedStacks.isEmpty()) {
 				return emptyList()
@@ -140,6 +152,8 @@ class ToySoldierBucketItem(properties: Properties) : Item(properties) {
 					storedStack.shrink(1)
 				}
 			}
+
+			stack.remove(DataComponents.CONTAINER)
 
 			return spawnedEntities
 		}
