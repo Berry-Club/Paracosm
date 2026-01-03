@@ -52,9 +52,6 @@ class ModAdvancementSubProvider(
 				true, true, false
 			)
 			.addImpossibleCriterion()
-			.rewards(
-				AdvancementRewards.Builder.function(ModMcFunctionProvider.GIVE_ONE_COMFORT)
-			)
 			.save(saver, SLEEP_WITH_NIGHT_LIGHT, existingFileHelper)
 
 	}
