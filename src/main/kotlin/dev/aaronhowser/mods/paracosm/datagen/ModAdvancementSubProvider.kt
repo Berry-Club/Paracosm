@@ -3,12 +3,15 @@ package dev.aaronhowser.mods.paracosm.datagen
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.registry.ModBlocks
 import dev.aaronhowser.mods.paracosm.registry.ModItems
-import dev.aaronhowser.mods.paracosm.util.OtherUtil
-import net.minecraft.advancements.*
+import net.minecraft.advancements.Advancement
+import net.minecraft.advancements.AdvancementHolder
+import net.minecraft.advancements.AdvancementType
+import net.minecraft.advancements.CriteriaTriggers
 import net.minecraft.advancements.critereon.ImpossibleTrigger
 import net.minecraft.advancements.critereon.InventoryChangeTrigger
 import net.minecraft.core.HolderLookup
 import net.minecraft.network.chat.Component
+import net.minecraft.resources.ResourceLocation
 import net.neoforged.neoforge.common.data.AdvancementProvider
 import net.neoforged.neoforge.common.data.ExistingFileHelper
 import java.util.concurrent.CompletableFuture
@@ -24,7 +27,7 @@ class ModAdvancementSubProvider(
 		existingFileHelper: ExistingFileHelper
 	) {
 
-		val root = Advancement.Builder.advancement()
+		val root = advancement()
 			.display(
 				ModItems.COTTON.get(),
 				Component.literal("Paracosm"),
@@ -41,7 +44,7 @@ class ModAdvancementSubProvider(
 			)
 			.save(saver, ROOT, existingFileHelper)
 
-		Advancement.Builder.advancement()
+		advancement()
 			.parent(root)
 			.display(
 				ModBlocks.NIGHT_LIGHT.get(),
@@ -57,7 +60,8 @@ class ModAdvancementSubProvider(
 	}
 
 	companion object {
-		private fun guide(path: String) = Paracosm.modResource("guide/$path")
+		private fun advancement(): Advancement.Builder = Advancement.Builder.advancement()
+		private fun guide(path: String): ResourceLocation = Paracosm.modResource("guide/$path")
 
 		private fun Advancement.Builder.addImpossibleCriterion(): Advancement.Builder {
 			return addCriterion(
