@@ -52,7 +52,7 @@ class ModEntityTypeTagsProvider(
 
 	companion object {
 		private fun create(name: String): TagKey<EntityType<*>> {
-			val rl = OtherUtil.modResource(name)
+			val rl = Paracosm.modResource(name)
 			return TagKey.create(Registries.ENTITY_TYPE, rl)
 		}
 

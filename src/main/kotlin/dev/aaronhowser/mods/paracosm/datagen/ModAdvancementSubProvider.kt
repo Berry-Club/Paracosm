@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.datagen
 
+import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.registry.ModBlocks
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
@@ -28,7 +29,7 @@ class ModAdvancementSubProvider(
 				ModItems.COTTON.get(),
 				Component.literal("Paracosm"),
 				Component.literal("Yay!! Haha yes yeah haha"),
-				OtherUtil.modResource("textures/block/city_rug0.png"),
+				Paracosm.modResource("textures/block/city_rug0.png"),
 				AdvancementType.TASK,
 				true,
 				true,
@@ -59,7 +60,7 @@ class ModAdvancementSubProvider(
 	}
 
 	companion object {
-		private fun guide(path: String) = OtherUtil.modResource("guide/$path")
+		private fun guide(path: String) = Paracosm.modResource("guide/$path")
 
 		private fun Advancement.Builder.addImpossibleCriterion(): Advancement.Builder {
 			return addCriterion(

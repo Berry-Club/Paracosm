@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.client.render.entity.renderer
 
+import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.client.render.entity.model.TeddyBearModel
 import dev.aaronhowser.mods.paracosm.entity.TeddyBearEntity
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
@@ -18,7 +19,7 @@ class TeddyBearRenderer(
 	override fun getTextureLocation(animatable: TeddyBearEntity): ResourceLocation = TEXTURE
 
 	companion object {
-		val TEXTURE = OtherUtil.modResource("textures/entity/teddy_bear.png")
+		val TEXTURE = Paracosm.modResource("textures/entity/teddy_bear.png")
 	}
 
 }

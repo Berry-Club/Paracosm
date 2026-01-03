@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.client.render.entity.model
 
+import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.entity.TeddyBearEntity
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.util.Mth
@@ -8,7 +9,7 @@ import software.bernie.geckolib.cache.`object`.GeoBone
 import software.bernie.geckolib.constant.DataTickets
 import software.bernie.geckolib.model.DefaultedEntityGeoModel
 
-class TeddyBearModel : DefaultedEntityGeoModel<TeddyBearEntity>(OtherUtil.modResource("teddy_bear")) {
+class TeddyBearModel : DefaultedEntityGeoModel<TeddyBearEntity>(Paracosm.modResource("teddy_bear")) {
 
 	override fun setCustomAnimations(
 		animatable: TeddyBearEntity,

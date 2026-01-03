@@ -46,7 +46,7 @@ class ModItemTagsProvider(
 
 	companion object {
 		private fun create(name: String): TagKey<Item> {
-			val rl = OtherUtil.modResource(name)
+			val rl = Paracosm.modResource(name)
 			return TagKey.create(Registries.ITEM, rl)
 		}
 

@@ -1,12 +1,13 @@
 package dev.aaronhowser.mods.paracosm.client.render.entity.model
 
+import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.entity.PogoStickVehicle
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.util.Mth
 import software.bernie.geckolib.animation.AnimationState
 import software.bernie.geckolib.model.DefaultedEntityGeoModel
 
-class PogoStickVehicleModel : DefaultedEntityGeoModel<PogoStickVehicle>(OtherUtil.modResource("pogo_stick")) {
+class PogoStickVehicleModel : DefaultedEntityGeoModel<PogoStickVehicle>(Paracosm.modResource("pogo_stick")) {
 
 	override fun setCustomAnimations(
 		animatable: PogoStickVehicle,

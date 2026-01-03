@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.paracosm.client.render.entity.model
 
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.blaze3d.vertex.VertexConsumer
+import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.entity.projectile.FoamDartProjectile
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.client.model.EntityModel
@@ -45,7 +46,7 @@ class FoamDartModel(
 	}
 
 	companion object {
-		val LAYER_LOCATION = ModelLayerLocation(OtherUtil.modResource("foam_dart"), "main")
+		val LAYER_LOCATION = ModelLayerLocation(Paracosm.modResource("foam_dart"), "main")
 
 		fun createBodyLayer(): LayerDefinition {
 			val meshDefinition = MeshDefinition()

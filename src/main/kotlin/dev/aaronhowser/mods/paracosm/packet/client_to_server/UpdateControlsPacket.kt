@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.paracosm.packet.client_to_server
 
 import dev.aaronhowser.mods.aaron.packet.AaronPacket
+import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.handler.KeyHandler
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import io.netty.buffer.ByteBuf
@@ -23,7 +24,7 @@ class UpdateControlsPacket(
 
 	companion object {
 		val TYPE: CustomPacketPayload.Type<UpdateControlsPacket> =
-			CustomPacketPayload.Type(OtherUtil.modResource("update_controls_packet"))
+			CustomPacketPayload.Type(Paracosm.modResource("update_controls_packet"))
 
 		val STREAM_CODEC: StreamCodec<ByteBuf, UpdateControlsPacket> =
 			ByteBufCodecs.BOOL.map(

@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.client.render.entity.renderer
 
+import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.client.render.entity.model.StringWormModel
 import dev.aaronhowser.mods.paracosm.entity.StringWormEntity
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
@@ -18,7 +19,7 @@ class StringWormRenderer(
 	override fun getTextureLocation(animatable: StringWormEntity): ResourceLocation = TEXTURE
 
 	companion object {
-		val TEXTURE = OtherUtil.modResource("textures/entity/string_worm.png")
+		val TEXTURE = Paracosm.modResource("textures/entity/string_worm.png")
 	}
 
 }

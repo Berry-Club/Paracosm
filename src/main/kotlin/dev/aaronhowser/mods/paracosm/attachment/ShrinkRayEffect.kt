@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.paracosm.attachment
 
 import com.mojang.serialization.Codec
 import dev.aaronhowser.mods.aaron.AaronExtensions.isServerSide
+import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateShrinkRayScale
 import dev.aaronhowser.mods.paracosm.registry.ModAttachmentTypes
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
@@ -18,7 +19,7 @@ data class ShrinkRayEffect(
 		val CODEC: Codec<ShrinkRayEffect> =
 			Codec.DOUBLE.xmap(::ShrinkRayEffect, ShrinkRayEffect::amount)
 
-		val attributeModifierId = OtherUtil.modResource("shrink_ray_effect")
+		val attributeModifierId = Paracosm.modResource("shrink_ray_effect")
 
 		var LivingEntity.shrinkRayEffect: Double
 			get() = getData(ModAttachmentTypes.SHRINK_RAY_EFFECT).amount

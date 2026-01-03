@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.item
 
+import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.datagen.tag.ModEntityTypeTagsProvider
 import dev.aaronhowser.mods.paracosm.registry.ModArmorMaterials
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents
@@ -23,7 +24,7 @@ class HalloweenMaskItem(properties: Properties) : ArmorItem(ModArmorMaterials.HA
 		val face = stack.get(ModDataComponents.MASK_FACE)
 			?: return super.getArmorTexture(stack, entity, slot, layer, innerModel)
 
-		return OtherUtil.modResource("textures/models/armor/halloween_mask/$face.png")
+		return Paracosm.modResource("textures/models/armor/halloween_mask/$face.png")
 	}
 
 	companion object {

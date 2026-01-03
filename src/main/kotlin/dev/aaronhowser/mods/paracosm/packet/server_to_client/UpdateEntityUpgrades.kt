@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.paracosm.packet.server_to_client
 
 import dev.aaronhowser.mods.aaron.packet.AaronPacket
+import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.entity.base.IUpgradeableEntity
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import io.netty.buffer.ByteBuf
@@ -26,7 +27,7 @@ class UpdateEntityUpgrades(
 
 	companion object {
 		val TYPE: CustomPacketPayload.Type<UpdateEntityUpgrades> =
-			CustomPacketPayload.Type(OtherUtil.modResource("update_entity_upgrades"))
+			CustomPacketPayload.Type(Paracosm.modResource("update_entity_upgrades"))
 
 		val STREAM_CODEC: StreamCodec<ByteBuf, UpdateEntityUpgrades> =
 			StreamCodec.composite(

@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.client.render.entity.renderer
 
+import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.client.render.entity.model.PogoStickVehicleModel
 import dev.aaronhowser.mods.paracosm.entity.PogoStickVehicle
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
@@ -14,7 +15,7 @@ class PogoStickVehicleRenderer(
 	override fun getTextureLocation(projectile: PogoStickVehicle): ResourceLocation = TEXTURE
 
 	companion object {
-		val TEXTURE = OtherUtil.modResource("textures/entity/pogo_stick.png")
+		val TEXTURE = Paracosm.modResource("textures/entity/pogo_stick.png")
 	}
 
 }

@@ -1,9 +1,7 @@
 package dev.aaronhowser.mods.paracosm.util
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.toDegrees
-import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.config.ServerConfig
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.level.ClipContext
 import net.minecraft.world.level.Level
@@ -13,9 +11,6 @@ import net.minecraft.world.phys.shapes.CollisionContext
 import kotlin.math.*
 
 object OtherUtil {
-
-	fun modResource(path: String): ResourceLocation =
-		ResourceLocation.fromNamespaceAndPath(Paracosm.MOD_ID, path)
 
 	fun isLookingAtPos(
 		livingEntity: LivingEntity,

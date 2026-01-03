@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.client.render.entity.renderer
 
+import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.client.render.entity.model.AaronberryModel
 import dev.aaronhowser.mods.paracosm.entity.AaronberryEntity
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
@@ -18,7 +19,7 @@ class AaronberryRenderer(
 	override fun getTextureLocation(animatable: AaronberryEntity): ResourceLocation = TEXTURE
 
 	companion object {
-		val TEXTURE = OtherUtil.modResource("textures/entity/aaronberry.png")
+		val TEXTURE = Paracosm.modResource("textures/entity/aaronberry.png")
 	}
 
 }

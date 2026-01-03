@@ -43,7 +43,7 @@ class ModBlockTagsProvider(
 	}
 
 	companion object {
-		fun create(name: String): TagKey<Block> = create(OtherUtil.modResource(name))
+		fun create(name: String): TagKey<Block> = create(Paracosm.modResource(name))
 		fun create(rl: ResourceLocation): TagKey<Block> = TagKey.create(Registries.BLOCK, rl)
 
 		val REFLECTIVE = create("reflective")

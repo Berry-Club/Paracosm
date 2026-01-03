@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.datagen.worldgen
 
+import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.core.registries.Registries
@@ -13,7 +14,7 @@ import net.minecraft.world.level.biome.*
 
 object ModBiomes {
 
-	val TEST_BIOME_ID: ResourceLocation = OtherUtil.modResource("test_biome")
+	val TEST_BIOME_ID: ResourceLocation = Paracosm.modResource("test_biome")
 	val TEST_BIOME_KEY: ResourceKey<Biome> = ResourceKey.create(Registries.BIOME, TEST_BIOME_ID)
 
 	fun bootstrap(context: BootstrapContext<Biome>) {

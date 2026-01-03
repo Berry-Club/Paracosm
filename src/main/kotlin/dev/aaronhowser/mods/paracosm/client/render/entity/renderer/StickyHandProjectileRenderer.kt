@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.paracosm.client.render.entity.renderer
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.blaze3d.vertex.VertexConsumer
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
+import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.client.render.entity.model.StickyHandProjectileModel
 import dev.aaronhowser.mods.paracosm.entity.projectile.StickyHandProjectile
 import dev.aaronhowser.mods.paracosm.registry.ModItems
@@ -123,7 +124,7 @@ class StickyHandProjectileRenderer(
 	}
 
 	companion object {
-		val TEXTURE: ResourceLocation = OtherUtil.modResource("textures/entity/sticky_hand.png")
+		val TEXTURE: ResourceLocation = Paracosm.modResource("textures/entity/sticky_hand.png")
 		val RENDER_TYPE: RenderType = RenderType.entityCutout(TEXTURE)
 	}
 

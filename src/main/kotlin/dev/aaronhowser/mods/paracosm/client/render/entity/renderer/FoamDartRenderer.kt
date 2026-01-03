@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.paracosm.client.render.entity.renderer
 
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.math.Axis
+import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.client.render.entity.model.FoamDartModel
 import dev.aaronhowser.mods.paracosm.entity.projectile.FoamDartProjectile
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
@@ -49,7 +50,7 @@ class FoamDartRenderer(
 	}
 
 	companion object {
-		val TEXTURE = OtherUtil.modResource("textures/entity/foam_dart.png")
+		val TEXTURE = Paracosm.modResource("textures/entity/foam_dart.png")
 	}
 
 }

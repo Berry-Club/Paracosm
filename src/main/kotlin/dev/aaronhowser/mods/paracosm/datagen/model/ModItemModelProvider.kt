@@ -83,7 +83,7 @@ class ModItemModelProvider(
 
 
 	companion object {
-		val WHIMSY_PREDICATE_NAME = OtherUtil.modResource("whimsy")
+		val WHIMSY_PREDICATE_NAME = Paracosm.modResource("whimsy")
 	}
 
 }

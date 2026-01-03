@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.datagen
 
+import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.research.ModResearchTypes
 import dev.aaronhowser.mods.paracosm.research.ResearchType
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
@@ -26,7 +27,7 @@ class ModMcFunctionProvider(
 		}
 
 		private fun giveOnePoint(path: String): ResourceLocation {
-			return OtherUtil.modResource("research/give_one_point_${path}")
+			return Paracosm.modResource("research/give_one_point_${path}")
 		}
 
 		val GIVE_ONE_ADVENTURE = giveOnePoint(ModResearchTypes.ADVENTURE)

@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.client.render.entity.renderer
 
+import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.entity.projectile.ShrinkRayProjectile
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.client.renderer.entity.ArrowRenderer
@@ -19,8 +20,8 @@ class ShrinkRayProjectileRenderer(
 	}
 
 	companion object {
-		val SHRINK_TEXTURE = OtherUtil.modResource("textures/entity/shrink_ray/shrink.png")
-		val GROW_TEXTURE = OtherUtil.modResource("textures/entity/shrink_ray/grow.png")
+		val SHRINK_TEXTURE = Paracosm.modResource("textures/entity/shrink_ray/shrink.png")
+		val GROW_TEXTURE = Paracosm.modResource("textures/entity/shrink_ray/grow.png")
 	}
 
 }

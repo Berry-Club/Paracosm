@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.paracosm.packet.client_to_server
 
 import dev.aaronhowser.mods.aaron.packet.AaronPacket
+import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.entity.PogoStickVehicle
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import io.netty.buffer.ByteBuf
@@ -28,7 +29,7 @@ class UpdatePogoControls(
 
 	companion object {
 		val TYPE: CustomPacketPayload.Type<UpdatePogoControls> =
-			CustomPacketPayload.Type(OtherUtil.modResource("update_pogo_controls"))
+			CustomPacketPayload.Type(Paracosm.modResource("update_pogo_controls"))
 
 		val STREAM_CODEC: StreamCodec<ByteBuf, UpdatePogoControls> = StreamCodec.composite(
 			ByteBufCodecs.FLOAT, UpdatePogoControls::leftImpulse,

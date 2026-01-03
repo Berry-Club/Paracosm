@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.client.render.entity.model
 
+import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.entity.AaronberryEntity
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import dev.aaronhowser.mods.paracosm.util.OtherUtil.map
@@ -8,7 +9,7 @@ import software.bernie.geckolib.cache.`object`.GeoBone
 import software.bernie.geckolib.constant.DataTickets
 import software.bernie.geckolib.model.DefaultedEntityGeoModel
 
-class AaronberryModel : DefaultedEntityGeoModel<AaronberryEntity>(OtherUtil.modResource("aaronberry")) {
+class AaronberryModel : DefaultedEntityGeoModel<AaronberryEntity>(Paracosm.modResource("aaronberry")) {
 
 	override fun setCustomAnimations(
 		animatable: AaronberryEntity,

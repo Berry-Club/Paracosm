@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.paracosm.research
 import com.mojang.brigadier.context.CommandContext
 import com.mojang.brigadier.suggestion.SuggestionProvider
 import com.mojang.brigadier.suggestion.SuggestionsBuilder
+import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.SharedSuggestionProvider
@@ -16,7 +17,7 @@ import kotlin.jvm.optionals.getOrNull
 object ModResearchTypes {
 
 	val RESEARCH_TYPE_RK: ResourceKey<Registry<ResearchType>> =
-		ResourceKey.createRegistryKey(OtherUtil.modResource("research_type"))
+		ResourceKey.createRegistryKey(Paracosm.modResource("research_type"))
 
 	fun getGeneRegistry(registries: HolderLookup.Provider): HolderLookup.RegistryLookup<ResearchType> {
 		return registries.lookupOrThrow(RESEARCH_TYPE_RK)
@@ -41,7 +42,7 @@ object ModResearchTypes {
 	val SPOOKY = rk("spooky")
 
 	private fun rk(name: String): ResourceKey<ResearchType> {
-		return ResourceKey.create(RESEARCH_TYPE_RK, OtherUtil.modResource(name))
+		return ResourceKey.create(RESEARCH_TYPE_RK, Paracosm.modResource(name))
 	}
 
 	val COMMAND_SUGGESTION = SuggestionProvider { context: CommandContext<CommandSourceStack>, suggestionsBuilder: SuggestionsBuilder ->

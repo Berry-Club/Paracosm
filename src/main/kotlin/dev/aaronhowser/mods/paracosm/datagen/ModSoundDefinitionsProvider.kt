@@ -19,9 +19,9 @@ class ModSoundDefinitionsProvider(
 			ModSounds.FART,
 			SoundDefinition.definition()
 				.with(
-					sound(OtherUtil.modResource("fart1"), SoundDefinition.SoundType.SOUND),
-					sound(OtherUtil.modResource("fart2"), SoundDefinition.SoundType.SOUND),
-					sound(OtherUtil.modResource("fart3"), SoundDefinition.SoundType.SOUND),
+					sound(Paracosm.modResource("fart1"), SoundDefinition.SoundType.SOUND),
+					sound(Paracosm.modResource("fart2"), SoundDefinition.SoundType.SOUND),
+					sound(Paracosm.modResource("fart3"), SoundDefinition.SoundType.SOUND),
 				)
 				.subtitle(ModSubtitleLang.FART)
 		)
@@ -30,9 +30,9 @@ class ModSoundDefinitionsProvider(
 			ModSounds.UNFART,
 			SoundDefinition.definition()
 				.with(
-					sound(OtherUtil.modResource("unfart1"), SoundDefinition.SoundType.SOUND),
-					sound(OtherUtil.modResource("unfart2"), SoundDefinition.SoundType.SOUND),
-					sound(OtherUtil.modResource("unfart3"), SoundDefinition.SoundType.SOUND),
+					sound(Paracosm.modResource("unfart1"), SoundDefinition.SoundType.SOUND),
+					sound(Paracosm.modResource("unfart2"), SoundDefinition.SoundType.SOUND),
+					sound(Paracosm.modResource("unfart3"), SoundDefinition.SoundType.SOUND),
 				)
 				.subtitle(ModSubtitleLang.UNFART)
 		)
@@ -41,7 +41,7 @@ class ModSoundDefinitionsProvider(
 			ModSounds.SQUEE,
 			SoundDefinition.definition()
 				.with(
-					sound(OtherUtil.modResource("squee"), SoundDefinition.SoundType.SOUND)
+					sound(Paracosm.modResource("squee"), SoundDefinition.SoundType.SOUND)
 				)
 				.subtitle(ModSubtitleLang.SQUEE)
 		)
@@ -50,7 +50,7 @@ class ModSoundDefinitionsProvider(
 			ModSounds.DODGEBALL,
 			SoundDefinition.definition()
 				.with(
-					sound(OtherUtil.modResource("dodgeball"), SoundDefinition.SoundType.SOUND)
+					sound(Paracosm.modResource("dodgeball"), SoundDefinition.SoundType.SOUND)
 				)
 				.subtitle(ModSubtitleLang.DODGEBALL)
 		)

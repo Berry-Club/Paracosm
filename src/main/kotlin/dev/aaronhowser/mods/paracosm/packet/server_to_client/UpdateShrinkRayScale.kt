@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.paracosm.packet.server_to_client
 
 import dev.aaronhowser.mods.aaron.packet.AaronPacket
+import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.attachment.ShrinkRayEffect.Companion.shrinkRayEffect
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import io.netty.buffer.ByteBuf
@@ -26,7 +27,7 @@ class UpdateShrinkRayScale(
 
 	companion object {
 		val TYPE: CustomPacketPayload.Type<UpdateShrinkRayScale> =
-			CustomPacketPayload.Type(OtherUtil.modResource("update_shrink_ray_scale"))
+			CustomPacketPayload.Type(Paracosm.modResource("update_shrink_ray_scale"))
 
 		val STREAM_CODEC: StreamCodec<ByteBuf, UpdateShrinkRayScale> =
 			StreamCodec.composite(

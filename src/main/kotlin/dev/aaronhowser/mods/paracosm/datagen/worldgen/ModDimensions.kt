@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.datagen.worldgen
 
+import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.core.registries.Registries
 import net.minecraft.data.worldgen.BootstrapContext
@@ -18,7 +19,7 @@ import java.util.*
 object ModDimensions {
 
 	val DREAM_DIMENSION_ID: ResourceLocation =
-		OtherUtil.modResource("dream")
+		Paracosm.modResource("dream")
 	val DREAM_DIMENSION_TYPE: ResourceKey<DimensionType> =
 		ResourceKey.create(Registries.DIMENSION_TYPE, DREAM_DIMENSION_ID)
 	val DREAM_DIMENSION_LEVEL: ResourceKey<Level> =
@@ -41,7 +42,7 @@ object ModDimensions {
 				256,
 				256,
 				BlockTags.INFINIBURN_OVERWORLD,
-				OtherUtil.modResource("dream"),
+				Paracosm.modResource("dream"),
 				0f,
 				DimensionType.MonsterSettings(
 					false,

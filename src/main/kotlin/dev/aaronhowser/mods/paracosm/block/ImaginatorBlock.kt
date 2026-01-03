@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.block
 
+import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.util.OtherUtil
 import net.minecraft.core.BlockPos
 import net.minecraft.world.InteractionResult
@@ -100,7 +101,7 @@ class ImaginatorBlock : Block(
 		private val SHAPE_OPEN = Shapes.or(BOTTOM, NORTH, EAST, SOUTH, WEST)
 		private val SHAPE_CLOSED = Shapes.or(SHAPE_OPEN, TOP)
 
-		private val SCALE_ATTRIBUTE_ID = OtherUtil.modResource("imaginator_scale")
+		private val SCALE_ATTRIBUTE_ID = Paracosm.modResource("imaginator_scale")
 
 		private fun shrinkPlayer(player: Player) {
 			val scaleAttribute = player.getAttribute(Attributes.SCALE) ?: return
