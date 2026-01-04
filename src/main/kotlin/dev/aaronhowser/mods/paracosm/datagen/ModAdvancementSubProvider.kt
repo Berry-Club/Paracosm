@@ -12,6 +12,7 @@ import net.minecraft.advancements.critereon.InventoryChangeTrigger
 import net.minecraft.core.HolderLookup
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.level.ItemLike
 import net.neoforged.neoforge.common.data.AdvancementProvider
 import net.neoforged.neoforge.common.data.ExistingFileHelper
 import java.util.concurrent.CompletableFuture
@@ -49,10 +50,7 @@ class ModAdvancementSubProvider(
 			.display(
 				ModBlocks.NIGHT_LIGHT.get(),
 				Component.literal("Sleep with Night Light"),
-				Component.literal("Sleep in the dark with an active Night Light nearby"),
-				null,
-				AdvancementType.TASK,
-				true, true, false
+				Component.literal("Sleep in the dark with an active Night Light nearby")
 			)
 			.addImpossibleCriterion()
 			.save(saver, SLEEP_WITH_NIGHT_LIGHT, existingFileHelper)
@@ -60,6 +58,9 @@ class ModAdvancementSubProvider(
 	}
 
 	companion object {
+		val ROOT = guide("root")
+		val SLEEP_WITH_NIGHT_LIGHT = guide("sleep_with_night_light")
+
 		private fun advancement(): Advancement.Builder = Advancement.Builder.advancement()
 		private fun guide(path: String): ResourceLocation = Paracosm.modResource("guide/$path")
 
@@ -70,8 +71,26 @@ class ModAdvancementSubProvider(
 			)
 		}
 
-		val ROOT = guide("root")
-		val SLEEP_WITH_NIGHT_LIGHT = guide("sleep_with_night_light")
+		private fun Advancement.Builder.display(
+			icon: ItemLike,
+			title: Component,
+			description: Component,
+			type: AdvancementType = AdvancementType.TASK,
+			showToast: Boolean = true,
+			announceToChat: Boolean = true,
+			hidden: Boolean = false
+		): Advancement.Builder {
+			return display(
+				icon,
+				title,
+				description,
+				null,
+				type,
+				showToast,
+				announceToChat,
+				hidden
+			)
+		}
 	}
 
 }
