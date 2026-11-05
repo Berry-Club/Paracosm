@@ -1,0 +1,17 @@
+{
+	"id": "paracosm",
+	"modid": "paracosm",
+	"schema": "1",
+	"owners": [
+		"aaronhowser1"
+	],
+	"platforms": {},
+	"licenses": {
+		"project": {
+			"id": "LGPL-3.0-only"
+		}
+	},
+	"versions": {
+		"1.21.1": "1.21.1-Neoforge"
+	}
+}
