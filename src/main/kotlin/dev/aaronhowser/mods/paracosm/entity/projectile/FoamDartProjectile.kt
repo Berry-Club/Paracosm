@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.paracosm.entity.projectile
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.isServerSide
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isServerSide
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.registry.ModItems
 import net.minecraft.core.BlockPos

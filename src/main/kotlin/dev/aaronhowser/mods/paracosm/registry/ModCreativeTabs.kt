@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.paracosm.registry
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.withComponent
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.withComponent
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.paracosm.datagen.language.ModItemLang

@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.paracosm.item
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
-import dev.aaronhowser.mods.aaron.AaronExtensions.status
-import dev.aaronhowser.mods.aaron.AaronExtensions.tell
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isClientSide
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.status
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.tell
 import dev.aaronhowser.mods.paracosm.config.ServerConfig
 import dev.aaronhowser.mods.paracosm.item.component.AngularMomentumDataComponent
 import dev.aaronhowser.mods.paracosm.registry.ModDataComponents

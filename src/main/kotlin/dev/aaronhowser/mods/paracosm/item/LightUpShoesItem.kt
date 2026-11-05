@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.paracosm.item
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.defaultBlockState
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.defaultBlockState
 import dev.aaronhowser.mods.paracosm.registry.ModArmorMaterials
 import dev.aaronhowser.mods.paracosm.registry.ModBlocks
 import net.minecraft.world.entity.Entity

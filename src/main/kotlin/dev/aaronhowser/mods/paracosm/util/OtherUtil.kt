@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.paracosm.util
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.toDegrees
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toDegrees
 import dev.aaronhowser.mods.paracosm.config.ServerConfig
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.level.ClipContext

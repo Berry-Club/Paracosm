@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.paracosm.entity.projectile
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isClientSide
 import dev.aaronhowser.mods.paracosm.item.StickyHandItem
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import dev.aaronhowser.mods.paracosm.registry.ModItems

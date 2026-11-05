@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.paracosm.item.component
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
-import dev.aaronhowser.mods.aaron.AaronExtensions.getMinimalTag
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getMinimalTag
 import dev.aaronhowser.mods.paracosm.entity.base.ToySoldierEntity
 import dev.aaronhowser.mods.paracosm.registry.ModEntityTypes
 import net.minecraft.core.Holder

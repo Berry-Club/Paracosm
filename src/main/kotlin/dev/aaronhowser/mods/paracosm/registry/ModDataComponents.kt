@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.paracosm.registry
 
 import com.mojang.serialization.Codec
-import dev.aaronhowser.mods.aaron.AaronExtraCodecs
 import dev.aaronhowser.mods.aaron.registry.AaronDataComponentRegistry
+import dev.aaronhowser.mods.aaron.serialization.AaronExtraStreamCodecs
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.item.component.AngularMomentumDataComponent
 import dev.aaronhowser.mods.paracosm.item.component.ToySoldierDataComponent
@@ -38,7 +38,7 @@ object ModDataComponents : AaronDataComponentRegistry() {
 		register(
 			"aggro_immune_from",
 			TagKey.codec(Registries.ENTITY_TYPE),
-			AaronExtraCodecs.tagKeyStreamCodec(Registries.ENTITY_TYPE)
+			AaronExtraStreamCodecs.tagKeyStreamCodec(Registries.ENTITY_TYPE)
 		)
 
 	val MASK_FACE: DeferredHolder<DataComponentType<*>, DataComponentType<String>> =

@@ -1,11 +1,12 @@
 package dev.aaronhowser.mods.paracosm.attachment
 
 import com.mojang.serialization.Codec
-import dev.aaronhowser.mods.aaron.AaronExtensions.isServerSide
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isServerSide
 import dev.aaronhowser.mods.paracosm.Paracosm
-import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateShrinkRayScale
 import dev.aaronhowser.mods.paracosm.registry.ModAttachmentTypes
-import dev.aaronhowser.mods.paracosm.util.OtherUtil
+import io.netty.buffer.ByteBuf
+import net.minecraft.network.codec.ByteBufCodecs
+import net.minecraft.network.codec.StreamCodec
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.attributes.AttributeModifier
 import net.minecraft.world.entity.ai.attributes.Attributes
@@ -19,6 +20,9 @@ data class ShrinkRayEffect(
 		val CODEC: Codec<ShrinkRayEffect> =
 			Codec.DOUBLE.xmap(::ShrinkRayEffect, ShrinkRayEffect::amount)
 
+		val STREAM_CODEC: StreamCodec<ByteBuf, ShrinkRayEffect> =
+			ByteBufCodecs.DOUBLE.map(::ShrinkRayEffect, ShrinkRayEffect::amount)
+
 		val attributeModifierId = Paracosm.modResource("shrink_ray_effect")
 
 		var LivingEntity.shrinkRayEffect: Double
@@ -26,12 +30,11 @@ data class ShrinkRayEffect(
 			set(valueUnCoerced) {
 				val value = valueUnCoerced.coerceIn(-0.9, 2.0)
 
-				if (isServerSide) {
-					val packet = UpdateShrinkRayScale(id, value)
-					packet.messageAllPlayersTrackingEntity(this)
-				}
-
 				setData(ModAttachmentTypes.SHRINK_RAY_EFFECT, ShrinkRayEffect(value))
+
+				if (isServerSide) {
+					syncData(ModAttachmentTypes.SHRINK_RAY_EFFECT)
+				}
 
 				val scaleAttribute = getAttribute(Attributes.SCALE) ?: return
 				val modifier = AttributeModifier(

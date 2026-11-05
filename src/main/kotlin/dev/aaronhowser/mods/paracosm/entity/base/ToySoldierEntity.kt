@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.paracosm.entity.base
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.getUuidOrNull
-import dev.aaronhowser.mods.aaron.AaronExtensions.giveOrDropStack
-import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getUuidOrNull
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.giveOrDropStack
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isClientSide
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyLookAtPlayerGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToyRandomLookAroundGoal
 import dev.aaronhowser.mods.paracosm.entity.goal.ToySoldierFollowLeaderGoal

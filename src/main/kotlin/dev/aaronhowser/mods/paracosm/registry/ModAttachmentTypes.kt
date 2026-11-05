@@ -5,6 +5,8 @@ import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.attachment.EntityUpgrades
 import dev.aaronhowser.mods.paracosm.attachment.PlayerResearchPoints
 import dev.aaronhowser.mods.paracosm.attachment.ShrinkRayEffect
+import io.netty.buffer.ByteBuf
+import net.minecraft.network.codec.StreamCodec
 import net.neoforged.neoforge.attachment.AttachmentType
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
@@ -17,7 +19,12 @@ object ModAttachmentTypes {
 		DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, Paracosm.MOD_ID)
 
 	val SHRINK_RAY_EFFECT: DeferredHolder<AttachmentType<*>, AttachmentType<ShrinkRayEffect>> =
-		register("shrink_ray_effect", { ShrinkRayEffect(0.0) }, ShrinkRayEffect.CODEC)
+		register(
+			"shrink_ray_effect",
+			{ ShrinkRayEffect(0.0) },
+			ShrinkRayEffect.CODEC,
+			streamCodec = ShrinkRayEffect.STREAM_CODEC
+		)
 
 	val ENTITY_UPGRADES: DeferredHolder<AttachmentType<*>, AttachmentType<EntityUpgrades>> =
 		register("entity_upgrades", { EntityUpgrades() }, EntityUpgrades.CODEC)
@@ -29,7 +36,8 @@ object ModAttachmentTypes {
 		name: String,
 		builder: Supplier<T>,
 		codec: Codec<T>,
-		copyOnDeath: Boolean = true
+		copyOnDeath: Boolean = true,
+		streamCodec: StreamCodec<ByteBuf, T>? = null
 	): DeferredHolder<AttachmentType<*>, AttachmentType<T>> {
 		return ATTACHMENT_TYPES_REGISTRY.register(name, Supplier {
 			val typeBuilder = AttachmentType
@@ -38,6 +46,10 @@ object ModAttachmentTypes {
 
 			if (copyOnDeath) {
 				typeBuilder.copyOnDeath()
+			}
+
+			if (streamCodec != null) {
+				typeBuilder.sync(streamCodec)
 			}
 
 			typeBuilder.build()

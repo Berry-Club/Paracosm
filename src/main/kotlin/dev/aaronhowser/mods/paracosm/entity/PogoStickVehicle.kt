@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.paracosm.entity
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
-import dev.aaronhowser.mods.aaron.AaronExtensions.status
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isClientSide
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.status
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.paracosm.config.ServerConfig
 import dev.aaronhowser.mods.paracosm.entity.base.IUpgradeableEntity

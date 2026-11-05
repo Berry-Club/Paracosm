@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.paracosm.entity.base
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.isServerSide
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isServerSide
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.attachment.EntityUpgrades
 import dev.aaronhowser.mods.paracosm.packet.server_to_client.UpdateEntityUpgrades

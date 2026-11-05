@@ -1,12 +1,12 @@
 package dev.aaronhowser.mods.paracosm.item
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
-import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
-import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
-import dev.aaronhowser.mods.aaron.AaronExtensions.isNotTrue
-import dev.aaronhowser.mods.aaron.AaronExtensions.nextRange
-import dev.aaronhowser.mods.aaron.AaronExtensions.totalCount
-import dev.aaronhowser.mods.aaron.AaronUtil
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isClientSide
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isNotEmpty
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isNotTrue
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.nextRange
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.totalCount
+import dev.aaronhowser.mods.aaron.misc.AaronUtil
 import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.paracosm.config.ServerConfig
 import dev.aaronhowser.mods.paracosm.entity.base.ToySoldierEntity

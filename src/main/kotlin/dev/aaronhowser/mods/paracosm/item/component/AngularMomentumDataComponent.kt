@@ -2,8 +2,9 @@ package dev.aaronhowser.mods.paracosm.item.component
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
-import dev.aaronhowser.mods.aaron.AaronExtensions.toDegrees
-import dev.aaronhowser.mods.aaron.AaronExtraCodecs
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toDegrees
+import dev.aaronhowser.mods.aaron.serialization.AaronExtraCodecs
+import dev.aaronhowser.mods.aaron.serialization.AaronExtraStreamCodecs
 import dev.aaronhowser.mods.paracosm.config.ServerConfig
 import io.netty.buffer.ByteBuf
 import net.minecraft.network.codec.ByteBufCodecs
@@ -96,7 +97,7 @@ data class AngularMomentumDataComponent(
 					Codec.DOUBLE
 						.fieldOf("momentum")
 						.forGetter(AngularMomentumDataComponent::counterclockwiseMomentum),
-					AaronExtraCodecs.VECTOR2D_CODEC
+					AaronExtraCodecs.VECTOR2D
 						.fieldOf("position")
 						.forGetter(AngularMomentumDataComponent::previousPosition),
 					Codec.DOUBLE
@@ -108,7 +109,7 @@ data class AngularMomentumDataComponent(
 		val STREAM_CODEC: StreamCodec<ByteBuf, AngularMomentumDataComponent> =
 			StreamCodec.composite(
 				ByteBufCodecs.DOUBLE, AngularMomentumDataComponent::counterclockwiseMomentum,
-				AaronExtraCodecs.VECTOR2D_STREAM_CODEC, AngularMomentumDataComponent::previousPosition,
+				AaronExtraStreamCodecs.VECTOR2D, AngularMomentumDataComponent::previousPosition,
 				ByteBufCodecs.DOUBLE, AngularMomentumDataComponent::previousDirection,
 				::AngularMomentumDataComponent
 			)
