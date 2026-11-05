@@ -1,9 +1,11 @@
 package dev.aaronhowser.mods.paracosm.registry
 
+import com.mojang.serialization.Codec
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.attachment.EntityUpgrades
 import dev.aaronhowser.mods.paracosm.attachment.PlayerResearchPoints
 import dev.aaronhowser.mods.paracosm.attachment.ShrinkRayEffect
+import net.minecraft.network.codec.ByteBufCodecs
 import net.neoforged.neoforge.attachment.AttachmentType
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
@@ -40,6 +42,16 @@ object ModAttachmentTypes {
 			AttachmentType
 				.builder(Supplier { PlayerResearchPoints(emptyMap()) })
 				.serialize(PlayerResearchPoints.CODEC)
+				.build()
+		)
+
+	val IS_FLAT: DeferredHolder<AttachmentType<*>, AttachmentType<Boolean>> =
+		register(
+			"is_flat",
+			AttachmentType
+				.builder(Supplier { false })
+				.serialize(Codec.BOOL)
+				.sync(ByteBufCodecs.BOOL)
 				.build()
 		)
 
