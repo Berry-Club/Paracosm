@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.event
 
+import com.mojang.math.Axis
 import dev.aaronhowser.mods.paracosm.Paracosm
 import dev.aaronhowser.mods.paracosm.client.DuckHuntGunShaderHandler
 import dev.aaronhowser.mods.paracosm.client.render.entity.model.FoamDartModel
@@ -22,6 +23,7 @@ import net.minecraft.client.renderer.entity.player.PlayerRenderer
 import net.minecraft.client.renderer.item.ItemProperties
 import net.minecraft.client.renderer.item.ItemPropertyFunction
 import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.util.Mth
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import net.neoforged.api.distmarker.Dist
@@ -30,12 +32,41 @@ import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.client.event.ClientTickEvent
 import net.neoforged.neoforge.client.event.EntityRenderersEvent
 import net.neoforged.neoforge.client.event.ModelEvent
+import net.neoforged.neoforge.client.event.RenderPlayerEvent
 
 @EventBusSubscriber(
 	modid = "paracosm",
 	value = [Dist.CLIENT]
 )
 object ClientEvents {
+
+	@SubscribeEvent
+	fun test(event: RenderPlayerEvent.Pre) {
+		val stack = event.poseStack
+		val torsoRotation = Mth.rotLerp(
+			event.partialTick,
+			event.entity.yHeadRotO,
+			event.entity.yHeadRot
+		)
+		val flatteningRotation = 90f - torsoRotation
+
+		stack.pushPose()
+		stack.mulPose(
+			Axis.YP
+				.rotationDegrees(flatteningRotation)
+		)
+		stack.scale(0.01f, 1f, 1f)
+		stack.mulPose(
+			Axis.YP
+				.rotationDegrees(-flatteningRotation)
+		)
+	}
+
+	@SubscribeEvent
+	fun testEnd(event: RenderPlayerEvent.Post) {
+		val stack = event.poseStack
+		stack.popPose()
+	}
 
 	@SubscribeEvent
 	fun beforeClientTick(event: ClientTickEvent.Pre) {
