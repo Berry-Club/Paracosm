@@ -2,64 +2,63 @@ package dev.aaronhowser.mods.paracosm.command
 
 import com.mojang.brigadier.arguments.DoubleArgumentType
 import com.mojang.brigadier.builder.ArgumentBuilder
+import dev.aaronhowser.mods.aaron.command.AaronCommandHelper
 import dev.aaronhowser.mods.paracosm.registry.ModAttributes
 import net.minecraft.commands.CommandSourceStack
-import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 
-object WhimsyCommand {
+object WhimsyCommand : AaronCommandHelper {
 
 	private const val TARGET = "target"
 	private const val AMOUNT = "amount"
 
 	fun register(): ArgumentBuilder<CommandSourceStack, *> {
-		return Commands
-			.literal("whimsy")
-			.requires { it.hasPermission(2) }
-			.then(
-				Commands.literal("get")
-					.executes {
+		return literal("whimsy") {
+			requires { it.hasPermission(2) }
+
+			thenLiteral("get") {
+				executes {
+					val source = it.source
+					val target = source.playerOrException
+
+					getWhimsy(source, target)
+				}
+
+				thenArgument(TARGET, EntityArgument.player()) {
+					executes {
 						val source = it.source
-						val target = source.playerOrException
+						val target = EntityArgument.getPlayer(it, TARGET)
 
 						getWhimsy(source, target)
 					}
-					.then(
-						Commands.argument(TARGET, EntityArgument.player())
-							.executes {
-								val source = it.source
-								val target = EntityArgument.getPlayer(it, TARGET)
+				}
+			}
 
-								getWhimsy(source, target)
-							}
-					)
-			)
-			.then(
-				Commands.literal("set-base")
-					.then(
-						Commands.argument(AMOUNT, DoubleArgumentType.doubleArg(0.0, Double.MAX_VALUE))
-							.executes {
-								val source = it.source
-								val target = source.playerOrException
-								val amount = DoubleArgumentType.getDouble(it, AMOUNT)
+			thenLiteral("set-base") {
+				thenArgument(AMOUNT, DoubleArgumentType.doubleArg(0.0, Double.MAX_VALUE)) {
+					executes {
+						val source = it.source
+						val target = source.playerOrException
+						val amount = DoubleArgumentType.getDouble(it, AMOUNT)
 
-								setBaseWhimsy(source, target, amount)
-							}
-							.then(
-								Commands.argument(TARGET, EntityArgument.player())
-									.executes {
-										val source = it.source
-										val target = EntityArgument.getPlayer(it, TARGET)
-										val amount = DoubleArgumentType.getDouble(it, AMOUNT)
+						setBaseWhimsy(source, target, amount)
+					}
 
-										setBaseWhimsy(source, target, amount)
-									}
-							)
-					)
-			)
+					thenArgument(TARGET, EntityArgument.player()) {
+						executes {
+							val source = it.source
+							val target = EntityArgument.getPlayer(it, TARGET)
+							val amount = DoubleArgumentType.getDouble(it, AMOUNT)
+
+							setBaseWhimsy(source, target, amount)
+						}
+					}
+				}
+			}
+		}
 	}
 
 	private fun setBaseWhimsy(

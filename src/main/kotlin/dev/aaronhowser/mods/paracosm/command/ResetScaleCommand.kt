@@ -2,28 +2,27 @@ package dev.aaronhowser.mods.paracosm.command
 
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
+import dev.aaronhowser.mods.aaron.command.AaronCommandHelper
 import dev.aaronhowser.mods.paracosm.attachment.ShrinkRayEffect.Companion.shrinkRayEffect
 import net.minecraft.commands.CommandSourceStack
-import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.player.Player
 
-object ResetScaleCommand {
+object ResetScaleCommand : AaronCommandHelper {
 
 	private const val TARGET_ARGUMENT = "target"
 
 	fun register(): ArgumentBuilder<CommandSourceStack, *> {
-		return Commands
-			.literal("resetScale")
-			.executes { resetScale(it, null) }
-			.then(
-				Commands
-					.argument(TARGET_ARGUMENT, EntityArgument.player())
-					.requires { it.hasPermission(2) }
-					.executes { resetScale(it, EntityArgument.getEntity(it, TARGET_ARGUMENT)) }
-			)
+		return literal("resetScale") {
+			executes { resetScale(it, null) }
+
+			thenArgument(TARGET_ARGUMENT, EntityArgument.player()) {
+				requires { it.hasPermission(2) }
+				executes { resetScale(it, EntityArgument.getEntity(it, TARGET_ARGUMENT)) }
+			}
+		}
 	}
 
 	private fun resetScale(

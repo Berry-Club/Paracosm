@@ -68,7 +68,7 @@ object CommonEvents {
 
 	@SubscribeEvent
 	fun onRegisterCommandsEvent(event: RegisterCommandsEvent) {
-		ModCommands.register(event.dispatcher)
+		ModCommands.register(event.dispatcher, event.buildContext)
 	}
 
 	@SubscribeEvent

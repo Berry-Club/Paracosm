@@ -4,41 +4,35 @@ import com.mojang.brigadier.arguments.StringArgumentType
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import com.mojang.brigadier.suggestion.SuggestionProvider
+import dev.aaronhowser.mods.aaron.command.AaronCommandHelper
 import dev.aaronhowser.mods.paracosm.item.base.IUpgradeableItem
 import net.minecraft.commands.CommandSourceStack
-import net.minecraft.commands.Commands
 import net.minecraft.commands.SharedSuggestionProvider
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Player
 
-object UpgradeCommand {
+object UpgradeCommand : AaronCommandHelper {
 
 	private const val UPGRADE_ARGUMENT = "upgrade"
 
 	fun register(): ArgumentBuilder<CommandSourceStack, *> {
-		return Commands
-			.literal("upgrade")
-			.requires { it.hasPermission(2) }
-			.then(
-				Commands
-					.literal("add")
-					.then(
-						Commands
-							.argument(UPGRADE_ARGUMENT, StringArgumentType.string())
-							.suggests(getSuggestions())
-							.executes(::addUpgrade)
-					)
-			)
-			.then(
-				Commands
-					.literal("remove")
-					.then(
-						Commands
-							.argument(UPGRADE_ARGUMENT, StringArgumentType.string())
-							.suggests(getSuggestions())
-							.executes(::removeUpgrade)
-					)
-			)
+		return literal("upgrade") {
+			requires { it.hasPermission(2) }
+
+			thenLiteral("add") {
+				thenArgument(UPGRADE_ARGUMENT, StringArgumentType.string()) {
+					suggests(getSuggestions())
+					executes(::addUpgrade)
+				}
+			}
+
+			thenLiteral("remove") {
+				thenArgument(UPGRADE_ARGUMENT, StringArgumentType.string()) {
+					suggests(getSuggestions())
+					executes(::removeUpgrade)
+				}
+			}
+		}
 	}
 
 	private fun addUpgrade(commandContext: CommandContext<CommandSourceStack>): Int {
