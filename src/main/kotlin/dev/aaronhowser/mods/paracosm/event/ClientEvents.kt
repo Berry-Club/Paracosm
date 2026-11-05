@@ -48,7 +48,11 @@ object ClientEvents {
 			event.entity.yHeadRotO,
 			event.entity.yHeadRot
 		)
+
 		val flatteningRotation = 90f - torsoRotation
+
+		event.entity.yBodyRot = torsoRotation + 30
+		event.entity.yBodyRotO = torsoRotation + 30
 
 		stack.pushPose()
 		stack.mulPose(
