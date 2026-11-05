@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.paracosm.config
 
+import dev.aaronhowser.mods.aaron.misc.AaronDsls.section
 import net.neoforged.neoforge.common.ModConfigSpec
 import org.apache.commons.lang3.tuple.Pair
 
@@ -19,8 +20,15 @@ class ServerConfig(
 
 	init {
 		generalConfigs()
-		hulaHoop()
-		toySoldiers()
+
+		builder.section("hula_hoop") {
+			hulaHoopConfigs()
+		}
+
+		builder.section("toy_soldiers") {
+			toySoldierConfigs()
+		}
+
 		builder.build()
 	}
 
@@ -34,9 +42,7 @@ class ServerConfig(
 			.defineInRange("Pogo Goomba Radius", 1.5, 0.0, Double.MAX_VALUE)
 	}
 
-	private fun hulaHoop() {
-		builder.push("Hula Hoop")
-
+	private fun hulaHoopConfigs() {
 		hulaHoopCostPerPush = builder
 			.comment("How much momentum to drain when pushing an entity.")
 			.defineInRange("Hula Hoop Momentum Per Push", 1.0, 0.0, Double.MAX_VALUE)
@@ -52,18 +58,12 @@ class ServerConfig(
 		hulaHoopBleedPerTick = builder
 			.comment("The amount of angular momentum a hula hoop loses per tick.")
 			.defineInRange("Hula Hoop Bleed Per Tick", 0.05, 0.0, Double.MAX_VALUE)
-
-		builder.pop()
 	}
 
-	private fun toySoldiers() {
-		builder.push("Toy Soldiers")
-
+	private fun toySoldierConfigs() {
 		toySoldierBucketMaxStored = builder
 			.comment("The maximum number of Toy Soldiers that can be stored in a Toy Soldier Bucket.")
 			.defineInRange("Toy Soldier Bucket Max Stored", 6, 1, Int.MAX_VALUE)
-
-		builder.pop()
 	}
 
 	companion object {
